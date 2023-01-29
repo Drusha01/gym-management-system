@@ -1,0 +1,41 @@
+.content {
+    height: 100vh;
+}
+
+body {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url("../images/home-1.jpg");
+    background-size: cover;
+    background-attachment: scroll;
+}
+
+.bx {
+    padding: 11px;
+    width: 38px;
+    text-align: center;
+    text-decoration: none;
+    margin: 1px 3px;
+    border-radius: 50%;
+}
+
+.bxl-facebook {
+    background: #3b5998;
+    color: #fff;
+}
+
+.bxl-google{
+    background: #dd4b39;
+    color: #fff;
+}
+
+.bg-danger {
+    background: #A73535;
+}
+
+.form-signup {
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.box {
+    padding-bottom: 5px;
+}
