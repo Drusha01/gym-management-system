@@ -25,7 +25,7 @@
               <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
             </div>
           </div>
-          <a class="text-decoration-none text-black m-0" aria-current="page" href="index.html"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
+          <a class="text-decoration-none text-black m-0" aria-current="page" href="../index.html"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
           <form class="mb-3 px-4">
             <div class="form-floating mb-3">
               <input type="text" class="form-control rounded" placeholder="Enter your Email" id="email">
