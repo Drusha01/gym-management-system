@@ -20,6 +20,14 @@ Class users{
     private $user_date_created;
     private $user_date_updated;
 
+
+    // FK 
+    private $user_status_details;
+    private $user_type_details;
+    private $user_gender_details;
+    private $user_phone_contry_code_details;
+
+
     // constructor
     function __construct()
     {
@@ -27,7 +35,50 @@ Class users{
     }
 
     // setter and getter
+    function setuser_id($user_id){$this->user_id = $user_id;}
+    function setuser_status_id($user_status_id){$this->user_status_id = $user_status_id;}
+    function setuser_type_id($user_type_id){$this->user_type_id = $user_type_id;}
+    function setuser_gender_id($user_gender_id){$this->user_gender_id = $user_gender_id;}
+    function setuser_phone_country_code_id($user_phone_country_code_id){$this->user_phone_country_code_id = $user_phone_country_code_id;}
+    function setuser_phone_number($user_phone_number){$this->user_phone_number = $user_phone_number;}
+    function setuser_email($user_email){$this->user_email = $user_email;}
+    function setuser_name($user_name){$this->user_name = $user_name;}
+    function setuser_password_hashed($user_password_hashed){$this->user_password_hashed = $user_password_hashed;}
+    function setuser_firstname($user_firstname){$this->user_firstname = $user_firstname;}
+    function setuser_lastname($user_lastname){$this->user_lastname = $user_lastname;}
+    function setuser_birthdate($user_birthdate){$this->user_birthdate = $user_birthdate;}
+    function setuser_valid_id_photo($user_valid_id_photo){$this->user_valid_id_photo = $user_valid_id_photo;}
+    function setuser_profile_picture($user_profile_picture){$this->user_profile_picture = $user_profile_picture;}
+    function setuser_date_created($user_date_created){$this->user_date_created = $user_date_created;}
+    function setuser_date_updated($user_date_updated){$this->user_date_updated = $user_date_updated;}
 
+    function setuser_status_details($user_status_details){$this->user_status_details = $user_status_details;}
+    function setuser_type_details($user_type_details){$this->user_type_details = $user_type_details;}
+    function setuser_gender_details($user_gender_details){$this->user_gender_details = $user_gender_details;}
+    function setuser_phone_contry_code_details($user_phone_contry_code_details){$this->user_phone_contry_code_details = $user_phone_contry_code_details;}
+
+
+    function getuser_id(){return $this->user_id;}
+    function getuser_status_id(){return $this->user_status_id;}
+    function getuser_type_id(){return $this->user_type_id;}
+    function getuser_gender_id(){return $this->user_gender_id;}
+    function getuser_phone_country_code_id(){return $this->user_phone_country_code_id;}
+    function getuser_phone_number(){return $this->user_phone_number;}
+    function getuser_email(){return $this->user_email;}
+    function getuser_name(){return $this->user_name;}
+    function getuser_password_hashed(){return $this->user_password_hashed;}
+    function getuser_firstname(){return $this->user_firstname;}
+    function getuser_lastname(){return $this->user_lastname;}
+    function getuser_birthdate(){return $this->user_birthdate;}
+    function getuser_valid_id_photo(){return $this->user_valid_id_photo;}
+    function getuser_profile_picture(){return $this->user_profile_picture;}
+    function getuser_date_created(){return $this->user_date_created;}
+    function getuser_date_updated(){return $this->user_date_updated;}
+
+    function getuser_status_details(){return $this->user_status_details;}
+    function getuser_type_details(){return $this->user_type_details;}
+    function getuser_gender_details(){return $this->user_gender_details;}
+    function getuser_phone_contry_code_details(){return $this->user_phone_contry_code_details;}
     // functions
     
     // login  / select sql      (note that only get user_id,user_status_id)
@@ -41,6 +92,76 @@ Class users{
 
     // get user details  / select sql
     // save new password / update sql
+
+    // check for duplicate
+    function user_duplicateAll(){
+        try{
+            $sql = 'SELECT user_id FROM users
+            WHERE user_name = BINARY :user_name OR user_email =  :user_email OR user_phone_number = :user_phone_number;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_email', $this->user_email);
+            $query->bindParam(':user_name', $this->user_name);
+            $query->bindParam(':user_phone_number', $this->user_phone_number);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function user_duplicateEmail(){
+        try{
+            $sql = 'SELECT user_id FROM users
+            WHERE user_email =  :user_email ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_email', $this->user_email);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function user_duplicatePhone(){
+        try{
+            $sql = 'SELECT user_id FROM users
+            WHERE user_phone_number = :user_phone_number ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_phone_number', $this->user_phone_number);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function user_duplicateUsername(){
+        try{
+            $sql = 'SELECT user_id FROM users
+            WHERE user_name = BINARY :user_name ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_name', $this->user_name);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
     // sign Up  / insert sql
     function signup(){
         // note that this assumes that the photos that is uploaded is already in the file system
@@ -67,7 +188,9 @@ Class users{
             );' ;
 
             $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_status_details', $this->user_status_details);
             $data = $query->execute();
+      
             return $data;
         }catch (PDOException $e){
             return false;

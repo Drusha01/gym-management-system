@@ -1,3 +1,65 @@
+<?php
+// start session
+session_start();
+
+// includes
+require_once '../tools/functions.php';
+require_once '../classes/users.class.php';
+
+// check if we are logged in
+if(isset($_SESSION['user_id'])){
+  // check if the user is active
+  if($_SESSION['user_status_details'] =='active'){
+    // check what type of user are we
+    if($_SESSION['user_type_details'] =='admin'){
+      // go to admin
+    }else if($_SESSION['user_type_details'] == 'normal'){
+      // go to userpage
+      header('location: ../userpage.php');
+    } 
+  }else if($_SESSION['user_status_details'] =='inactive'){
+    // handle inactive user details
+  }else if($_SESSION['user_status_details'] =='deleted'){
+    // handle deleted user details
+  }
+}else{
+  // must be sign up 
+  // check the post global variable
+  if(validate_signup($_POST)){
+    $userObj = new Users();
+    // set attributes
+    $userObj->setuser_name($_POST['username']);
+    $userObj->setuser_firstname($_POST['fname']);
+    $userObj->setuser_lastname($_POST['lname']);
+    $userObj->setuser_email($_POST['email']);
+    $userObj->setuser_phone_number($_POST['phone']);
+    $userObj->setuser_gender_details($_POST['gender']);
+    $userObj->setuser_birthdate($_POST['birthdate']);
+    $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
+
+    // check for duplicates
+  if(!$userObj->user_duplicate()){
+    // available
+    // proceed
+    // check the file
+    // note that the file must be uploaded before inserting the user
+      echo 'nice';
+  }else{
+      echo 'used';
+  }
+      
+    
+    
+  
+    print_r($_POST);
+  }
+  
+}
+
+// check if the account status is valid
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +73,7 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="../css/log-in.css">
     <link rel="stylesheet" href="../css/boxicons.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
   <section class="container">
@@ -24,11 +87,11 @@
               <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
             </div>
           </div>
-          <form class="form-signup p-2">
+          <form class="form-signup p-2" method="post" enctype="application/x-www-form-urlencoded">
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
-              <input type="file" class="form-control-file" id="exampleFormControlFile1" >
+              <input type="file" class="form-control-file" id="exampleFormControlFile1" name="profilepic" >
             </div>
             <div class="form-group py-1">
               <input type="text" class="form-control" name="username" placeholder="Username" >
@@ -36,10 +99,10 @@
             <div class="form-group py-1">
                 <div class="row">
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="first" placeholder="First Name" >
+                        <input type="text" class="form-control" name="fname" placeholder="First Name" >
                     </div>
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="last" placeholder="Last Name"  >
+                        <input type="text" class="form-control" name="lname" placeholder="Last Name"  >
                     </div>
                 </div>
             </div>
@@ -47,39 +110,39 @@
                 <input type="email" class="form-control" name="email" placeholder="Email" >
             </div>
             <div class="form-group py-1">
-              <input type="number" class="form-control" name="number" placeholder="Phone Number" >
+              <input type="number" class="form-control" name="phone" placeholder="Phone Number" >
             </div>
             <label>Gender</label>
             <div class="form-group py-1">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"  >
-                    <label class="form-check-label" for="inlineRadio1">Male</label>
+                    <input class="form-check-input" type="radio" name="gender" id="Male" value="Male"  >
+                    <label class="form-check-label" for="Male">Male</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" >
-                    <label class="form-check-label" for="inlineRadio2">Female</label>
+                    <input class="form-check-input" type="radio" name="gender" id="Female" value="Female" >
+                    <label class="form-check-label" for="Female">Female</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" >
-                    <label class="form-check-label" for="inlineRadio3">Other</label>
+                    <input class="form-check-input" type="radio" name="gender" id="Other" value="Other" >
+                    <label class="form-check-label" for="Other">Other</label>
                   </div>
             </div>
             <div class="form-group py-1">
               <label>Birth Date</label>
-              <input type="date" class="form-control" name="bday" id="bday">
+              <input type="date" class="form-control" name="birthdate" id="birthdate">
             </div>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Valid ID</label>
-              <input type="file" class="form-control-file" id="exampleFormControlFile1">
+              <input type="file" class="form-control-file" id="exampleFormControlFile1" name="valid_id">
             </div>
             <div class="form-group py-1">
             <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
             <div class="form-group py-1">
-                <input type="repassword" class="form-control" name="conpassword" placeholder="Confirm Password">
+                <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password">
             </div>
             <div class="d-grid">
-              <button type="button" class="btn btn-success btn-lg border-0 rounded"> <a class="text-decoration-none text-white" onclick="signup()">Sign-Up</a></button>
+              <button type="submit" class="btn btn-success btn-lg border-0 rounded"> <a class="text-decoration-none text-white" >Sign-Up</button>
             </div>
             <p class="text-center">Already Have an Account? <a class="text-decoration-none" href="../login/log-in.php">Log-in</a></p>
           </form>
@@ -97,12 +160,13 @@
 </html>
 
 <script>
-function login() {
+function signup() {
   // get the
   var username = $('#email').val();
-  var password = $('#password').val()
+  var password = $('#password').val();
+  var bday = $('#bday').val();
   console.log(username)
-  console.log(password)
+  console.log(bday)
   // javascript validation here 
   // ajax here
 
