@@ -67,17 +67,46 @@ function validate_signup($POST){
     
   
 }
+// username,firstname, lastname ,email, phone, gender, birthdate, profile picture,  valid id, password, confirm password
 
 
-// username 
-// firstname
-// lastname 
-// email
-// phone
-// gender
-// birthdate
-// profile picture
-// valid id
-// password
-// confirm password
+function validate_file($FILES,$filenameArray,$type,$size){
+    // check file size
+    if($FILES[$filenameArray]['size'] > 10 && $FILES[$filenameArray]['size'] < $size){
+        // filename and extension
+        $length=(strlen($_FILES[$filenameArray]['name']));
+        $length2 = $length;
+        $ext= null;
+        while($length--){
+            if ($_FILES[$filenameArray]['name'][$length] == '.'){
+                $ext = substr($_FILES[$filenameArray]['name'],$length-$length2+1);
+                break;
+            }
+        }
+        foreach ($type as $value) {
+            if ($ext == $value) {
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
+}
+
+function resizeImage($filename,$filedestication,$quality,$width,$height){
+    return false;
+}
+
+function getFileExtensionfromFilename($filename){
+    $length=(strlen($filename));
+    $length2 = $length;
+    $ext= null;
+    while($length--){
+        if ($filename[$length] == '.'){
+            $ext = substr($filename,$length-$length2+1);
+            return $ext;
+        }
+    }
+
+}
 ?>

@@ -1,3 +1,53 @@
+<?php
+// start session
+session_start();
+
+// includes
+require_once '../tools/functions.php';
+require_once '../classes/users.class.php';
+
+// check if we are logged in
+if(isset($_SESSION['user_id'])){
+  // check if the user is active
+  if($_SESSION['user_status_details'] =='active'){
+    // check what type of user are we
+    if($_SESSION['user_type_details'] =='admin'){
+      // go to admin
+    }else if($_SESSION['user_type_details'] == 'normal'){
+      // go to userpage
+      header('location: ../userpage.php');
+    } 
+  }else if($_SESSION['user_status_details'] =='inactive'){
+    // handle inactive user details
+  }else if($_SESSION['user_status_details'] =='deleted'){
+    // handle deleted user details
+  }
+} else {
+  // must be login
+  // check the post global variable
+  if (isset($_POST['user']) && isset($_POST['password']) && strlen($_POST['user'])>6 && strlen($_POST['password']) >=12 ) {
+    $userObj = new Users();
+    $userObj->setuser_name($_GET['login']);
+    $userObj->setuser_email($_GET['login']);
+    $userObj->setuser_phone_number($_GET['login']);
+    $data = $userObj->login();
+    if(!$data){
+        echo '0';
+    }else{
+        print_r($data);
+        // verify password
+
+        // once verified query the user details
+        
+        // go to dashboard (admin / userpage)
+    }
+  }else{
+    $error = 'invalid';
+  }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,11 +78,11 @@
           <a class="text-decoration-none text-black m-0" aria-current="page" href="../index.html"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
           <form class="mb-3 px-4">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control rounded" placeholder="Enter your Email" id="email">
-              <label for="floatingInput">Email</label>
+              <input type="text" class="form-control rounded" placeholder="Email / Username / Phone" name ="user" id="email">
+              <label for="floatingInput">Email / Username / Phone</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded" placeholder="Enter your Password" id="password">
+              <input type="password" class="form-control rounded" placeholder="Enter your Password" name="password" id="password">
               <label for="floatingPassword">Password</label>
             </div>
             <div class="form-check mb-3">

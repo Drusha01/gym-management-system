@@ -17,7 +17,7 @@ $userObj->setuser_birthdate('2000/08/31');
 $userObj->setuser_password_hashed(password_hash('Uwat09hanz@2', PASSWORD_ARGON2I));
 
 
-if(!$userObj->user_duplicate()){
+if(!$userObj->user_duplicateAll()){
     echo '0';
 }else{
     echo '1';

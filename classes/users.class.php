@@ -3,6 +3,7 @@ require_once 'database.php';
 Class users{
 
     // attributes
+    private $db;
     private $user_id;
     private $user_status_id;
     private $user_type_id;
@@ -83,14 +84,48 @@ Class users{
     
     // login  / select sql      (note that only get user_id,user_status_id)
     function login(){
-
+        try{
+            $sql = 'SELECT user_id,user_password_hashed FROM users
+            WHERE user_name = BINARY :user_name OR user_email =  :user_email OR user_phone_number = :user_phone_number;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_email', $this->user_email);
+            $query->bindParam(':user_name', $this->user_name);
+            $query->bindParam(':user_phone_number', $this->user_phone_number);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
     }
-
-
     // login with google
     // login with facebook
 
     // get user details  / select sql
+    function get_user_details(){
+        try{
+            $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+            user_name,user_firstname,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+            LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+            LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+            LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $this->user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     // save new password / update sql
 
     // check for duplicate
@@ -189,6 +224,20 @@ Class users{
 
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_status_details', $this->user_status_details);
+            $query->bindParam(':user_type_details', $this->user_type_details);
+            $query->bindParam(':user_gender_details', $this->user_gender_details);
+            $query->bindParam(':user_phone_contry_code_details', $this->user_phone_contry_code_details);
+
+            $query->bindParam(':user_phone_number', $this->user_phone_number);
+            $query->bindParam(':user_email', $this->user_email);
+            $query->bindParam(':user_name', $this->user_name);
+            $query->bindParam(':user_password_hashed', $this->user_password_hashed);
+            $query->bindParam(':user_firstname', $this->user_firstname);
+            $query->bindParam(':user_lastname', $this->user_lastname);
+            $query->bindParam(':user_firstname', $this->user_firstname);
+
+            $query->bindParam(':user_valid_id_photo', $this->user_valid_id_photo);
+            $query->bindParam(':user_profile_picture', $this->user_profile_picture);
             $data = $query->execute();
       
             return $data;
