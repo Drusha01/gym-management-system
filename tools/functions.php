@@ -1,52 +1,11 @@
-<?php
-function validateString($POST,$name){
-    return (isset($POST[$name]) && strlen(trim($POST[$name]))>1 ) ;
-}
+<?php 
 
-function validate_password($POST,$passname){
-    // to do
-    if(!isset($POST[$passname])){
-        return false;
-    }
-    elseif (strlen($_POST[$passname]) <= '8') {
-        return false;
-    }
-    elseif(!preg_match("#[0-9]+#",$_POST[$passname])) {
-        return false;
-    }
-    elseif(!preg_match("#[A-Z]+#",$_POST[$passname])) {
-        return false;
-    }
-    elseif(!preg_match("#[a-z]+#",$_POST[$passname])) {
-        return false;
-    }
-    $user_entered_password = $POST[$passname];
-    $hashed_password = password_hash($user_entered_password, PASSWORD_ARGON2I);
-    $_POST[$passname] = $hashed_password ; // global tho
-    return true; 
-}
+// gender array
+$gender_array  = array('Male', 'Female','Other');
 
-function validateSameNewPassword($POST){
-    return isset($POST['npassword']) && isset($POST['ncpassword']) && strcmp($POST['ncpassword'],$POST['npassword']) == 0 ;
+function validate_string($POST,$name){
+    return (isset($POST[$name]) && strlen(trim($POST[$name]))>1  && strlen(trim($POST[$name])) < 255) ;
 }
-
-function validate_passwordErr($POST,$passname){
-    // to do
-    if (strlen($_POST["password"]) <= '8') {
-        $passwordErr = "Your Password Must Contain At Least 8 Characters!";
-    }
-    elseif(!preg_match("#[0-9]+#",$password)) {
-        $passwordErr = "Your Password Must Contain At Least 1 Number!";
-    }
-    elseif(!preg_match("#[A-Z]+#",$password)) {
-        $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
-    }
-    elseif(!preg_match("#[a-z]+#",$password)) {
-        $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
-    }
-    return true; 
-}
-
 function validate_email($POST){
     // Remove all illegal characters from email
     if(!isset($POST['email'])){
@@ -56,47 +15,98 @@ function validate_email($POST){
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function validate_sex($POST){
-    return isset($POST['sex']);
+function validate_username($POST,$username){
+    return (isset($POST[$username]) && strlen(trim($POST[$username]))>=6  && strlen(trim($POST[$username])) < 255);
+}
+function validate_phone($POST,$phone){
+    // do this
+    return (isset($POST[$phone]));
 }
 
-function validate_phone($POST){
-    // to do
-    return true;
+function validate_gender($POST,$gender){
+    // check if the gender is in the array
+    if (isset($POST[$gender])) {
+        $gender_array = array('Male', 'Female', 'Other');
+        foreach ($gender_array as $value) {
+            if ($value == $POST[$gender]) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
-function validate_birthdate($POST){
-    return isset($POST['birthdate']);
+function validate_birthdate($POST,$birthdate){
+    //  do this
+    return (isset($POST[$birthdate]));
 }
+
+function validate_password($POST,$password){
+    if(strlen($POST[$password]) < 12 ) {
+        return false;
+    }
+    elseif(!preg_match("#[0-9]+#",$POST[$password])) {
+        return false;
+    }
+    elseif(!preg_match("#[A-Z]+#",$POST[$password])) {
+        return false;
+    }
+    elseif(!preg_match("#[a-z]+#",$POST[$password])) {
+        return false;
+    }
+    return true; 
+}
+
+function validate_password_same($POST,$password,$cpassword){
+    return (isset($POST[$password]) && isset($POST[$cpassword]) && strcmp($POST[$password], $POST[$cpassword]) == 0);
+}
+
 function validate_signup($POST){
-    return (validateString($POST,'username') && validate_password($POST,'password') && validateString($POST,'fname') && validateString($POST,'lname') && 
-    validate_email($POST) && validate_sex($POST,'sex') && validate_birthdate($POST,'birthdate'));
+    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname') && validate_email($POST) && 
+    validate_phone($POST, 'phone') && validate_gender($POST,'gender') && validate_birthdate($POST,'birthdate') && validate_password_same($POST,'password','cpassword') && validate_password($POST,'password') ); 
+    
+  
+}
+// username,firstname, lastname ,email, phone, gender, birthdate, profile picture,  valid id, password, confirm password
+
+
+function validate_file($FILES,$filenameArray,$type,$size){
+    // check file size
+    if($FILES[$filenameArray]['size'] > 10 && $FILES[$filenameArray]['size'] < $size){
+        // filename and extension
+        $length=(strlen($_FILES[$filenameArray]['name']));
+        $length2 = $length;
+        $ext= null;
+        while($length--){
+            if ($_FILES[$filenameArray]['name'][$length] == '.'){
+                $ext = substr($_FILES[$filenameArray]['name'],$length-$length2+1);
+                break;
+            }
+        }
+        foreach ($type as $value) {
+            if ($ext == $value) {
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
 }
 
-function validateUpdateProfile($POST){
-    return validateString($POST,'fname') && validateString($POST,'lname') && 
-    validate_email($POST) && validate_phone($POST) && validate_sex($POST,'sex')&& validate_birthdate($POST,'birthdate');
+function resizeImage($filename,$filedestication,$quality,$width,$height){
+    return false;
 }
 
-function validateLogin($POST){
-    return (validateString($POST,'username') && validate_password($POST,'password'));
-}
+function getFileExtensionfromFilename($filename){
+    $length=(strlen($filename));
+    $length2 = $length;
+    $ext= null;
+    while($length--){
+        if ($filename[$length] == '.'){
+            $ext = substr($filename,$length-$length2+1);
+            return $ext;
+        }
+    }
 
-function validateProfilePhoto($FILES){
-    return isset($_FILES['myImage']['tmp_name']) && $_FILES['myImage']['size']< 10000000  && $_FILES['myImage']['size'] > 0;
 }
-
-function sessionHandler($SESSION){
-    return true;
-}
-
-function validatePassword($POST){
-    return validateSameNewPassword($POST) && 
-    true;
-}
-
-function validateHotel($POST){
-    return validateString($POST,'hname') && validateString($POST,'hdesc') && validateString($POST,'haddr') && validate_phone($POST);
-}
-
 ?>
