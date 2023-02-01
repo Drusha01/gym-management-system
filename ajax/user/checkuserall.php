@@ -2,8 +2,8 @@
 session_start();
 
 // includes
-require_once '../tools/functions.php';
-require_once '../classes/users.class.php';
+require_once '../../tools/functions.php';
+require_once '../../classes/users.class.php';
 $userObj = new Users();
 
 // set attributes

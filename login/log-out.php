@@ -4,6 +4,7 @@
     //destroy session
     session_destroy();
     //then send user to login page
-    header('location: ../index.html');
+    header('location: ../index.php');
+    
 
 ?>

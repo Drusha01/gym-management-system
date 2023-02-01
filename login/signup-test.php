@@ -42,5 +42,73 @@ echo '<br>';
 
 
 
+// -- start of test statements
 
+echo dirname(__DIR__, 1);
+echo '<br>';
+echo dirname(__DIR__, 1).'/img/profile';
+echo '<br>';
+
+if (isset($_FILES['valid_id'])) {
+  $valid_id = false;
+  $type = array('png', 'bmp', 'jpg');
+  $size = (1024 * 1024) * 5; // 2 mb
+  if (validate_file($_FILES, 'valid_id', $type, $size)) {
+    $valid_id_dir = dirname(__DIR__, 1) . '/img/valid-id/';
+    // check if the folder exist  
+    if(!is_dir($valid_id_dir)){
+      // create directory
+      mkdir($valid_id_dir);
+    }
+    $extension = getFileExtensionfromFilename($_FILES['valid_id']['name']);
+    $filename = md5($_FILES['valid_id']['name']).'.'.$extension;
+    $counter = 0;
+    // only move if the filename is unique
+    while(is_dir($filename)){
+      $counter++;
+      $filename = md5($_FILES['valid_id']['name']).$counter.'.'.$extension;
+    }
+    // move file
+    if (move_uploaded_file($_FILES['valid_id']['tmp_name'],$valid_id_dir.$filename )) {
+      echo 'moved';
+      // resize file?
+    }
+  }
+}
+if (isset($_FILES['profilepic'])) {
+  $profile_pic = false;
+  $type = array('png', 'bmp', 'jpg');
+  $size = (1024 * 1024) * 5; // 2 mb
+  if (validate_file($_FILES, 'profilepic', $type, $size)) {
+    $profilepic_dir = dirname(__DIR__, 1) . '/img/profile/';
+    // check if the folder exist  
+    if(!is_dir($profilepic_dir)){
+      // create directory
+      mkdir($profilepic_dir);
+    }
+    $extension = getFileExtensionfromFilename($_FILES['profilepic']['name']);
+    $filename = md5($_FILES['profilepic']['name']).'.'.$extension;
+    $counter = 0;
+    // only move if the filename is unique
+    while(is_dir($filename)){
+      $counter++;
+      $filename = md5($_FILES['profilepic']['name']).$counter.'.'.$extension;
+    }
+    // move file
+    if (move_uploaded_file($_FILES['profilepic']['tmp_name'],$profilepic_dir.$filename )) {
+      echo 'moved';
+      // resize file?
+
+      // resize profile
+
+      // resize for thumb nail
+    }
+  }
+}else{
+  // use default picture
+}
+echo '<br>';
+print_r($_POST);
+
+// -- end of test statements
 ?>
