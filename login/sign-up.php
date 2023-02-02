@@ -309,9 +309,9 @@ function functiononkeyup() {
     if(phone.length ==10){ 
       // ajax here
       console.log('ajax');
-      xhttpEmail.open("POST", "../ajax/user/emailcheck.php", true);
-      xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttpEmail.send("email="+phone);
+      xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
+      xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhttpPhone.send("phone="+phone);
     }
   }
   if(validateallvar){
@@ -545,7 +545,7 @@ xhttpPhone.onreadystatechange = function() {
         
         // change the sign up
         $('#submit').html('Phone taken');
-        $("#email").css("color","red");
+        $("#phone").css("color","red");
         return;
       }
       
