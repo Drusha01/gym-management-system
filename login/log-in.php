@@ -118,6 +118,9 @@ if(isset($_SESSION['user_id'])){
             <div class="d-grid gap-2 mb-3">
               <button type="submit" class="btn btn-dark btn-lg border-0 rounded"> <a class="text-decoration-none text-white" >Log In</a></button>
             </div>
+            <div class="forgot-password-link mb-3 text-end">
+              <a href="#" title="Forgot Password" class="text-decoration-none"> Forgot Password?</a>
+            </div>
             <p class="text-center">Don't Have an Account? <a class="text-decoration-none"href="sign-up.php">Sign-Up</a></p>
             <div class="d-flex">
               <hr class="my-auto flex-grow-1">
