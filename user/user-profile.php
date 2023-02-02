@@ -74,7 +74,7 @@ if(isset($_SESSION['user_id'])){
                               <div class="card">
                                 <div class="card-body">
                                   <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
+                                    <img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
                                     <div class="mt-3">
                                       <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                       <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
@@ -176,7 +176,7 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Birth Date</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                            <?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>
+                                              <?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>
                                             </div>
                                         </div>
                                         <div class="col">
