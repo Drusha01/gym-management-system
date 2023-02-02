@@ -106,6 +106,7 @@ CREATE TABLE users(
     user_password_hashed VARCHAR(255),
     user_firstname VARCHAR(100),
     user_lastname VARCHAR(100),
+    user_address VARCHAR(255),
 	user_birthdate DATE,
     user_valid_id_photo VARCHAR(100),
     user_profile_picture VARCHAR(100),
@@ -138,6 +139,30 @@ INSERT INTO users VALUES(
     'NewUserPassword',
     'Hanrickson',
     'Dumapit',
+	'user address',
+    (CURDATE()),
+    'valid_photo',
+    'profile_picture',
+    now(),
+	now()
+    
+);
+
+-- insert for users
+INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
+user_name,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+	null,
+    (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
+    (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+    (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
+    '9265827342',
+    'hanz.dumapit53@gmail.com',
+    'Drusha01',
+    'NewUserPassword',
+    'Hanrickson',
+    'Dumapit',
+	'user address',
     (CURDATE()),
     'valid_photo',
     'profile_picture',
@@ -158,7 +183,7 @@ WHERE user_name = BINARY 'Drusha01' OR user_email = 'hanz.dumapit54@gmail.com' O
 
 -- select user details
 SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-user_name,user_firstname,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+user_name,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
