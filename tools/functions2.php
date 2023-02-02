@@ -35,13 +35,13 @@ function validate_passwordErr($POST,$passname){
     if (strlen($_POST["password"]) <= '8') {
         $passwordErr = "Your Password Must Contain At Least 8 Characters!";
     }
-    elseif(!preg_match("#[0-9]+#",$password)) {
+    elseif(!preg_match("#[0-9]+#",$passname)) {
         $passwordErr = "Your Password Must Contain At Least 1 Number!";
     }
-    elseif(!preg_match("#[A-Z]+#",$password)) {
+    elseif(!preg_match("#[A-Z]+#",$passname)) {
         $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
     }
-    elseif(!preg_match("#[a-z]+#",$password)) {
+    elseif(!preg_match("#[a-z]+#",$passname)) {
         $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
     }
     return true; 
@@ -70,12 +70,12 @@ function validate_birthdate($POST){
 }
 function validate_signup($POST){
     return (validateString($POST,'username') && validate_password($POST,'password') && validateString($POST,'fname') && validateString($POST,'lname') && 
-    validate_email($POST) && validate_sex($POST,'sex') && validate_birthdate($POST,'birthdate'));
+    validate_email($POST) && validate_sex($POST) && validate_birthdate($POST,'birthdate'));
 }
 
 function validateUpdateProfile($POST){
     return validateString($POST,'fname') && validateString($POST,'lname') && 
-    validate_email($POST) && validate_phone($POST) && validate_sex($POST,'sex')&& validate_birthdate($POST,'birthdate');
+    validate_email($POST) && validate_phone($POST) && validate_sex($POST)&& validate_birthdate($POST,'birthdate');
 }
 
 function validateLogin($POST){
