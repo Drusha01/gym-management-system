@@ -7,117 +7,147 @@ session_start();
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
 
-// check if we are logged in
-if(isset($_SESSION['user_id'])){
-  // check if the user is active
-  if($_SESSION['user_status_details'] =='active'){
-    // check what type of user are we
-    if($_SESSION['user_type_details'] =='admin'){
-      // go to admin
-    }else if($_SESSION['user_type_details'] == 'normal'){
-      // go to userpage
-      header('location:../user/user-page.php');
-    } 
-  }else if($_SESSION['user_status_details'] =='inactive'){
-    // handle inactive user details
-  }else if($_SESSION['user_status_details'] =='deleted'){
-    // handle deleted user details
-  }
-}else{
-  // must be sign up 
-  // check the post global variable
-  if(validate_signup($_POST)){
-    $userObj = new Users();
-    // set attributes
-    $userObj->setuser_status_details('active');
-    $userObj->setuser_type_details('normal');
-    $userObj->setuser_gender_details($_POST['gender']);
-    $userObj->setuser_phone_contry_code_details('+63');
+  // check if we are logged in
+  if(isset($_SESSION['user_id'])){
+    // check if the user is active
+    if($_SESSION['user_status_details'] =='active'){
+      // check what type of user are we
+      if($_SESSION['user_type_details'] =='admin'){
+        // go to admin
+      }else if($_SESSION['user_type_details'] == 'normal'){
+        // go to userpage
+        header('location:../user/user-page.php');
+      } 
+    }else if($_SESSION['user_status_details'] =='inactive'){
+      // handle inactive user details
+    }else if($_SESSION['user_status_details'] =='deleted'){
+      // handle deleted user details
+    }
+  }else{
+    // must be sign up 
+    // check the post global variable
+    if(validate_signup($_POST)){
+      $userObj = new Users();
+      // set attributes
+      $userObj->setuser_status_details('active');
+      $userObj->setuser_type_details('normal');
+      $userObj->setuser_gender_details($_POST['gender']);
+      $userObj->setuser_phone_contry_code_details('+63');
 
-    $userObj->setuser_phone_number($_POST['phone']);
-    $userObj->setuser_email($_POST['email']);
-    $userObj->setuser_name($_POST['username']);
-    $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
-    $userObj->setuser_firstname($_POST['fname']);
-    $userObj->setuser_lastname($_POST['lname']);
-    $userObj->setuser_birthdate($_POST['birthdate']);
-    
+      $userObj->setuser_phone_number($_POST['phone']);
+      $userObj->setuser_email($_POST['email']);
+      $userObj->setuser_name($_POST['username']);
+      $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
+      $userObj->setuser_firstname($_POST['fname']);
+      $userObj->setuser_lastname($_POST['lname']);
+      $userObj->setuser_birthdate($_POST['birthdate']);
+      
 
-    // check for duplicates
-    if(!$userObj->user_duplicateAll()){
-      // available
-      // proceed
+      // check for duplicates
+      if(!$userObj->user_duplicateAll()){
+        // available
+        // proceed
 
 
-      $valid_id = true;
-      $profile_pic = true;
-      // set default valid id and profile picture
-      $userObj->setuser_valid_id_photo('default.jpg');
-      $userObj->setuser_profile_picture('default.jpg');
-      // check the valid id file upload
-      if (isset($_FILES['valid_id'])) {
-        $valid_id = false;
-        $type = array('png', 'bmp', 'jpg');
-        $size = (1024 * 1024) * 5; // 2 mb
-        if (validate_file($_FILES, 'valid_id', $type, $size)) {
-          $valid_id_dir = dirname(__DIR__, 1) . '/img/valid-id/';
-          // check if the folder exist  
-          if(!is_dir($valid_id_dir)){
-            // create directory
-            mkdir($valid_id_dir);
-          }
-          $extension = getFileExtensionfromFilename($_FILES['valid_id']['name']);
-          $filename = md5($_FILES['valid_id']['name']).'.'.$extension;
-          $counter = 0;
-          // only move if the filename is unique
-          while(is_dir($filename)){
-            $counter++;
-            $filename = md5($_FILES['valid_id']['name']).$counter.'.'.$extension;
-          }
-          // move file
-          if (move_uploaded_file($_FILES['valid_id']['tmp_name'],$valid_id_dir.$filename )) {
-            $valid_id = true;
-            
-            // change valid id photo in db
-            $userObj->setuser_valid_id_photo($filename);
-            // echo 'moved';
-            // resize file?
+        $valid_id = true;
+        $profile_pic = true;
+        // set default valid id and profile picture
+        $userObj->setuser_valid_id_photo('default.png');
+        $userObj->setuser_profile_picture('default.png');
+        // check the valid id file upload
+        if (isset($_FILES['valid_id'])) {
+          $valid_id = false;
+          $type = array('png', 'bmp', 'jpg');
+          $size = (1024 * 1024) * 5; // 2 mb
+          if (validate_file($_FILES, 'valid_id', $type, $size)) {
+            $valid_id_dir = dirname(__DIR__, 1) . '/img/valid-id/';
+            // check if the folder exist  
+            if(!is_dir($valid_id_dir)){
+              // create directory
+              mkdir($valid_id_dir);
+            }
+            $extension = getFileExtensionfromFilename($_FILES['valid_id']['name']);
+            $filename = md5($_FILES['valid_id']['name']).'.'.$extension;
+            $counter = 0;
+            // only move if the filename is unique
+            while(is_dir($filename)){
+              $counter++;
+              $filename = md5($_FILES['valid_id']['name']).$counter.'.'.$extension;
+            }
+            // move file
+            if (move_uploaded_file($_FILES['valid_id']['tmp_name'],$valid_id_dir.$filename )) {
+              $valid_id = true;
+              
+              // change valid id photo in db
+              $userObj->setuser_valid_id_photo($filename);
+              // echo 'moved';
+
+              // resize file?
           }
         }
-      }
-      
-      // check the profile picture file upload
-      if (isset($_FILES['profilepic'])) {
-        $profile_pic = false;
-        $type = array('png', 'bmp', 'jpg');
-        $size = (1024 * 1024) * 5; // 2 mb
-        if (validate_file($_FILES, 'profilepic', $type, $size)) {
-          $profilepic_dir = dirname(__DIR__, 1) . '/img/profile/';
-          // check if the folder exist  
-          if(!is_dir($profilepic_dir)){
-            // create directory
-            mkdir($profilepic_dir);
-          }
-          $extension = getFileExtensionfromFilename($_FILES['profilepic']['name']);
-          $filename = md5($_FILES['profilepic']['name']).'.'.$extension;
-          $counter = 0;
-          // only move if the filename is unique
-          while(is_dir($filename)){
-            $counter++;
-            $filename = md5($_FILES['profilepic']['name']).$counter.'.'.$extension;
-          }
-          // move file
-          if (move_uploaded_file($_FILES['profilepic']['tmp_name'],$profilepic_dir.$filename )) {
-            $profile_pic = true;
 
-            // change profile picture in db
-            $userObj->setuser_profile_picture($filename);
-            //echo 'moved';
-            // resize file?
+        // check the profile picture file upload
+        if (isset($_FILES['profilepic'])) {
+          $profile_pic = false;
+          $type = array('png', 'bmp', 'jpg');
+          $size = (1024 * 1024) * 5; // 2 mb
+          if (validate_file($_FILES, 'profilepic', $type, $size)) {
+            $profilepic_dir = dirname(__DIR__, 1) . '/img/profile/';
+            // check if the folder exist  
+            if(!is_dir($profilepic_dir)){
+              // create directory
+              mkdir($profilepic_dir);
+            }
+            $extension = getFileExtensionfromFilename($_FILES['profilepic']['name']);
+            $filename = md5($_FILES['profilepic']['name']);
+            $counter = 0;
+            // only move if the filename is unique
+            while(file_exists($profilepic_dir.$filename.'.jpg')){
+              $counter++;
+              $filename = md5($_FILES['profilepic']['name'].$counter);
+            }
+            switch($extension){
+              case 'png':
+                  $img = imagecreatefrompng($_FILES['profilepic']['tmp_name']);
+                  // convert jpeg
+                  imagejpeg($img,$profilepic_dir.$filename.'.jpg',100);
+                  break;
+              case 'bmp':
+                  $img = imagecreatefrompng($_FILES['profilepic']['tmp_name']);
+                  // convert jpeg
+                  imagejpeg($img,$profilepic_dir.$filename.'.jpg',100);
+                  break;
+              case 'jpg':
+                  move_uploaded_file($_FILES['profilepic']['tmp_name'], $profilepic_dir.$filename.'.jpg');
+                  break;
+            }
 
-            // resize profile
+            $userObj->setuser_profile_picture($filename.'.jpg');
 
-            // resize for thumb nail
+            $profile_resize_dir = dirname(__DIR__, 1) . '/img/profile-resize/';
+            $profile_thumbnail_dir = dirname(__DIR__, 1) . '/img/profile-thumbnail/';
+            // check if the profile-resize folder exist
+            if(!is_dir($profile_resize_dir)){
+              // create directory
+              mkdir($profile_resize_dir);
+            }
+            // check if the resize folder thumbnail
+            if(!is_dir($profile_thumbnail_dir)){
+              // create directory
+              mkdir($profile_thumbnail_dir);
+            }
+            // resize file
+
+            // profile display
+            $result = resizeImage($profilepic_dir,$profile_resize_dir,$filename.'.jpg',$filename,80,500,500);
+            if($result){
+              echo 'error';
+            }
+            // thumbnail
+            $result = resizeImage($profilepic_dir,$profile_thumbnail_dir,$filename.'.jpg',$filename,80,150,150);
+            if($result){
+              echo 'error';
+            }
           }
         }
       }
@@ -159,7 +189,6 @@ if(isset($_SESSION['user_id'])){
   }
 }
 
-// check if the account status is valid
 
 ?>
 
@@ -262,295 +291,6 @@ if(isset($_SESSION['user_id'])){
      crossorigin="anonymous"></script>
 </body>
 </html>
-
 <script>
-function signup() {
-  // get the
-  var username = $('#email').val();
-  var password = $('#password').val();
-  var bday = $('#bday').val();
-  console.log(username)
-  console.log(bday)
-  // javascript validation here 
-  // ajax here
-
-}
-function functionOnchangeGender(gender){
-  console.log(gender)
-  validateAll();
-}
-function functionOnchangeBirthdate(birthdate){
-  // do some error handling here
-  functiononkeyup();
-}
-var validateallvar=true;
-function functiononkeyup() {
-  
-  //make ajax first
-  let username = $('#username').val(); 
-  let phone = $('#phone').val();
-  let email = $('#email').val();
-  if(username.length>=6 || ValidateEmail(email) || phone.length ==10 ){
-    if((username.length)>=6){
-      // check if it is a valid username
-      // ajax text username if valid
-      xhttp.open("POST", "../ajax/user/usernamecheck.php", true);
-      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttp.send("username="+username);
-    }
-    if(ValidateEmail(email)){
-      // check if it is a valid email
-      // ajax text email if valid
-      console.log('ajax');
-      xhttpEmail.open("POST", "../ajax/user/emailcheck.php", true);
-      xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttpEmail.send("email="+email);
-    }
-    if(phone.length ==10){ 
-      // ajax here
-      console.log('ajax');
-      xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
-      xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttpPhone.send("phone="+phone);
-    }
-  }
-  if(validateallvar){
-    setInterval(validateAll, 500);
-    validateallvar=false;
-  }
-  
-  
-}
-function validateAll(){
-        console.log('tick');
-        // console.log('nice');
-        let firstname = $('#fname').val().length;
-        let lastname = $('#lname').val().length;
-        let birthdate = $('#birthdate').val();
-        let password = $('#password').val();
-        let confirmpassword = $('#cpassword').val();
-        let submit = $('#submit');
-        let username = $('#username').val(); 
-        let phone = $('#phone').val();
-        let email = $('#email').val();
-
-        // console.log(username);
-        // console.log(firstname);
-        // console.log(lastname);
-        // console.log(email);
-        // console.log(phone);
-        // console.log(birthdate);
-        // console.log(password);
-        // console.log(confirmpassword);
-
-        if( username.length<6 ||(firstname) == 0 || lastname == 0 || phone.length < 10 || phone.length > 10 || !ValidateEmail(email)|| !ValidatePasswordLength(password) || !ValidatePasswordUppercase(password) || !ValidatePasswordLowercase(password)
-        || !ValidatePasswordIsnum(password) || !validatedPassowrdConfirmPassword(password,confirmpassword)){
-            // submit.disabled = true;
-             $("#submit").attr("disabled", true);
-            if(username.length < 6){
-              $('#submit').html('Username must be >= 6 ');
-              $("#username").css("color","red");
-              return;
-            }
-            if((firstname) == 0){
-              $('#submit').html('Enter Firstname');
-              return;
-            }
-            if(lastname == 0){
-              $('#submit').html('Enter Lastname');
-              return;
-            }
-            if(email.length == 0 || !ValidateEmail(email)){
-              console.log('email err');
-              $('#submit').html('Enter valid email ');
-              $("#email").css("color","red");
-              return;
-            }
-            if(phone.length < 10 || phone.length > 10){
-              $('#submit').html('Phone number must be 10 digits');
-              $("#phone").css("color","red");
-              console.log('phone err');
-              return;
-            }
-            if(!ValidatePasswordLength(password)){
-                // submit.setAttribute('value','Password length must be >=12');
-              $('#submit').html('Password length must be >=12');
-              console.log('pass err');
-              return;
-            }
-            if(!ValidatePasswordUppercase(password)){
-                // submit.setAttribute('value','Password must have uppercase letter');
-                $('#submit').html('Password must have uppercase letter');
-                console.log('pass err');
-                return;
-            }
-            if(!ValidatePasswordLowercase(password)){
-               // submit.setAttribute('value','Password must have lowercase letter');
-               $('#submit').html('Password must have lowercase letter');
-               return;
-            }
-            if(!ValidatePasswordIsnum(password)){
-                //submit.setAttribute('value','Password must have number letter');
-                $('#submit').html('Password must have number letter');
-                return;
-            }
-            if(!validatedPassowrdConfirmPassword(password,confirmpassword)){
-               // submit.setAttribute('value','Password don\'t match');
-               $('#submit').html('Password don\'t match');
-               return;
-            }
-            
-            
-            
-            
-            
-        }else{
-          $("#submit").removeAttr("disabled");
-          $("#submit").attr("value",'Sign-Up');
-          document.getElementById("submit").disabled = false; 
-        }
-        // }else{
-            
-        //     if (firstname == 0){
-        //         submit.setAttribute('value','Invalid firstname');
-        //     } 
-        //     if (lastname == 0){
-        //         console.log(parseInt(lastname));
-        //     }
-        //     if (!ValidateEmail(email)){
-        //         submit.setAttribute('value','Invalid email');
-        //     }
-        //     if (!ValidatePasswordLength(password)){
-        //         submit.setAttribute('value','Password length more than or equal to 12');
-        //     }
-        //     document.getElementById("submit").disabled = true;
-            
-        // }
-       
-    }
-    function ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
-        // ajax email??
-        return (true)
-    }
-        return (false)
-    }
-    function ValidatePasswordLength(password){
-        if(password.length <12){
-            return false;
-        }
-        return true;
-    }
-    function ValidatePasswordUppercase(password){
-        for (let i = 0; i < password.length; i++) {
-            if(password[i] == password[i].toUpperCase()){
-                return true;
-            }
-        }
-        return false;
-    }
-    function ValidatePasswordLowercase(password){
-        for (let i = 0; i < password.length; i++) {
-            if(password[i] == password[i].toLowerCase()){
-                return true;
-            }
-        }
-        return false;
-    }
-    function ValidatePasswordIsnum(password){
-        for (let i = 0; i < password.length; i++) {
-            if(isNumber(password[i])){
-                return true;
-            }
-        }
-        return false;
-    }
-    function isNumber(char) {
-        return /^\d$/.test(char);
-    }
-    function validatedPassowrdConfirmPassword(password,confirmpassword){
-        return password  === confirmpassword;
-    }
-    function ValidatePassword(password){
-        if(password.length <12){
-            return false;
-        }else if(0){
-            return false;
-        }
-    }
-
-function functiononsignup(){
-  console.log('signup');
-}
-
-var xhttp = new XMLHttpRequest();
-
-
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Typical action to be performed when the document is ready:
-      console.log(xhttp.responseText);
-      if(xhttp.responseText==1){
-        // make the username green if valid
-        $("#username").css("color","green");
-        $('#submit').html('Sign-Up');
-      }else{
-        // make the username red if not valid
-        $("#username").css("color","red");
-        // change the sign up
-        $('#submit').html('Username taken');
-        return;
-      }
-      
-      
-    }
-};
-
-var xhttpEmail = new XMLHttpRequest();
-
-
-xhttpEmail.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Typical action to be performed when the document is ready:
-      console.log(xhttpEmail.responseText);
-      if(xhttpEmail.responseText==1){
-        // make the username green if valid
-        $("#email").css("color","green");
-        $('#submit').html('Sign-Up');
-      }else{
-        // make the username red if not valid
-        
-        // change the sign up
-        $('#submit').html('Email taken');
-        $("#email").css("color","red");
-        return;
-      }
-      
-      
-    }
-};
-
-var xhttpPhone = new XMLHttpRequest();
-
-xhttpPhone.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Typical action to be performed when the document is ready:
-      console.log(xhttpPhone.responseText);
-      if(xhttpPhone.responseText==1){
-        // make the username green if valid
-        $('#submit').html('Sign-Up');  
-        $("#phone").css("color","green");
-      }else{
-        // make the username red if not valid
-        
-        // change the sign up
-        $('#submit').html('Phone taken');
-        $("#phone").css("color","red");
-        return;
-      }
-      
-      
-    }
-};
-
+<?php require_once("../js/signup.js");?>
 </script>

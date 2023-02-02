@@ -207,6 +207,14 @@ user_profile_picture ='somethingpicture'
 WHERE user_id = 1;
 
         
+        
+-- db for address
+
+-- table for province
+CREATE TABLE location_provinces(
+	location_province_id int primary key auto_increment,
+    location_province_details varchar(50) not null unique	
+);
 
     
 SELECT  CURDATE();

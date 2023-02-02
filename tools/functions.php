@@ -93,8 +93,33 @@ function validate_file($FILES,$filenameArray,$type,$size){
     return false;
 }
 
-function resizeImage($filename,$filedestication,$quality,$width,$height){
-    return false;
+function resizeImage($sourceFilename,$destination,$filename,$newFilename,$quality,$newwidth,$newheight){
+    list($width, $height) = getimagesize($sourceFilename.$filename);
+    if($width/$height > 1){
+        $x = ($width - $height) / 2;
+        $y = 0;
+        $width= $width - ($x*2);
+        $height;
+    }else{
+        $y = ($height - $width) / 2;
+        $x = 0;
+        $width;
+        $height = $height - ($y*2);
+    }
+
+    // creating jpeg 
+    $img = imagecreatefromjpeg($sourceFilename.$filename);
+    $img =imagecrop($img, ['x' => $x, 'y' => $y, 'width' => $width, 'height' => $height]);
+    $thumb = imagecreatetruecolor($newwidth, $newheight);
+    if(imagecopyresized($thumb, $img, 0, 0, 0, 0,$newwidth, $newheight, $width, $height)){
+        if(imagejpeg($thumb,$destination.$filename,$quality)){
+            return true;
+        }else{
+            return false;
+        }
+    }else {
+        return false;
+    }
 }
 
 function getFileExtensionfromFilename($filename){
