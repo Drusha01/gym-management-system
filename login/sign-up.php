@@ -308,9 +308,10 @@ function functiononkeyup() {
     }
     if(phone.length ==10){ 
       // ajax here
-      $('#submit').html('Sign-Up');  
-      $("#phone").css("color","green");
-      return;
+      console.log('ajax');
+      xhttpEmail.open("POST", "../ajax/user/emailcheck.php", true);
+      xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhttpEmail.send("email="+phone);
     }
   }
   if(validateallvar){
@@ -521,6 +522,29 @@ xhttpEmail.onreadystatechange = function() {
         
         // change the sign up
         $('#submit').html('Email taken');
+        $("#email").css("color","red");
+        return;
+      }
+      
+      
+    }
+};
+
+var xhttpPhone = new XMLHttpRequest();
+
+xhttpPhone.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // Typical action to be performed when the document is ready:
+      console.log(xhttpPhone.responseText);
+      if(xhttpPhone.responseText==1){
+        // make the username green if valid
+        $('#submit').html('Sign-Up');  
+        $("#phone").css("color","green");
+      }else{
+        // make the username red if not valid
+        
+        // change the sign up
+        $('#submit').html('Phone taken');
         $("#email").css("color","red");
         return;
       }

@@ -183,7 +183,7 @@ WHERE user_name = BINARY 'Drusha01' OR user_email = 'hanz.dumapit54@gmail.com' O
 
 -- select user details
 SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-user_name,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+user_name,user_password_hashed,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
