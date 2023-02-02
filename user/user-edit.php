@@ -60,10 +60,36 @@
                                         <input type="text" class="form-control" value="James Lorenz">
                                     </div>
                                     <div class="col-sm-2 align-self-center pb-1"> 
-                                        <h6 class="mb-0">Last Name</h6>
+                                        <h6 class="mb-0">Middle Name</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="text" class="form-control" value="Ignacio">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1">
+                                        <h6 class="mb-0">Last Name</h6>
+                                    </div>
+                                    <div class="col-sm-10 text-secondary">
                                         <input type="text" class="form-control" value="Trinidad">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Gender</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                    <select class="form-select" id="exampleFormControlSelect1">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Helicopter</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Other</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="text" class="form-control" value="Thomas the Train Engine">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -93,6 +119,20 @@
                                     <div class="col-sm-4 text-secondary pb-1">
                                         <input type="text" class="form-control" onfocus="(this.type='date')" value="11/04/2000"
                                         onblur="(this.type='text')">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Change Password</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="password" class="form-control" value="password">
+                                    </div>
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Confirm Password</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="password" class="form-control" value="password">
                                     </div>
                                 </div>
                                 

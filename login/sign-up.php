@@ -232,7 +232,7 @@ if(isset($_SESSION['user_id'])){
                   <div class="col-md-6 py-1">
                   <label for="exampleFormControlSelect1">Other</label>
                         <input type="text" class="form-control" name="mname" id="mname" placeholder="Other"  oninput="functiononkeyup()"  required>
-                  </div> 
+                  </div>
               </div>
             </div>
             <div class="form-group py-1">
