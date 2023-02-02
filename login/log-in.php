@@ -142,16 +142,4 @@ if(isset($_SESSION['user_id'])){
 </body>
 </html>
 
-
-<script>
-function login() {
-  // get the
-  var username = $('#email').val();
-  var password = $('#password').val()
-  console.log(username)
-  console.log(password)
-  // javascript validation here 
-  // ajax here
-
-}
-</script>
+<?php require_once("../js/login.js");?>

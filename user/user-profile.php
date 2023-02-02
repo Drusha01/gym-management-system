@@ -28,7 +28,6 @@ if(isset($_SESSION['user_id'])){
   header('location:../login/log-in.php');
 }
 
-print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -47,71 +46,7 @@ print_r($_SESSION);
 
 </head>
 <body>
-    <section class="header">
-            <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A73535">
-                <div class="container-fluid">
-                    <div class="d-flex flex-row">
-                        <a class="navbar-brand navbar">
-                          <img src="../images/logo.png" alt="" width="55">
-                          <div class="d-flex flex-column p-2 pt-0 pb-0">
-                            <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
-                            <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
-                          </div>
-                        </a>
-                      </div>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="user-page.php">Home</a>
-                      </li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Subscriptions
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Gym-Use</a></li>
-                          <li><a class="dropdown-item" href="#">Trainer</a></li>
-                          <li><a class="dropdown-item" href="#">Locker</a></li>
-                          <li><a class="dropdown-item" href="#">Programs</a></li>
-                        </ul>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Avail</a>
-                      </li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          About
-                        </a>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Gym</a></li>
-                          <li><a class="dropdown-item" href="#">Policies</a></li>
-                          <li><a class="dropdown-item" href="#">Owner</a></li>
-                          <li><a class="dropdown-item" href="#">Employee</a></li>
-                          <li><a class="dropdown-item" href="#">Items</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                      <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bx-user-circle fs-1'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li><a class="dropdown-item" href="#">My Account</a></li>
-                              <li><a class="dropdown-item" href="#">My Subscriptions</a></li>
-                              <li><a class="dropdown-item" href="#">My Trainer</a></li>
-                              <div class="dropdown-divider"></div>
-                              <li><a class="dropdown-item" href="../login/log-out.php">Log-Out</a></li>
-                            </ul>
-                          </li>
-                      </ul>
-                  </div>
-                </div>
-              </nav>
-    </section>
+  <?php require_once '../includes/header.php';?>
     <section class="my_acc">
         <div class="container-fluid mt-5">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -340,57 +275,9 @@ print_r($_SESSION);
     </section>
 
 
-    <footer>
-      <div class="footer-top">
-         <div class="container">
-            <div class="row gy-5">
-               <div class="col-md-4">
-                <div class="d-flex flex-row">
-                  <a class="navbar-brand navbar">
-                    <img src="images/logo.png" alt="" width="55">
-                    <div class="d-flex flex-column p-2 pt-0 pb-0">
-                      <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
-                      <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
-                    </div>
-                  </a>
-                </div>
+    <?php require_once '../includes/footer.php';?>
 
-                  <div class="social-icons">
-                     <a href="#"><i class="bx bxl-facebook"></i></a>
-                     <a href="#"><i class="bx bxl-twitter"></i></a>
-                     <a href="#"><i class="bx bxl-instagram"></i></a>
-                     <a href="#"><i class="bx bxl-github"></i></a>
-                  </div>
-               </div>
-               <div class="col-md-2">
-                  <h5 class="title-sm">Navigation</h5>
-                  <div class="footer-links">
-                     <a href="#">Services</a>
-                     <a href="#">Our Work</a>
-                     <a href="#">Team</a>
-                     <a href="#">Blog</a>
-                  </div>
-               </div>
-               <div class="col-md-2">
-                  <h5 class="title-sm">More</h5>
-                  <div class="footer-links">
-                     <a href="#">FAQ's</a>
-                     <a href="#">Privacy & Policy</a>
-                     <a href="#">Liscences</a>
-                  </div>
-               </div>
-               <div class="col-md-2">
-                  <h5 class="title-sm">Contact</h5>
-                  <div class="footer-links">
-                     <p class="mb text-white">San Jose, Zamboanga City</p>
-                     <p class="mb text-white">8(800)316-06-42</p>
-                     <p class="mb text-white">hello@yourdomain.com</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
      crossorigin="anonymous"></script>

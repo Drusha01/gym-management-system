@@ -2,7 +2,7 @@
 box-sizing: border-box;}
 
 
-.nav-link {
+.header .nav-link {
     color: white !important;
 }
 .navbar-right {
@@ -92,11 +92,31 @@ box-sizing: border-box;}
     flex: none;
  }
 
+ .my_acc {
+   margin-top: 6em;
+ }
+
+ .my_acc .nav-link {
+   color: #082f34;
+   font-weight: 700;
+ }
+ .color-me {
+   color: black;
+ }
+
+ .my_acc_edit {
+   margin-top: 6em;
+   padding-bottom: 5%;
+ }
+
 #sell{
     background-color: rgba(0, 0, 0, 0.832);
     padding: 3%;
 }
 
+.table {
+   border: 3px solid black;
+}
 
 .about-border {
     display: block;
@@ -118,7 +138,7 @@ box-sizing: border-box;}
 
 .footer-top {
     background-color: #A73535;
-    padding-top: 80px;
+    padding-top: 50px;
     padding-bottom: 30px;
  }
  
@@ -147,6 +167,8 @@ box-sizing: border-box;}
  footer .footer-links a:hover {
     color: black;
  }
+
+ 
 
  @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.carousel-caption {
@@ -191,5 +213,8 @@ box-sizing: border-box;}
    #services .container .row .col-lg-4{
       text-align: center;
    }
+   .my_acc {
+      margin-top: 22%;
+    }
 }
 
