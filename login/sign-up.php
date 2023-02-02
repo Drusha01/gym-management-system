@@ -220,12 +220,20 @@ if(isset($_SESSION['user_id'])){
               <input type="number" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" maxlength="10" required>
             </div>
             <div class="form-group py-1">
-                <label for="exampleFormControlSelect1">Gender</label>
-                <select class="form-select" id="exampleFormControlSelect1">
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Helicopter</option>
-                </select>
+              <div class="row">
+                  <div class="col-md-6 py-1">
+                  <label for="exampleFormControlSelect1">Gender</label>
+                    <select class="form-select" id="exampleFormControlSelect1">
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Helicopter</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 py-1">
+                  <label for="exampleFormControlSelect1">Other</label>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Other"  oninput="functiononkeyup()"  required>
+                  </div> 
+              </div>
             </div>
             <div class="form-group py-1">
               <label>Birth Date</label>

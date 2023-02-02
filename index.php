@@ -132,7 +132,7 @@ if(isset($_SESSION['user_id'])){
 
 
      <br> <br>
-   <section id="services">
+  <section id="services">
     <div class="container">
        <div class="row">
           <div class="col-12 section-intro">
@@ -146,44 +146,50 @@ if(isset($_SESSION['user_id'])){
                 <i class='bx bx-dumbbell'></i>
              </div>
              <h4 class="title-sm mt-4">Gym-Use</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>You can use all the equipment that are available in our Gym.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-universal-access'></i>
              </div>
              <h4 class="title-sm mt-4">Trainer</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>You can avail a trainer to help you in your workout.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-cabinet'></i>
              </div>
              <h4 class="title-sm mt-4">Locker</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>Once you availed for a Gym-Subscription. You can avail for a locker to keep your belongings.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-run'></i>
              </div>
              <h4 class="title-sm mt-4">Walk-In</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>Going for a quick workout or just beginning? You can avail for a Walk-In in our Gym.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-calendar-event'></i>
              </div>
              <h4 class="title-sm mt-4">Programs</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>You can avail for a program that are available in our gym. This offer is related to the events of the Gym. It may be Zumba or Cardio Sessions.</p>
           </div>
+          <div class="col-lg-4 col-sm-6 p-4">
+            <div class="icon-box">
+              <i class='bx bx-cart-add'></i>
+            </div>
+            <h4 class="title-sm mt-4">Sell</h4>
+            <p>Our Gym also sells Gym-Stuff Related.</p>
+         </div>
        </div>
     </div>
- </section>
+  </section>
 
-<section id="sell">
+  <section id="sell">
   <div class="col-12 section-intro text-white">
     <h1>What We Sell</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
     <div class="hline"></div>
  </div>
   <div class="container">
@@ -196,7 +202,7 @@ if(isset($_SESSION['user_id'])){
               <h1 class="text-center">Supplements</h1>
               <div class="about-border"></div>
            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">We sell Protein Powder, Creatine, Pre-Workout and Much More.</p>
           </div>
         </div>
       </div>
@@ -209,7 +215,7 @@ if(isset($_SESSION['user_id'])){
               <h1 class="text-center">Clothing</h1>
               <div class="about-border"></div>
            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">You can buy our signature clothing with our Official Logo on it.</p>
           </div>
         </div>
       </div>
@@ -222,13 +228,11 @@ if(isset($_SESSION['user_id'])){
               <h1 class="text-center">Refreshments</h1>
               <div class="about-border"></div>
            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Our Gym offers Water bottles, Energy Drinks and Water Dispenser which you drop your coin.</p>
           </div>
         </div>
       </div>
-      
     </div>
-    
   </div>
 </section>
     <br>
