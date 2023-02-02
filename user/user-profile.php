@@ -28,7 +28,6 @@ if(isset($_SESSION['user_id'])){
   header('location:../login/log-in.php');
 }
 
-print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>
