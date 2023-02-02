@@ -94,6 +94,7 @@ function validate_file($FILES,$filenameArray,$type,$size){
 }
 
 function resizeImage($filename,$filedestication,$quality,$width,$height){
+    
     return false;
 }
 
