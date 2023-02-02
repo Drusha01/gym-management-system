@@ -1,5 +1,29 @@
-<?php 
-// check if logged in
+<?php
+// start session
+session_start();
+
+// check if we are logged in
+if(isset($_SESSION['user_id'])){
+  // check if the user is active
+  if($_SESSION['user_status_details'] =='active'){
+    // check what type of user are we
+    if($_SESSION['user_type_details'] =='admin'){
+      // go to admin
+      header('location:../admin/admin-profile.php');
+    }else if($_SESSION['user_type_details'] == 'normal'){
+      // go to user-page
+      header('location:user/user-page.php');
+    } 
+  }else if($_SESSION['user_status_details'] =='inactive'){
+    // handle inactive user details
+  }else if($_SESSION['user_status_details'] =='deleted'){
+    // handle deleted user details
+  }
+} else {
+  // go to login page
+  //header('location:../login/log-in.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -209,60 +233,7 @@
 </section>
     <br>
 
-    <footer>
-      <div class="footer-top">
-         <div class="container">
-            <div class="row gy-5">
-               <div class="col-md-4">
-                <div class="d-flex flex-row">
-                  <a class="navbar-brand navbar">
-                    <img src="images/logo.png" alt="" width="55">
-                    <div class="d-flex flex-column p-2 pt-0 pb-0">
-                      <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
-                      <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
-                    </div>
-                  </a>
-                </div>
-
-                  <div class="social-icons">
-                     <a href="#"><i class="bx bxl-facebook"></i></a>
-                     <a href="#"><i class="bx bxl-twitter"></i></a>
-                     <a href="#"><i class="bx bxl-instagram"></i></a>
-                     <a href="#"><i class="bx bxl-github"></i></a>
-                  </div>
-               </div>
-               <div class="col-md-2">
-                  <h5 class="title-sm">Navigation</h5>
-                  <div class="footer-links">
-                     <a href="#">Services</a>
-                     <a href="#">Our Work</a>
-                     <a href="#">Team</a>
-                     <a href="#">Blog</a>
-                  </div>
-               </div>
-               <div class="col-md-2">
-                  <h5 class="title-sm">More</h5>
-                  <div class="footer-links">
-                     <a href="#">FAQ's</a>
-                     <a href="#">Privacy & Policy</a>
-                     <a href="#">Liscences</a>
-                  </div>
-               </div>
-               <div class="col-md-2">
-                  <h5 class="title-sm">Contact</h5>
-                  <div class="footer-links">
-                     <p class="mb text-white">San Jose, Zamboanga City</p>
-                     <p class="mb text-white">8(800)316-06-42</p>
-                     <p class="mb text-white">hello@yourdomain.com</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </footer>
-
-
-
+    <?php require_once 'includes/footer.php';?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
