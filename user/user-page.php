@@ -1,3 +1,9 @@
+<?php
+session_start();
+print_r($_SESSION);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +15,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/boxicons.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/boxicons.min.css">
 
 </head>
 <body>
@@ -19,7 +25,7 @@
                 <div class="container-fluid">
                     <div class="d-flex flex-row">
                         <a class="navbar-brand navbar">
-                          <img src="images/logo.png" alt="" width="55">
+                          <img src="../images/logo.png" alt="" width="55">
                           <div class="d-flex flex-column p-2 pt-0 pb-0">
                             <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
                             <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
@@ -67,11 +73,11 @@
                                 <i class='bx bx-user-circle fs-1'></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                              <li><a class="dropdown-item" href="#">My Account</a></li>
+                              <li><a class="dropdown-item" href="user-profile.php">My Account</a></li>
                               <li><a class="dropdown-item" href="#">My Subscriptions</a></li>
                               <li><a class="dropdown-item" href="#">My Trainer</a></li>
                               <div class="dropdown-divider"></div>
-                              <li><a class="dropdown-item" href="index.html">Log-Out</a></li>
+                              <li><a class="dropdown-item" href="../login/log-out.php">Log-Out</a></li>
                             </ul>
                           </li>
                       </ul>
@@ -168,7 +174,7 @@
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4">
         <div class="card">
-          <img src="images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
+          <img src="../images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
               <h1 class="text-center">Supplements</h1>
@@ -181,7 +187,7 @@
 
       <div class="col-12 col-md-6 col-lg-4">
         <div class="card">
-          <img src="images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
+          <img src="../images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
               <h1 class="text-center">Clothing</h1>
@@ -194,7 +200,7 @@
 
       <div class="col-12 col-md-6 col-lg-4">
         <div class="card">
-          <img src="images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
+          <img src="../images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
               <h1 class="text-center">Refreshments</h1>

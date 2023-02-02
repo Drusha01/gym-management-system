@@ -15,6 +15,7 @@ Class users{
     private $user_password_hashed;
     private $user_firstname;
     private $user_lastname;
+    private $user_user_address;
     private $user_birthdate;
     private $user_valid_id_photo;
     private $user_profile_picture;
@@ -47,6 +48,7 @@ Class users{
     function setuser_password_hashed($user_password_hashed){$this->user_password_hashed = $user_password_hashed;}
     function setuser_firstname($user_firstname){$this->user_firstname = $user_firstname;}
     function setuser_lastname($user_lastname){$this->user_lastname = $user_lastname;}
+    function setuser_user_address($user_user_address){$this->user_user_address = $user_user_address;}
     function setuser_birthdate($user_birthdate){$this->user_birthdate = $user_birthdate;}
     function setuser_valid_id_photo($user_valid_id_photo){$this->user_valid_id_photo = $user_valid_id_photo;}
     function setuser_profile_picture($user_profile_picture){$this->user_profile_picture = $user_profile_picture;}
@@ -70,6 +72,7 @@ Class users{
     function getuser_password_hashed(){return $this->user_password_hashed;}
     function getuser_firstname(){return $this->user_firstname;}
     function getuser_lastname(){return $this->user_lastname;}
+    function getuser_user_address(){return $this->user_user_address;}
     function getuser_birthdate(){return $this->user_birthdate;}
     function getuser_valid_id_photo(){return $this->user_valid_id_photo;}
     function getuser_profile_picture(){return $this->user_profile_picture;}
@@ -197,6 +200,24 @@ Class users{
         }
     }
 
+    // get user id with username
+    function user_id_with_username(){
+        try{
+            $sql = 'SELECT user_id FROM users
+            WHERE user_name = BINARY :user_name ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_name', $this->user_name);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
     // sign Up  / insert sql
     function signup(){
         // note that this assumes that the photos that is uploaded is already in the file system
@@ -214,7 +235,8 @@ Class users{
                 :user_password_hashed,
                 :user_firstname,
                 :user_lastname,
-                (CURDATE()),
+                null,
+                :user_birthdate,
                 :user_valid_id_photo,
                 :user_profile_picture,
                 now(),
@@ -234,7 +256,7 @@ Class users{
             $query->bindParam(':user_password_hashed', $this->user_password_hashed);
             $query->bindParam(':user_firstname', $this->user_firstname);
             $query->bindParam(':user_lastname', $this->user_lastname);
-            $query->bindParam(':user_firstname', $this->user_firstname);
+            $query->bindParam(':user_birthdate', $this->user_birthdate);
 
             $query->bindParam(':user_valid_id_photo', $this->user_valid_id_photo);
             $query->bindParam(':user_profile_picture', $this->user_profile_picture);

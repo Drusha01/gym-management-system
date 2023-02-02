@@ -7,10 +7,10 @@ require_once '../../classes/users.class.php';
 $userObj = new Users();
 
 // set attributes
-if(isset($_POST['username']) && strlen($_POST['username'])>=6 && !str_contains($_POST['username'], ' ')){
-    $userObj->setuser_name(($_POST['username']));
-    if($userObj->user_duplicateUsername()){
-        echo '0';
+if(isset($_GET['username']) && strlen($_GET['username'])>6){
+    $userObj->setuser_name($_GET['username']);
+    if($data = $userObj->user_duplicateUsername()){
+        print_r($data);
     }else{
         echo '1';
     }

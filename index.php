@@ -1,3 +1,7 @@
+<?php 
+// check if logged in
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/boxicons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/boxicons.min.css">
 
 </head>
 <body>
@@ -63,10 +67,10 @@
                     </ul>
                       <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="./login/sign-up.php"><span class='bx bx-user-plus align-middle fs-4'></span> Sign-Up</a>
+                          <a class="nav-link active" aria-current="page" href="login/sign-up.php"><span class='bx bx-user-plus align-middle fs-4'></span> Sign-Up</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="./login/log-in.php"><span class='bx bx-log-in align-middle fs-4'></span> Log-In</a>
+                          <a class="nav-link active" aria-current="page" href="login/log-in.php"><span class='bx bx-log-in align-middle fs-4'></span> Log-In</a>
                         </li>
                       </ul>
                   </div>

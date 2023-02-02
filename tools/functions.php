@@ -16,7 +16,7 @@ function validate_email($POST){
 }
 
 function validate_username($POST,$username){
-    return (isset($POST[$username]) && strlen(trim($POST[$username]))>=6  && strlen(trim($POST[$username])) < 255);
+    return (isset($POST[$username]) && strlen(trim($POST[$username]))>=6  && strlen(trim($POST[$username])) < 255 && !str_contains($_POST[$username], ' '));
 }
 function validate_phone($POST,$phone){
     // do this
@@ -108,5 +108,13 @@ function getFileExtensionfromFilename($filename){
         }
     }
 
+}
+
+function echo_safe($string){
+    echo htmlentities($string);
+}
+
+function getAge($date) {
+    return intval(date('Y', time() - strtotime($date))) - 1970;
 }
 ?>
