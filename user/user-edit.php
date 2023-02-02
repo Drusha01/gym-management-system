@@ -1,3 +1,35 @@
+<?php
+// start session
+session_start();
+
+// includes
+require_once '../tools/functions.php';
+require_once '../classes/users.class.php';
+
+
+// check if we are logged in
+if(isset($_SESSION['user_id'])){
+  // check if the user is active
+  if($_SESSION['user_status_details'] =='active'){
+    // check what type of user are we
+    if($_SESSION['user_type_details'] =='admin'){
+      // go to admin
+      header('location:../admin/admin-profile.php');
+    }else if($_SESSION['user_type_details'] == 'normal'){
+      // do nothing
+    } 
+  }else if($_SESSION['user_status_details'] =='inactive'){
+    // handle inactive user details
+  }else if($_SESSION['user_status_details'] =='deleted'){
+    // handle deleted user details
+  }
+} else {
+  // go to login page
+  header('location:../login/log-in.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,12 +61,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="../images/acc_img.png" alt="Admin" class="rounded-circle p-1 bg-danger" width="110">
+                                    <img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle p-1 bg-danger" width="110">
                                     <div class="mt-3">
-                                        <h4>James_No_Legday</h4>
+                                        <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                         <!-- Profile picture upload button-->
-                                        <button class="btn btn-primary" type="button">Upload new image</button>
+                                        <button class="btn btn-primary" type="file">Upload new image</button>
                                     </div>
                                 </div>
                                 
@@ -49,7 +81,7 @@
                                         <h6 class="mb-0">Username</h6>
                                     </div>
                                     <div class="col-sm-10 text-secondary">
-                                        <input type="text" class="form-control" value="James_No_Legday">
+                                        <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_name'])?>" placeholder="<?php echo_safe($_SESSION['user_name'])?>">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -57,13 +89,13 @@
                                         <h6 class="mb-0">First Name</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="text" class="form-control" value="James Lorenz">
+                                        <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_firstname'])?>" placeholder="<?php echo_safe($_SESSION['user_firstname'])?>">
                                     </div>
                                     <div class="col-sm-2 align-self-center pb-1"> 
                                         <h6 class="mb-0">Last Name</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="text" class="form-control" value="Trinidad">
+                                        <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -71,13 +103,13 @@
                                         <h6 class="mb-0">Email</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="email" class="form-control" value="James@gmail.com">
+                                        <input type="email" class="form-control" value="<?php echo_safe($_SESSION['user_email'])?>" placeholder="<?php echo_safe($_SESSION['user_email'])?>">
                                     </div>
                                     <div class="col-sm-2 align-self-center pb-1"> 
                                         <h6 class="mb-0">Phone Number</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="number" class="form-control" value="0912345678">
+                                        <input type="number" class="form-control" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -85,13 +117,13 @@
                                         <h6 class="mb-0">Address</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="text" class="form-control" value="San Jose, Zamboanga City">
+                                        <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_address'])?>" placeholder="<?php echo_safe($_SESSION['user_address'])?>">
                                     </div>
                                     <div class="col-sm-2 align-self-center pb-1"> 
                                         <h6 class="mb-0">Birth Date</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="text" class="form-control" onfocus="(this.type='date')" value="11/04/2000"
+                                        <input type="text" class="form-control" onfocus="(this.type='date')" value="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>" placeholder="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>"
                                         onblur="(this.type='text')">
                                     </div>
                                 </div>

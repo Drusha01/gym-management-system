@@ -1,4 +1,4 @@
-<script>
+// tbh this is a garbage type of validation it works tho, just not efficient
 function signup() {
   // get the
   var username = $('#email').val();
@@ -23,8 +23,6 @@ function functiononkeyup() {
   
   //make ajax first
   let username = $('#username').val(); 
-  let phone = $('#phone').val();
-  let email = $('#email').val();
   if(username.length>=6 || ValidateEmail(email) || phone.length ==10 ){
     if((username.length)>=6){
       // check if it is a valid username
@@ -33,31 +31,16 @@ function functiononkeyup() {
       xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhttp.send("username="+username);
     }
-    if(ValidateEmail(email)){
-      // check if it is a valid email
-      // ajax text email if valid
-      console.log('ajax');
-      xhttpEmail.open("POST", "../ajax/user/emailcheck.php", true);
-      xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttpEmail.send("email="+email);
-    }
-    if(phone.length ==10){ 
-      // ajax here
-      console.log('ajax');
-      xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
-      xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttpPhone.send("phone="+phone);
-    }
   }
   if(validateallvar){
-    setInterval(validateAll, 500);
+    setInterval(validateAll, 1000);
     validateallvar=false;
   }
   
   
 }
 function validateAll(){
-        console.log('tick');
+        //console.log('tick');
         // console.log('nice');
         let firstname = $('#fname').val().length;
         let lastname = $('#lname').val().length;
@@ -142,8 +125,9 @@ function validateAll(){
         }else{
           $("#submit").removeAttr("disabled");
           $("#submit").attr("value",'Sign-Up');
-          document.getElementById("submit").disabled = false; 
+          //document.getElementById("submit").disabled = false; 
         }
+        functiononkeyup();
         // }else{
             
         //     if (firstname == 0){
@@ -224,16 +208,25 @@ var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      console.log(xhttp.responseText);
+      //console.log(xhttp.responseText);
       if(xhttp.responseText==1){
         // make the username green if valid
         $("#username").css("color","green");
-        $('#submit').html('Sign-Up');
+        let email = $('#email').val();
+        if(ValidateEmail(email)){
+          // check if it is a valid email
+          // ajax text email if valid
+          console.log('ajax');
+          xhttpEmail.open("POST", "../ajax/user/emailcheck.php", true);
+          xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhttpEmail.send("email="+email);
+        }
       }else{
         // make the username red if not valid
         $("#username").css("color","red");
         // change the sign up
         $('#submit').html('Username taken');
+        $("#submit").attr("disabled", true);
         return;
       }
       
@@ -245,24 +238,32 @@ var xhttpEmail = new XMLHttpRequest();
 
 
 xhttpEmail.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Typical action to be performed when the document is ready:
-      console.log(xhttpEmail.responseText);
-      if(xhttpEmail.responseText==1){
-        // make the username green if valid
-        $("#email").css("color","green");
-        $('#submit').html('Sign-Up');
-      }else{
-        // make the username red if not valid
-        
-        // change the sign up
-        $('#submit').html('Email taken');
-        $("#email").css("color","red");
-        return;
+  if (this.readyState == 4 && this.status == 200) {
+    // Typical action to be performed when the document is ready:
+    //console.log(xhttpEmail.responseText);
+    if(xhttpEmail.responseText==1){
+      // make the username green if valid
+      $("#email").css("color","green");
+      let phone = $('#phone').val();
+      if(phone.length ==10){ 
+        // ajax here
+        console.log('ajax');
+        xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
+        xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttpPhone.send("phone="+phone);
       }
+    }else{
+      // make the username red if not valid
       
-      
+      // change the sign up
+      $('#submit').html('Email taken');
+      $("#email").css("color","red");
+      $("#submit").attr("disabled", true);
+      return;
     }
+    
+    
+  }
 };
 
 var xhttpPhone = new XMLHttpRequest();
@@ -270,7 +271,7 @@ var xhttpPhone = new XMLHttpRequest();
 xhttpPhone.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       // Typical action to be performed when the document is ready:
-      console.log(xhttpPhone.responseText);
+      //console.log(xhttpPhone.responseText);
       if(xhttpPhone.responseText==1){
         // make the username green if valid
         $('#submit').html('Sign-Up');  
@@ -281,6 +282,7 @@ xhttpPhone.onreadystatechange = function() {
         // change the sign up
         $('#submit').html('Phone taken');
         $("#phone").css("color","red");
+        $("#submit").attr("disabled", true);
         return;
       }
       
@@ -288,4 +290,3 @@ xhttpPhone.onreadystatechange = function() {
     }
 };
 
-</script>
