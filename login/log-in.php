@@ -27,6 +27,7 @@ if(isset($_SESSION['user_id'])){
   // must be login
   // check the post global variable
   if (isset($_POST['user']) && isset($_POST['password']) && strlen($_POST['user'])>6 && strlen($_POST['password']) >=12 ) {
+    // not that only login in email if the user is verified and at phone
     $userObj = new Users();
     $userObj->setuser_name($_POST['user']);
     $userObj->setuser_email($_POST['user']);

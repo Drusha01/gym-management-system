@@ -240,10 +240,10 @@ if(isset($_SESSION['user_id'])){
               <input type="file" class="form-control-file" id="valid_id" name="valid_id" accept="image/*"  >
             </div>
             <div class="form-group py-1">
-            <input type="password" class="form-control" name="password" placeholder="Password" oninput="functiononkeyup()" id="password" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" onkeyup="functiononkeyup()" id="password" required>
             </div>
             <div class="form-group py-1">
-                <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" oninput="functiononkeyup()" id="cpassword"required>
+                <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" onkeyup="functiononkeyup()" id="cpassword"required>
             </div>
             <div class="d-grid">
             <button type="submit" class="btn btn-success btn-lg border-0 rounded" onclick="functiononsignup()" id="submit"> Sign-Up</button>
@@ -277,14 +277,13 @@ function signup() {
 }
 function functionOnchangeGender(gender){
   console.log(gender)
-  validateAll();
+  functiononkeyup();
 }
 function functionOnchangeBirthdate(birthdate){
   // do some error handling here
   functiononkeyup();
 }
-var validateallvar=true;
-function functiononkeyup() {
+function functiononkeyup(params) {
   
   //make ajax first
   let username = $('#username').val(); 
@@ -306,22 +305,16 @@ function functiononkeyup() {
       xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhttpEmail.send("email="+email);
     }
-    if(phone.length ==10){ 
-      // ajax here
+    if(phone.length ==10){
       $('#submit').html('Sign-Up');  
       $("#phone").css("color","green");
       return;
     }
   }
-  if(validateallvar){
-    setInterval(validateAll, 500);
-    validateallvar=false;
-  }
-  
-  
+  setTimeout(validateAll, 1500);
 }
 function validateAll(){
-        console.log('tick');
+        
         // console.log('nice');
         let firstname = $('#fname').val().length;
         let lastname = $('#lname').val().length;
@@ -345,7 +338,7 @@ function validateAll(){
         if( username.length<6 ||(firstname) == 0 || lastname == 0 || phone.length < 10 || phone.length > 10 || !ValidateEmail(email)|| !ValidatePasswordLength(password) || !ValidatePasswordUppercase(password) || !ValidatePasswordLowercase(password)
         || !ValidatePasswordIsnum(password) || !validatedPassowrdConfirmPassword(password,confirmpassword)){
             // submit.disabled = true;
-             $("#submit").attr("disabled", true);
+            // $("#submit").attr("disabled", true);
             if(username.length < 6){
               $('#submit').html('Username must be >= 6 ');
               $("#username").css("color","red");
@@ -359,7 +352,7 @@ function validateAll(){
               $('#submit').html('Enter Lastname');
               return;
             }
-            if(email.length == 0 || !ValidateEmail(email)){
+            if(email.length >0 || !ValidateEmail(email)){
               console.log('email err');
               $('#submit').html('Enter valid email ');
               $("#email").css("color","red");
@@ -368,35 +361,25 @@ function validateAll(){
             if(phone.length < 10 || phone.length > 10){
               $('#submit').html('Phone number must be 10 digits');
               $("#phone").css("color","red");
-              console.log('phone err');
-              return;
             }
             if(!ValidatePasswordLength(password)){
                 // submit.setAttribute('value','Password length must be >=12');
-              $('#submit').html('Password length must be >=12');
-              console.log('pass err');
+              //$('#submit').html('Password length must be >=12');
               return;
             }
             if(!ValidatePasswordUppercase(password)){
                 // submit.setAttribute('value','Password must have uppercase letter');
                 $('#submit').html('Password must have uppercase letter');
-                console.log('pass err');
                 return;
             }
             if(!ValidatePasswordLowercase(password)){
                // submit.setAttribute('value','Password must have lowercase letter');
-               $('#submit').html('Password must have lowercase letter');
-               return;
             }
             if(!ValidatePasswordIsnum(password)){
                 //submit.setAttribute('value','Password must have number letter');
-                $('#submit').html('Password must have number letter');
-                return;
             }
             if(!validatedPassowrdConfirmPassword(password,confirmpassword)){
                // submit.setAttribute('value','Password don\'t match');
-               $('#submit').html('Password don\'t match');
-               return;
             }
             
             
@@ -404,9 +387,9 @@ function validateAll(){
             
             
         }else{
-          $("#submit").removeAttr("disabled");
-          $("#submit").attr("value",'Sign-Up');
-          document.getElementById("submit").disabled = false; 
+          // $("#submit").removeAttr("disabled");
+          // $("#submit").attr("value",'Sign-Up');
+            //submit.setAttribute('value','Sign-Up');
         }
         // }else{
             
