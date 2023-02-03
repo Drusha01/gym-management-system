@@ -191,7 +191,8 @@ if(isset($_SESSION['user_id'])){
             </div>
           </div>
           <a class="text-decoration-none text-black m-0" aria-current="page" href="../index.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
-          <form class="form-signup p-1" method="post" enctype="multipart/form-data">
+          <div class="container">
+            <form class="form-signup p-1" method="post" enctype="multipart/form-data">
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
@@ -253,7 +254,10 @@ if(isset($_SESSION['user_id'])){
             <button type="submit" class="btn btn-success btn-lg border-0 rounded" onclick="functiononsignup()" id="submit"> Sign-Up</button>
             </div>
             <p class="text-center">Already Have an Account? <a class="text-decoration-none" href="../login/log-in.php">Log-in</a></p>
-          </form>
+        </form>
+
+          </div>
+          
           <div class="d-flex">
               <hr class="my-auto flex-grow-1">
               <div class="px-4">OR</div>
