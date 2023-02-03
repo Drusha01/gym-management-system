@@ -250,6 +250,7 @@ if(isset($_SESSION['user_id'])){
             <div class="form-group py-1">
                 <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" oninput="functiononkeyup()" id="cpassword"required>
             </div>
+            <br>
             <div class="d-grid">
             <button type="submit" class="btn btn-success btn-lg border-0 rounded" onclick="functiononsignup()" id="submit"> Sign-Up</button>
             </div>

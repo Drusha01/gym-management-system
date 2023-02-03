@@ -35,6 +35,10 @@
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                         <!-- Profile picture upload button-->
                                         <button class="btn btn-primary" type="button">Upload new image</button>
+                                        <hr>
+                                        <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
+                                        <!-- Profile picture upload button-->
+                                        <button class="btn btn-primary" type="button">Upload ID or Birth Certificate</button>
                                     </div>
                                 </div>
                                 
@@ -120,23 +124,7 @@
                                         <input type="text" class="form-control" onfocus="(this.type='date')" value="11/04/2000"
                                         onblur="(this.type='text')">
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-sm-2 align-self-center pb-1"> 
-                                        <h6 class="mb-0">Change Password</h6>
-                                    </div>
-                                    <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="password" class="form-control" value="password">
-                                    </div>
-                                    <div class="col-sm-2 align-self-center pb-1"> 
-                                        <h6 class="mb-0">Confirm Password</h6>
-                                    </div>
-                                    <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="password" class="form-control" value="password">
-                                    </div>
-                                </div>
-                                
-                                
+                                </div>                                
                                 <div class="row">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-3 text-secondary">
@@ -145,6 +133,45 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row gutters-sm">
+                            <div class="col mt-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-2 align-self-center pb-1"> 
+                                                <h6 class="mb-0">Current Password</h6>
+                                            </div>
+                                            <div class="col-sm-4 text-secondary pb-1">
+                                                <input type="password" class="form-control" value="password">
+                                            </div>
+                                            <div class="col-sm-2 align-self-center pb-1"> 
+                                                <h6 class="mb-0">New Password</h6>
+                                            </div>
+                                            <div class="col-sm-4 text-secondary pb-1">
+                                                <input type="password" class="form-control" value="password">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-2 align-self-center pb-1"> 
+                                                <h6 class="mb-0">Confirm New Password</h6>
+                                            </div>
+                                            <div class="col-sm-4 text-secondary pb-1">
+                                                <input type="password" class="form-control" value="password">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 text-secondary">
+                                                <input type="button" class="btn btn-success px-4" value="Change Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                       
                         
                     </div>
                 </div>

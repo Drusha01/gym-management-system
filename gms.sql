@@ -136,13 +136,13 @@ INSERT INTO users VALUES(
     '9265827342',
     'hanz.dumapit53@gmail.com',
     'Drusha01',
-    'NewUserPassword',
-    'Hanrickson',
+    '$argon2i$v=19$m=65536,t=4,p=1$YXVYRjN1VlJJdWpnYXRZSA$gC4ppnU/kaAX4NnOUs5riFCokl+qisTbp9GmCaXkO38',
+    'Hanrickson1',
     'Dumapit',
 	'user address',
     (CURDATE()),
     'valid_photo',
-    'profile_picture',
+    'default.png',
     now(),
 	now()
     
@@ -150,22 +150,22 @@ INSERT INTO users VALUES(
 
 -- insert for users
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-user_name,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_password_hashed,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
-    '9265827342',
-    'hanz.dumapit53@gmail.com',
-    'Drusha01',
-    'NewUserPassword',
+    '9265827343',
+    'hanz.dumapit54@gmail.com',
+    'Drusha02',
+    '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
     'Dumapit',
 	'user address',
     (CURDATE()),
     'valid_photo',
-    'profile_picture',
+    'default.png',
     now(),
 	now()
     
@@ -192,7 +192,7 @@ WHERE user_id = 1;
 
 -- change user password
 UPDATE users
-SET user_password_hashed = 'passwordsomething'
+SET user_password_hashed = '$argon2i$v=19$m=65536,t=4,p=1$YXVYRjN1VlJJdWpnYXRZSA$gC4ppnU/kaAX4NnOUs5riFCokl+qisTbp9GmCaXkO38'
 WHERE user_id = 1;
 
 -- update user information (note that email and phone have separate update because it is used in loggin in option)
@@ -203,10 +203,18 @@ user_firstname ='Tipamood',
 user_lastname = 'Drusha',
 user_birthdate = CURDATE(),
 user_valid_id_photo = 'something valid id',
-user_profile_picture ='somethingpicture'
+user_profile_picture ='default.png'
 WHERE user_id = 1;
 
         
+        
+-- db for address
+
+-- table for province
+CREATE TABLE location_provinces(
+	location_province_id int primary key auto_increment,
+    location_province_details varchar(50) not null unique	
+);
 
     
 SELECT  CURDATE();
