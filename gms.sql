@@ -62,6 +62,9 @@ CREATE TABLE user_genders(
 INSERT INTO user_genders VALUES
 (
 	null,
+    'Prefer not to say'
+),(
+	null,
     'Male'
 ),(
 	null,
@@ -71,9 +74,18 @@ INSERT INTO user_genders VALUES
     'Other'
 );
 
+INSERT INTO user_genders VALUES(
+	null,
+    'Nice'
+);
+
 -- SELECT user gender id
 SELECT user_gender_id FROM user_genders 
 WHERE user_gender_details = 'Male';
+
+-- SELECT * from genders
+SELECT * FROM user_genders
+LIMIT 20;
 
 -- table for phone country code
 CREATE TABLE user_phone_country_code(
@@ -105,6 +117,7 @@ CREATE TABLE users(
     user_name VARCHAR(255),
     user_password_hashed VARCHAR(255),
     user_firstname VARCHAR(100),
+    user_middlename VARCHAR(100),
     user_lastname VARCHAR(100),
     user_address VARCHAR(255),
 	user_birthdate DATE,
@@ -127,17 +140,19 @@ CREATE INDEX idx_user_password ON users(user_password_hashed);
 -- note that 1 user can have 1 unique phone 1 unique email and 1 unique username do it with php error handling
 
 -- INSERT for users
-INSERT INTO users VALUES(
+INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
+user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '9265827342',
-    'hanz.dumapit53@gmail.com',
+    'hanz.dumapit54@gmail.com',
     'Drusha01',
-    '$argon2i$v=19$m=65536,t=4,p=1$YXVYRjN1VlJJdWpnYXRZSA$gC4ppnU/kaAX4NnOUs5riFCokl+qisTbp9GmCaXkO38',
-    'Hanrickson1',
+    '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
+    'Hanrickson',
+    'Etrone',
     'Dumapit',
 	'user address',
     (CURDATE()),
@@ -150,7 +165,7 @@ INSERT INTO users VALUES(
 
 -- insert for users
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-user_name,user_password_hashed,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
@@ -161,6 +176,7 @@ user_name,user_password_hashed,user_firstname,user_lastname,user_address,user_bi
     'Drusha02',
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
+    'Etrone',
     'Dumapit',
 	'user address',
     (CURDATE()),
@@ -183,7 +199,7 @@ WHERE user_name = BINARY 'Drusha01' OR user_email = 'hanz.dumapit54@gmail.com' O
 
 -- select user details
 SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-user_name,user_password_hashed,user_firstname,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id

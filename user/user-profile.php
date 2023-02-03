@@ -138,7 +138,12 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Address</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <?php echo_safe($_SESSION['user_address']) ?>
+                                                <?php if (strlen($_SESSION['user_address']) > 0) {
+                                                  echo_safe($_SESSION['user_address']);
+                                                  
+                                                } else {
+                                                  echo 'No address';
+                                                } ?>
                                             </div>
                                         </div>
                                         <div class="col">
