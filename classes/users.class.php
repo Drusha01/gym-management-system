@@ -132,7 +132,42 @@ Class users{
             return false;
         }
     }
+    
+    function get_user_password_hashed_with_id(){
+        try{
+            $sql = 'SELECT user_password_hashed FROM users 
+            WHERE user_id=:user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $this->user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     // save new password / update sql
+    function change_user_password(){
+        try{
+            $sql = 'UPDATE users
+            SET user_password_hashed =:user_password_hashed
+            WHERE user_id =:user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_password_hashed', $this->user_password_hashed);
+            $query->bindParam(':user_id', $this->user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 
     // check for duplicate
     function user_duplicateAll(){
