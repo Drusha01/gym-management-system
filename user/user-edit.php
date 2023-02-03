@@ -66,15 +66,12 @@ if(isset($_SESSION['user_id'])){
                                         <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                         <!-- Profile picture upload button-->
-<<<<<<< HEAD
                                         <button class="btn btn-primary" type="file">Upload new image</button>
-=======
                                         <button class="btn btn-primary" type="button">Upload new image</button>
                                         <hr>
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                         <!-- Profile picture upload button-->
                                         <button class="btn btn-primary" type="button">Upload ID or Birth Certificate</button>
->>>>>>> f1398d89e637f7b4c249f873d65e56e94c02fc3d
                                     </div>
                                 </div>
                                 
@@ -103,9 +100,7 @@ if(isset($_SESSION['user_id'])){
                                         <h6 class="mb-0">Middle Name</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
-<<<<<<< HEAD
                                         <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
-=======
                                         <input type="text" class="form-control" value="Ignacio">
                                     </div>
                                 </div>
@@ -115,7 +110,6 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <div class="col-sm-10 text-secondary">
                                         <input type="text" class="form-control" value="Trinidad">
->>>>>>> f1398d89e637f7b4c249f873d65e56e94c02fc3d
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -182,13 +176,13 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Current Password</h6>
                                             </div>
                                             <div class="col-sm-4 text-secondary pb-1">
-                                                <input type="password" class="form-control" value="password">
+                                                <input type="password" class="form-control" value="">
                                             </div>
                                             <div class="col-sm-2 align-self-center pb-1"> 
                                                 <h6 class="mb-0">New Password</h6>
                                             </div>
                                             <div class="col-sm-4 text-secondary pb-1">
-                                                <input type="password" class="form-control" value="password">
+                                                <input type="password" class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -196,7 +190,7 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Confirm New Password</h6>
                                             </div>
                                             <div class="col-sm-4 text-secondary pb-1">
-                                                <input type="password" class="form-control" value="password">
+                                                <input type="password" class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -207,12 +201,8 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            
                         </div>
-                       
-                        
                     </div>
                 </div>
             </div>
