@@ -9,8 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/admin.css">
-    <link rel="stylesheet" href="../css/boxicons.min.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/boxicons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://kit.fontawesome.com/30ff5f2a0c.js" crossorigin="anonymous"></script>
@@ -26,7 +26,7 @@
     <header class="navbar navbar-expand-md navbar-dark sticky-top background-color-green-visible shadow-sm py-0">
         <div class="container-fluid p-0 pe-3 pe-md-0">
         <a class="navbar-brand col-md-3 col-lg-3 col-xl-2 me-0 px-3 py-3 background-color-green" href="#">
-            <img class="logo-icon" src="../images/logo.png" alt="">
+            <img class="logo-icon" src="../../images/logo.png" alt="">
             <div class="d-flex flex-column p-2 pt-0 pb-0">
                 <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
                 <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
@@ -54,13 +54,13 @@
                 <div class="position-sticky h-100">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active" title="Dashboard">
+                            <a href="../dashboard.html" class="nav-link" title="Dashboard">
                                 <i class='bx bx-grid-alt' ></i>
                                 <span class="links-name">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="subscription/subscription.html" class="nav-link" title="Screening">
+                            <a href="#" class="nav-link active" title="Screening">
                                 <i class='bx bx-calendar-plus'></i>
                                 <span class="links-name">Subscription</span>
                             </a>
@@ -119,6 +119,42 @@
             </nav>
         </div>
     </div>
+    <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-md-4">
+        <div class="w-100">
+            <h5 class="col-12 fw-bold mb-3">Subscription</h5>
+            <ul class="nav nav-tabs application">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#subscription" data-bs-toggle="tab">Subscription</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#expiration" data-bs-toggle="tab">Expiration</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#offers" data-bs-toggle="tab">Offers</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="subscription" class="active-tab-pane fade in show">
+                    <h1>Subscription</h1>
+                    <h2>test</h2>
+                </div>
+                <div id="expiration" class="tab-pane fade in show">
+                    <h1>Expiration</h1>
+                </div>
+                <div id="offers" class="tab-pane fade in show">
+                    <h1>Offers</h1>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <script>
+        $(".nav-item").on("click", function(){
+            $(".nav-item").removeClass("active");
+            $(this).addClass("active");
+
+        });
+    </script>
 
 </body>
 </html>
