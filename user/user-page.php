@@ -94,39 +94,46 @@ if(isset($_SESSION['user_id'])){
                 <i class='bx bx-dumbbell'></i>
              </div>
              <h4 class="title-sm mt-4">Gym-Use</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>You can use all the equipment that are available in our Gym.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-universal-access'></i>
              </div>
              <h4 class="title-sm mt-4">Trainer</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>You can avail a trainer to help you in your workout.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-cabinet'></i>
              </div>
              <h4 class="title-sm mt-4">Locker</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>Once you availed for a Gym-Subscription. You can avail for a locker to keep your belongings.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-run'></i>
              </div>
              <h4 class="title-sm mt-4">Walk-In</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>Going for a quick workout or just beginning? You can avail for a Walk-In in our Gym.</p>
           </div>
           <div class="col-lg-4 col-sm-6 p-4">
              <div class="icon-box">
               <i class='bx bx-calendar-event'></i>
              </div>
              <h4 class="title-sm mt-4">Programs</h4>
-             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
+             <p>You can avail for a program that are available in our gym. This offer is related to the events of the Gym. It may be Zumba or Cardio Sessions.</p>
           </div>
+          <div class="col-lg-4 col-sm-6 p-4">
+            <div class="icon-box">
+              <i class='bx bx-cart-add'></i>
+            </div>
+            <h4 class="title-sm mt-4">Sell</h4>
+            <p>Our Gym also sells Gym-Stuff Related.</p>
+         </div>
        </div>
     </div>
- </section>
+  </section>
 
 <section id="sell">
   <div class="col-12 section-intro text-white">

@@ -208,7 +208,7 @@ require_once '../classes/users.class.php';
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-  <section class="container">
+  <section class="container p-4">
     <div class="row content d-flex justify-content-center align-items-center">
       <div class="col-md-5">
         <div class="box shadow bg-white rounded">
@@ -220,7 +220,8 @@ require_once '../classes/users.class.php';
             </div>
           </div>
           <a class="text-decoration-none text-black m-0" aria-current="page" href="../index.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
-          <form class="form-signup p-2" method="post" enctype="multipart/form-data">
+          <div class="container">
+            <form class="form-signup p-1" method="post" enctype="multipart/form-data">
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
@@ -235,9 +236,12 @@ require_once '../classes/users.class.php';
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
                     </div>
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name"  oninput="functiononkeyup()"  required>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
                     </div>
                 </div>
+            </div>
+            <div class="form-group py-1">
+                <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" oninput="functiononkeyup()">
             </div>
             <div class="form-group py-1">
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" oninput="functiononkeyup()" required>
@@ -245,27 +249,28 @@ require_once '../classes/users.class.php';
             <div class="form-group py-1">
               <input type="number" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" maxlength="10" required>
             </div>
-            <label>Gender</label>
             <div class="form-group py-1">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" oninput="functionOnchangeGender('Male')" id="Male" value="Male" required >
-                    <label class="form-check-label" for="Male">Male</label>
+              <div class="row">
+                  <div class="col-md-6 py-1">
+                  <label for="exampleFormControlSelect1">Gender</label>
+                    <select class="form-select" id="exampleFormControlSelect1">
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Helicopter</option>
+                    </select>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio"  name="gender" oninput="functionOnchangeGender('Female')" id="Female" value="Female" required>
-                    <label class="form-check-label" for="Female">Female</label>
+                  <div class="col-md-6 py-1">
+                  <label for="exampleFormControlSelect1">Other</label>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Other"  oninput="functiononkeyup()"  required>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio"  name="gender" oninput="functionOnchangeGender('Other')" id="Other" value="Other" required>
-                    <label class="form-check-label" for="Other">Other</label>
-                  </div>
+              </div>
             </div>
             <div class="form-group py-1">
               <label>Birth Date</label>
               <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" required>
             </div>
-            <div class="form-group py-1">
-              <label for="exampleFormControlFile1">Valid ID</label>
+            <div class="form-group py-2">
+              <label for="exampleFormControlFile1">Valid ID or Birth Certificate</label>
               <input type="file" class="form-control-file" id="valid_id" name="valid_id" accept="image/*"  >
             </div>
             <div class="form-group py-1">
@@ -274,11 +279,26 @@ require_once '../classes/users.class.php';
             <div class="form-group py-1">
                 <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" oninput="functiononkeyup()" id="cpassword"required>
             </div>
+            <br>
             <div class="d-grid">
             <button type="submit" class="btn btn-success btn-lg border-0 rounded" onclick="functiononsignup()" id="submit"> Sign-Up</button>
             </div>
             <p class="text-center">Already Have an Account? <a class="text-decoration-none" href="../login/log-in.php">Log-in</a></p>
-          </form>
+        </form>
+
+          </div>
+          
+          <div class="d-flex">
+              <hr class="my-auto flex-grow-1">
+              <div class="px-4">OR</div>
+              <hr class="my-auto flex-grow-1">
+          </div>
+            <div class="sign-up-accounts">
+              <div class="social-accounts d-flex justify-content-center">
+                <a href="#" title="Facebook"><i class='bx bxl-facebook'></i></a>
+                <a href="#" title="Facebook"><i class='bx bxl-google'></i></a>
+              </div>
+            </div>
           
 
         </div>
