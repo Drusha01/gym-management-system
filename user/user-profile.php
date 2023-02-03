@@ -191,9 +191,19 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <hr>
                                     <div class="row px-3 ">
-                                        <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                            <a class="btn btn-primary float-right " href="user-edit.php">MODIFY</a>
+                                      <div class="col">
+                                      <li class="list-group-item d-flex  flex-wrap">
+                                              <a class="btn btn-success float-right " href="#">View Valid ID</a>
                                         </li>
+                                        
+                                      </div>
+                                      <div class="col">
+                                        <li class="list-group-item d-flex flex-row-reverse flex-wrap">
+                                              <a class="btn btn-primary float-right " href="user-edit.php">MODIFY</a>
+                                        </li>
+
+                                      </div>
+                                        
                                     </div>
                                 </div>
                             </div>

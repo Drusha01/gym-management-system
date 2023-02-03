@@ -66,7 +66,15 @@ if(isset($_SESSION['user_id'])){
                                         <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                         <!-- Profile picture upload button-->
+<<<<<<< HEAD
                                         <button class="btn btn-primary" type="file">Upload new image</button>
+=======
+                                        <button class="btn btn-primary" type="button">Upload new image</button>
+                                        <hr>
+                                        <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
+                                        <!-- Profile picture upload button-->
+                                        <button class="btn btn-primary" type="button">Upload ID or Birth Certificate</button>
+>>>>>>> f1398d89e637f7b4c249f873d65e56e94c02fc3d
                                     </div>
                                 </div>
                                 
@@ -92,10 +100,40 @@ if(isset($_SESSION['user_id'])){
                                         <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_firstname'])?>" placeholder="<?php echo_safe($_SESSION['user_firstname'])?>">
                                     </div>
                                     <div class="col-sm-2 align-self-center pb-1"> 
-                                        <h6 class="mb-0">Last Name</h6>
+                                        <h6 class="mb-0">Middle Name</h6>
                                     </div>
                                     <div class="col-sm-4 text-secondary pb-1">
+<<<<<<< HEAD
                                         <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
+=======
+                                        <input type="text" class="form-control" value="Ignacio">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1">
+                                        <h6 class="mb-0">Last Name</h6>
+                                    </div>
+                                    <div class="col-sm-10 text-secondary">
+                                        <input type="text" class="form-control" value="Trinidad">
+>>>>>>> f1398d89e637f7b4c249f873d65e56e94c02fc3d
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Gender</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                    <select class="form-select" id="exampleFormControlSelect1">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Helicopter</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Other</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="text" class="form-control" value="Thomas the Train Engine">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -126,9 +164,7 @@ if(isset($_SESSION['user_id'])){
                                         <input type="text" class="form-control" onfocus="(this.type='date')" value="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>" placeholder="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>"
                                         onblur="(this.type='text')">
                                     </div>
-                                </div>
-                                
-                                
+                                </div>                                
                                 <div class="row">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-3 text-secondary">
@@ -137,6 +173,45 @@ if(isset($_SESSION['user_id'])){
                                 </div>
                             </div>
                         </div>
+                        <div class="row gutters-sm">
+                            <div class="col mt-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-sm-2 align-self-center pb-1"> 
+                                                <h6 class="mb-0">Current Password</h6>
+                                            </div>
+                                            <div class="col-sm-4 text-secondary pb-1">
+                                                <input type="password" class="form-control" value="password">
+                                            </div>
+                                            <div class="col-sm-2 align-self-center pb-1"> 
+                                                <h6 class="mb-0">New Password</h6>
+                                            </div>
+                                            <div class="col-sm-4 text-secondary pb-1">
+                                                <input type="password" class="form-control" value="password">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-2 align-self-center pb-1"> 
+                                                <h6 class="mb-0">Confirm New Password</h6>
+                                            </div>
+                                            <div class="col-sm-4 text-secondary pb-1">
+                                                <input type="password" class="form-control" value="password">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-3 text-secondary">
+                                                <input type="button" class="btn btn-success px-4" value="Change Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                       
                         
                     </div>
                 </div>
