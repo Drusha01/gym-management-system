@@ -1,0 +1,5 @@
+note that username can be created only if the user signs up with google and facebook
+
+email can be logged in only if the user is verified with that email
+
+phone can be logged in only if the user is verified with that phone which we dont have 
