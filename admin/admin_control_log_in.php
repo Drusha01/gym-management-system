@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="row py-2">
-            <h3 class="fw-normal text-center text-dark"> Admin Control Log-In</h3>
+            <h3 class="fw-normal text-center text-dark">Admin Control Log-In</h3>
           </div>
           <form class="mb-3 px-4">
             <div class="form-floating mb-3">
@@ -41,7 +41,7 @@
               <label class="form-check-label">Remember Me</label>
             </div>
             <div class="d-grid gap-2 mb-3">
-              <button type="button" class="btn btn-dark btn-lg border-0 rounded"> <a class="text-decoration-none text-white" href="dashboard.html">Log In</a></button>
+              <button type="button" class="btn btn-dark btn-lg border-0 rounded"> <a class="text-decoration-none text-white" href="dashboard/dashboard.php">Log In</a></button>
             </div>
           </form>
         </div>
