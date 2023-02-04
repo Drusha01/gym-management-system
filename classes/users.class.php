@@ -158,8 +158,7 @@ Class users{
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_password_hashed', $this->user_password_hashed);
             $query->bindParam(':user_id', $this->user_id);
-            if($query->execute()){
-                $data =  $query->fetch();
+            if($data = $query->execute()){
                 return $data;
             }else{
                 return false;

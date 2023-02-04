@@ -111,7 +111,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Middle Name</h6>
                                         </div>
                                         <div class="col-sm-10 text-secondary pb-1">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
+                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_middlename'])?>" placeholder="<?php echo_safe($_SESSION['user_middlename'])?>">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -122,22 +122,41 @@ if(isset($_SESSION['user_id'])){
                                             <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
                                         </div>
                                     </div>
+                                    
                                     <div class="row mb-3">
+                                        
                                         <div class="col-sm-2 align-self-center pb-1"> 
                                             <h6 class="mb-0">Gender</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                        <select class="form-select" id="exampleFormControlSelect1">
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Helicopter</option>
+                                        <select class="form-select" id="gender" name="gender">
+                                            <option value="None" >Select Gender </option>
+                                            <?php 
+                                            require_once '../classes/genders.class.php';
+                                            $genderObj = new genders();
+                                            $data = $genderObj->get_gender_list();
+                                            foreach ($data as $key => $value) {
+                                                echo '<option value="';
+                                                echo_safe($value['user_gender_details']);
+                                                if ($value['user_gender_details'] == $_SESSION['user_gender_details']){
+                                                    echo '" selected >';
+                                                }else{
+                                                    echo '" >';
+                                                }
+                                                
+                                                echo_safe($value['user_gender_details']);
+                                                
+                                    
+                                                echo '</option>';
+                                            }
+                                            ?>
                                         </select>
                                         </div>
                                         <div class="col-sm-2 align-self-center pb-1"> 
-                                            <h6 class="mb-0">Other</h6>
+                                            <h6 class="mb-0">Not in the list?</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="text" class="form-control" value="Thomas the Train Engine">
+                                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"   >
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -151,7 +170,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Phone Number</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="number" class="form-control" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>">
+                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>" maxlength="10">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -188,16 +207,21 @@ if(isset($_SESSION['user_id'])){
                                                     <h6 class="mb-0">Current Password</h6>
                                                 </div>
                                                 <div class="col-sm-4 text-secondary pb-1">
-                                                    <input type="password" class="form-control" value="" id="current_password" name="current_password">
+                                                    <input type="password" class="form-control" value="" id="current_password" name="current_password" onkeyup="function_password_validation('current_password','current_password_error')">
                                                 </div>
-                                                
+                                                <div class="col-sm-4 text-secondary pb-1" id='current_password_error'>
+                                                    
+                                                </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-sm-2 align-self-center pb-1"> 
                                                     <h6 class="mb-0">New Password</h6>
                                                 </div>
                                                 <div class="col-sm-4 text-secondary pb-1">
-                                                    <input type="password" class="form-control" value="" placeholder="" id="new_password" name="new_password">
+                                                    <input type="password" class="form-control" value="" placeholder="" id="new_password" name="new_password" onkeyup="function_password_validation('new_password','new_password_error')">
+                                                </div>
+                                                <div class="col-sm-4 text-secondary pb-1" id='new_password_error'>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -205,7 +229,10 @@ if(isset($_SESSION['user_id'])){
                                                     <h6 class="mb-0">Confirm New Password</h6>
                                                 </div>
                                                 <div class="col-sm-4 text-secondary pb-1">
-                                                    <input type="password" class="form-control" value="" id="confirm_password" name="confirm_password">
+                                                    <input type="password" class="form-control" value="" id="confirm_password" name="confirm_password" onkeyup="function_password_validation('confirm_password','confirm_password_error')">
+                                                </div>
+                                                <div class="col-sm-4 text-secondary pb-1" id='confirm_password_error'>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -262,35 +289,17 @@ $(document).ready(function() {
     });
 });
 
-function savepassword(){
-    // get all password inputs
-    let current_password = $('#current_password').val();
-    let new_password = $('#new_password').val();
-    let confirm_password = $('#confirm_password').val();
-    //console.log(current_password);
-
-    // validate
-    // ajax
-    xhttp.open("POST", "user-edit-savepassword.php", true);
-    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhttp.send("current_password="+current_password+"&new_password="+new_password+"&confirm_password="+confirm_password);
 
 
-}
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Typical action to be performed when the document is ready:
-      console.log(xhttp.responseText);
-      
-      
-      
-      
-    }
-};
+
+
+
+<?php require_once("../js/user-edit-change-password.js");?>
+
 
 function save_profile_info(){
     
 }
+
 
 </script>

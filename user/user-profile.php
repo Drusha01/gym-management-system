@@ -119,7 +119,7 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Full Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <?php echo_safe($_SESSION['user_lastname']. ', '.$_SESSION['user_firstname']) ?>
+                                                <?php echo_safe($_SESSION['user_lastname']. ', '.$_SESSION['user_firstname'].' '.$_SESSION['user_middlename']) ?>
                                             </div>
                                         </div>
                                         <div class="col">

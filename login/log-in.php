@@ -51,6 +51,7 @@ if(isset($_SESSION['user_id'])){
         $_SESSION['user_name'] = $user_details['user_name'];
         $_SESSION['user_password_hashed'] = 'null';
         $_SESSION['user_firstname'] = $user_details['user_firstname'];
+        $_SESSION['user_middlename'] = $user_details['user_middlename'];
 
         $_SESSION['user_lastname'] = $user_details['user_lastname'];
         $_SESSION['user_address'] = $user_details['user_address'];

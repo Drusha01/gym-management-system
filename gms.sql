@@ -72,12 +72,33 @@ INSERT INTO user_genders VALUES
 ),(
 	null,
     'Other'
+),(
+	null,
+    'Transgender'
+),(
+	null,
+    'Gender neutral'
+),(
+	null,
+    'Non-binary'
+),(
+	null,
+    'Agender'
+),(
+	null,
+    'Pangender'
+),(
+	null,
+    'Genderqueer'
+),(
+	null,
+    'Two-spirit'
+),(
+	null,
+    'Third gender'
 );
 
-INSERT INTO user_genders VALUES(
-	null,
-    'Nice'
-);
+
 
 -- SELECT user gender id
 SELECT user_gender_id FROM user_genders 
@@ -108,11 +129,13 @@ WHERE user_phone_contry_code_details ='+63';
 -- table for users 
 CREATE TABLE users(
 	user_id int primary key auto_increment,
-    user_status_id int,
+    user_status_id int ,
     user_type_id int ,
     user_gender_id tinyint,
     user_phone_country_code_id int,
-    user_phone_number VARCHAR(15) ,
+    user_phone_number VARCHAR(15),
+    user_email_verified BOOL DEFAULT NULL,
+    user_phone_verified BOOL NULL,
     user_email VARCHAR(255),
     user_name VARCHAR(255),
     user_password_hashed VARCHAR(255),
@@ -205,6 +228,10 @@ LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
 WHERE user_id = 1;
+
+-- get user password by id
+SELECT user_password_hashed FROM users 
+WHERE user_id=1;
 
 -- change user password
 UPDATE users
