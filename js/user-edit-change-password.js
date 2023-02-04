@@ -29,6 +29,9 @@ xhttp.onreadystatechange = function() {
         alert(xhttp.responseText);
       
         // do something here
+        $('#current_password').val('');
+        $('#new_password').val('');
+        $('#confirm_password').val('');
       
     }
 };
@@ -114,7 +117,7 @@ function function_password_validation(password_id,error_id){
     let new_password = $('#new_password').val();
     let confirm_password = $('#confirm_password').val();
 
-    if(password_id == 'confirm_password' && !validatedPassowrdConfirmPassword(new_password,confirm_password)){
+    if(!validatedPassowrdConfirmPassword(new_password,confirm_password)){
         $('#confirm_password_error').html('Password Password do not match');
         return false;
         

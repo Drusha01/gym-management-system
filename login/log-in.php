@@ -106,7 +106,7 @@ if(isset($_SESSION['user_id'])){
           <form class="mb-3 px-4" method="POST" enctype="multipart/form-data">
             <div class="form-floating mb-3">
               <input type="text" class="form-control rounded" placeholder="Enter email"  id="floatingInput" name="user" required>
-              <label for="floatingInput"><?php if ($error=='Invalid') {echo $error . ' Email / Username / Phone ';} else {echo 'Email / Username / Phone ';}?> </label>
+              <label for="floatingInput"><?php if ($error=='Invalid') {echo $error . ' Email / Username  ';} else {echo 'Email / Username  ';}?> </label>
             </div>
             <div class="form-floating mb-3">
               <input type="password" class="form-control rounded" placeholder="Enter your Password" id="floatingPassword" name="password" required>

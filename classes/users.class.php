@@ -10,6 +10,8 @@ Class users{
     private $user_gender_id;
     private $user_phone_country_code_id;
     private $user_phone_number;
+    private $user_email_verified;
+    private $user_phone_verified;
     private $user_email;
     private $user_name;
     private $user_password_hashed;
@@ -44,6 +46,8 @@ Class users{
     function setuser_gender_id($user_gender_id){$this->user_gender_id = $user_gender_id;}
     function setuser_phone_country_code_id($user_phone_country_code_id){$this->user_phone_country_code_id = $user_phone_country_code_id;}
     function setuser_phone_number($user_phone_number){$this->user_phone_number = $user_phone_number;}
+    function setuser_email_verified($user_email_verified){$this->user_email_verified = $user_email_verified;}
+    function setuser_phone_verified($user_phone_verified){$this->user_phone_verified = $user_phone_verified;}
     function setuser_email($user_email){$this->user_email = $user_email;}
     function setuser_name($user_name){$this->user_name = $user_name;}
     function setuser_password_hashed($user_password_hashed){$this->user_password_hashed = $user_password_hashed;}
@@ -69,6 +73,8 @@ Class users{
     function getuser_gender_id(){return $this->user_gender_id;}
     function getuser_phone_country_code_id(){return $this->user_phone_country_code_id;}
     function getuser_phone_number(){return $this->user_phone_number;}
+    function getuser_email_verified(){return $this->user_email_verified;}
+    function getuser_phone_verified(){return $this->user_phone_verified;}
     function getuser_email(){return $this->user_email;}
     function getuser_name(){return $this->user_name;}
     function getuser_password_hashed(){return $this->user_password_hashed;}
@@ -92,11 +98,10 @@ Class users{
     function login(){
         try{
             $sql = 'SELECT user_id,user_password_hashed FROM users
-            WHERE user_name = BINARY :user_name OR user_email =  :user_email OR user_phone_number = :user_phone_number;';
+            WHERE user_name = BINARY :user_name OR (user_email =  :user_email AND user_email_verified = 1); ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             $query->bindParam(':user_name', $this->user_name);
-            $query->bindParam(':user_phone_number', $this->user_phone_number);
             if($query->execute()){
                 $data =  $query->fetch();
                 return $data;

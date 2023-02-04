@@ -94,7 +94,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Username</h6>
                                         </div>
                                         <div class="col-sm-10 text-secondary">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_name'])?>" placeholder="<?php echo_safe($_SESSION['user_name'])?>">
+                                            <h6 class="mb-0"><?php echo_safe($_SESSION['user_name'])?></h6>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -298,7 +298,8 @@ $(document).ready(function() {
 
 
 function save_profile_info(){
-    
+
+    console.log('profile');
 }
 
 

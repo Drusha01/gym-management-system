@@ -71,13 +71,6 @@ if(isset($_SESSION['user_id'])){
     }else{
       echo $_SESSION['change_password']+$password_change_interval - time() ;
     }
-    
-
-    //
-
-
-
-    $userObj = new Users();
   }else if($_SESSION['user_status_details'] =='inactive'){
     // handle inactive user details
   }else if($_SESSION['user_status_details'] =='deleted'){
