@@ -158,7 +158,7 @@ if(isset($_SESSION['user_id'])){
                                         <input type="text" class="form-control" onfocus="(this.type='date')" value="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>" placeholder="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>"
                                         onblur="(this.type='text')">
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-3 text-secondary">

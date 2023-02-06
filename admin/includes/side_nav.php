@@ -10,6 +10,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="../offers/offer.php" class="nav-link" title="Programs">
+                                <i class='bx bxs-offer'></i>
+                                <span class="links-name">Offers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="../avail/avail.php" class="nav-link" title="Screening">
                                 <i class='bx bx-calendar-plus'></i>
                                 <span class="links-name">Avail</span>
@@ -19,12 +25,6 @@
                             <a href="#" class="nav-link" title="Programs">
                                 <i class='bx bx-walk' ></i>
                                 <span class="links-name">Walk-In</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" title="Faculty">
-                                <i class='bx bx-universal-access'></i>
-                                <span class="links-name">Trainer</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -69,3 +69,10 @@
             </nav>
         </div>
 </div>
+<script>
+        $(".nav-item").on("click", function(){
+            $(".nav-item").removeClass("active");
+            $(this).addClass("active");
+
+        });
+    </script>
