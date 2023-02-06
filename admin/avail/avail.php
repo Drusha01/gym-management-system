@@ -25,7 +25,7 @@
 <body>
 <?php require_once '../includes/header.php';?>
 <?php require_once '../includes/side_nav.php';?>
-    <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-md-4">
+    <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
         <div class="w-100">
             <h5 class="col-12 fw-bold mb-3">Avail</h5>
             <ul class="nav nav-tabs application">
@@ -46,7 +46,7 @@
                 <div class="tab-pane active show fade" id="tab-subs">
                     <div class="container">
                         <div class="row g-2 mb-2 mt-1">
-                            <div class="col-12 col-sm-3 form-group table-filter-option">
+                            <div class="col-12 col-sm-3 col-xs-12 form-group table-filter-option">
                                 <label>Type</label>
                                 <select name="sub_type" id="sub_type" class="form-select ms-md-2">
                                     <option value="">Gym-Use Subsciption</option>
@@ -71,7 +71,7 @@
                                     <option value="">Recent</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-3 d-grid form-group table-filter-option">
+                            <div class="col-12 col-sm-3 d-grid form-group table-filter-option h-50">
                                 <button class="btn btn-success">Add Subscription</button>
                             </div>
                         </div>
