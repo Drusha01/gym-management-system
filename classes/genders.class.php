@@ -39,12 +39,9 @@ class genders
             );';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':new_gender', $new_gender);
-            if($query->execute()){
-                $data =  $query->fetch();
-                return $data;
-            }else{
-                return false;
-            }
+            return $query->execute();
+               
+           
         }catch (PDOException $e){
             return false;
         }

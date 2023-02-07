@@ -9,7 +9,6 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
-      header('location:../admin/admin-profile.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // go to user-page
       header('location:user/user-page.php');

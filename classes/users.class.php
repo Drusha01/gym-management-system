@@ -18,7 +18,7 @@ Class users{
     private $user_firstname;
     private $user_middlename;
     private $user_lastname;
-    private $user_user_address;
+    private $user_address;
     private $user_birthdate;
     private $user_valid_id_photo;
     private $user_profile_picture;
@@ -54,7 +54,7 @@ Class users{
     function setuser_firstname($user_firstname){$this->user_firstname = $user_firstname;}
     function setuser_lastname($user_lastname){$this->user_lastname = $user_lastname;}
     function setuser_middlename($user_middlename){$this->user_middlename = $user_middlename;}
-    function setuser_user_address($user_user_address){$this->user_user_address = $user_user_address;}
+    function setuser_address($user_address){$this->user_address = $user_address;}
     function setuser_birthdate($user_birthdate){$this->user_birthdate = $user_birthdate;}
     function setuser_valid_id_photo($user_valid_id_photo){$this->user_valid_id_photo = $user_valid_id_photo;}
     function setuser_profile_picture($user_profile_picture){$this->user_profile_picture = $user_profile_picture;}
@@ -81,7 +81,7 @@ Class users{
     function getuser_firstname(){return $this->user_firstname;}
     function getuser_middlename(){return $this->user_middlename;}
     function getuser_lastname(){return $this->user_lastname;}
-    function getuser_user_address(){return $this->user_user_address;}
+    function getuser_address(){return $this->user_address;}
     function getuser_birthdate(){return $this->user_birthdate;}
     function getuser_valid_id_photo(){return $this->user_valid_id_photo;}
     function getuser_profile_picture(){return $this->user_profile_picture;}
@@ -119,7 +119,7 @@ Class users{
     function get_user_details(){
         try{
             $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-            user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            user_name,user_firstname,user_address,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
             LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
@@ -313,7 +313,39 @@ Class users{
         }
     }
     // user update  / update sql
+    function profile_update(){
+        try{
+            $sql = 'UPDATE  users
+            SET 
+            user_firstname = :user_firstname,
+            user_middlename = :user_middlename,
+            user_lastname = :user_lastname,
+            user_gender_id = (SELECT user_gender_id FROM user_genders WHERE user_gender_details = :user_gender_details),
+            user_email = :user_email,
+            user_phone_number = :user_phone_number,
+            user_address = :user_address,
+            user_birthdate = :user_birthdate
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
 
+            $query->bindParam(':user_firstname', $this->user_firstname);
+            $query->bindParam(':user_middlename', $this->user_middlename);
+            $query->bindParam(':user_lastname', $this->user_lastname);
+            $query->bindParam(':user_gender_details', $this->user_gender_details);
+            $query->bindParam(':user_email', $this->user_email);
+
+            $query->bindParam(':user_phone_number', $this->user_phone_number);
+            $query->bindParam(':user_address', $this->user_address);
+            $query->bindParam(':user_birthdate', $this->user_birthdate);
+            $query->bindParam(':user_id', $this->user_id);
+
+            return $query->execute();
+            
+           
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 
 
    

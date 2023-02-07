@@ -167,7 +167,7 @@ INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone
 user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
-    (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'admin'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '9265827342',
@@ -211,6 +211,29 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 );
 
 -- insert for users
+INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
+user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+	null,
+    (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
+    (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+    (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
+    '9265827345',
+    'hanz.dumapit56@gmail.com',
+    'Drusha03',
+    '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
+    'Hanrickson',
+    'Etrone',
+    'Dumapit',
+	'user address',
+    (CURDATE()),
+    'valid_photo.jpg',
+    'default.png',
+    now(),
+	now()
+    
+);
+
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
 user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
@@ -278,6 +301,19 @@ user_birthdate = CURDATE(),
 user_valid_id_photo = 'something valid id',
 user_profile_picture ='default.png'
 WHERE user_id = 1;
+
+UPDATE  users
+SET 
+user_firstname ='Cammy',
+user_middlename ='Tipamood',
+user_lastname = 'Drusha',
+user_gender_id = (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+user_email = 'hanz.dumapit69@gmail.com',
+user_phone_number = '6969696969',
+user_address = 'malagutay',
+user_birthdate = CURDATE()
+WHERE user_id = 1;
+
 
         
         
