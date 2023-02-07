@@ -54,7 +54,7 @@
                                     <option value="">Recent</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-3 d-grid d-lg-grid form-group h-50">
+                            <div class="col-12 col-sm-3 d-grid d-lg-flex justify-content-lg-end form-group h-50">
                                 <a href="addoffer.php" class="btn btn-success" role="button">Add Offer</a>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                     <td class="text-center">30</td>
                                     <td class="text-center">None</td>
                                     <td class="text-center">₱800.00</td>
-                                    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
                                     </tr>
                                     <tr>
                                     <th scope="row" class="text-center">2</th>
@@ -87,7 +87,7 @@
                                     <td class="text-center">90</td>
                                     <td class="text-center">None</td>
                                     <td class="text-center">₱2100.00</td>
-                                    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
                                     </tr>
                                     <tr>
                                     <th scope="row" class="text-center">3</th>
@@ -96,7 +96,7 @@
                                     <td class="text-center">30</td>
                                     <td class="text-center">None</td>
                                     <td class="text-center">₱750.00</td>
-                                    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
                                     </tr>
                                     <tr>
                                     <th scope="row" class="text-center">4</th>
@@ -105,10 +105,48 @@
                                     <td class="text-center">30</td>
                                     <td class="text-center">None</td>
                                     <td class="text-center">₱100.00</td>
-                                    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row" class="text-center">5</th>
+                                    <td class="col-sm-3">1-Month Locker</td>
+                                    <td class="text-center">None</td>
+                                    <td class="text-center">30</td>
+                                    <td class="text-center">None</td>
+                                    <td class="text-center">₱100.00</td>
+                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row" class="text-center">6</th>
+                                    <td class="col-sm-3">1-Month Locker</td>
+                                    <td class="text-center">None</td>
+                                    <td class="text-center">30</td>
+                                    <td class="text-center">None</td>
+                                    <td class="text-center">₱100.00</td>
+                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <br>
+                            <div class="dataTables_paginate paging_simple_numbers" id="table-pending_paginate">
+                                <ul class="pagination justify-content-center justify-content-lg-end">
+                                    <li class="paginate_button page-item previous disabled" id="table-pending_previous">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="0" tabindex="0" class="page-link">2</a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="0" tabindex="0" class="page-link">3</a>
+                                    </li>
+                                    <li class="paginate_button page-item next disabled" id="table-pending_next">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
                 </div>
         </div>
 

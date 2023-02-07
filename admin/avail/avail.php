@@ -68,7 +68,7 @@
                                     <option value="">Recent</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-2 d-grid d-lg-grid form-group h-50">
+                            <div class="col-12 col-sm-2 d-grid d-lg-flex justify-content-lg-end form-group h-50">
                                 <button class="btn btn-success">Add Subscription</button>
                             </div>
                         </div>
