@@ -500,18 +500,6 @@ main#home{
     padding-top: 0;
 }
 
-div.card{
-    border: 1px solid lightgray;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-div.card.active {
-    -webkit-box-shadow: 0 0 40px #A73535;
-       -moz-box-shadow: 0 0 40px #A73535;
-            box-shadow: 0 0 40px #A73535;
-}
-
 div.sign-up{
     max-width: 500px;
     padding-top: 1.5rem;
@@ -530,15 +518,6 @@ div.sign-in{
     font-size: 2rem;
 }
 
-div.card-hover{
-    border: 1px solid #A73535;
-    background-color: #F2F7F2;
-}
-
-div.card:hover{
-    border: 1px solid #A73535;
-    background-color: #F2F7F2;
-}
 
 a.link-here{
     text-decoration: none;
@@ -712,11 +691,7 @@ hr.line{
     background-color: #A73535;
 }
 
-.card.profile {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-}
+
 
 .bxs-check-circle{
     font-size: 2rem;
@@ -730,34 +705,9 @@ hr.line{
     color: #333;
 }
 
-.profile-menu .card, .profile-screen .card-profile{
-    border-radius: 4px;
-}
 
-.card-profile{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid lightgray;
-    border-radius: .25rem;
-}
 
-.card-profile{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-}
 
-.card-profile img{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
 
 .custom-file-input::-webkit-file-upload-button {
     display: none;
@@ -821,12 +771,7 @@ input.upload-photo{
     a.btn-continue{
         max-width: 300px;
     }
-    .card-container{
-        margin-top: 25px;
-        max-width: 550px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+
 
     .btn-continue{
         border-radius: 20px;

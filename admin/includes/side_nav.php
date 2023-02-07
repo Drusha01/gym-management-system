@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid overflow-auto">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-3 col-xl-2 d-md-block background-color-green sidebar collapse">
                 <div class="position-sticky h-100">
@@ -19,12 +19,6 @@
                             <a href="../avail/avail.php" class="nav-link" title="Screening">
                                 <i class='bx bx-calendar-plus'></i>
                                 <span class="links-name">Avail</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" title="Programs">
-                                <i class='bx bx-walk' ></i>
-                                <span class="links-name">Walk-In</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -69,10 +63,3 @@
             </nav>
         </div>
 </div>
-<script>
-        $(".nav-item").on("click", function(){
-            $(".nav-item").removeClass("active");
-            $(this).addClass("active");
-
-        });
-    </script>
