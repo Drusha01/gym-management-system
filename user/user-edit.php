@@ -196,6 +196,63 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                 </form>
+                                    <div class="col-sm-10 text-secondary">
+                                        <input type="text" class="form-control" value="Trinidad">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Gender</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                    <select class="form-select" id="exampleFormControlSelect1">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Helicopter</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Other</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="text" class="form-control" value="Thomas the Train Engine">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="email" class="form-control" value="<?php echo_safe($_SESSION['user_email'])?>" placeholder="<?php echo_safe($_SESSION['user_email'])?>">
+                                    </div>
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Phone Number</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="number" class="form-control" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Address</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_address'])?>" placeholder="<?php echo_safe($_SESSION['user_address'])?>">
+                                    </div>
+                                    <div class="col-sm-2 align-self-center pb-1"> 
+                                        <h6 class="mb-0">Birth Date</h6>
+                                    </div>
+                                    <div class="col-sm-4 text-secondary pb-1">
+                                        <input type="text" class="form-control" onfocus="(this.type='date')" value="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>" placeholder="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>"
+                                        onblur="(this.type='text')">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-3 text-secondary">
+                                        <input type="button" class="btn btn-success px-4" value="Save Changes">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row gutters-sm">

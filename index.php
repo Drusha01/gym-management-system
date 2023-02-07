@@ -195,7 +195,7 @@ if(isset($_SESSION['user_id'])){
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img src="images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
@@ -208,7 +208,7 @@ if(isset($_SESSION['user_id'])){
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img src="images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
@@ -221,7 +221,7 @@ if(isset($_SESSION['user_id'])){
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img src="images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
