@@ -19,6 +19,7 @@ class genders
     function get_gender_list(){
         try{
             $sql = 'SELECT * FROM user_genders
+            ORDER BY user_gender_id 
             LIMIT 20;';
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){

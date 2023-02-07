@@ -106,6 +106,7 @@ WHERE user_gender_details = 'Male';
 
 -- SELECT * from genders
 SELECT * FROM user_genders
+ORDER BY user_gender_id 
 LIMIT 20;
 
 -- table for phone country code
