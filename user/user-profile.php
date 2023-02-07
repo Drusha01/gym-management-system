@@ -43,6 +43,8 @@ if(isset($_SESSION['user_id'])){
     crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/boxicons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="magnific-popup/jquery.magnific-popup.js"></script>
 
 </head>
 <body>
@@ -198,7 +200,7 @@ if(isset($_SESSION['user_id'])){
                                     <div class="row px-3 ">
                                       <div class="col">
                                       <li class="list-group-item d-flex  flex-wrap">
-                                              <a class="btn btn-success float-right " href="#">View Valid ID</a>
+                                              <a class="btn btn-success float-right" id="view-valid-id" href="../img/valid-id/<?php echo_safe($_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
                                         </li>
                                         
                                       </div>
@@ -298,3 +300,15 @@ if(isset($_SESSION['user_id'])){
      crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+<script>
+
+// $(document).ready(function() {
+//   $('.btn btn-success float-right').magnificPopup({type:'image'});
+// });
+
+$(document).ready(function() {
+  $('#view-valid-id').magnificPopup({type:'image'});
+});
+</script>

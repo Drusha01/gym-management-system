@@ -56,7 +56,7 @@ require_once '../classes/genders.class.php';
       $userObj->setuser_name($_POST['username']);
       $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
       $userObj->setuser_firstname($_POST['fname']);
-      $userObj->setuser_firstname($_POST['mname']);
+      $userObj->setuser_middlename($_POST['mname']);
       $userObj->setuser_lastname($_POST['lname']);
       $userObj->setuser_birthdate($_POST['birthdate']);
       
@@ -298,7 +298,7 @@ require_once '../classes/genders.class.php';
             </div>
             <div class="form-group py-1">
               <label>Birth Date</label>
-              <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" required>
+              <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" value="2018-07-22" required>
             </div>
             <div class="form-group py-2">
               <label for="exampleFormControlFile1">Valid ID or Birth Certificate</label>

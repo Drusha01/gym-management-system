@@ -13,7 +13,7 @@ if(isset($_SESSION['user_id'])){
   if($_SESSION['user_status_details'] =='active'){
     // validate password
     
-    // only allow to change password 10 seconds at a time
+    // only allow to change password password_change_interval at a time
     if(!isset($_SESSION['change_password'])){
       $_SESSION['change_password'] = time();
       // get password

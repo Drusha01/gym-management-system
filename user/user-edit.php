@@ -94,7 +94,8 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Username</h6>
                                         </div>
                                         <div class="col-sm-10 text-secondary">
-                                            <h6 class="mb-0"><?php echo_safe($_SESSION['user_name'])?></h6>
+                                            <h6 class="mb-0" ><?php echo_safe($_SESSION['user_name'])?></h6>
+                                            <input type="text" style="visibility:hidden;" name="username" id="username" value="<?php echo_safe($_SESSION['user_id'])?>">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -102,7 +103,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">First Name</h6>
                                         </div>
                                         <div class="col-sm-10 text-secondary">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_firstname'])?>" placeholder="<?php echo_safe($_SESSION['user_firstname'])?>">
+                                            <input type="text" class="form-control" name="fname" id="fname" value="<?php echo_safe($_SESSION['user_firstname'])?>" placeholder="<?php echo_safe($_SESSION['user_firstname'])?>">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -111,7 +112,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Middle Name</h6>
                                         </div>
                                         <div class="col-sm-10 text-secondary pb-1">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_middlename'])?>" placeholder="<?php echo_safe($_SESSION['user_middlename'])?>">
+                                            <input type="text" class="form-control" name="mname" id="mname" value="<?php echo_safe($_SESSION['user_middlename'])?>" placeholder="<?php echo_safe($_SESSION['user_middlename'])?>">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -119,7 +120,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Last Name</h6>
                                         </div>
                                         <div class="col-sm-10 text-secondary">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
+                                            <input type="text" class="form-control" name="fname" id="fname" value="<?php echo_safe($_SESSION['user_lastname'])?>" placeholder="<?php echo_safe($_SESSION['user_lastname'])?>">
                                         </div>
                                     </div>
                                     
@@ -156,7 +157,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Not in the list?</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"   >
+                                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -164,13 +165,13 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="email" class="form-control" value="<?php echo_safe($_SESSION['user_email'])?>" placeholder="<?php echo_safe($_SESSION['user_email'])?>">
+                                            <input type="email" class="form-control" name="email" id="email" value="<?php echo_safe($_SESSION['user_email'])?>" placeholder="<?php echo_safe($_SESSION['user_email'])?>">
                                         </div>
                                         <div class="col-sm-2 align-self-center pb-1"> 
                                             <h6 class="mb-0">Phone Number</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>" maxlength="10">
+                                            <input type="text" class="form-control" name="phone" id="phone" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>" maxlength="10">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -178,13 +179,13 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Address</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="text" class="form-control" value="<?php echo_safe($_SESSION['user_address'])?>" placeholder="<?php echo_safe($_SESSION['user_address'])?>">
+                                            <input type="text" class="form-control" name="address" id="address" value="<?php echo_safe($_SESSION['user_address'])?>" placeholder="<?php echo_safe($_SESSION['user_address'])?>">
                                         </div>
                                         <div class="col-sm-2 align-self-center pb-1"> 
                                             <h6 class="mb-0">Birth Date</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="text" class="form-control" onfocus="(this.type='date')" value="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>" placeholder="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>"
+                                            <input type="text" class="form-control" onfocus="(this.type='date')" name="birthdate" id="birthdate" value="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>" placeholder="<?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>"
                                             onblur="(this.type='text')">
                                         </div>
                                     </div>                                
@@ -300,7 +301,28 @@ $(document).ready(function() {
 function save_profile_info(){
 
     console.log('profile');
-}
+    // ajax here
+    // get all info
 
+
+
+    xhttp_save_profile.open("POST", "user-edit-ajax-save-profile.php", true);
+    xhttp_save_profile.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp_save_profile.send("user_id="+$('#username').val()+"&fname="+$('#fname').val()+"&mname="+$('#mname').val()+"&lname="
+    +$('#lname').val()+"&gender="+$('#gender').val()+"&gender_other="+$('#gender_other').val()+"&email="+$('#email').val()+"&phone="+$('#phone').val()+"&address="+$('#address').val()+"&birthdate="+$('#birthdate').val());
+    
+}
+var xhttp_save_profile = new XMLHttpRequest();
+
+xhttp_save_profile.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // Typical action to be performed when the document is ready:
+
+        console.log(xhttp_save_profile.responseText);
+      
+     
+      
+    }
+};
 
 </script>
