@@ -25,15 +25,7 @@ function validate_phone($POST,$phone){
 
 function validate_gender($POST,$gender){
     // check if the gender is in the array
-    if (isset($POST[$gender])) {
-        $gender_array = array('Male', 'Female', 'Other');
-        foreach ($gender_array as $value) {
-            if ($value == $POST[$gender]) {
-                return true;
-            }
-        }
-        return false;
-    }
+    return (isset($POST[$gender]) && $POST[$gender]!='None');
 }
 
 function validate_birthdate($POST,$birthdate){
@@ -62,8 +54,8 @@ function validate_password_same($POST,$password,$cpassword){
 }
 
 function validate_signup($POST){
-    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname') && validate_email($POST) && 
-    validate_phone($POST, 'phone') && validate_gender($POST,'gender') && validate_birthdate($POST,'birthdate') && validate_password_same($POST,'password','cpassword') && validate_password($POST,'password') ); 
+    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname')&& validate_string($POST, 'mname') && validate_email($POST) && 
+    validate_phone($POST, 'phone') && validate_birthdate($POST,'birthdate') && validate_password_same($POST,'password','cpassword') && validate_password($POST,'password') ); 
     
   
 }
@@ -141,5 +133,10 @@ function echo_safe($string){
 
 function getAge($date) {
     return intval(date('Y', time() - strtotime($date))) - 1970;
+}
+
+function validate_profile_info($POST){
+    return validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate');
+
 }
 ?>

@@ -10,10 +10,13 @@ Class users{
     private $user_gender_id;
     private $user_phone_country_code_id;
     private $user_phone_number;
+    private $user_email_verified;
+    private $user_phone_verified;
     private $user_email;
     private $user_name;
     private $user_password_hashed;
     private $user_firstname;
+    private $user_middlename;
     private $user_lastname;
     private $user_user_address;
     private $user_birthdate;
@@ -43,11 +46,14 @@ Class users{
     function setuser_gender_id($user_gender_id){$this->user_gender_id = $user_gender_id;}
     function setuser_phone_country_code_id($user_phone_country_code_id){$this->user_phone_country_code_id = $user_phone_country_code_id;}
     function setuser_phone_number($user_phone_number){$this->user_phone_number = $user_phone_number;}
+    function setuser_email_verified($user_email_verified){$this->user_email_verified = $user_email_verified;}
+    function setuser_phone_verified($user_phone_verified){$this->user_phone_verified = $user_phone_verified;}
     function setuser_email($user_email){$this->user_email = $user_email;}
     function setuser_name($user_name){$this->user_name = $user_name;}
     function setuser_password_hashed($user_password_hashed){$this->user_password_hashed = $user_password_hashed;}
     function setuser_firstname($user_firstname){$this->user_firstname = $user_firstname;}
     function setuser_lastname($user_lastname){$this->user_lastname = $user_lastname;}
+    function setuser_middlename($user_middlename){$this->user_middlename = $user_middlename;}
     function setuser_user_address($user_user_address){$this->user_user_address = $user_user_address;}
     function setuser_birthdate($user_birthdate){$this->user_birthdate = $user_birthdate;}
     function setuser_valid_id_photo($user_valid_id_photo){$this->user_valid_id_photo = $user_valid_id_photo;}
@@ -67,10 +73,13 @@ Class users{
     function getuser_gender_id(){return $this->user_gender_id;}
     function getuser_phone_country_code_id(){return $this->user_phone_country_code_id;}
     function getuser_phone_number(){return $this->user_phone_number;}
+    function getuser_email_verified(){return $this->user_email_verified;}
+    function getuser_phone_verified(){return $this->user_phone_verified;}
     function getuser_email(){return $this->user_email;}
     function getuser_name(){return $this->user_name;}
     function getuser_password_hashed(){return $this->user_password_hashed;}
     function getuser_firstname(){return $this->user_firstname;}
+    function getuser_middlename(){return $this->user_middlename;}
     function getuser_lastname(){return $this->user_lastname;}
     function getuser_user_address(){return $this->user_user_address;}
     function getuser_birthdate(){return $this->user_birthdate;}
@@ -89,11 +98,10 @@ Class users{
     function login(){
         try{
             $sql = 'SELECT user_id,user_password_hashed FROM users
-            WHERE user_name = BINARY :user_name OR user_email =  :user_email OR user_phone_number = :user_phone_number;';
+            WHERE user_name = BINARY :user_name OR (user_email =  :user_email AND user_email_verified = 1); ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             $query->bindParam(':user_name', $this->user_name);
-            $query->bindParam(':user_phone_number', $this->user_phone_number);
             if($query->execute()){
                 $data =  $query->fetch();
                 return $data;
@@ -111,7 +119,7 @@ Class users{
     function get_user_details(){
         try{
             $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-            user_name,user_firstname,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
             LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
@@ -129,7 +137,41 @@ Class users{
             return false;
         }
     }
+    
+    function get_user_password_hashed_with_id(){
+        try{
+            $sql = 'SELECT user_password_hashed FROM users 
+            WHERE user_id=:user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $this->user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     // save new password / update sql
+    function change_user_password(){
+        try{
+            $sql = 'UPDATE users
+            SET user_password_hashed =:user_password_hashed
+            WHERE user_id =:user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_password_hashed', $this->user_password_hashed);
+            $query->bindParam(':user_id', $this->user_id);
+            if($data = $query->execute()){
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 
     // check for duplicate
     function user_duplicateAll(){
@@ -223,7 +265,8 @@ Class users{
         // note that this assumes that the photos that is uploaded is already in the file system
         
         try {
-            $sql = 'INSERT INTO users VALUES(
+            $sql = 'INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
+            user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
                 null,
                 (SELECT user_status_id FROM user_status WHERE user_status_details = :user_status_details),
                 (SELECT user_type_id FROM user_types WHERE user_type_details = :user_type_details),
@@ -234,6 +277,7 @@ Class users{
                 :user_name,
                 :user_password_hashed,
                 :user_firstname,
+                :user_middlename,
                 :user_lastname,
                 null,
                 :user_birthdate,
@@ -255,9 +299,10 @@ Class users{
             $query->bindParam(':user_name', $this->user_name);
             $query->bindParam(':user_password_hashed', $this->user_password_hashed);
             $query->bindParam(':user_firstname', $this->user_firstname);
+
+            $query->bindParam(':user_middlename', $this->user_middlename);
             $query->bindParam(':user_lastname', $this->user_lastname);
             $query->bindParam(':user_birthdate', $this->user_birthdate);
-
             $query->bindParam(':user_valid_id_photo', $this->user_valid_id_photo);
             $query->bindParam(':user_profile_picture', $this->user_profile_picture);
             $data = $query->execute();

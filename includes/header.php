@@ -48,7 +48,11 @@
                       <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bx-user-circle fs-1'></i>
+                                <?php if (isset($_SESSION['user_id'])) {
+                                  echo '<img src="../img/profile-thumbnail/'.$_SESSION['user_profile_picture'].'" alt="" width="40" height="40" class="rounded-circle">';
+                                } else {
+                                  echo '<i class="bx bx-user-circle fs-1"></i>';
+                                }?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                               <li><a class="dropdown-item" href="../user/user-profile.php">My Account</a></li>
