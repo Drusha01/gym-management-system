@@ -20,7 +20,7 @@ function validate_username($POST,$username){
 }
 function validate_phone($POST,$phone){
     // do this
-    return (isset($POST[$phone]));
+    return (isset($POST[$phone]) && strlen($POST[$phone] == 10)&& (intval($POST[$phone])));
 }
 
 function validate_gender($POST,$gender){
