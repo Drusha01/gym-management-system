@@ -347,7 +347,34 @@ Class users{
         }
     }
 
-
+    function update_valid_id(){
+        try{
+            $sql = 'UPDATE users
+            SET user_valid_id_photo = :user_valid_id_photo
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_valid_id_photo', $this->user_valid_id_photo);
+            $query->bindParam(':user_id', $this->user_id);
+            return $query->execute();
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function update_profile_pic(){
+        try{
+            $sql = 'UPDATE users
+            SET user_profile_picture = :user_profile_picture
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_profile_picture', $this->user_profile_picture);
+            $query->bindParam(':user_id', $this->user_id);
+            return $query->execute();
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
    
 }
 

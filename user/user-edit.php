@@ -61,10 +61,10 @@ if(isset($_SESSION['user_id'])){
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle p-1 bg-danger" width="110">
+                                    <a id="ahref" href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img id="profile-src" src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle p-1 bg-danger" width="110"></a>
                                     <div class="mt-3">
                                         <h4><?php echo_safe($_SESSION['user_name'])?></h4>
-                                        <form action="user-edit-picture.php" method="POST" enctype="multipart/form-data">
+                                        <form action="user-edit-ajax-picture.php" method="POST" enctype="multipart/form-data">
                                             <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                             <!-- Profile picture upload button-->
                                             <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" style="visibility: hidden;" >
@@ -76,7 +76,7 @@ if(isset($_SESSION['user_id'])){
                                             <button class="btn btn-primary" id="valid_id_button" type="button" onclick="$('#valid_id').click();">Upload ID or Birth Certificate</button>
                                             <br>
                                             <br> 
-                                            <input type="submit" name="submit"class="btn btn-success px-4" value="Save Changes" >
+                                            <input type="button" name="submit"class="btn btn-success px-4" onclick="save_pictures()" value="Save Changes" >
                                         </form>
                                     </div>
                                 </div>
@@ -336,4 +336,45 @@ xhttp_save_profile.onreadystatechange = function() {
     }
 };
 
+var xhttp_save_profile_pictures = new XMLHttpRequest();
+function save_pictures(){
+    var formData = new FormData();
+    formData.append("profilepic", document.getElementById("profilepic").files[0]);
+    formData.append("valid_id", document.getElementById("valid_id").files[0]);
+    
+
+    
+    xhttp_save_profile_pictures.open("POST", "user-edit-ajax-picture.php");
+    xhttp_save_profile_pictures.send(formData);
+}
+xhttp_save_profile_pictures.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var res = JSON.parse(xhttp_save_profile_pictures.responseText);
+        var str = '';
+        if(res['profile_picture'] == 'saved' || res['valid_id'] == 'saved'){
+            if(res['profile_picture'] == 'saved'){
+                str = str.concat('profile picture saved \n');
+                // remove the picture in input
+                // update the picture in profile
+                document.getElementById("profilepic").value = null;
+                $('#profilebutton').html('Upload new image');
+                $('#ahref').attr("src", "../img/profile/"+res['profile_picture_src']);
+                $('#profile-src').attr("src", "../img/profile-resize/"+res['profile_picture_src']);
+                $('#profile-thumbnail-src').attr("src", "../img/profile-thumbnail/"+res['profile_picture_src']);
+                console.log('saved');
+            }
+            if(res['valid_id'] == 'saved'){
+                str =str.concat('valid id saved\n');
+                // remove the picture in input
+                document.getElementById("valid_id").value = null;
+                $('#valid_id_button').html('Upload ID or Birth Certificate');
+            }
+            alert(str);
+        }else{
+            // 
+            alert('No pictures saved');
+        }
+        
+    }
+}
 </script>
