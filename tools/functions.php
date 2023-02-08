@@ -134,4 +134,9 @@ function echo_safe($string){
 function getAge($date) {
     return intval(date('Y', time() - strtotime($date))) - 1970;
 }
+
+function validate_profile_info($POST){
+    return validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate');
+
+}
 ?>
