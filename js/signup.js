@@ -33,7 +33,7 @@ function functiononkeyup() {
     }
   }
   if(validateallvar){
-    setInterval(validateAll, 1000);
+    setInterval(validateAll, 500);
     validateallvar=false;
   }
   
@@ -126,6 +126,8 @@ xhttp.onreadystatechange = function() {
       if(xhttp.responseText==1){
         // make the username green if valid
         $("#username").css("color","green");
+        $('#submit').html('Sign-up');
+        console.log('username valid');
         let email = $('#email').val();
         if(ValidateEmail(email)){
           // check if it is a valid email
@@ -134,6 +136,15 @@ xhttp.onreadystatechange = function() {
           xhttpEmail.open("POST", "../ajax/user/emailcheck.php", true);
           xhttpEmail.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
           xhttpEmail.send("email="+email);
+        }else{
+          let phone = $('#phone').val();
+          if(phone.length==10){
+            // ajax here
+            console.log('ajax');
+            xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
+            xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttpPhone.send("phone="+phone);
+          }
         }
       }else{
         // make the username red if not valid
@@ -156,14 +167,18 @@ xhttpEmail.onreadystatechange = function() {
     // Typical action to be performed when the document is ready:
     //console.log(xhttpEmail.responseText);
     if(xhttpEmail.responseText==1){
-      // make the username green if valid
+      // make the signup green if valid
       $("#email").css("color","green");
-    let phone = $('#phone').val();
-      // ajax here
-      console.log('ajax');
-      xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
-      xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhttpPhone.send("phone="+phone);
+      $('#submit').html('Sign-up');
+      console.log('email valid');
+      let phone = $('#phone').val();
+      if(phone.length==10){
+        // ajax here
+        console.log('ajax');
+        xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
+        xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttpPhone.send("phone="+phone);
+      }
       
     }else{
       // make the username red if not valid
@@ -190,7 +205,20 @@ xhttpPhone.onreadystatechange = function() {
         //console.log('tick');
         // console.log('nice');
         $("#phone").css("color","green");
-        let firstname = $('#fname').val().length;
+        $('#submit').html('Sign-up');
+        console.log('phone valid');
+        
+      }else{
+        // make the username red if not valid
+        
+        // change the sign up
+        $('#submit').html('Phone taken');
+        $("#phone").css("color","red");
+        $("#submit").attr("disabled", true);
+        return;
+      }
+
+      let firstname = $('#fname').val().length;
         let lastname = $('#lname').val().length;
         let birthdate = $('#birthdate').val();
         let password = $('#password').val();
@@ -275,15 +303,6 @@ xhttpPhone.onreadystatechange = function() {
           $("#submit").attr("value",'Sign-Up');
           //document.getElementById("submit").disabled = false; 
         }
-      }else{
-        // make the username red if not valid
-        
-        // change the sign up
-        $('#submit').html('Phone taken');
-        $("#phone").css("color","red");
-        $("#submit").attr("disabled", true);
-        return;
-      }
       
       
     }
