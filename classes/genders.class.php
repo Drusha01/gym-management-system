@@ -19,6 +19,7 @@ class genders
     function get_gender_list(){
         try{
             $sql = 'SELECT * FROM user_genders
+            ORDER BY user_gender_id 
             LIMIT 20;';
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){
@@ -39,12 +40,9 @@ class genders
             );';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':new_gender', $new_gender);
-            if($query->execute()){
-                $data =  $query->fetch();
-                return $data;
-            }else{
-                return false;
-            }
+            return $query->execute();
+               
+           
         }catch (PDOException $e){
             return false;
         }

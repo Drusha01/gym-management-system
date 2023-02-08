@@ -14,7 +14,6 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
-      header('location:../admin/admin-profile.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // do nothing
     } 
@@ -37,7 +36,7 @@ if(isset($_SESSION['user_id'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym</title>
-    <link rel="icon" type="images/x-icon" href="../images/favicon.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
@@ -144,7 +143,7 @@ if(isset($_SESSION['user_id'])){
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card border-0 shadow"">
           <img src="../images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
@@ -157,7 +156,7 @@ if(isset($_SESSION['user_id'])){
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card border-0 shadow"">
           <img src="../images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
@@ -170,7 +169,7 @@ if(isset($_SESSION['user_id'])){
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
+        <div class="card border-0 shadow"">
           <img src="../images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
