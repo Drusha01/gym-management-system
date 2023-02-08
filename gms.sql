@@ -106,6 +106,7 @@ WHERE user_gender_details = 'Male';
 
 -- SELECT * from genders
 SELECT * FROM user_genders
+ORDER BY user_gender_id 
 LIMIT 20;
 
 -- table for phone country code
@@ -133,11 +134,11 @@ CREATE TABLE users(
     user_type_id int ,
     user_gender_id tinyint,
     user_phone_country_code_id int,
-    user_phone_number VARCHAR(15),
+    user_phone_number VARCHAR(15) unique,
     user_email_verified BOOL DEFAULT NULL,
     user_phone_verified BOOL DEFAULT NULL,
-    user_email VARCHAR(255),
-    user_name VARCHAR(255),
+    user_email VARCHAR(255) unique,
+    user_name VARCHAR(255) unique,
     user_password_hashed VARCHAR(255),
     user_firstname VARCHAR(100),
     user_middlename VARCHAR(100),
@@ -180,7 +181,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Dumapit',
 	'user address',
     (CURDATE()),
-    'valid_photo',
+    'default.png',
     'default.png',
     now(),
 	now()
@@ -203,7 +204,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Dumapit',
 	'user address',
     (CURDATE()),
-    'valid_photo',
+    'default.png',
     'default.png',
     now(),
 	now()
@@ -218,8 +219,8 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
-    '9265827344',
-    'hanz.dumapit55@gmail.com',
+    '9265827345',
+    'hanz.dumapit56@gmail.com',
     'Drusha03',
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
@@ -227,7 +228,30 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Dumapit',
 	'user address',
     (CURDATE()),
-    'valid_photo',
+    'default.png',
+    'default.png',
+    now(),
+	now()
+    
+);
+
+INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
+user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+	null,
+    (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
+    (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+    (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
+    '9265827344',
+    'hanz.dumapit55@gmail.com',
+    'Drusha04',
+    '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
+    'Hanrickson',
+    'Etrone',
+    'Dumapit',
+	'user address',
+    (CURDATE()),
+    'default.png',
     'default.png',
     now(),
 	now()
@@ -268,6 +292,16 @@ UPDATE users
 SET user_password_hashed = '$argon2i$v=19$m=65536,t=4,p=1$YXVYRjN1VlJJdWpnYXRZSA$gC4ppnU/kaAX4NnOUs5riFCokl+qisTbp9GmCaXkO38'
 WHERE user_id = 1;
 
+-- update valid id
+UPDATE users
+SET user_valid_id_photo = 'valid_id.jpg'
+WHERE user_id = 1;
+
+-- update profile picture
+UPDATE users
+SET user_profile_picture = 'profilepicture.jpg'
+WHERE user_id = 1;
+
 -- update user information (note that email and phone have separate update because it is used in loggin in option)
 UPDATE  users
 SET 
@@ -278,6 +312,19 @@ user_birthdate = CURDATE(),
 user_valid_id_photo = 'something valid id',
 user_profile_picture ='default.png'
 WHERE user_id = 1;
+
+UPDATE  users
+SET 
+user_firstname ='Cammy',
+user_middlename ='Tipamood',
+user_lastname = 'Drusha',
+user_gender_id = (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+user_email = 'hanz.dumapit69@gmail.com',
+user_phone_number = '6969696969',
+user_address = 'malagutay',
+user_birthdate = CURDATE()
+WHERE user_id = 1;
+
 
         
         

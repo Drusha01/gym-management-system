@@ -2,6 +2,12 @@
 // start session
 session_start();
 
+// check if we are admin
+if(isset($_SESSION['admin_user_d'])){
+  header('location:../admin/admin_control_login.php-page.php');
+}
+
+
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
@@ -106,11 +112,11 @@ if(isset($_SESSION['user_id'])){
           <form class="mb-3 px-4" method="POST" enctype="multipart/form-data">
             <div class="form-floating mb-3">
               <input type="text" class="form-control rounded" placeholder="Enter email"  id="floatingInput" name="user" required>
-              <label for="floatingInput"><?php if ($error=='Invalid') {echo $error . ' Email / Username  ';} else {echo 'Email / Username  ';}?> </label>
+              <label for="floatingInput"><?php if (isset($error) && $error=='Invalid') {echo $error . ' Email / Username  ';} else {echo 'Email / Username  ';}?> </label>
             </div>
             <div class="form-floating mb-3">
               <input type="password" class="form-control rounded" placeholder="Enter your Password" id="floatingPassword" name="password" required>
-              <label for="floatingPassword"><?php if ($error=='Invalid') {echo $error . ' Password ';} else {echo 'Password';}?></label>
+              <label for="floatingPassword"><?php if (isset($error) && $error=='Invalid') {echo $error . ' Password ';} else {echo 'Password';}?></label>
             </div>
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" id="autoSizingCheck2">

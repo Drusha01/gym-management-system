@@ -14,7 +14,6 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
-      header('location:../admin/admin-profile.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // do nothing
     } 
@@ -37,7 +36,7 @@ if(isset($_SESSION['user_id'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym</title>
-    <link rel="icon" type="images/x-icon" href="../images/favicon.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
@@ -76,7 +75,7 @@ if(isset($_SESSION['user_id'])){
                               <div class="card">
                                 <div class="card-body">
                                   <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
+                                    <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
                                     <div class="mt-3">
                                       <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                       <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
@@ -200,7 +199,7 @@ if(isset($_SESSION['user_id'])){
                                     <div class="row px-3 ">
                                       <div class="col">
                                       <li class="list-group-item d-flex  flex-wrap">
-                                              <a class="btn btn-success float-right" id="view-valid-id" href="../img/valid-id/<?php echo_safe($_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
+                                              <a class="btn btn-success float-right" id="view-valid-id" href="<?php echo_safe('../img/valid-id/'.$_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
                                         </li>
                                         
                                       </div>

@@ -4,6 +4,11 @@ print_r($_POST);
 // start session
 session_start();
 
+// check if we are admin
+if(isset($_SESSION['admin_user_d'])){
+  header('location:../admin/admin_control_login.php');
+}
+
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
