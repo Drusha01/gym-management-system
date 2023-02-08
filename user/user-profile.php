@@ -75,7 +75,7 @@ if(isset($_SESSION['user_id'])){
                               <div class="card">
                                 <div class="card-body">
                                   <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
+                                    <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
                                     <div class="mt-3">
                                       <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                       <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
@@ -199,7 +199,7 @@ if(isset($_SESSION['user_id'])){
                                     <div class="row px-3 ">
                                       <div class="col">
                                       <li class="list-group-item d-flex  flex-wrap">
-                                              <a class="btn btn-success float-right" id="view-valid-id" href="<?php if(isset($_SESSION['user_valid_id_photo'])) echo_safe('../img/valid-id/'.$_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
+                                              <a class="btn btn-success float-right" id="view-valid-id" href="<?php echo_safe('../img/valid-id/'.$_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
                                         </li>
                                         
                                       </div>
