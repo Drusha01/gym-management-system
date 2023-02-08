@@ -39,14 +39,14 @@
                             </div>
 
                             </div>
-                            <div class="col-12 col-sm-2 form-group table-filter-option">
+                            <div class="col-12 col-sm-3 form-group table-filter-option">
                                 <label>Filter</label>
                                 <select name="sub_type" id="sub_type" class="form-select ms-md-2">
                                     <option value="">Alphabetical</option>
                                     <option value="">Recent</option>
                                 </select>
                             </div>
-                            <div class="col-12 col-sm-3 d-grid d-lg-flex form-group h-50 justify-content-center">
+                            <div class="col-12 col-sm-2 d-grid d-lg-flex form-group h-50 justify-content-lg-center">
                                 <button class="btn btn-success">Add Subscription</button>
                             </div>
                         </div>
@@ -85,6 +85,28 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="dataTables_info pb-3 pb-lg-1 text-center text-lg-start" id="table-pending_info" role="status" aria-live="polite">
+                                Showing 1 to 6 of 6 entries
+                            </div>
+                            <div class="dataTables_paginate paging_simple_numbers" id="table-pending_paginate">
+                                <ul class="pagination justify-content-center justify-content-lg-end">
+                                    <li class="paginate_button page-item previous disabled" id="table-pending_previous">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="0" tabindex="0" class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="0" tabindex="0" class="page-link">2</a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="0" tabindex="0" class="page-link">3</a>
+                                    </li>
+                                    <li class="paginate_button page-item next disabled" id="table-pending_next">
+                                        <a href="#" aria-controls="table-pending" data-dt-idx="next" tabindex="0" class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
                 </div>
                 <div class="tab-pane show fade" id="tab-exp">
                     Some Expiration
