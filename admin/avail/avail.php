@@ -82,7 +82,7 @@
                 Some Expiration
             </div>
             <div class="tab-pane show fade" id="tab-walk_in">
-                Some Walk-In
+                Some Walk-In for subs
             </div>
             </div>
         </div>
