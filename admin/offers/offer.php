@@ -36,76 +36,30 @@
                                 <a href="addoffer.php" class="btn btn-success" role="button">Add Offer</a>
                             </div>
                         </div>
-                            <table class="table table-responsive table-striped table-borderless table-custom">
+                            <table  class="table table-responsive table-striped table-borderless table-custom" style="overflow-x:auto;">
                                 <thead class="bg-dark text-light">
                                     <tr>
-                                    <th scope="col" class="text-center">#</th>
-                                    <th scope="col">NAME OF OFFER</th>
-                                    <th scope="col" class="text-center">AGE QUALIFICATION</th>
-                                    <th scope="col" class="text-center">DAYS</th>
-                                    <th scope="col" class="text-center">SLOTS</th>
-                                    <th scope="col" class="text-center">PRICE</th>
-                                    <th scope="col" class="text-center">ACTION</th>
+                                    <th class="text-center">#</th>
+                                    <th scope="col" class="col-12 col-lg-3">NAME OF OFFER</th>
+                                    <th scope="col" class="text-center ">AGE QUALIFICATION</th>
+                                    <th scope="col" class="text-center ">DAYS</th>
+                                    <th scope="col" class="text-center ">SLOTS</th>
+                                    <th scope="col" class="text-center ">PRICE</th>
+                                    <th scope="col" class="text-center ">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                     <th scope="row" class="text-center">1</th>
-                                    <td class="col-sm-3">1-Month Gym-Use(21 and Above)</td>
-                                    <td class="text-center">21 above</td>
-                                    <td class="text-center">30</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">₱800.00</td>
-                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row" class="text-center">2</th>
-                                    <td class="col-sm-3">3-Month Gym-Use(21 and Above)</td>
-                                    <td class="text-center">21 above</td>
-                                    <td class="text-center">90</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">₱2100.00</td>
-                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row" class="text-center">3</th>
-                                    <td class="col-sm-3">1-Month Gym-Use(20 below)</td>
-                                    <td class="text-center">20 below</td>
-                                    <td class="text-center">30</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">₱750.00</td>
-                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row" class="text-center">4</th>
-                                    <td class="col-sm-3">1-Month Locker</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">30</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">₱100.00</td>
-                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row" class="text-center">5</th>
-                                    <td class="col-sm-3">1-Month Locker</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">30</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">₱100.00</td>
-                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row" class="text-center">6</th>
-                                    <td class="col-sm-3">1-Month Locker</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">30</td>
-                                    <td class="text-center">None</td>
-                                    <td class="text-center">₱100.00</td>
-                                    <td class="text-center"><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
+                                    <td class="col-12 col-lg-3">1-Month Gym-Use(21 and Above)</td>
+                                    <td class="text-center ">21 above</td>
+                                    <td class="text-center ">30</td>
+                                    <td class="text-center ">None</td>
+                                    <td class="text-center ">₱800.00</td>
+                                    <td class="text-center "><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            
                             <div class="dataTables_info pb-3 pb-lg-1 text-center text-lg-start" id="table-pending_info" role="status" aria-live="polite">
                                 Showing 1 to 6 of 6 entries
                             </div>
@@ -133,7 +87,9 @@
 
 
     </main>
-    
+    <script>
+
+    </script>
 
 </body>
 </html>
