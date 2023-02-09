@@ -41,7 +41,6 @@
                             <option value="">Recent</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
                     <table id="example" class="table table-striped table-borderless table-custom">
                         <thead class="bg-dark text-light">
                             <tr>
@@ -55,7 +54,7 @@
                         <tbody>
                             <tr>
                             <th scope="row">1</th>
-                            <td class="col">Trinidad, James Trinidad</td>
+                            <td class="col" data-priority="1">Trinidad, James Trinidad</td>
                             <td class="text-center">October 16, 2022</td>
                             <td class="text-center">Pending</td>
                             <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
@@ -71,13 +70,11 @@
                             <th scope="row">3</th>
                             <td class="col">Lim, Robbie John</td>
                             <td class="text-center">October 16, 2022</td>
-                            <td class="text-center">Unpaid</td>
+                            <td class="text-center" data-priority="1">Unpaid</td>
                             <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
-
-                    </div>
                     </div>
                 </div>
             </div>
@@ -99,12 +96,24 @@ $(".nav-item").on("click", function(){
 
 });
 
-$(document).ready( function () {
-  $('#example').dataTable( {
-    "dom": 'rtip'
-  } );
+$(function(){
+	//inialize datatable
+    var myTable = $('#example').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : false,
+      'autoWidth'   : false
+    })
 
-} );
+    //assign a new searchbox for our table
+    $('#keyword').on('keyup', function(){
+    	myTable.search(this.value).draw();
+	});
+    
+});
+
 
 
 </script>
