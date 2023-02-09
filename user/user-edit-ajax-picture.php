@@ -124,7 +124,7 @@ if(isset($_SESSION['user_id'])){
                     if($userObj->update_valid_id()){
                         
                         // delete the old file if not the default
-                        if($_SESSION['user_valid_id_photo'] != 'default.png' && unlink(dirname(__DIR__, 1) . '/img/valid-id/'.$_SESSION['user_valid_id_photo'])){
+                        if($_SESSION['user_valid_id_photo'] != 'default.png' ){
                             // update session
                             $_SESSION['user_valid_id_photo'] = $userObj->getuser_valid_id_photo();
                             $update_result['valid_id'] = 'saved';
