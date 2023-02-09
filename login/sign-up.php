@@ -1,5 +1,5 @@
 <?php
-print_r($_POST);
+
 
 // start session
 session_start();
