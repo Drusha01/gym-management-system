@@ -32,7 +32,11 @@
                                     <option value="">Recent</option>
                                 </select>
                             </div>
+<<<<<<< Updated upstream
                             <div class="col-12 col-sm-2 d-grid d-lg-flex form-group h-50 justify-content-lg-center">
+=======
+                            <div class="col-12 col-sm-3 d-grid form-group h-50 justify-content-center">
+>>>>>>> Stashed changes
                                 <a href="addoffer.php" class="btn btn-success" role="button">Add Offer</a>
                             </div>
                         </div>
