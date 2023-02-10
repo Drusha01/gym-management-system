@@ -37,7 +37,7 @@ require_once '../classes/genders.class.php';
     $userObj = new Users();
     // if new gender is found insert first the new gender then 
     $error = false;
-    if(isset($_POST['gender']) && $_POST['gender'] != 'None'){
+    if(isset($_POST['gender']) && ($_POST['gender'] != 'None' || $_POST['gender'] != 'Other')){
       $userObj->setuser_gender_details($_POST['gender']);
     }else if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
       $userObj->setuser_gender_details($_POST['gender_other']);
@@ -45,11 +45,12 @@ require_once '../classes/genders.class.php';
       $genderObj->insert_new_gender($_POST['gender_other']);
     echo 'other_gender';
     }else{
-      echo 'error';
+      //echo 'error';
       $error = true;
     }
 
     if(validate_signup($_POST) && !$error){
+
       // set attributes
       $userObj->setuser_status_details('active');
       $userObj->setuser_type_details('normal');
@@ -165,12 +166,12 @@ require_once '../classes/genders.class.php';
             // profile display
             $result = resizeImage($profilepic_dir,$profile_resize_dir,$filename.'.jpg',$filename,80,500,500);
             if($result){
-              echo 'error';
+              echo 'error resize 500x500';
             }
             // thumbnail
             $result = resizeImage($profilepic_dir,$profile_thumbnail_dir,$filename.'.jpg',$filename,80,150,150);
             if($result){
-              echo 'error';
+              echo 'error resize 150x150';
             }
           }
         }
@@ -179,6 +180,7 @@ require_once '../classes/genders.class.php';
       // note that the file must be uploaded before inserting the user
       // insert
       if ($userObj->signup() ) {
+        echo 'signup -done';
         $userObj->setuser_id($userObj->user_id_with_username()['user_id']);
         // get_user_details
         $user_details = $userObj->get_user_details();
@@ -207,7 +209,7 @@ require_once '../classes/genders.class.php';
         // go to user page
         header('location:../user/user-profile.php');
       }else{
-        echo 'error';
+        echo 'error-sign up';
       }
     }else{
         echo 'used';
@@ -273,7 +275,7 @@ require_once '../classes/genders.class.php';
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" oninput="functiononkeyup()" required>
             </div>
             <div class="form-group py-1">
-              <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" maxlength="10" required>
+              <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" minlength="11" maxlength="11" required>
             </div>
             <div class="form-group py-1">
               <div class="row">
@@ -303,7 +305,7 @@ require_once '../classes/genders.class.php';
             </div>
             <div class="form-group py-1">
               <label>Birth Date</label>
-              <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" value="2018-07-22" required>
+              <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" value="<?php echo date('Y-m-d', time()-(60*60*24*365*18)); ?>" required>
             </div>
             <div class="form-group py-2">
               <label for="exampleFormControlFile1">Valid ID or Birth Certificate</label>
@@ -317,7 +319,7 @@ require_once '../classes/genders.class.php';
             </div>
             <br>
             <div class="d-grid">
-            <button type="submit" class="btn btn-success btn-lg border-0 rounded" onclick="functiononsignup()" id="submit"> Sign-Up</button>
+            <button type="submit" class="btn btn-success btn-lg border-0 rounded"  id="submit"> Sign-Up</button>
             </div>
             <p class="text-center">Already Have an Account? <a class="text-decoration-none" href="../login/log-in.php">Log-in</a></p>
         </form>

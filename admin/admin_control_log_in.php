@@ -16,7 +16,8 @@ if(isset($_SESSION['admin_user_id'])){
       // go to admin
       
     }else if($_SESSION['admin_user_type_details'] == 'normal'){
-      // do nothing
+      // go to user page
+      
     } 
   }else if($_SESSION['admin_user_status_details'] =='inactive'){
     // handle inactive user details

@@ -170,7 +170,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Phone Number</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="text" class="form-control" name="phone" id="phone" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>" maxlength="10">
+                                            <input type="text" class="form-control" name="phone" id="phone" value="<?php echo_safe($_SESSION['user_phone_number'])?>" placeholder="<?php echo_safe($_SESSION['user_phone_number'])?>" maxlength="11">
                                         </div>
                                     </div>
                                     <div class="row mb-3">

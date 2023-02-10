@@ -20,7 +20,7 @@ function validate_username($POST,$username){
 }
 function validate_phone($POST,$phone){
     // do this
-    return (isset($POST[$phone]) && strlen($POST[$phone] == 10)&& (intval($POST[$phone])));
+    return (isset($POST[$phone]) && strlen($POST[$phone]) == 11 && (intval($POST[$phone])));
 }
 
 function validate_gender($POST,$gender){
@@ -31,6 +31,12 @@ function validate_gender($POST,$gender){
 function validate_birthdate($POST,$birthdate){
     //  do this
     return (isset($POST[$birthdate]));
+}
+
+function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')
+{
+    $d = DateTime::createFromFormat($format, $POST[$birthdate]);
+    return $d && $d->format($format) == $POST[$birthdate];
 }
 
 function validate_password($POST,$password){
@@ -136,7 +142,7 @@ function getAge($date) {
 }
 
 function validate_profile_info($POST){
-    return validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate');
+    return  validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate') && validate_phone($POST, 'phone')&& validate_email($POST);
 
 }
 ?>

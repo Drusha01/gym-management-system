@@ -25,26 +25,25 @@ if(isset($_SESSION['user_id'])){
                     // make sure that email is not taken
                     $userObj->setuser_id($_POST['user_id']);
                     $userObj->setuser_email($_POST['email']);
-
                     if ($data = $userObj->user_duplicateEmail()) {
                         if (isset($data['user_id']) && $data['user_id'] != $_SESSION['user_id']) {
                             echo 'email_taken';
                             return -1;
                         }
                     }
-                    if ($data = $userObj)
-
+                    
                         // validate phone
                         // make sure that phone is not taken
-                        if (isset($_POST['phone']) && strlen($_POST['phone']) == 10) {
-                            $userObj->setuser_phone_number($_POST['phone']);
-                            if ($data = $userObj->user_duplicatePhone()) {
-                                if (isset($data['user_id']) && $data['user_id'] != $_SESSION['user_id']) {
-                                    echo 'phone_taken';
-                                    return -1;
-                                }
-                            }
+
+                    $userObj->setuser_phone_number($_POST['phone']);
+                    if ($data = $userObj->user_duplicatePhone()) {
+                        if (isset($data['user_id']) && $data['user_id'] != $_SESSION['user_id']) {
+                            echo 'phone_taken';
+                            return -1;
                         }
+                    }
+                        
+                    
 
 
                     // if new gender is found insert first the new gender then 
@@ -100,10 +99,12 @@ if(isset($_SESSION['user_id'])){
                         
                     } else {
                         // error
-                        echo 'error';
+                        echo 'error profile update';
                     }
 
 
+                }else{
+                    echo 'invalid inputs';
                 }
             } else {
                 echo '0';
