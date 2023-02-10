@@ -1,28 +1,22 @@
 <?php
-// // start session
-// session_start();
+// start session
+session_start();
 
-// // includes
-// require_once '../../tools/functions.php';
-// require_once '../../classes/users.class.php';
+// includes
 
 
-// // check if we are logged in
-// if(isset($_SESSION['admin_user_id'])){
-//   // check if the user is active
-//   if($_SESSION['user_status_details'] =='active'){
-//     // check if we are admin
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+    header('location:../user/user-page.php');
+}
 
-//   }else if($_SESSION['user_status_details'] =='inactive'){
-//     // handle inactive user details
-//   }else if($_SESSION['user_status_details'] =='deleted'){
-//     // handle deleted user details
-//     header('location:../../user/user-deleted.php');
-//   }
-// } else {
-//   // go to login page
-//   header('location:../../login/log-in.php');
-// }
+
+if(isset($_SESSION['admin_id'])){
+    // else do nothing
+}else{
+    // go to admin login
+    header('location:../admin_control_log_in2.php');
+}
 
 ?>
 

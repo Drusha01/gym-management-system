@@ -10,11 +10,12 @@ if(isset($_SESSION['user_id'])){
   header('location:../user/user-page.php');
 }
 
-print_r($_POST);
+
 
 // check if we are logged in as admin
 if(isset($_SESSION['admin_id'])){
   // go to dashboard
+  header('location:dashboard/dashboard.php');
 }else{
   // must be admin logint
 
@@ -28,9 +29,32 @@ if(isset($_SESSION['admin_id'])){
         // get user details and set it as admin
         $admin_data = $adminObj->get_admin_details($admin_data['admin_id']);
         // set session
-        $_SESSION['admin_id'] = null;
-        print_r($admin_data);
-        //header('location:dashboard/dashboard.php');
+        $_SESSION['admin_id'] = $admin_data['admin_id'];
+        $_SESSION['admin_user_id'] = $admin_data['user_id'];
+        $_SESSION['admin_user_status_details'] = $admin_data['user_status_details'];
+        $_SESSION['admin_user_type_details'] = $admin_data['user_type_details'] ;
+        $_SESSION['admin_user_gender_details'] = $admin_data['user_gender_details'];
+        $_SESSION['admin_user_phone_contry_code_details'] = $admin_data['user_phone_contry_code_details'];
+
+        $_SESSION['admin_user_phone_number'] = $admin_data['user_phone_number'];
+        $_SESSION['admin_user_email'] =$admin_data['user_email'];
+        $_SESSION['admin_user_name'] = $admin_data['user_name'];
+        $_SESSION['admin_user_password_hashed'] = 'null';
+        $_SESSION['admin_user_firstname'] = $admin_data['user_firstname'];
+        $_SESSION['admin_user_middlename'] = $admin_data['user_middlename'];
+
+        $_SESSION['admin_user_lastname'] = $admin_data['user_lastname'];
+        $_SESSION['admin_user_address'] = $admin_data['user_address'];
+        $_SESSION['admin_user_birthdate'] = $admin_data['user_birthdate'];
+        $_SESSION['admin_user_valid_id_photo'] = $admin_data['user_valid_id_photo'];
+        $_SESSION['admin_user_profile_picture'] = $admin_data['user_profile_picture'];
+
+        $_SESSION['admin_user_date_created'] = $admin_data['user_date_created'];
+        $_SESSION['admin_user_date_updated'] = $admin_data['user_date_updated'];
+
+        //print_r($_SESSION);
+
+        header('location:dashboard/dashboard.php');
       }
     }
   }

@@ -41,6 +41,10 @@ class admins
             $sql = '
             SELECT * FROM admins
             LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+            LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+            LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+            LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+            LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
             WHERE admin_id = :admin_user_id;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':admin_user_id', $admin_user_id);
