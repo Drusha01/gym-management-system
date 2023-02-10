@@ -143,6 +143,5 @@ function getAge($date) {
 
 function validate_profile_info($POST){
     return  validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate') && validate_phone($POST, 'phone')&& validate_email($POST);
-
 }
 ?>
