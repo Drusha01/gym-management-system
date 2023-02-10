@@ -1,22 +1,22 @@
 <?php
 // start session
-session_start();
+// session_start();
 
-// includes
-
-
-// check if we are normal user
-if(isset($_SESSION['user_id'])){
-    header('location:../user/user-page.php');
-}
+// // includes
 
 
-if(isset($_SESSION['admin_id'])){
-    // else do nothing
-}else{
-    // go to admin login
-    header('location:../admin_control_log_in2.php');
-}
+// // check if we are normal user
+// if(isset($_SESSION['user_id'])){
+//     header('location:../user/user-page.php');
+// }
+
+
+// if(isset($_SESSION['admin_id'])){
+//     // else do nothing
+// }else{
+//     // go to admin login
+//     header('location:../admin_control_log_in2.php');
+// }
 
 ?>
 
