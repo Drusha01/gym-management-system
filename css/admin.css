@@ -311,7 +311,7 @@ ul.application .counter{
     border-radius: 6px;
     line-height: 15px;
 }
-
+.dataTables_filter, .dataTables_info { display: none; }
 .page-item.active .page-link{
     background-color: #A73535;
     border-color: #A73535;

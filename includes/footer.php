@@ -5,7 +5,7 @@
                <div class="col-md-4">
                 <div class="d-flex flex-row">
                   <a class="navbar-brand navbar">
-                    <img src="images/logo.png" alt="" width="55">
+                    <img src="../images/logo.png" alt="" width="55">
                     <div class="d-flex flex-column p-2 pt-0 pb-0">
                       <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
                       <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>

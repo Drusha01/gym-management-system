@@ -6,7 +6,7 @@
         <div class="w-100">
             <h5 class="col-12 fw-bold mb-3">Offers</h5>
             <div class="row g-2 mb-2 mt-1">
-                    <div class="col-12 col-sm-3 col-xs-12 form-group table-filter-option">
+                    <div class="col-12 col-sm-4 col-xs-12 form-group table-filter-option">
                         <label>Type</label>
                         <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                             <option value="">All</option>
@@ -16,12 +16,12 @@
                             <option value="Program Subscription">Program Subscription</option>
                         </select>
                     </div>
-                    <div class="form-group col-12 col-sm-4 table-filter-option">
+                    <div class="form-group col-12 col-sm-5 table-filter-option">
                         <label for="keyword">Search</label>
                         <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
                     </div>
 
-                    <div class="col-12 col-sm-2 d-grid d-lg-flex form-group h-50 justify-content-lg-center">
+                    <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
                         <a href="addoffer.php" class="btn btn-success" role="button">Add Offer</a>
                     </div>
                 </div>
@@ -42,19 +42,16 @@ $.ajax({
     {
         $('div.table-responsive').html(result);
         dataTable = $("#example").DataTable({
-            "dom": 'rtip',
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
             responsive: true,
-            "className": 'details-control',
-            "defaultContent": '<i class = "glyphicon glyphicon-plus-sign"> </ i>',
-            targets: 0
         });
         $('input#keyword').on('input', function(e){
             var status = $(this).val();
-            dataTable.columns([1]).search(status).draw();
+            dataTable.columns([2]).search(status).draw();
         })
         $('select#categoryFilter').on('change', function(e){
             var status = $(this).val();
-            dataTable.columns([2]).search(status).draw();
+            dataTable.columns([3]).search(status).draw();
         })
         $('select#program').on('change', function(e){
             var status = $(this).val();
