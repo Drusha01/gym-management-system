@@ -24,6 +24,11 @@ INSERT into user_types VALUES
     'admin'
 );
 
+INSERT into user_types VALUES
+(	
+	null,
+    'super-admin'
+);
 -- SELECT user_type_id
 SELECT user_type_id FROM user_types 
 WHERE user_type_details = 'normal';
@@ -171,7 +176,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
-    '9265827342',
+    '09265827342',
     'hanz.dumapit53@gmail.com',
     true,
     'Drusha01',
@@ -195,7 +200,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
-    '9265827343',
+    '09265827343',
     'hanz.dumapit54@gmail.com',
     'Drusha02',
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
@@ -219,7 +224,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
-    '9265827345',
+    '09265827345',
     'hanz.dumapit56@gmail.com',
     'Drusha03',
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
@@ -242,7 +247,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
-    '9265827344',
+    '09265827344',
     'hanz.dumapit55@gmail.com',
     'Drusha04',
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
@@ -258,6 +263,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     
 );
 
+
 -- SELECT * users
 SELECT * FROM users;
 
@@ -269,6 +275,12 @@ WHERE user_name = BINARY 'Drusha01' OR user_email = 'hanz.dumapit54@gmail.com' O
 
 SELECT user_id,user_password_hashed FROM users
 WHERE user_name = BINARY 'Drusha01' OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1) ;
+
+SELECT user_id,user_password_hashed FROM users
+WHERE user_name = BINARY 'Drusha01' OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1) AND user_type_id= (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal');
+
+SELECT user_id,user_password_hashed FROM users
+WHERE (user_name = BINARY 'Drusha02' AND  user_type_id= (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1 AND user_type_id= (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal')));
 
 -- login
 SELECT user_id,user_password_hashed FROM users
@@ -320,11 +332,39 @@ user_middlename ='Tipamood',
 user_lastname = 'Drusha',
 user_gender_id = (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
 user_email = 'hanz.dumapit69@gmail.com',
-user_phone_number = '6969696969',
+user_phone_number = '09469696969',
 user_address = 'malagutay',
 user_birthdate = CURDATE()
 WHERE user_id = 1;
 
+
+-- table for admin
+CREATE TABLE admins(
+	admin_id int primary key auto_increment,
+    admin_type_id int NOT NULL ,
+	admin_user_id int unique,
+    admin_date_created datetime,
+    admin_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (admin_type_id) REFERENCES user_types(user_type_id),
+    FOREIGN KEY (admin_user_id) REFERENCES users(user_id)
+);
+
+-- INSERT admin
+INSERT INTO admins VALUES(
+	null,
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'admin'),
+    3,
+    now(),
+    now()
+);
+
+-- SELECT * admins
+SELECT * FROM admins;
+
+-- admin login
+SELECT admin_user_id,user_password_hashed FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE user_name = BINARY 'Drusha03' OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
 
         
         
@@ -337,4 +377,104 @@ CREATE TABLE location_provinces(
 );
 
     
+    
+-- table for age qualification
+CREATE TABLE age_qualifications(
+	age_qualification_id int primary key auto_increment,
+    age_qualification_details varchar(50) not null unique	
+);
+
+-- insert for age qualification
+INSERT INTO age_qualifications VALUES
+(
+	null,
+    'None'
+),(
+	null,
+    '21 above'
+);
+-- select age_qualification_id from age_qualifications
+SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None';
+
+-- table for type of subscription
+CREATE TABLE types_of_subscription(
+	types_of_subscription_id int primary key auto_increment,
+    types_of_subscription_details varchar(50) not null unique	
+);
+
+-- inserts for types of subscription
+INSERT INTO types_of_subscription VALUES
+(
+	null,
+    'Gym Subscription'
+),(
+	null,
+    'Trainer Subscription'
+),(
+	null,
+    'Locker Subscription'
+),(
+	null,
+    'Program Subscription'
+);
+
+-- selecting id of type of subscription
+SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Gym Subscription';
+
+
+-- table for offers
+CREATE TABLE offers(
+	offer_id int primary key auto_increment ,
+    offer_name varchar(50) not null,
+    offer_type_of_subscription int not null,
+    offer_age_qualification_id int not null,
+    offer_duration int not null,
+	offer_slots int default null,
+    offer_price float,
+    FOREIGN KEY (offer_age_qualification_id) REFERENCES age_qualifications(age_qualification_id),
+    FOREIGN KEY (offer_type_of_subscription) REFERENCES types_of_subscription(types_of_subscription_id)
+    
+);
+
+-- inserts for offers
+INSERT INTO offers VALUES
+(
+	null,
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Gym Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+    30,
+    null,
+    800.00
+),(
+	null,
+    '1-Month Trainer',
+    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Trainer Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
+    30,
+    null,
+    1500.00
+),(
+	null,
+    '1-Month Locker',
+    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Locker Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
+    30,
+    null,
+    100.00
+),(
+	null,
+    'Zumba)',
+    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Program Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+    30,
+    45,
+    500.00
+);
+
+
+-- select all offers
+SELECT * FROM offers;
+
+
 SELECT  CURDATE();

@@ -98,7 +98,7 @@ Class users{
     function login(){
         try{
             $sql = 'SELECT user_id,user_password_hashed FROM users
-            WHERE user_name = BINARY :user_name OR (user_email =  :user_email AND user_email_verified = 1); ';
+            WHERE user_name = BINARY :user_name OR (user_email =  :user_email AND user_email_verified = 1) ; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             $query->bindParam(':user_name', $this->user_name);

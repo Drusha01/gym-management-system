@@ -18,7 +18,7 @@
             <ul class="dropdown-menu text-small dropdown-user">
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../admin_control_log_in.php">Sign out</a></li>
+                <li><a class="dropdown-item" href="../../login/log-out.php">Sign out</a></li>
             </ul>
         </div>
     </div>

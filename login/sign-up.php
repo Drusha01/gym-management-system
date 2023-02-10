@@ -21,6 +21,7 @@ require_once '../classes/genders.class.php';
       // check what type of user are we
       if($_SESSION['user_type_details'] =='admin'){
         // go to admin
+        header('location:../admin/dashboard/dashboard.php');
       }else if($_SESSION['user_type_details'] == 'normal'){
         // go to userpage
         header('location:../user/user-page.php');

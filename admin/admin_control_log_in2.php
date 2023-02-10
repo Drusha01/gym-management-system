@@ -1,4 +1,46 @@
+<?php
+// start session
+session_start();
 
+// import class
+require_once '../classes/admins.class.php';
+
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+  header('location:../user/user-page.php');
+}
+
+print_r($_POST);
+
+// check if we are logged in as admin
+if(isset($_SESSION['admin_id'])){
+  // go to dashboard
+}else{
+  // must be admin logint
+
+  // check the post variable
+
+  if(isset($_POST['admin_login']) && isset($_POST['admin_password']) && strlen($_POST['admin_login']) >= 6 && strlen($_POST['admin_password']) >= 12){
+    // admin class instance
+    $adminObj = new admins;
+    if($admin_data = $adminObj->login_admin($_POST['admin_login'],$_POST['admin_login'])){
+      if (password_verify($_POST['admin_password'], $admin_data['user_password_hashed'])) {
+        // get user details and set it as admin
+        $admin_data = $adminObj->get_admin_details($admin_data['admin_id']);
+        // set session
+        $_SESSION['admin_id'] = null;
+        print_r($admin_data);
+        //header('location:dashboard/dashboard.php');
+      }
+    }
+  }
+}
+
+
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +73,7 @@
           </div>
           <form class="mb-3 px-4" method="POST">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control rounded" placeholder="Enter your Email / Username" id="floatingInput" name="admin_login" id="admin_login">
+              <input type="text" class="form-control rounded" placeholder="Enter your Email" id="floatingInput" name="admin_login" id="admin_login">
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mb-3">
@@ -43,7 +85,7 @@
               <label class="form-check-label">Remember Me</label>
             </div>
             <div class="d-grid gap-2 mb-3">
-              <button type="button" class="btn btn-dark btn-lg border-0 rounded" onclick="window.location.href='dashboard/dashboard.php';"> Log In</button>
+              <button type="submit" class="btn btn-dark btn-lg border-0 rounded" > Log In</button>
             </div>
           </form>
         </div>

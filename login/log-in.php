@@ -3,8 +3,8 @@
 session_start();
 
 // check if we are admin
-if(isset($_SESSION['admin_user_d'])){
-  header('location:../admin/admin_control_login.php-page.php');
+if(isset($_SESSION['admin_user_id'])){
+  header('location:../admin/admin_control_login.php');
 }
 
 
