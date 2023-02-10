@@ -317,6 +317,7 @@ ul.application .counter{
     border-color: #A73535;
     color: white;
 }
+.dataTables_filter, .dataTables_info { display: none; }
 
 .page-link{
     color: #A73535
