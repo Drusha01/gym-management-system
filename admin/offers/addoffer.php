@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="row d-flex flex-row-reverse">
-                        <div class="col-8 col-lg-8">
+                        <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
                             <button type="submit" class="btn btn-success  border-0 rounded" " id="submit">Submit</button>
                         </div>
                     </div>
