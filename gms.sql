@@ -362,11 +362,13 @@ INSERT INTO admins VALUES(
 SELECT * FROM admins;
 
 -- admin login
-SELECT admin_user_id,user_password_hashed FROM admins
+SELECT admin_id,admin_user_id,user_password_hashed FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE user_name = BINARY 'Drusha03' OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
 
-        
+SELECT * FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE admin_id = 1;
         
 -- db for address
 
@@ -475,6 +477,14 @@ INSERT INTO offers VALUES
 
 -- select all offers
 SELECT * FROM offers;
+
+
+-- table for subscriptions
+CREATE TABLE subscriptions(
+	
+);
+
+
 
 
 SELECT  CURDATE();
