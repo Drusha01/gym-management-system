@@ -134,57 +134,55 @@ if(isset($_SESSION['user_id'])){
     </div>
   </section>
 
-<section id="sell">
+  <section id="sell">
   <div class="col-12 section-intro text-white">
     <h1>What We Sell</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem incidunt sunt molestiae!</p>
     <div class="hline"></div>
  </div>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow"">
-          <img src="../images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
+        <div class="card border-0 shadow">
+          <img src="images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
               <h1 class="text-center">Supplements</h1>
               <div class="about-border"></div>
            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">We sell Protein Powder, Creatine, Pre-Workout and Much More.</p>
           </div>
         </div>
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow"">
-          <img src="../images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
+        <div class="card border-0 shadow">
+          <img src="images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
               <h1 class="text-center">Clothing</h1>
               <div class="about-border"></div>
            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">You can buy our signature clothing with our Official Logo on it.</p>
           </div>
         </div>
       </div>
 
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow"">
-          <img src="../images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
+        <div class="card border-0 shadow">
+          <img src="images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <div class="col-12 ">
               <h1 class="text-center">Refreshments</h1>
               <div class="about-border"></div>
            </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text">Our Gym offers Water bottles, Energy Drinks and Water Dispenser which you drop your coin.</p>
           </div>
         </div>
       </div>
-      
     </div>
-    
   </div>
 </section>
+
     <br>
 
     <?php require_once '../includes/footer.php';?>
