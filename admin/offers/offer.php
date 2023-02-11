@@ -40,8 +40,9 @@
 <script>
 
 $.ajax({
+    //
     type: "GET",
-    url: 'offertable.php',
+    url: 'offertable.php?name_offer='+$('#name_offer').val()+'&offer_type='+$('#offer_type').val(),
     success: function(result)
     {
         $('div.table-responsive').html(result);

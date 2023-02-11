@@ -1,4 +1,15 @@
 <table id="example"  class="table table-striped table-borderless table-custom">
+    <?php 
+        // conenct to db
+        // select the table
+
+        // print the rows
+        
+        // while loop  or foreach
+
+    ?>
+
+
     <thead class="bg-dark text-light">
         <tr>
         <th class="text-center">#</th>
