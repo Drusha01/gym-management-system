@@ -2,9 +2,9 @@
 
 class Database{
     private $host = 'localhost';
-    private $username = 'root';
-    private $password = 'Uwat09hanz';
-    private $database = 'gms';
+    private $username = 'u306747909_gym';
+    private $password = '';
+    private $database = 'u306747909_gym';
     protected $connection;
 
     function connect(){
