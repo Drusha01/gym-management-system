@@ -3,8 +3,8 @@
 session_start();
 
 // check if we are admin
-if(isset($_SESSION['admin_user_d'])){
-  header('location:../admin/admin_control_login.php-page.php');
+if(isset($_SESSION['admin_user_id'])){
+  header('location:../admin/admin_control_log-in2.php');
 }
 
 
@@ -20,6 +20,7 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
+      // header('location:../admin/dashboard/dashboard.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // go to userpage
       header('location:../user/user-page.php');

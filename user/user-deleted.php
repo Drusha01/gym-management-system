@@ -14,9 +14,10 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
+      header('location:../admin/dashboard/dashboard.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // go to user-page
-      header('location:../user-page.php');
+      header('location:user-page.php');
     } 
   }else if($_SESSION['user_status_details'] =='inactive'){
     // handle inactive user details
