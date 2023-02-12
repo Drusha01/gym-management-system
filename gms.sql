@@ -142,6 +142,7 @@ CREATE TABLE users(
     user_phone_number VARCHAR(15) unique  NOT NULL,
     user_email_verified BOOL DEFAULT NULL,
     user_phone_verified BOOL DEFAULT NULL,
+    user_valid_id_validated BOOL DEFAULT NULL,
     user_email VARCHAR(255) unique  NOT NULL,
     user_name VARCHAR(255) unique  NOT NULL,
     user_password_hashed VARCHAR(255)  NOT NULL,
@@ -412,7 +413,7 @@ SELECT * FROM age_qualifications;
 INSERT INTO age_qualifications VALUES
 (
 	null,
-    'None'
+    '19 below'
 );
 
 -- select age_qualification_id from age_qualifications
@@ -570,6 +571,16 @@ UPDATE offers
 SET offer_status_id = (SELECT status_id FROM statuses WHERE status_details= 'deleted')
 WHERE offer_id = 69
 ; 
+
+-- update offer row
+UPDATE offers
+SET offer_name = ' Hanrickson Gym Offer',
+offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
+offer_age_qualification_id  = (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+offer_duration int not null,
+offer_slots VARCHAR(10) default 'None',
+offer_price float,
+WHERE offer_id =1;
  -- count offers
 SELECT COUNT(*) FROM offers;
 

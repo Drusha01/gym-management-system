@@ -27,7 +27,10 @@ if(isset($_SESSION['admin_id'])){
             // delete offer data in database
             $result = $offersObj->delete_offer($_GET['id']);
             if($result){
-                header('location:offer.php');
+                //header('location:offer.php');
+                echo '1';
+            }else{
+                echo '0';
             }
             // admin password??
 

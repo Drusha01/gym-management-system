@@ -5,7 +5,7 @@ session_start();
 
 // includes
 
-print_r($_POST);
+
 // check if we are normal user
 if(isset($_SESSION['user_id'])){
     header('location:../user/user-page.php');
@@ -16,12 +16,12 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
-
+        require_once '../../classes/offers.class.php';
+        require_once '../../tools/functions.php';
         // get offer id
         if(isset($_GET['id'])){
             // include the db
-            require_once '../../classes/offers.class.php';
-            require_once '../../tools/functions.php';
+            
 
             $offersObj = new offers();
             // get offer data
@@ -34,6 +34,47 @@ if(isset($_SESSION['admin_id'])){
                 header('location:offer.php');
             }
 
+        } 
+        if(isset($_POST['offer_id'])){
+            print_r($_POST);
+            if(validate_offer($_POST)){
+                $offersObj = new offers();
+                $offer_name = $_POST['offer_name'];
+                $offer_status_details = 'active';
+                $offer_offer_type_of_subscription_details = $_POST['type_of_subscription'];
+                $offer_duration =$_POST['offer_duration'];
+                $offer_price =$_POST['offer_price'];
+                // validate age qualification
+                $error =false;
+                if(isset($_POST['age_qualification_details']) && strlen($_POST['age_qualification_details'])>0){
+                    // insert
+                    require_once '../../classes/age_qualification.class.php';
+                    $age_qualObj = new age_qualifications();
+                    $age_qualObj->insert($_POST['age_qualification_details']);
+                    // if this is set then
+                    $offer_age_qualification_details =$_POST['age_qualification_details'];
+                }else if(isset($_POST['age_qualification_details_checked']) && $_POST['age_qualification_details_checked'] == 'None'){
+                    $offer_age_qualification_details =$_POST['age_qualification_details_checked'];
+                }else{
+                    $error =true;
+                }
+                
+                // validate slots
+                if(isset($_POST['offer_slots']) && strlen($_POST['offer_slots'])>0 && intval($_POST['offer_slots']) > 0){
+                    // if this is set then
+                    $offer_slots =$_POST['offer_slots'];
+                }else if(isset($_POST['offer_slots_checked']) && $_POST['offer_slots_checked'] == 'None'){
+                    $offer_slots =$_POST['offer_slots_checked'];
+                }else{
+                    $error =true;
+                }
+
+                if(!$error){
+                    if($offersObj->update($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price,$_POST['offer_id'])){
+                        header('location:offer.php');
+                    }
+                }
+            }
         }
         
 
@@ -74,7 +115,7 @@ if(isset($_SESSION['admin_id'])){
                             <label class="pb-1" for="Age_Qual">Age Qualification</label>
                             <div class="row">
                                 <div class="col-3 col-lg-3">
-                                    <input type="text" class="form-control"  id="age_qualification_details" name="age_qualification_details" placeholder="<?php echo_safe($offer_data['age_qualification_details'])?>" value="<?php echo_safe($offer_data['age_qualification_details'])?>">
+                                    <input type="text" class="form-control"  id="age_qualification_details" name="age_qualification_details" placeholder="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" value="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" onchange="agequalification()">
                                 </div>
                                 
                                 
@@ -83,7 +124,7 @@ if(isset($_SESSION['admin_id'])){
                                 </div>
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="checked" id="age_qualification_details_checked" name="age_qualification_details_checked" >
+                                        <input class="form-check-input" type="checkbox" value="None"  name="age_qualification_details_checked"  id="age_qualification_details_checked" onchange="agequalification_check()" <?php if($offer_data['age_qualification_details'] == 'None'){echo 'checked';}?>>
                                         <label class="form-check-label" for="flexCheckDefault">
                                             None
                                         </label>
@@ -168,14 +209,14 @@ if(isset($_SESSION['admin_id'])){
                             <label class="pb-1" for="Age_Qual">Slots</label>
                             <div class="row">
                                 <div class="col-4">
-                                    <input type="number" class="form-control" value="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>" id="offer_slots" name="offer_slots" placeholder="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>">
+                                    <input type="number" class="form-control" value="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>" id="offer_slots" name="offer_slots" placeholder="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>" onchange="offer_slotsfunction()">
                                 </div>
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
                                 </div>
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="None" name="offer_slots_checked" id="flexCheckDefault" <?php if($offer_data['offer_slots'] == 'None'){echo 'checked';}?>>
+                                        <input class="form-check-input" type="checkbox" value="None" name="offer_slots_checked" id="offer_slots_checked" onchange="offer_slotsfunction_checked()" <?php if($offer_data['offer_slots'] == 'None'){echo 'checked';}?>>
                                         <label class="form-check-label" for="flexCheckDefault">
                                             None
                                         </label>
@@ -197,3 +238,23 @@ if(isset($_SESSION['admin_id'])){
 
 </body>
 </html>
+<script>
+
+    function agequalification(){
+        $('#age_qualification_details_checked').prop('checked', false); 
+        console.log('text input changed');
+    }
+    function agequalification_check(){
+        $('#age_qualification_details').val('') ;
+        console.log('check box changed');
+    }
+
+    function offer_slotsfunction(){
+        $('#offer_slots_checked').prop('checked', false); 
+        console.log('text input changed');
+    }
+    function offer_slotsfunction_checked(){
+        $('#offer_slots').val('') ;
+        console.log('check box changed');
+    }
+</script>

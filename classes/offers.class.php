@@ -100,6 +100,38 @@ class offers
             return false;
         }
     }
+    function update($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_id){
+        try{
+            $sql = '
+            UPDATE offers
+            SET 
+            offer_name = :offer_name ,
+            offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= :type_of_subscription_details),
+            offer_age_qualification_id  = (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= :age_qualification_details),
+            offer_duration = :offer_duration,
+            offer_slots = :offer_slots,
+            offer_price = :offer_price
+            WHERE offer_id = :offer_id
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':offer_name', $offer_name);
+            $query->bindParam(':type_of_subscription_details', $type_of_subscription_details);
+            $query->bindParam(':age_qualification_details', $age_qualification_details);
+            $query->bindParam(':offer_duration', $offer_duration);
+            $query->bindParam(':offer_slots', $offer_slots);
+
+            $query->bindParam(':offer_price', $offer_price);
+            $query->bindParam(':offer_id', $offer_id);
+
+            if($data = $query->execute()){
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 }
 
 ?>
