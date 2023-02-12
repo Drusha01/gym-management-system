@@ -67,6 +67,39 @@ class offers
             return false;
         }
     }
+    function add($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price){
+        try{
+            $sql = '
+            INSERT INTO offers VALUES
+            (
+                null,
+                :offer_name,
+                (SELECT status_id FROM statuses WHERE status_details= :status_details),
+                (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= :type_of_subscription_details),
+                (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= :age_qualification_details),
+                :offer_duration,
+                :offer_slots,
+                :offer_price
+            ); ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':offer_name', $offer_name);
+            $query->bindParam(':status_details', $status_details);
+            $query->bindParam(':type_of_subscription_details', $type_of_subscription_details);
+            $query->bindParam(':age_qualification_details', $age_qualification_details);
+            $query->bindParam(':offer_duration', $offer_duration);
+
+            $query->bindParam(':offer_slots', $offer_slots);
+            $query->bindParam(':offer_price', $offer_price);
+
+            if($data = $query->execute()){
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 }
 
 ?>

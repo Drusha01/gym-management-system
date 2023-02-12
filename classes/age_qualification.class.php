@@ -1,6 +1,6 @@
 <?php 
 require_once 'database.php';
-class type_of_subscriptions
+class age_qualifications
 {
     private $db;
 
@@ -11,7 +11,7 @@ class type_of_subscriptions
 
     function fetch(){
         try{
-            $sql = 'SELECT * from type_of_subscriptions';
+            $sql = 'SELECT * FROM age_qualifications;';
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){
                 $data =  $query->fetchAll();
@@ -24,12 +24,15 @@ class type_of_subscriptions
         }
     }
 
-    function fetch_id($type_of_subscription_details){
+    function insert($age_qualification_details){
         try{
-            $sql = ' SELECT * FROM type_of_subscriptions
-            WHERE type_of_subscription_details = :type_of_subscription_details;';
+            $sql = ' INSERT INTO age_qualifications VALUES
+            (
+                null,
+                :age_qualification_details
+            );';
             $query=$this->db->connect()->prepare($sql);
-            $query->bindParam(':type_of_subscription_details', $type_of_subscription_details);
+            $query->bindParam(':age_qualification_details', $age_qualification_details);
             if($query->execute()){
                 $data =  $query->fetch();
                 return $data;

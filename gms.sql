@@ -404,6 +404,17 @@ INSERT INTO age_qualifications VALUES
 	null,
     '21 above'
 );
+
+-- select * from age qualifications
+SELECT * FROM age_qualifications;
+
+-- insert into age qualifations
+INSERT INTO age_qualifications VALUES
+(
+	null,
+    'None'
+);
+
 -- select age_qualification_id from age_qualifications
 SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None';
 
@@ -430,6 +441,9 @@ INSERT INTO type_of_subscriptions VALUES
 );
 
 SELECT * from type_of_subscriptions;
+
+SELECT * FROM type_of_subscriptions
+WHERE type_of_subscription_details = 'Gym Subscription';
 
 -- selecting id of type of subscription
 SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription';
@@ -461,7 +475,7 @@ CREATE TABLE offers(
     offer_type_of_subscription_id int not null,
     offer_age_qualification_id int not null,
     offer_duration int not null,
-	offer_slots VARCHAR(5) default 'None',
+	offer_slots VARCHAR(10) default 'None',
     offer_price float,
     FOREIGN KEY (offer_status_id) REFERENCES statuses(status_id),
     FOREIGN KEY (offer_age_qualification_id) REFERENCES age_qualifications(age_qualification_id),
@@ -518,6 +532,18 @@ INSERT INTO offers VALUES
     500.00
 );
 
+INSERT INTO offers VALUES
+(
+	null,
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+    30,
+    'None',
+    800.00
+);
+
 
 
 
@@ -542,7 +568,7 @@ WHERE offer_id = 1 AND status_details ='active'
 -- soft delete for offer
 UPDATE offers
 SET offer_status_id = (SELECT status_id FROM statuses WHERE status_details= 'deleted')
-WHERE offer_id = 5
+WHERE offer_id = 69
 ; 
  -- count offers
 SELECT COUNT(*) FROM offers;
