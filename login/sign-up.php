@@ -38,13 +38,14 @@ require_once '../classes/genders.class.php';
     $userObj = new Users();
     // if new gender is found insert first the new gender then 
     $error = false;
-    if(isset($_POST['gender']) && ($_POST['gender'] != 'None' || $_POST['gender'] != 'Other')){
+    if(isset($_POST['gender']) &&  ($_POST['gender'] != 'Other' || $_POST['gender'] != 'None')){
       $userObj->setuser_gender_details($_POST['gender']);
-    }else if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
+    }
+    if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
       $userObj->setuser_gender_details($_POST['gender_other']);
       $genderObj = new genders();
       $genderObj->insert_new_gender($_POST['gender_other']);
-    echo 'other_gender';
+      echo 'other_gender';
     }else{
       //echo 'error';
       $error = true;
@@ -282,7 +283,7 @@ require_once '../classes/genders.class.php';
               <div class="row">
                   <div class="col-md-6 py-1">
                   <label for="Gender">Gender</label>
-                    <select class="form-select" id="gender" name="gender">
+                    <select class="form-select" id="gender" name="gender" onchange="genders()">
                       <option value="None" >Select Gender </option>
                       <?php 
                       
@@ -291,7 +292,9 @@ require_once '../classes/genders.class.php';
                       foreach ($data as $key => $value) {
                         echo '<option value="';
                         echo_safe($value['user_gender_details']);
-                        echo '" >';
+                        echo '"';
+                        echo 'id="';echo_safe($value['user_gender_details']);
+                        echo '">';
                         echo_safe($value['user_gender_details']);
                         echo '</option>';
                       }
@@ -300,7 +303,7 @@ require_once '../classes/genders.class.php';
                   </div>
                   <div class="col-md-6 py-1">
                   <label for="exampleFormControlSelect1">Not in the list?</label>
-                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"  oninput="functiononkeyup()"  >
+                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"  oninput="functiononkeyup()" onchange="other_genders()"  >
                   </div>
               </div>
             </div>
@@ -352,4 +355,14 @@ require_once '../classes/genders.class.php';
 </html>
 <script>
 <?php require_once("../js/signup.js");?>
+
+
+function genders(){
+        $('#gender_other').val(''); 
+        console.log('gender selected  changed');
+    }
+    function other_genders(){
+        $('#gender option[value=Other]').attr('selected','selected'); 
+        console.log('gender others changed');
+    }
 </script>
