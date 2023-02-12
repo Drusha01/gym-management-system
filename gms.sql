@@ -429,6 +429,8 @@ INSERT INTO type_of_subscriptions VALUES
     'Program Subscription'
 );
 
+SELECT * from type_of_subscriptions;
+
 -- selecting id of type of subscription
 SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription';
 
@@ -490,6 +492,13 @@ SELECT * FROM offers;
 SELECT offer_id,offer_name,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
 LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
 LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+;
+
+-- select offer with id
+SELECT offer_id,offer_name,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
+LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+WHERE offer_id = 1
 ;
  
  -- count offers
