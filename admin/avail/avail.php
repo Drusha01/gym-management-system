@@ -44,7 +44,7 @@
                             <option value="">Overdue</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive table-container">
 
                     </div>
                     </div>
