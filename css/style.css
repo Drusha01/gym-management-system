@@ -91,6 +91,10 @@ box-sizing: border-box;}
     font-size: 32px;
     flex: none;
  }
+ .scroll {
+   max-height: 150px;
+   overflow-y: scroll;
+}
 
  .my_acc {
    margin-top: 6em;
@@ -215,6 +219,9 @@ box-sizing: border-box;}
    }
    .my_acc {
       margin-top: 22%;
+    }
+    #avail{
+      height: 1200px;
     }
 }
 
