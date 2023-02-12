@@ -574,15 +574,27 @@ WHERE offer_id = 69
 
 -- update offer row
 UPDATE offers
-SET offer_name = ' Hanrickson Gym Offer',
+SET 
+offer_name = ' Hanrickson Gym',
 offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
 offer_age_qualification_id  = (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
-offer_duration int not null,
-offer_slots VARCHAR(10) default 'None',
-offer_price float,
+offer_duration ='60',
+offer_slots = 'None',
+offer_price = 1000
 WHERE offer_id =1;
  -- count offers
 SELECT COUNT(*) FROM offers;
+
+-- select * offers as per subscription type
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
+LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
+LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Locker Subscription')
+;
+
+-- table for trainers
+
 
 
 -- table for subscriptions
