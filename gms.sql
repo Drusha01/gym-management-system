@@ -477,7 +477,7 @@ CREATE TABLE offers(
     offer_age_qualification_id int not null,
     offer_duration int not null,
 	offer_slots VARCHAR(10) default 'None',
-    offer_price float,
+    offer_price float not null,
     FOREIGN KEY (offer_status_id) REFERENCES statuses(status_id),
     FOREIGN KEY (offer_age_qualification_id) REFERENCES age_qualifications(age_qualification_id),
     FOREIGN KEY (offer_type_of_subscription_id) REFERENCES type_of_subscriptions(type_of_subscription_id)
@@ -595,14 +595,21 @@ WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_
 
 -- table for trainers
 CREATE TABLE trainers(
-	
+	trainer_id int primary key auto_increment ,
 );
 
 
+
 -- table for subscriptions
--- CREATE TABLE subscriptions(
--- 	
--- );
+CREATE TABLE subscriptions(
+	subscription_id int primary key auto_increment ,
+    subscription_subscriber_user_id int not null,
+    subscription_offer_name,
+    subscription_type_of_subscription_id,
+    subscription_age_qualification_id,
+    subscription_duration int not null , 
+    subscription_price float not null
+);
 
 
 
