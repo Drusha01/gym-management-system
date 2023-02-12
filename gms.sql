@@ -374,7 +374,7 @@ WHERE admin_id = 1;
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
-LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
 WHERE admin_id =1;
@@ -434,16 +434,36 @@ SELECT * from type_of_subscriptions;
 -- selecting id of type of subscription
 SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription';
 
+-- status table
+CREATE TABLE statuses(
+	status_id int primary key auto_increment,
+    status_details varchar(50) not null unique	
+);
+
+-- inserts for statuses
+INSERT statuses VALUES
+(
+	null,
+    'active'
+),(
+	null,
+    'inactive'
+),(
+	null,
+    'deleted'
+);
 
 -- table for offers
 CREATE TABLE offers(
 	offer_id int primary key auto_increment ,
     offer_name varchar(50) not null,
+    offer_status_id int not null,
     offer_type_of_subscription_id int not null,
     offer_age_qualification_id int not null,
     offer_duration int not null,
 	offer_slots VARCHAR(5) default 'None',
     offer_price float,
+    FOREIGN KEY (offer_status_id) REFERENCES statuses(status_id),
     FOREIGN KEY (offer_age_qualification_id) REFERENCES age_qualifications(age_qualification_id),
     FOREIGN KEY (offer_type_of_subscription_id) REFERENCES type_of_subscriptions(type_of_subscription_id)
     
@@ -454,6 +474,7 @@ INSERT INTO offers VALUES
 (
 	null,
     '1-Month Gym-Use(21 and Above)',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
@@ -462,6 +483,7 @@ INSERT INTO offers VALUES
 ),(
 	null,
     '1-Month Trainer',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Trainer Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
     30,
@@ -470,6 +492,7 @@ INSERT INTO offers VALUES
 ),(
 	null,
     '1-Month Locker',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Locker Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
     30,
@@ -477,7 +500,17 @@ INSERT INTO offers VALUES
     100.00
 ),(
 	null,
-    'Zumba)',
+    'Zumba',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Program Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+    30,
+    45,
+    500.00
+),(
+	null,
+    'Samba',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Program Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
@@ -486,21 +519,31 @@ INSERT INTO offers VALUES
 );
 
 
+
+
 SELECT * FROM offers;
 
 -- select all offers
-SELECT offer_id,offer_name,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
 LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
 LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+WHERE status_details ='active'
 ;
 
 -- select offer with id
-SELECT offer_id,offer_name,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
 LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
 LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
-WHERE offer_id = 1
+WHERE offer_id = 1 AND status_details ='active'
 ;
- 
+
+-- soft delete for offer
+UPDATE offers
+SET offer_status_id = (SELECT status_id FROM statuses WHERE status_details= 'deleted')
+WHERE offer_id = 5
+; 
  -- count offers
 SELECT COUNT(*) FROM offers;
 
