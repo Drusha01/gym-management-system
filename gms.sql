@@ -142,6 +142,7 @@ CREATE TABLE users(
     user_phone_number VARCHAR(15) unique  NOT NULL,
     user_email_verified BOOL DEFAULT NULL,
     user_phone_verified BOOL DEFAULT NULL,
+    user_valid_id_validated BOOL DEFAULT NULL,
     user_email VARCHAR(255) unique  NOT NULL,
     user_name VARCHAR(255) unique  NOT NULL,
     user_password_hashed VARCHAR(255)  NOT NULL,
@@ -369,6 +370,15 @@ WHERE user_name = BINARY 'Drusha03' OR (user_email =  'hanz.dumapit56@gmail.com'
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE admin_id = 1;
+
+-- admin details
+SELECT * FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+WHERE admin_id =1;
         
 -- db for address
 
@@ -395,17 +405,28 @@ INSERT INTO age_qualifications VALUES
 	null,
     '21 above'
 );
+
+-- select * from age qualifications
+SELECT * FROM age_qualifications;
+
+-- insert into age qualifations
+INSERT INTO age_qualifications VALUES
+(
+	null,
+    '19 below'
+);
+
 -- select age_qualification_id from age_qualifications
 SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None';
 
 -- table for type of subscription
-CREATE TABLE types_of_subscription(
-	types_of_subscription_id int primary key auto_increment,
-    types_of_subscription_details varchar(50) not null unique	
+CREATE TABLE type_of_subscriptions(
+	type_of_subscription_id int primary key auto_increment,
+    type_of_subscription_details varchar(50) not null unique	
 );
 
 -- inserts for types of subscription
-INSERT INTO types_of_subscription VALUES
+INSERT INTO type_of_subscriptions VALUES
 (
 	null,
     'Gym Subscription'
@@ -420,21 +441,46 @@ INSERT INTO types_of_subscription VALUES
     'Program Subscription'
 );
 
--- selecting id of type of subscription
-SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Gym Subscription';
+SELECT * from type_of_subscriptions;
 
+SELECT * FROM type_of_subscriptions
+WHERE type_of_subscription_details = 'Gym Subscription';
+
+-- selecting id of type of subscription
+SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription';
+
+-- status table
+CREATE TABLE statuses(
+	status_id int primary key auto_increment,
+    status_details varchar(50) not null unique	
+);
+
+-- inserts for statuses
+INSERT statuses VALUES
+(
+	null,
+    'active'
+),(
+	null,
+    'inactive'
+),(
+	null,
+    'deleted'
+);
 
 -- table for offers
 CREATE TABLE offers(
 	offer_id int primary key auto_increment ,
     offer_name varchar(50) not null,
-    offer_type_of_subscription int not null,
+    offer_status_id int not null,
+    offer_type_of_subscription_id int not null,
     offer_age_qualification_id int not null,
     offer_duration int not null,
-	offer_slots int default null,
+	offer_slots VARCHAR(10) default 'None',
     offer_price float,
+    FOREIGN KEY (offer_status_id) REFERENCES statuses(status_id),
     FOREIGN KEY (offer_age_qualification_id) REFERENCES age_qualifications(age_qualification_id),
-    FOREIGN KEY (offer_type_of_subscription) REFERENCES types_of_subscription(types_of_subscription_id)
+    FOREIGN KEY (offer_type_of_subscription_id) REFERENCES type_of_subscriptions(type_of_subscription_id)
     
 );
 
@@ -443,46 +489,120 @@ INSERT INTO offers VALUES
 (
 	null,
     '1-Month Gym-Use(21 and Above)',
-    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Gym Subscription'),
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
-    null,
+    'None',
     800.00
 ),(
 	null,
     '1-Month Trainer',
-    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Trainer Subscription'),
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Trainer Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
     30,
-    null,
+    'None',
     1500.00
 ),(
 	null,
     '1-Month Locker',
-    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Locker Subscription'),
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Locker Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
     30,
-    null,
+    'None',
     100.00
 ),(
 	null,
-    'Zumba)',
-    (SELECT types_of_subscription_id FROM types_of_subscription WHERE types_of_subscription_details= 'Program Subscription'),
+    'Zumba',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Program Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+    30,
+    45,
+    500.00
+),(
+	null,
+    'Samba',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Program Subscription'),
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
     45,
     500.00
 );
 
+INSERT INTO offers VALUES
+(
+	null,
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
+    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+    30,
+    'None',
+    800.00
+);
+
+
+
+
+SELECT * FROM offers;
 
 -- select all offers
-SELECT * FROM offers;
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
+LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
+LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+WHERE status_details ='active'
+;
+
+-- select offer with id
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
+LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
+LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+WHERE offer_id = 1 AND status_details ='active'
+;
+
+-- soft delete for offer
+UPDATE offers
+SET offer_status_id = (SELECT status_id FROM statuses WHERE status_details= 'deleted')
+WHERE offer_id = 69
+; 
+
+-- update offer row
+UPDATE offers
+SET 
+offer_name = ' Hanrickson Gym',
+offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
+offer_age_qualification_id  = (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
+offer_duration ='60',
+offer_slots = 'None',
+offer_price = 1000
+WHERE offer_id =1;
+ -- count offers
+SELECT COUNT(*) FROM offers;
+
+-- select * offers as per subscription type
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
+LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
+LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
+WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Locker Subscription')
+;
+
+-- table for trainers
+CREATE TABLE trainers(
+	
+);
 
 
 -- table for subscriptions
-CREATE TABLE subscriptions(
-	
-);
+-- CREATE TABLE subscriptions(
+-- 	
+-- );
 
 
 

@@ -1,18 +1,8 @@
 <table id="example"  class="table table-striped table-borderless table-custom">
-    <?php 
-        // conenct to db
-        // select the table
-
-        // print the rows
-        
-        // while loop  or foreach
-
-    ?>
-
-
     <thead class="bg-dark text-light">
         <tr>
-        <th class="text-center">#</th>
+        <th class="d-lg-none"></th>
+        <th class="text-center d-none d-sm-table-cell">#</th>
         <th scope="col">NAME OF OFFER</th>
         <th scope="col" class="text-center ">TYPE OF SUBSCRIPTION</th>
         <th scope="col" class="text-center ">AGE QUALIFICATION</th>
@@ -23,45 +13,56 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-        <td scope="row" class="text-center">1</td>
-        <td>1-Month Gym-Use(21 and Above)</td>
-        <td class="text-center ">Gym-Use Subscription</td>
-        <td class="text-center ">21 above</td>
-        <td class="text-center ">30</td>
-        <td class="text-center ">None</td>
-        <td class="text-center ">₱800.00</td>
-        <td class="text-center "><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-        </tr>
-        <tr>
-        <td scope="row" class="text-center">2</td>
-        <td>1-Month Trainer</td>
-        <td class="text-center ">Trainer Subscription</td>
-        <td class="text-center ">None</td>
-        <td class="text-center ">30</td>
-        <td class="text-center ">None</td>
-        <td class="text-center ">₱1500.00</td>
-        <td class="text-center "><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-        </tr>
-        <tr>
-        <td scope="row" class="text-center">3</td>
-        <td>1-Month Locker</td>
-        <td class="text-center ">Locker Subscription</td>
-        <td class="text-center ">None</td>
-        <td class="text-center ">30</td>
-        <td class="text-center ">None</td>
-        <td class="text-center ">₱100.00</td>
-        <td class="text-center "><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-        </tr>
-        <tr>
-        <td scope="row" class="text-center">4</td>
-        <td>Zumba</td>
-        <td class="text-center ">Program Subscription</td>
-        <td class="text-center ">21 above</td>
-        <td class="text-center ">30</td>
-        <td class="text-center ">45</td>
-        <td class="text-center ">₱500.00</td>
-        <td class="text-center "><a href="editoffer.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm">Delete</button></td>
-        </tr>
+        <?php 
+            require_once '../../classes/offers.class.php';
+            require_once '../../tools/functions.php';
+
+            $offersObj = new offers();
+
+            if($offers_data = $offersObj->fetch()){
+                $counter = 1;
+                foreach ($offers_data as $key => $value) {
+                    if($value['status_details'] =='active'){
+                        echo '<tr id="offer_id_';echo_safe($value['offer_id']); echo'">';
+                        echo '<td class="d-lg-none"></td>';
+                        echo '<td scope="row" class="text-center d-none d-sm-table-cell">'; echo_safe($counter); echo'</td>';
+                        echo ' <td>'; echo_safe($value['offer_name']); echo '</td>';
+                        echo '<td class="text-center ">';echo_safe($value['type_of_subscription_details']); echo '</td>';
+                        echo '<td class="text-center ">';echo_safe($value['age_qualification_details']); echo '</td>';
+                        echo '<td class="text-center ">';echo_safe($value['offer_duration']); echo '</td>';
+                        echo '<td class="text-center ">';echo_safe($value['offer_slots']); echo '</td>';
+                        echo '<td class="text-center ">';echo_safe($value['offer_price']); echo '</td>';
+                        echo '<td class="text-center "><a href="editoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="deleteoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-danger btn-sm" onclick="confirmfunction(';echo_safe($value['offer_id']); echo')">Delete</button></td>';
+                        echo '</tr>';
+                        $counter++;
+                    }
+                }
+            }
+
+        
+        ?>
+       
     </tbody>
 </table>
+<script> 
+    function confirmfunction(id){
+        let text = "Are you sure you want to delete #"+id+"?";
+        if (confirm(text) == true) {
+            $.ajax({url: "deleteoffer.php?id="+id, success: function(result){
+                if(result ==1){
+                    // update datatables
+                    $( "#offer_id_"+id ).remove();
+                    alert('deleted successfully');
+                    console.log(result)
+                }else{
+                    alert('deletion failed');
+                }
+                
+            }});
+        } else {
+            return;
+            text = "You canceled!";
+        }
+        
+    }
+</script>

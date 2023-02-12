@@ -144,4 +144,18 @@ function getAge($date) {
 function validate_profile_info($POST){
     return  validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate') && validate_phone($POST, 'phone')&& validate_email($POST);
 }
+
+function validate_offer_duration($POST,$offer_duration){
+    return (isset($POST[$offer_duration])  && (intval($POST[$offer_duration]))>0);
+}
+
+function validate_offer_price($POST,$offer_price){
+    return (isset($POST[$offer_price])  && (floatval($POST[$offer_price])));
+}
+
+  
+
+function validate_offer($POST){
+    return validate_string($POST, 'offer_name') && validate_offer_duration($POST,'offer_duration') && validate_offer_price($POST,'offer_price') && validate_string($POST,'type_of_subscription');
+}
 ?>
