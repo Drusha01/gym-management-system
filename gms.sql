@@ -170,6 +170,31 @@ CREATE INDEX idx_user_password ON users(user_password_hashed);
 -- note that 1 user can have 1 unique phone 1 unique email and 1 unique username do it with php error handling
 
 -- INSERT for users
+
+INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
+user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+	null,
+    (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
+    (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+    (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
+    '09265827341',
+    'hanz.dumapit52@gmail.com',
+    true,
+    'Drusha00',
+    '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
+    'Hanrickson',
+    'Etrone',
+    'Dumapit',
+	'user address',
+    ('2000-02-12'),
+    'default.png',
+    'default.png',
+    now(),
+	now()
+    
+);
+
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
 user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
@@ -186,7 +211,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('2000-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -209,7 +234,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('1999-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -233,7 +258,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('2001-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -256,7 +281,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('2000-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -265,7 +290,17 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 );
 
 
--- SELECT * users
+-- SELECT * users if it is active
+SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+WHERE  user_status_details = 'active'
+;
+
+-- select * users
 SELECT * FROM users;
 
 SELECT user_id FROM users
@@ -595,7 +630,7 @@ WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_
 
 -- table for trainers
 CREATE TABLE trainers(
-	trainer_id int primary key auto_increment ,
+	trainer_id int primary key auto_increment 
 );
 -- CREATE TABLE trainers(
 	
