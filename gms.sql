@@ -597,6 +597,9 @@ WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_
 CREATE TABLE trainers(
 	trainer_id int primary key auto_increment ,
 );
+-- CREATE TABLE trainers(
+	
+-- );
 
 
 
