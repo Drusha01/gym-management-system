@@ -362,6 +362,7 @@ function genders(){
         console.log('gender selected  changed');
     }
     function other_genders(){
+        $('#gender').val('Other'); 
         $('#gender option[value=Other]').attr('selected','selected'); 
         console.log('gender others changed');
     }
