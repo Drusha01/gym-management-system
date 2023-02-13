@@ -290,6 +290,13 @@ if(isset($_SESSION['user_id'])){
             </div>
     </section>
 
+    
+
+</body>
+</html>
+
+
+
 
     <?php require_once '../includes/footer.php';?>
 

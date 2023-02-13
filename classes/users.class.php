@@ -375,6 +375,28 @@ Class users{
             return false;
         }
     }
+
+    function fetch_all_users(){
+        try{
+            $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+            user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+            LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+            LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+            LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
    
 }
 

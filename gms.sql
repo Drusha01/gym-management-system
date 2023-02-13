@@ -170,6 +170,31 @@ CREATE INDEX idx_user_password ON users(user_password_hashed);
 -- note that 1 user can have 1 unique phone 1 unique email and 1 unique username do it with php error handling
 
 -- INSERT for users
+
+INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
+user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+	null,
+    (SELECT user_status_id FROM user_status WHERE user_status_details = 'deleted'),
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
+    (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
+    (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
+    '09265827341',
+    'hanz.dumapit52@gmail.com',
+    true,
+    'Drusha00',
+    '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
+    'Hanrickson',
+    'Etrone',
+    'Dumapit',
+	'user address',
+    ('2000-02-12'),
+    'default.png',
+    'default.png',
+    now(),
+	now()
+    
+);
+
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
 user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
@@ -186,7 +211,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('2000-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -209,7 +234,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('1999-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -233,7 +258,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('2001-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -256,7 +281,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'Etrone',
     'Dumapit',
 	'user address',
-    (CURDATE()),
+    ('2000-02-12'),
     'default.png',
     'default.png',
     now(),
@@ -265,8 +290,23 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 );
 
 
--- SELECT * users
-SELECT * FROM users;
+-- SELECT * users if it is active
+SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+WHERE  user_status_details = 'active'
+;
+
+-- select * users
+SELECT * FROM users
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+;
 
 SELECT user_id FROM users
 WHERE user_name = BINARY 'Drusha01' OR user_email = 'hanz.dumapit54@gmail.com' OR user_phone_number = '9266827342';
@@ -478,6 +518,8 @@ CREATE TABLE offers(
     offer_duration int not null,
 	offer_slots VARCHAR(10) default 'None',
     offer_price float not null,
+    offer_date_created datetime default NOW(),
+    offer_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (offer_status_id) REFERENCES statuses(status_id),
     FOREIGN KEY (offer_age_qualification_id) REFERENCES age_qualifications(age_qualification_id),
     FOREIGN KEY (offer_type_of_subscription_id) REFERENCES type_of_subscriptions(type_of_subscription_id)
@@ -485,7 +527,7 @@ CREATE TABLE offers(
 );
 
 -- inserts for offers
-INSERT INTO offers VALUES
+INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price) VALUES
 (
 	null,
     '1-Month Gym-Use(21 and Above)',
@@ -533,7 +575,7 @@ INSERT INTO offers VALUES
     500.00
 );
 
-INSERT INTO offers VALUES
+INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price)VALUES
 (
 	null,
     '1-Month Gym-Use(21 and Above)',
@@ -593,13 +635,37 @@ LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=ty
 WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Locker Subscription')
 ;
 
+-- trainer statuses
+CREATE TABLE trainer_availability(
+	trainer_availability_id int primary key auto_increment,
+    trainer_availability_details varchar(50) not null unique	
+);
+
+-- insert for trainer status
+INSERT INTO trainer_availability VALUES
+(
+	null,
+    'Available'
+),(
+	null,
+    'Unavailable'
+);
+
 -- table for trainers
 CREATE TABLE trainers(
-	trainer_id int primary key auto_increment ,
+	trainer_id int primary key auto_increment,
+    trainer_user_id int not null,
+    trainer_availability_id int not null,
+    trainer_status_id int not null,
+    trainer_date_created datetime default NOW(),
+    trainer_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (trainer_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (trainer_availability_id) REFERENCES trainer_availability(trainer_availability_id),
+    FOREIGN KEY (trainer_status_id) REFERENCES statuses(status_id)
 );
--- CREATE TABLE trainers(
-	
--- );
+
+
+-- inserts for trainer
 
 
 
