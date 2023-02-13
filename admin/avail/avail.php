@@ -40,7 +40,7 @@ session_start();
     </main>
 
 <script>
-
+// setting the default into subscription
 $.ajax({
     type: "GET",
     url: 'subscription.php',
