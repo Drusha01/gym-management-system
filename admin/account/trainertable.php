@@ -23,7 +23,7 @@
             <option value="2">Not Available</option>
         </select>
         </td>
-        <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+        <td class="text-center"><a href="trainer_edit.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -37,7 +37,7 @@
             <option value="2">Not Available</option>
         </select>
         </td>
-        <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+        <td class="text-center"><a href="trainer_edit.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -51,7 +51,7 @@
             <option value="2">Not Available</option>
         </select>
         </td>
-        <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+        <td class="text-center"><a href="trainer_edit.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -65,7 +65,7 @@
             <option value="2">Not Available</option>
         </select>
         </td>
-        <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+        <td class="text-center"><a href="trainer_edit.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
         </tr>
     </tbody>
 </table>

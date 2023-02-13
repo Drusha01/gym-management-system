@@ -19,7 +19,7 @@
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img src="../../images/acc_img.png" alt="Admin" class="rounded-circle p-1 bg-danger" width="110">
                                     <div class="mt-3">
-                                        <h4>James_No_Leg_Day</h4>
+                                        <h4>Trinidad, James Lorenz</h4>
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 5 MB</div>
                                         <!-- Profile picture upload button-->
                                         <button class="btn btn-primary" type="file">Upload new image</button>

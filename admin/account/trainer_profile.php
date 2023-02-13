@@ -18,6 +18,7 @@
                         <div class="d-flex flex-column align-items-center text-center">
                         <img src="../../images/acc_img.png" alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
+                            <h4>Trinidad, James Lorenz</h4>
                             <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Available</span></p>
                             <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
                         </div>
