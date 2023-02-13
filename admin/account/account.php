@@ -61,7 +61,7 @@ if(isset($_SESSION['admin_id'])){
                             <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
                         </div>
                         <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                            <a href="add_user.php" class="btn btn-success" role="button">Add Account</a>
+                            <a href="user-add.php" class="btn btn-success" role="button">Add Account</a>
                         </div>
                     </div>
                     <div class="table-responsive table-container">
@@ -86,7 +86,7 @@ if(isset($_SESSION['admin_id'])){
                                 <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
                             </div>
                             <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                                <a href="add_trainer.php" class="btn btn-success" role="button">Add Trainer</a>
+                                <a href="trainer-add.php" class="btn btn-success" role="button">Add Trainer</a>
                             </div>
                         </div>
                         <div class="table-container">

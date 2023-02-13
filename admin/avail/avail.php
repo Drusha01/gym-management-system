@@ -171,45 +171,7 @@ $(".nav-item").on("click", function(){
 
 
 
-function changefunction(avail){
-    // if(avail =='Subscription'){
-    //     console.log("change function");
-        
-    // }else if(avail == 'Expiration'){
-    //     console.log("Exp")
-        // $.ajax({
-        // type: "GET",
-        // url: 'exptable.php',
-        // success: function(result)
-        // {
-        //     $('div.table-2').html(result);
-        //     dataTable = $("#table-2").DataTable({
-        //         "dom": '<"top"f>rt<"bottom"lp><"clear">',
-        //         responsive: true,
-        //     });
-        //     // $('input#keyword').on('input', function(e){
-        //     //     var status = $(this).val();
-        //     //     dataTable.columns([2]).search(status).draw();
-        //     // })
-        //     // $('select#categoryFilter').on('change', function(e){
-        //     //     var status = $(this).val();
-        //     //     dataTable.columns([3]).search(status).draw();
-        //     // })
-        //     // $('select#program').on('change', function(e){
-        //     //     var status = $(this).val();
-        //     //     dataTable.columns([4]).search(status).draw();
-        //     // })
 
-        //     // ito lang mali which yea baguhin mo for this table (may conflick sa code and di nagrereach sa next line of this comment) which is new $.fn.dataTable.FixedHeader(dataTable); 
-        //     new $.fn.dataTable.FixedHeader(dataTable);
-        // },
-        // error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        //     alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-        // }
-        // });
-    // }
-   
-}
 </script>
 
 </body>
