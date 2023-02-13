@@ -1,3 +1,11 @@
+
+<?php 
+session_start();
+
+
+?>
+
+
 <?php require_once '../includes/header.php';?>
 <body>
 <?php require_once '../includes/top_nav_admin.php';?>

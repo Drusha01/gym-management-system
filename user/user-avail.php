@@ -1,7 +1,7 @@
 <?php
 session_start();
-print_r($_SESSION);
-
+//print_r($_SESSION);
+// check if loged in else go to log in
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ print_r($_SESSION);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym</title>
-    <link rel="icon" type="images/x-icon" href="/images/logo.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
@@ -26,7 +26,9 @@ print_r($_SESSION);
 <body >
 
 <?php require_once '../includes/header.php';?>
-
+<br>
+<br>
+<br>
 <section id="avail">
     <div class="container h-100">
         <div class="multisteps-form">
@@ -53,37 +55,71 @@ print_r($_SESSION);
                                 <div class="row">
                                     <div class="col-md-6 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" aria-label="Default select example" name="gym_subscription">
+                                    <option selected>Select Gym subscription</option>
+                                        <?php 
+                                            // requre
+                                            require_once '../classes/offers.class.php';
+                                            require_once '../tools/functions.php';
+                                            // instance
+                                            $offersObj = new offers();
+
+                                            // fetch
+                                            if($data_result = $offersObj->select_offers_per_sub_type('Gym Subscription')){
+                                                foreach ($data_result as $key => $value) {
+                                                    if($value['status_details'] =='active'){
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                    }
+                                                }
+                                            }
+                                        ?>
+                                        
                                     </select>
                                     </div>
                                 
                                     <div class="col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" aria-label="Default select example" name="locker_subscription">
+                                        <option selected>Select Locker subscription</option>
+                                        <?php 
+                                        $offersObj = new offers();
+
+                                        // fetch
+                                        if($data_result = $offersObj->select_offers_per_sub_type('Locker Subscription')){
+                                            foreach ($data_result as $key => $value) {
+                                                if($value['status_details'] =='active'){
+                                                    echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                }
+                                            }
+                                        }
+                                        
+                                        ?>
                                     </select>
                                     </div>
                                     <div class="col-md-2 py-1">
                                     <label class="fw-bold pb-2 ps-1">Quantity</label>
-                                        <input type="number" class="form-control" name="number">
+                                        <input type="number" class="form-control" name="quantity">
                                     </div>
                                 </div>
                                 <hr class="hr" />
                                 <div class="row py-2">
                                     <div class="col-md-6">
                                         <label class="fw-bold pb-2 ps-1">Trainer Subscription</label>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" aria-label="Default select example" name="trainer_subscription">
                                             <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <?php 
+                                            $offersObj = new offers();
+
+                                            // fetch
+                                            if($data_result = $offersObj->select_offers_per_sub_type('Trainer Subscription')){
+                                                foreach ($data_result as $key => $value) {
+                                                    if($value['status_details'] =='active'){
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                    }
+                                                }
+                                            }
+                                            
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-md-4 py-3 py-lg-0">
@@ -103,9 +139,19 @@ print_r($_SESSION);
                                         <label class="fw-bold pb-2 ps-1">Program Subscription</label>
                                         <select class="form-select" aria-label="Default select example">
                                             <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <?php 
+                                            $offersObj = new offers();
+
+                                            // fetch
+                                            if($data_result = $offersObj->select_offers_per_sub_type('Program Subscription')){
+                                                foreach ($data_result as $key => $value) {
+                                                    if($value['status_details'] =='active'){
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                    }
+                                                }
+                                            }
+                                            
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">

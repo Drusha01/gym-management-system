@@ -2,6 +2,12 @@
 // start session
 session_start();
 
+// check if we are admin
+if(isset($_SESSION['admin_user_id'])){
+  header('location:../admin/admin_control_log-in2.php');
+}
+
+
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
@@ -14,6 +20,7 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
+      // header('location:../admin/dashboard/dashboard.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // go to userpage
       header('location:../user/user-page.php');
@@ -51,6 +58,7 @@ if(isset($_SESSION['user_id'])){
         $_SESSION['user_name'] = $user_details['user_name'];
         $_SESSION['user_password_hashed'] = 'null';
         $_SESSION['user_firstname'] = $user_details['user_firstname'];
+        $_SESSION['user_middlename'] = $user_details['user_middlename'];
 
         $_SESSION['user_lastname'] = $user_details['user_lastname'];
         $_SESSION['user_address'] = $user_details['user_address'];
@@ -82,7 +90,7 @@ if(isset($_SESSION['user_id'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym | Log-In</title>
-    <link rel="icon" type="images/x-icon" href="/images/logo.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
@@ -105,11 +113,11 @@ if(isset($_SESSION['user_id'])){
           <form class="mb-3 px-4" method="POST" enctype="multipart/form-data">
             <div class="form-floating mb-3">
               <input type="text" class="form-control rounded" placeholder="Enter email"  id="floatingInput" name="user" required>
-              <label for="floatingInput"><?php if ($error=='Invalid') {echo $error . ' Email / Username / Phone ';} else {echo 'Email / Username / Phone ';}?> </label>
+              <label for="floatingInput"><?php if (isset($error) && $error=='Invalid') {echo $error . ' Email / Username  ';} else {echo 'Email / Username  ';}?> </label>
             </div>
             <div class="form-floating mb-3">
               <input type="password" class="form-control rounded" placeholder="Enter your Password" id="floatingPassword" name="password" required>
-              <label for="floatingPassword"><?php if ($error=='Invalid') {echo $error . ' Password ';} else {echo 'Password';}?></label>
+              <label for="floatingPassword"><?php if (isset($error) && $error=='Invalid') {echo $error . ' Password ';} else {echo 'Password';}?></label>
             </div>
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" id="autoSizingCheck2">

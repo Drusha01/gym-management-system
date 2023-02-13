@@ -1,0 +1,11 @@
+# ignore all files in the img directory
+img/
+# ignore all test files
+test/
+# ignore all imgages2
+images2/
+
+# ingore the local instance 
+*classes/database.class.php
+
+*gms.sql

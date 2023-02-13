@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym | Admin</title>
-    <link rel="icon" type="images/x-icon" href="/images/logo.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
@@ -27,13 +29,13 @@
           <div class="row py-2">
             <h3 class="fw-normal text-center text-dark">Admin Control Log-In</h3>
           </div>
-          <form class="mb-3 px-4">
+          <form class="mb-3 px-4" method="POST">
             <div class="form-floating mb-3">
-              <input type="email" class="form-control rounded" placeholder="Enter your Email" id="floatingInput">
+              <input type="text" class="form-control rounded" placeholder="Enter your Email / Username" id="floatingInput" name="admin_login" id="admin_login">
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded" placeholder="Enter your Password" id="floatingPassword">
+              <input type="password" class="form-control rounded" placeholder="Enter your Password" name="admin_password" id="admin_password">
               <label for="floatingPassword">Password</label>
             </div>
             <div class="form-check mb-3">
@@ -41,7 +43,7 @@
               <label class="form-check-label">Remember Me</label>
             </div>
             <div class="d-grid gap-2 mb-3">
-              <button type="button" class="btn btn-dark btn-lg border-0 rounded"> <a class="text-decoration-none text-white" href="dashboard/dashboard.php">Log In</a></button>
+              <button type="button" class="btn btn-dark btn-lg border-0 rounded" onclick="window.location.href='dashboard/dashboard.php';"> Log In</button>
             </div>
           </form>
         </div>

@@ -1,3 +1,86 @@
+
+<?php
+// start session
+session_start();
+
+// includes
+
+
+
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+    header('location:../user/user-page.php');
+}
+
+
+if(isset($_SESSION['admin_id'])){
+    // check admin user details
+    if($_SESSION['admin_user_status_details'] == 'active'){
+        // do nothing
+        require_once '../../tools/functions.php';
+        
+        if(isset($_POST['add_offer']) && $_POST['add_offer'] =='add_offer'){
+            require_once '../../classes/offers.class.php';
+
+            // validate add offer
+            if(validate_offer($_POST)){
+                $offersObj = new offers();
+                $offer_name = $_POST['offer_name'];
+                $offer_status_details = 'active';
+                $offer_offer_type_of_subscription_details = $_POST['type_of_subscription'];
+                $offer_duration =$_POST['offer_duration'];
+                $offer_price =$_POST['offer_price'];
+                // validate age qualification
+                $error =false;
+                if(isset($_POST['age_qualification_details']) && strlen($_POST['age_qualification_details'])>0){
+                    // insert
+                    require_once '../../classes/age_qualification.class.php';
+                    $age_qualObj = new age_qualifications();
+                    $age_qualObj->insert($_POST['age_qualification_details']);
+                    // if this is set then
+                    $offer_age_qualification_details =$_POST['age_qualification_details'];
+                }else if(isset($_POST['age_qualification_details_checked']) && $_POST['age_qualification_details_checked'] == 'None'){
+                    $offer_age_qualification_details =$_POST['age_qualification_details_checked'];
+                }else{
+                    $error =true;
+                }
+                
+                // validate slots
+                if(isset($_POST['offer_slots']) && strlen($_POST['offer_slots'])>0 && intval($_POST['offer_slots']) > 0){
+                    // if this is set then
+                    $offer_slots =$_POST['offer_slots'];
+                }else if(isset($_POST['offer_slots_checked']) && $_POST['offer_slots_checked'] == 'None'){
+                    $offer_slots =$_POST['offer_slots_checked'];
+                }else{
+                    $error =true;
+                }
+
+                if(!$error){
+                    if($offersObj->add($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price)){
+                        header('location:offer.php');
+                    }
+                }
+                
+
+                
+            }
+            
+        }
+
+
+    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+        // do this
+    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+        // go to deleted user page
+    }
+
+}else{
+    // go to admin login
+    header('location:../admin_control_log_in2.php');
+}
+
+?>
+
 <?php require_once '../includes/header.php';?>
 <body>
 <?php require_once '../includes/top_nav_admin.php';?>
@@ -9,11 +92,11 @@
                 <a class="col text-decoration-none text-black m-0" aria-current="page" href="offer.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
             </div>
             <div class="container">
-                <form action="">
+                <form action="" method="POST">
                     <div class="row pb-2">
                         <div class="col-sm-5">
                             <label class="pb-1" for="name_offer">Name of Offer</label>
-                            <input type="text" class="form-control" value="" id="name_offer" placeholder="Enter Offer">
+                            <input type="text" class="form-control" value="" id="offer_name" name="offer_name"placeholder="Enter Offer" required>
                         </div>
                     </div>
                     <div class="row pb-1">
@@ -21,20 +104,15 @@
                             <label class="pb-1" for="Age_Qual">Age Qualification</label>
                             <div class="row">
                                 <div class="col-3 col-lg-3">
-                                    <input type="text" class="form-control" value="" id="name_offer" placeholder="">
+                                    <input type="text" class="form-control" value="" id="age_qualification_details" name="age_qualification_details" placeholder="" onchange="agequalification()">
                                 </div>
-                                <div class="col-1">
-                                    <h4 class="fs-3">-</h4>
-                                </div>
-                                <div class="col-3 col-lg-3">
-                                    <input type="text" class="form-control" value="" id="name_offer" placeholder="">
-                                </div>
+                                
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
                                 </div>
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="None" name="age_qualification_details_checked" id="age_qualification_details_checked" id="age_qualification_details_checked" onchange="agequalification_check()">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             None
                                         </label>
@@ -46,42 +124,60 @@
                     <div class="row pb-2">
                         <div class="col-3 col-lg-2">
                             <label class="pb-1" for="name_offer">Days</label>
-                            <input type="number" class="form-control" value="" id="name_offer" placeholder="30">
+                            <input type="number" class="form-control" value="" id="offer_duration" placeholder="30" name="offer_duration" required>
                         </div>
                     </div>
                     <div class="row pb-2">
                         <div class="col-4 col-lg-2">
                             <label class="pb-1" for="name_offer">Price</label>
-                            <input type="number" class="form-control" value="" id="name_offer" placeholder="₱00.00">
+                            <input type="number" class="form-control" value="" id="offer_price" placeholder="₱00.00" name="offer_price" required>
                         </div>
                     </div>
                     <div class="row pb-2 pt-2">
                         <label>Type of Subscription</label>
                         <div class="container px-4">
+                            <?php 
+                                require_once '../../classes/type_of_subscriptions.class.php';
+
+                                $sub_typeObj = new type_of_subscriptions();
+
+                                if($sub_type_data = $sub_typeObj->fetch()){
+                                    foreach ($sub_type_data as $key => $value) {
+                                        echo '
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                <input class="form-check-input" type="radio" name="type_of_subscription" value ="';echo_safe($value['type_of_subscription_details']); echo '" id="';echo_safe($value['type_of_subscription_details']); echo '" required>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                ';echo_safe($value['type_of_subscription_details']); echo '
+                                </label>
+                            </div>';
+                                        
+                                    }
+                                }
+                            ?>
+                            <!-- <div class="form-check">
+                                <input class="form-check-input" type="radio" name="type_of_subscription" value ="Gym Subscription" id="flexRadioDefault1" checked>
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Gym Subscription
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                <input class="form-check-input" type="radio" name="type_of_subscription" id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     Trainer Subscription
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                <input class="form-check-input" type="radio" name="type_of_subscription" id="flexRadioDefault3">
                                 <label class="form-check-label" for="flexRadioDefault3">
                                     Locker Subscription
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                                <input class="form-check-input" type="radio" name="type_of_subscription" id="flexRadioDefault4">
                                 <label class="form-check-label" for="flexRadioDefault4">
                                     Program
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row pb-1">
@@ -89,14 +185,14 @@
                             <label class="pb-1" for="Age_Qual">Slots</label>
                             <div class="row">
                                 <div class="col-4">
-                                    <input type="number" class="form-control" value="" id="name_offer" placeholder="30">
+                                    <input type="number" class="form-control" value="" name="offer_slots" id="offer_slots" placeholder="" onchange="offer_slotsfunction()">
                                 </div>
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
                                 </div>
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox"  name="offer_slots_checked" value="None" id="offer_slots_checked" onchange="offer_slotsfunction_checked()">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             None
                                         </label>
@@ -107,7 +203,7 @@
                     </div>
                     <div class="row d-flex flex-row-reverse">
                         <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                            <button type="submit" class="btn btn-success  border-0 rounded" " id="submit">Submit</button>
+                            <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -118,3 +214,24 @@
 
 </body>
 </html>
+
+<script>
+
+    function agequalification(){
+        $('#age_qualification_details_checked').prop('checked', false); 
+        console.log('text input changed');
+    }
+    function agequalification_check(){
+        $('#age_qualification_details').val('') ;
+        console.log('check box changed');
+    }
+
+    function offer_slotsfunction(){
+        $('#offer_slots_checked').prop('checked', false); 
+        console.log('text input changed');
+    }
+    function offer_slotsfunction_checked(){
+        $('#offer_slots').val('') ;
+        console.log('check box changed');
+    }
+</script>

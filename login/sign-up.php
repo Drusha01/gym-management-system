@@ -1,11 +1,18 @@
 <?php
 
+
 // start session
 session_start();
+
+// check if we are admin
+if(isset($_SESSION['admin_user_id'])){
+  header('location:../admin/admin_control_log-in2.php');
+}
 
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
+require_once '../classes/genders.class.php';
 
   // check if we are logged in
   if(isset($_SESSION['user_id'])){
@@ -14,6 +21,7 @@ require_once '../classes/users.class.php';
       // check what type of user are we
       if($_SESSION['user_type_details'] =='admin'){
         // go to admin
+        // header('location:../admin/dashboard/dashboard.php');
       }else if($_SESSION['user_type_details'] == 'normal'){
         // go to userpage
         header('location:../user/user-page.php');
@@ -26,12 +34,29 @@ require_once '../classes/users.class.php';
   }else{
     // must be sign up 
     // check the post global variable
-    if(validate_signup($_POST)){
-      $userObj = new Users();
+
+    $userObj = new Users();
+    // if new gender is found insert first the new gender then 
+    $error = false;
+    if(isset($_POST['gender']) &&  ($_POST['gender'] != 'Other' || $_POST['gender'] != 'None')){
+      $userObj->setuser_gender_details($_POST['gender']);
+    }
+    if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
+      $userObj->setuser_gender_details($_POST['gender_other']);
+      $genderObj = new genders();
+      $genderObj->insert_new_gender($_POST['gender_other']);
+      echo 'other_gender';
+    }else{
+      //echo 'error';
+      $error = true;
+    }
+
+    if(validate_signup($_POST) && !$error){
+
       // set attributes
       $userObj->setuser_status_details('active');
       $userObj->setuser_type_details('normal');
-      $userObj->setuser_gender_details($_POST['gender']);
+      
       $userObj->setuser_phone_contry_code_details('+63');
 
       $userObj->setuser_phone_number($_POST['phone']);
@@ -39,8 +64,10 @@ require_once '../classes/users.class.php';
       $userObj->setuser_name($_POST['username']);
       $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
       $userObj->setuser_firstname($_POST['fname']);
+      $userObj->setuser_middlename($_POST['mname']);
       $userObj->setuser_lastname($_POST['lname']);
       $userObj->setuser_birthdate($_POST['birthdate']);
+      
       
 
       // check for duplicates
@@ -141,19 +168,21 @@ require_once '../classes/users.class.php';
             // profile display
             $result = resizeImage($profilepic_dir,$profile_resize_dir,$filename.'.jpg',$filename,80,500,500);
             if($result){
-              echo 'error';
+              echo 'error resize 500x500';
             }
             // thumbnail
             $result = resizeImage($profilepic_dir,$profile_thumbnail_dir,$filename.'.jpg',$filename,80,150,150);
             if($result){
-              echo 'error';
+              echo 'error resize 150x150';
             }
           }
         }
       }
+
       // note that the file must be uploaded before inserting the user
       // insert
       if ($userObj->signup() ) {
+        echo 'signup -done';
         $userObj->setuser_id($userObj->user_id_with_username()['user_id']);
         // get_user_details
         $user_details = $userObj->get_user_details();
@@ -170,18 +199,19 @@ require_once '../classes/users.class.php';
         $_SESSION['user_password_hashed'] = 'null';
         $_SESSION['user_firstname'] = $user_details['user_firstname'];
 
+        $_SESSION['user_middlename'] = $user_details['user_middlename'];
         $_SESSION['user_lastname'] = $user_details['user_lastname'];
         $_SESSION['user_address'] = $user_details['user_address'];
         $_SESSION['user_birthdate'] = $user_details['user_birthdate'];
         $_SESSION['user_valid_id_photo'] = $user_details['user_valid_id_photo'];
-        $_SESSION['user_profile_picture'] = $user_details['user_profile_picture'];
 
+        $_SESSION['user_profile_picture'] = $user_details['user_profile_picture'];
         $_SESSION['user_date_created'] = $user_details['user_date_created'];
         $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
         // go to user page
         header('location:../user/user-profile.php');
       }else{
-        echo 'error';
+        echo 'error-sign up';
       }
     }else{
         echo 'used';
@@ -199,7 +229,7 @@ require_once '../classes/users.class.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym | Sign-Up</title>
-    <link rel="icon" type="images/x-icon" href="/images/logo.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
@@ -247,27 +277,39 @@ require_once '../classes/users.class.php';
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" oninput="functiononkeyup()" required>
             </div>
             <div class="form-group py-1">
-              <input type="number" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" maxlength="10" required>
+              <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" minlength="11" maxlength="11" required>
             </div>
             <div class="form-group py-1">
               <div class="row">
                   <div class="col-md-6 py-1">
-                  <label for="exampleFormControlSelect1">Gender</label>
-                    <select class="form-select" id="exampleFormControlSelect1">
-                      <option>Male</option>
-                      <option>Female</option>
-                      <option>Helicopter</option>
+                  <label for="Gender">Gender</label>
+                    <select class="form-select" id="gender" name="gender" onchange="genders()">
+                      <option value="None" >Select Gender </option>
+                      <?php 
+                      
+                      $genderObj = new genders();
+                      $data = $genderObj->get_gender_list();
+                      foreach ($data as $key => $value) {
+                        echo '<option value="';
+                        echo_safe($value['user_gender_details']);
+                        echo '"';
+                        echo 'id="';echo_safe($value['user_gender_details']);
+                        echo '">';
+                        echo_safe($value['user_gender_details']);
+                        echo '</option>';
+                      }
+                      ?>
                     </select>
                   </div>
                   <div class="col-md-6 py-1">
-                  <label for="exampleFormControlSelect1">Other</label>
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Other"  oninput="functiononkeyup()"  required>
+                  <label for="exampleFormControlSelect1">Not in the list?</label>
+                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"  oninput="functiononkeyup()" onchange="other_genders()"  >
                   </div>
               </div>
             </div>
             <div class="form-group py-1">
               <label>Birth Date</label>
-              <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" required>
+              <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" value="<?php echo date('Y-m-d', time()-(60*60*24*365*18)); ?>" required>
             </div>
             <div class="form-group py-2">
               <label for="exampleFormControlFile1">Valid ID or Birth Certificate</label>
@@ -281,7 +323,7 @@ require_once '../classes/users.class.php';
             </div>
             <br>
             <div class="d-grid">
-            <button type="submit" class="btn btn-success btn-lg border-0 rounded" onclick="functiononsignup()" id="submit"> Sign-Up</button>
+            <button type="submit" class="btn btn-success btn-lg border-0 rounded"  id="submit"> Sign-Up</button>
             </div>
             <p class="text-center">Already Have an Account? <a class="text-decoration-none" href="../login/log-in.php">Log-in</a></p>
         </form>
@@ -313,4 +355,14 @@ require_once '../classes/users.class.php';
 </html>
 <script>
 <?php require_once("../js/signup.js");?>
+
+
+function genders(){
+        $('#gender_other').val(''); 
+        console.log('gender selected  changed');
+    }
+    function other_genders(){
+        $('#gender option[value=Other]').attr('selected','selected'); 
+        console.log('gender others changed');
+    }
 </script>

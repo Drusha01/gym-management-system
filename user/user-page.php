@@ -1,6 +1,31 @@
 <?php
+// start session
 session_start();
-print_r($_SESSION);
+
+// includes
+require_once '../tools/functions.php';
+require_once '../classes/users.class.php';
+
+
+// check if we are logged in
+if(isset($_SESSION['user_id'])){
+  // check if the user is active
+  if($_SESSION['user_status_details'] =='active'){
+    // check what type of user are we
+    if($_SESSION['user_type_details'] =='admin'){
+      // go to admin
+    }else if($_SESSION['user_type_details'] == 'normal'){
+      // do nothing
+    } 
+  }else if($_SESSION['user_status_details'] =='inactive'){
+    // handle inactive user details
+  }else if($_SESSION['user_status_details'] =='deleted'){
+    // handle deleted user details
+  }
+} else {
+  // go to login page
+  header('location:../login/log-in.php');
+}
 
 ?>
 
@@ -11,7 +36,7 @@ print_r($_SESSION);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym</title>
-    <link rel="icon" type="images/x-icon" href="/images/logo.png">
+    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
