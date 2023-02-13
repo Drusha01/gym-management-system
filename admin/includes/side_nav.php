@@ -10,19 +10,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../offers/offer.php" class="nav-link" title="Programs">
+                            <a href="../offers/offer.php" class="nav-link" title="Offers">
                                 <i class='bx bxs-offer'></i>
                                 <span class="links-name">Offers</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../avail/avail.php" class="nav-link" title="Screening">
+                            <a href="../avail/avail.php" class="nav-link" title="Avail">
                                 <i class='bx bx-calendar-plus'></i>
                                 <span class="links-name">Avail</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Settings">
+                            <a href="../account/account.php" class="nav-link" title="Accounts">
                                 <i class='bx bx-user' ></i>
                                 <span class="links-name">Accounts</span>
                             </a>

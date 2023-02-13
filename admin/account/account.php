@@ -1,0 +1,82 @@
+
+<?php require_once '../includes/header.php'; ?>
+
+<body>
+<?php require_once '../includes/top_nav_admin.php';?>
+<?php require_once '../includes/side_nav.php';?>
+<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
+    <div class="w-100">
+    <h5 class="col-12 fw-bold mb-3">Accounts</h5>
+        <div class="container-fluid">
+            <ul class="nav nav-tabs application">
+                        <li class="nav-item active ">
+                            <a class="nav-link" href="#tab-user" data-bs-toggle="tab">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tab-trainer" data-bs-toggle="tab">Trainer</a>
+                        </li>
+                    </ul>
+            <div class="tab-content">
+                <div class="tab-pane active show fade" id="tab-user">
+                    <div class="row g-2 mb-2 mt-1">
+                        <div class="form-group col-12 col-sm-6 table-filter-option">
+                            <label for="keyword">Search</label>
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
+                        </div>
+                        <div class="col-12 col-sm-6 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+                            <a href="#" class="btn btn-success" role="button">Add Account</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive table-container">
+
+                    </div>
+
+                 </div>
+                 <!-- end of acc table -->
+
+                <div class="tab-pane show fade" id="tab-trainer">
+                    trainer
+                </div>
+            </div>
+    </div>
+</main>
+
+<script>
+$(".nav-item").on("click", function(){
+            $(".nav-item").removeClass("active");
+            $(this).addClass("active");
+
+        });
+
+    $.ajax({
+    type: "GET",
+    url: 'usertable.php',
+    success: function(result)
+    {
+        $('div.table-responsive').html(result);
+        dataTable = $("#table-1").DataTable({
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            responsive: true,
+        });
+        $('input#keyword').on('input', function(e){
+            var status = $(this).val();
+            dataTable.columns([2]).search(status).draw();
+        })
+        $('select#categoryFilter').on('change', function(e){
+            var status = $(this).val();
+            dataTable.columns([3]).search(status).draw();
+        })
+        $('select#program').on('change', function(e){
+            var status = $(this).val();
+            dataTable.columns([4]).search(status).draw();
+        })
+        new $.fn.dataTable.FixedHeader(dataTable);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-<table id="example" class="table table-striped table-borderless table-custom">
+<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%">
 <thead class="bg-dark text-light">
     <tr>
     <th class="d-lg-none"></th>
