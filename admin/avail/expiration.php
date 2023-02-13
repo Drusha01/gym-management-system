@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-exp">
     <div class="row g-2 mb-2 mt-1">
         <div class="form-group col-12 col-sm-3 table-filter-option">
             <label>Type</label>
@@ -24,9 +24,13 @@
                 <option value="">Overdue</option>
             </select>
         </div>
-        <div class="table-responsive">
-            <?php require_once 'exptable.php';?>
+        <div class="table-responsive table-container table-2">
+            <?php //require_once 'exptable.php';?>
         </div>
     </div>
 </div>
+
+<script>
+    
+</script>
 

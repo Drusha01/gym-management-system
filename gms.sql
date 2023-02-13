@@ -594,9 +594,9 @@ WHERE offer_type_of_subscription_id = (SELECT type_of_subscription_id FROM type_
 ;
 
 -- table for trainers
-CREATE TABLE trainers(
+-- CREATE TABLE trainers(
 	
-);
+-- );
 
 
 -- table for subscriptions

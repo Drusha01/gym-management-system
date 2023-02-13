@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-sub">
     <div class="row g-2 mb-2 mt-1">
         <div class="form-group col-12 col-sm-3 table-filter-option">
             <label>Type</label>
@@ -31,32 +31,5 @@
 </div>
 
 <script>
-    $.ajax({
-    type: "GET",
-    url: 'availtable.php',
-    success: function(result)
-    {
-        $('div.table-1').html(result);
-        dataTable = $("#table-1").DataTable({
-            "dom": '<"top"f>rt<"bottom"lp><"clear">',
-            responsive: true,
-        });
-        $('input#keyword').on('input', function(e){
-            var status = $(this).val();
-            dataTable.columns([2]).search(status).draw();
-        })
-        $('select#categoryFilter').on('change', function(e){
-            var status = $(this).val();
-            dataTable.columns([3]).search(status).draw();
-        })
-        $('select#program').on('change', function(e){
-            var status = $(this).val();
-            dataTable.columns([4]).search(status).draw();
-        })
-        new $.fn.dataTable.FixedHeader(dataTable);
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-    }
-    });
+    
 </script>
