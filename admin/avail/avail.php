@@ -24,104 +24,152 @@ session_start();
                             <a class="nav-link" href="#tab-walk_in" data-bs-toggle="tab" >Walk-In</a>
                         </li>
                     </ul>
-            <div class="tab-content">
-                <div class="tab-pane active show fade" id="tab-subs">
+            <div class="tab-content" >
+                <div class="tab-pane active show fade" id="tab">
                     <?php require_once 'subscription.php';?>
                 </div>
-                <div class="tab-pane show fade" id="tab-exp">
-                    <?php require_once 'expiration.php';?>
+                <!-- <div class="tab-pane show fade" id="tab-exp">
+                    
                 </div>
                 <div class="tab-pane show fade" id="tab-walk_in">
                     Some Walk-In for subs
-                </div>
+                </div>  -->
             </div>
-            <!-- end of tab-content -->
         </div>
 
     </main>
 
 <script>
-$(".nav-item").on("click", function(){
-            $(".nav-item").removeClass("active");
-            $(this).addClass("active");
-            if($(this).attr('id') =='subs'){
-                $("container-sub").remove();
-                $("container-exp").remove();
-                $.ajax({
-                type: "GET",
-                url: 'availtable.php',
-                success: function(result)
-                {
-                    $("div.table-1").html('');
-                    $("div.table-2").html('');
-                    $('div.table-1').html(result);
-                    dataTable = $("#table-1").DataTable({
-                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                        responsive: true,
-                    });
-                    $('input#keyword').on('input', function(e){
-                        var status = $(this).val();
-                        dataTable.columns([2]).search(status).draw();
-                    })
-                    $('select#categoryFilter').on('change', function(e){
-                        var status = $(this).val();
-                        dataTable.columns([3]).search(status).draw();
-                    })
-                    $('select#program').on('change', function(e){
-                        var status = $(this).val();
-                        dataTable.columns([4]).search(status).draw();
-                    })
-                    new $.fn.dataTable.FixedHeader(dataTable);
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-                }
+
+$.ajax({
+    type: "GET",
+    url: 'subscription.php',
+    success: function(result)
+    {
+        
+        $('div#tab').html(result);
+        $.ajax({
+            type: "GET",
+            url: 'availtable.php',
+            success: function(result)
+            {
+                
+                $('div.table-1').html(result);
+                dataTable = $("#table-1").DataTable({
+                    "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                    responsive: true,
                 });
                 
-            }else if($(this).attr('id') =='exp'){
-                $.ajax({
-                type: "GET",
-                url: 'exptable.php',
-                success: function(result)
-                {
-                    
-                    $('div.table-2').html(result);
-                    
-                    dataTable = $("#table-2").DataTable({
-                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                        responsive: true,
-                    });
-                    
-                    // $('input#keyword').on('input', function(e){
-                    //     var status = $(this).val();
-                    //     dataTable.columns([2]).search(status).draw();
-                    // })
-                    // $('select#categoryFilter').on('change', function(e){
-                    //     var status = $(this).val();
-                    //     dataTable.columns([3]).search(status).draw();
-                    // })
-                    // $('select#program').on('change', function(e){
-                    //     var status = $(this).val();
-                    //     dataTable.columns([4]).search(status).draw();
-                    // })
-
-                    // ito lang mali which yea baguhin mo for this table (may conflick sa code and di nagrereach sa next line of this comment) which is new $.fn.dataTable.FixedHeader(dataTable); 
-                    new $.fn.dataTable.FixedHeader(dataTable);
-                    $( "div.table-2" ).load(function() {
-                        var status = $(this).val();
-                        dataTable.columns([4]).search(status).draw();
-                    });
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-                }
-                });
-            }else if($(this).attr('id') =='walk'){
-
+                new $.fn.dataTable.FixedHeader(dataTable);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             }
+        });
+        
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    }
+});
+
+$(".nav-item").on("click", function(){
+            
+    if($(this).attr('id') =='subs'){
+        $.ajax({
+            type: "GET",
+            url: 'subscription.php',
+            success: function(result)
+            {
+                
+                $('div#tab').html(result);
+                $.ajax({
+                    type: "GET",
+                    url: 'availtable.php',
+                    success: function(result)
+                    {
+                        
+                        $('div.table-1').html(result);
+                        dataTable = $("#table-1").DataTable({
+                            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                            responsive: true,
+                        });
+                        $('input#keyword').on('input', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([2]).search(status).draw();
+                        })
+                        $('select#categoryFilter').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                        })
+                        $('select#program').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([4]).search(status).draw();
+                        })
+                        new $.fn.dataTable.FixedHeader(dataTable);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                    }
+                });
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+        
+        
+        
+    }else if($(this).attr('id') =='exp'){
+        $.ajax({
+            type: "GET",
+            url: 'expiration.php',
+            success: function(result)
+            {
+                
+                $('div#tab').html(result);
+                $.ajax({
+                    type: "GET",
+                    url: 'exptable.php',
+                    success: function(result)
+                    {
+                        $('div.table-2').html(result);
+                        dataTable = $("#table-2").DataTable({
+                            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                            responsive: true,
+                        });
+                        $('input#keyword').on('input', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([2]).search(status).draw();
+                        })
+                        $('select#categoryFilter').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                        })
+                        $('select#program').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([4]).search(status).draw();
+                        })
+                        new $.fn.dataTable.FixedHeader(dataTable);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                    }
+                });
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }else if($(this).attr('id') =='walk'){
+
+    }
            
 
 });
+
+
 
 function changefunction(avail){
     // if(avail =='Subscription'){

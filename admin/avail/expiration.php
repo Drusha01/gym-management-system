@@ -25,7 +25,7 @@
             </select>
         </div>
         <div class="table-responsive table-container table-2">
-            <?php //require_once 'exptable.php';?>
+
         </div>
     </div>
 </div>

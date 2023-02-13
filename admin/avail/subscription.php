@@ -1,4 +1,4 @@
-<div class="container-sub">
+<div class="container">
     <div class="row g-2 mb-2 mt-1">
         <div class="form-group col-12 col-sm-3 table-filter-option">
             <label>Type</label>
@@ -8,6 +8,7 @@
                 <option value="Trainer Subscription">Trainer Subscription</option>
                 <option value="Locker Subscription">Locker Subscription</option>
                 <option value="Program Subscription">Program Subscription</option>
+                <option value="Program Subscription">X X</option>
             </select>
         </div>
         <div class="form-group col-12 col-sm-4 table-filter-option">
@@ -30,6 +31,5 @@
     </div>
 </div>
 
-<script>
-    
-</script>
+
+
