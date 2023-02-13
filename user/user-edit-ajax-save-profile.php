@@ -47,17 +47,18 @@ if(isset($_SESSION['user_id'])){
 
                 // if new gender is found insert first the new gender then 
 
-                if (isset($_POST['gender']) && $_POST['gender'] != $_SESSION['user_gender_details']) {
-                    $userObj->setuser_gender_details($_POST['gender']);
-                } else if (isset($_POST['gender_other']) && strlen($_POST['gender_other']) > 0) {
-                    $userObj->setuser_gender_details($_POST['gender_other']);
-                    $genderObj = new genders();
-                    $genderObj->insert_new_gender($_POST['gender_other']);
-                    //echo 'other_gender';
-                } else {
-                    //echo 'gender_error';
-                    //$error = true;
-                    $userObj->setuser_gender_details($_SESSION['user_gender_details']);
+                $error = false;
+                if(isset($_POST['gender']) &&  ($_POST['gender'] != 'Other' || $_POST['gender'] != 'None')){
+                $userObj->setuser_gender_details($_POST['gender']);
+                }
+                if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
+                $userObj->setuser_gender_details($_POST['gender_other']);
+                $genderObj = new genders();
+                $genderObj->insert_new_gender($_POST['gender_other']);
+                //echo 'other_gender';
+                }else{
+                //echo 'error';
+                $error = true;
                 }
 
 

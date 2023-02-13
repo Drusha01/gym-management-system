@@ -129,7 +129,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Gender</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                        <select class="form-select" id="gender" name="gender">
+                                        <select class="form-select" id="gender" name="gender" onchange="genders()">
                                             <option value="None" >Select Gender </option>
                                             <?php 
                                             require_once '../classes/genders.class.php';
@@ -156,7 +156,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Not in the list?</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender">
+                                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender" onchange="other_genders()">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -292,7 +292,15 @@ $(document).ready(function() {
 
 
 
-
+function genders(){
+    $('#gender_other').val(''); 
+    console.log('gender selected  changed');
+}
+function other_genders(){
+    $('#gender').val('Other'); 
+    $('#gender option[value=Other]').attr('selected','selected'); 
+    console.log('gender others changed');
+}
 
 <?php require_once("../js/user-edit-change-password.js");?>
 
@@ -326,6 +334,17 @@ xhttp_save_profile.onreadystatechange = function() {
             $('#phone').attr('placeholder',$('#fname').val());
             $('#address').attr('placeholder',$('#address').val());
             $('#birthdate').attr('placeholder',$('#birthdate').val());
+
+            if($('#gender_other').val().length >0){
+                optionText = $('#gender_other').val();
+                optionValue = $('#gender_other').val();
+                $('#gender').append(`<option value="${optionValue}">
+                                       ${optionText}
+                                  </option>`);
+                $('#gender option[value='+$('#gender_other').val()+']').attr('selected','selected'); 
+                $('#gender_other').val(''); 
+            }
+            
 
             // alert saved
             
