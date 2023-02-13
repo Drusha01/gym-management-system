@@ -53,7 +53,7 @@ session_start();
                         <div class="multisteps-form__content">
                             <div class="form-group py-1">
                                 <div class="row">
-                                    <div class="col-md-6 py-1">
+                                    <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="gym_subscription">
                                     <option selected>Select Gym subscription</option>
@@ -73,11 +73,54 @@ session_start();
                                                 }
                                             }
                                         ?>
-                                        
                                     </select>
                                     </div>
-                                
-                                    <div class="col-md-4 py-1">
+                                    <div class="col-1 align-self-end mb-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="table-responsive table-container">
+                                                <table class="table table-striped table-borderless table-fixed table-hover" style="width: 100%">
+                                                <thead class="bg-dark text-light">
+                                                    <tr>
+                                                    <th class="text-center">NAME OF OFFER</th>
+                                                    <th class="text-center">AGE QUALIFICATION</th>
+                                                    <th class="text-center">DAYS</th>
+                                                    <th class="text-center">SLOTS</th>
+                                                    <th class="text-center">PRICE</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <td class="text-center">1-Month Gym-Use</td>
+                                                    <td class="text-center">None</td>
+                                                    <td class="text-center">30</td>
+                                                    <td class="text-center">None</td>
+                                                    <td class="text-center">₱800</td>
+                                                    </tr>
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!-- End of Modal -->
+
+                                    <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="locker_subscription">
                                         <option selected>Select Locker subscription</option>
@@ -96,14 +139,18 @@ session_start();
                                         ?>
                                     </select>
                                     </div>
-                                    <div class="col-md-2 py-1">
+                                    <div class="col-1 align-self-end mb-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
+                                    </div>
+                                    <div class="col-4 col-md-2 py-1">
                                     <label class="fw-bold pb-2 ps-1">Quantity</label>
                                         <input type="number" class="form-control" name="quantity">
                                     </div>
+                                    
                                 </div>
                                 <hr class="hr" />
                                 <div class="row py-2">
-                                    <div class="col-md-6">
+                                    <div class="col-10 col-md-4">
                                         <label class="fw-bold pb-2 ps-1">Trainer Subscription</label>
                                         <select class="form-select" aria-label="Default select example" name="trainer_subscription">
                                             <option selected>Open this select menu</option>
@@ -122,6 +169,9 @@ session_start();
                                             ?>
                                         </select>
                                     </div>
+                                    <div class="col-1 align-self-end mb-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
+                                    </div>
                                     <div class="col-md-4 py-3 py-lg-0">
                                         <label class="fw-bold pb-2">Search</label>
                                         <input class="form-control" type="text" placeholder="Enter Trainer Name">
@@ -135,7 +185,7 @@ session_start();
                                 </div>
                                 <hr class="hr" />
                                 <div class="row py-2">
-                                    <div class="col-md-6">
+                                    <div class="col-10 col-md-6">
                                         <label class="fw-bold pb-2 ps-1">Program Subscription</label>
                                         <select class="form-select" aria-label="Default select example">
                                             <option selected>Open this select menu</option>
@@ -153,6 +203,9 @@ session_start();
                                             
                                             ?>
                                         </select>
+                                    </div>
+                                    <div class="col-1 align-self-end mb-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
                                     <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
                                         <button type="button" class="btn btn-success btn-lg"><i class='bx bx-plus-circle'></i></button>
@@ -385,6 +438,7 @@ DOMstrings.stepsForm.addEventListener('click', e => {
 window.addEventListener('load', setFormHeight, false);
 //SETTING PROPER FORM HEIGHT ONRESIZE
 window.addEventListener('resize', setFormHeight, false);
+$("#exampleModal").prependTo("body");
 </script>
 
 </body>
