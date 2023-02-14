@@ -124,13 +124,13 @@ if(isset($_SESSION['admin_id'])){
                     <div class="row pb-2">
                         <div class="col-3 col-lg-2">
                             <label class="pb-1" for="name_offer">Days</label>
-                            <input type="number" class="form-control" value="" id="offer_duration" placeholder="30" name="offer_duration" required>
+                            <input type="number" class="form-control" value="" id="offer_duration" placeholder="30" name="offer_duration" required onchange="validate_offer_duration()">
                         </div>
                     </div>
                     <div class="row pb-2">
                         <div class="col-4 col-lg-2">
                             <label class="pb-1" for="name_offer">Price</label>
-                            <input type="number" class="form-control" value="" id="offer_price" placeholder="₱00.00" name="offer_price" required>
+                            <input type="number" class="form-control" value="" id="offer_price" placeholder="₱00.00" name="offer_price" required onchange="validate_offer_price()">
                         </div>
                     </div>
                     <div class="row pb-2 pt-2">
@@ -217,7 +217,7 @@ if(isset($_SESSION['admin_id'])){
 
 <script>
 
-    function agequalification(){
+function agequalification(){
         $('#age_qualification_details_checked').prop('checked', false); 
         console.log('text input changed');
     }
@@ -227,11 +227,29 @@ if(isset($_SESSION['admin_id'])){
     }
 
     function offer_slotsfunction(){
-        $('#offer_slots_checked').prop('checked', false); 
+        $('#offer_slots_checked').prop('checked', false);
+        if(parseInt($('#offer_slots').val())|| parseInt($('#offer_slots').val()) <=0){
+            alert('Slots must be greater than 0');
+            $('#offer_slots').val('');
+            $('#offer_slots_checked').prop('checked', true);
+        }
         console.log('text input changed');
     }
     function offer_slotsfunction_checked(){
         $('#offer_slots').val('') ;
         console.log('check box changed');
     }
+    function validate_offer_duration(){
+        if(parseInt($('#offer_duration').val()) <=0){
+            alert('Days must be greater than 0');
+            $('#offer_duration').val('');
+        }
+    }
+    function validate_offer_price(){
+        if(parseInt($('#offer_price').val()) <=0){
+            alert('Price must be greater than 0');
+            $('#offer_price').val('');
+        }
+    }
+    
 </script>
