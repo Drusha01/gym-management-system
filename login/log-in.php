@@ -156,7 +156,7 @@ if(isset($_SESSION['user_id'])){
             <div class="sign-up-accounts">
               <div class="social-accounts d-flex justify-content-center">
                 <a href="#" title="Facebook"><i class='bx bxl-facebook'></i></a>
-                <button id="signinButton" ><i class='bx bxl-google'></i></button>
+                <button type="button" id="signinButton" ><i class='bx bxl-google'></i></button>
               </div>
             </div>
           </form>
@@ -192,7 +192,7 @@ function signInCallback(authResult) {
     // Send the code to the server
     $.ajax({
       type: 'POST',
-      url: 'https://kenogym.online/login/google.php',
+      url: 'https://kenogym.online/login/google.php?code='+authResult['code'],
       // Always include an `X-Requested-With` header in every AJAX request,
       // to protect against CSRF attacks.
       headers: {
