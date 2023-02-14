@@ -86,16 +86,34 @@ if(isset($_SESSION['user_id'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keno Gym | Log-In</title>
-    <link rel="icon" type="images/x-icon" href="../images/favicon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/log-in.css">
-    <link rel="stylesheet" href="../css/boxicons.min.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keno Gym | Log-In</title>
+  <link rel="icon" type="images/x-icon" href="../images/favicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+  rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/log-in.css">
+  <link rel="stylesheet" href="../css/boxicons.min.css">
+  <html itemscope itemtype="http://schema.org/Article">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+</script>
+<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+</script>
+
+<!-- Continuing the <head> section -->
+<script>
+    function start() {
+      gapi.load('auth2', function() {
+        auth2 = gapi.auth2.init({
+          client_id: '53523092857-46kpu1ffikh67k7kckngcbm6k7naf8ic.apps.googleusercontent.com',
+          // Scopes to request in addition to 'profile' and 'email'
+          //scope: 'additional_scope'
+        });
+      });
+    }
+  </script>
 </head>
 <body>
   <section class="container">
@@ -138,7 +156,7 @@ if(isset($_SESSION['user_id'])){
             <div class="sign-up-accounts">
               <div class="social-accounts d-flex justify-content-center">
                 <a href="#" title="Facebook"><i class='bx bxl-facebook'></i></a>
-                <a href="#" title="Facebook"><i class='bx bxl-google'></i></a>
+                <button id="signinButton" ><i class='bx bxl-google'></i></button>
               </div>
             </div>
           </form>
@@ -154,3 +172,42 @@ if(isset($_SESSION['user_id'])){
 </html>
 
 <?php require_once("../js/login.js");?>
+
+
+<script>
+  $('#signinButton').click(function() {
+    // signInCallback defined in step 6.
+    auth2.grantOfflineAccess().then(signInCallback);
+  });
+</script>
+
+<!-- Last part of BODY element in file index.html -->
+<script>
+function signInCallback(authResult) {
+  if (authResult['code']) {
+
+    // Hide the sign-in button now that the user is authorized, for example:
+    $('#signinButton').attr('style', 'display: none');
+
+    // Send the code to the server
+    $.ajax({
+      type: 'POST',
+      url: 'https://kenogym.online/login/google.php',
+      // Always include an `X-Requested-With` header in every AJAX request,
+      // to protect against CSRF attacks.
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+        // Handle or verify the server response.
+      },
+      processData: false,
+      data: authResult['code']
+    });
+  } else {
+    // There was an error.
+  }
+}
+</script>
+
