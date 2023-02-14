@@ -187,7 +187,7 @@ function signInCallback(authResult) {
   if (authResult['code']) {
 
     // Hide the sign-in button now that the user is authorized, for example:
-    $('#signinButton').attr('style', 'display: none');
+    
 
     // Send the code to the server
     $.ajax({
@@ -201,6 +201,7 @@ function signInCallback(authResult) {
       contentType: 'application/octet-stream; charset=utf-8',
       success: function(result) {
         // Handle or verify the server response.
+        $('#signinButton').attr('style', 'display: none');
         console.log(result);
       },
       processData: false,
