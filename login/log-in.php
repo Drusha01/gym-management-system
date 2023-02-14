@@ -178,7 +178,7 @@ function onSignIn(googleUser) {
   xhr.onload = function() {
     signOut();
     // refresh / go to user/login
-    location.reload();
+    //location.reload();
     console.log('Signed in as: ' + xhr.responseText);
   };
   xhr.send('idtoken=' + id_token);
