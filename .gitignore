@@ -9,3 +9,6 @@ images2/
 *classes/database.class.php
 
 *gms.sql
+
+# ignore all files in the test directory
+test/

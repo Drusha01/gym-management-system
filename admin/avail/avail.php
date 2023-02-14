@@ -26,14 +26,8 @@ session_start();
                     </ul>
             <div class="tab-content" >
                 <div class="tab-pane active show fade" id="tab">
-                    <?php require_once 'subscription.php';?>
-                </div>
-                <!-- <div class="tab-pane show fade" id="tab-exp">
                     
                 </div>
-                <div class="tab-pane show fade" id="tab-walk_in">
-                    Some Walk-In for subs
-                </div>  -->
             </div>
         </div>
 
