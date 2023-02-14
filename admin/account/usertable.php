@@ -3,6 +3,7 @@
         <tr>
         <th class="d-lg-none"></th>
         <th class="text-center d-none d-sm-table-cell">#</th>
+        <th>USERNAME</th>
         <th>NAME</th>
         <th class="text-center ">AGE</th>
         <th class="text-center">SUBSCRIPTION STATUS</th>
@@ -36,6 +37,7 @@
                     echo '<tr>';
                     echo '<th class="d-lg-none"></th>';
                     echo '<th class="text-center d-none d-sm-table-cell">';echo $counter;echo'</th>';
+                    echo '<td class="">'; echo_safe($value['user_name']);'</td>';
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
                     echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
@@ -50,7 +52,7 @@
                                 
                             }
                     echo'</td>';
-                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $counter; echo')">Delete</button></td>';
+                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $counter; echo')">Delete</button></td>';
                     echo '</tr>';
                     $counter++;
                     

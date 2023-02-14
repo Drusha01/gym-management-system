@@ -58,6 +58,23 @@ class admins
             return false;
         }
     }
+    function check_admin($admin_user_id){
+        try{
+            $sql = '
+            SELECT * FROM admins
+            WHERE admin_type_id =(SELECT user_type_id FROM user_types WHERE user_type_details = "admin") AND admin_user_id = :admin_user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':admin_user_id', $admin_user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 
 
 
