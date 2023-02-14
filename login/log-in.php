@@ -188,11 +188,13 @@ function signInCallback(authResult) {
 
     // Hide the sign-in button now that the user is authorized, for example:
     
-
+    var postForm = { //Fetch form data
+          'code'     : authResult['code']; //Store name fields value
+    };
     // Send the code to the server
     $.ajax({
       type: 'POST',
-      url: 'https://kenogym.online/login/google.php?code='+authResult['code'],
+      url: 'https://kenogym.online/login/google.php',
       // Always include an `X-Requested-With` header in every AJAX request,
       // to protect against CSRF attacks.
       headers: {
@@ -205,7 +207,7 @@ function signInCallback(authResult) {
         console.log(result);
       },
       processData: false,
-      data: authResult['code']
+      data: postForm
     });
   } else {
     // There was an error.
