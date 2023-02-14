@@ -86,6 +86,7 @@ if(isset($_SESSION['user_id'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="google-signin-client_id" content="53523092857-46kpu1ffikh67k7kckngcbm6k7naf8ic.apps.googleusercontent.com">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,21 +100,9 @@ if(isset($_SESSION['user_id'])){
   <html itemscope itemtype="http://schema.org/Article">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
 </script>
-<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
-<!-- Continuing the <head> section -->
-<script>
-    function start() {
-      gapi.load('auth2', function() {
-        auth2 = gapi.auth2.init({
-          client_id: '53523092857-46kpu1ffikh67k7kckngcbm6k7naf8ic.apps.googleusercontent.com',
-          // Scopes to request in addition to 'profile' and 'email'
-          //scope: 'additional_scope'
-        });
-      });
-    }
-  </script>
+
 </head>
 <body>
   <section class="container">
@@ -154,9 +143,12 @@ if(isset($_SESSION['user_id'])){
               <hr class="my-auto flex-grow-1">
             </div>
             <div class="sign-up-accounts">
-              <div class="social-accounts d-flex justify-content-center">
+            <div class="social-accounts d-flex justify-content-center">
                 <a href="#" title="Facebook"><i class='bx bxl-facebook'></i></a>
-                <button type="button" id="signinButton" ><i class='bx bxl-google'></i></button>
+              </div>
+              <br>
+              <div class="social-accounts d-flex justify-content-center">
+                <div class="g-signin2" data-onsuccess="onSignIn"><i class='bx bxl-google'></i></div>
               </div>
             </div>
           </form>
@@ -174,44 +166,32 @@ if(isset($_SESSION['user_id'])){
 <?php require_once("../js/login.js");?>
 
 
-<script>
-  $('#signinButton').click(function() {
-    // signInCallback defined in step 6.
-    auth2.grantOfflineAccess().then(signInCallback);
-  });
-</script>
+
 
 <!-- Last part of BODY element in file index.html -->
 <script>
-function signInCallback(authResult) {
-  if (authResult['code']) {
-
-    // Hide the sign-in button now that the user is authorized, for example:
-    
-    var postForm = { //Fetch form data
-          'code'     : authResult['code']; //Store name fields value
-    };
-    // Send the code to the server
-    $.ajax({
-      type: 'POST',
-      url: 'https://kenogym.online/login/google.php',
-      // Always include an `X-Requested-With` header in every AJAX request,
-      // to protect against CSRF attacks.
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      contentType: 'application/octet-stream; charset=utf-8',
-      success: function(result) {
-        // Handle or verify the server response.
-        $('#signinButton').attr('style', 'display: none');
-        console.log(result);
-      },
-      processData: false,
-      data: postForm
-    });
-  } else {
-    // There was an error.
-  }
+function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://kenogym.online/login/google.php');
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    signOut();
+    // refresh / go to user/login
+    location.reload();
+    console.log('Signed in as: ' + xhr.responseText);
+  };
+  xhr.send('idtoken=' + id_token);
 }
+
+
+</script>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
 </script>
 

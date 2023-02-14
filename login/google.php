@@ -1,5 +1,18 @@
 <?php
-echo 'nice';
-print_r($_GET);
-print_r($_POST);
+require_once 'vendor/autoload.php';
+
+// Get $id_token via HTTPS POST.
+if(isset($_POST['idtoken'])){
+    $CLIENT_ID ='53523092857-46kpu1ffikh67k7kckngcbm6k7naf8ic.apps.googleusercontent.com';
+    $client = new Google_Client(['client_id' => $CLIENT_ID]);  // Specify the CLIENT_ID of the app that accesses the backend
+    $payload = $client->verifyIdToken($_POST['idtoken']);
+    if ($payload) {
+    $userid = $payload['sub'];
+    print_r($payload);
+    // If request specified a G Suite domain:
+    //$domain = $payload['hd'];
+    } else {
+    // Invalid ID token
+    }
+}
 ?>
