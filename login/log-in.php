@@ -201,6 +201,7 @@ function signInCallback(authResult) {
       contentType: 'application/octet-stream; charset=utf-8',
       success: function(result) {
         // Handle or verify the server response.
+        console.log(result);
       },
       processData: false,
       data: authResult['code']
