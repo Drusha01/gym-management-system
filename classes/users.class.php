@@ -266,7 +266,7 @@ Class users{
         
         try {
             $sql = 'INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-            user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+            user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
                 null,
                 (SELECT user_status_id FROM user_status WHERE user_status_details = :user_status_details),
                 (SELECT user_type_id FROM user_types WHERE user_type_details = :user_type_details),
@@ -275,6 +275,7 @@ Class users{
                 :user_phone_number,
                 :user_email,
                 :user_name,
+                true,
                 :user_password_hashed,
                 :user_firstname,
                 :user_middlename,

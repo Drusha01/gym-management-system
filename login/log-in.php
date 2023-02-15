@@ -98,8 +98,7 @@ if(isset($_SESSION['user_id'])){
   <link rel="stylesheet" href="../css/log-in.css">
   <link rel="stylesheet" href="../css/boxicons.min.css">
   <html itemscope itemtype="http://schema.org/Article">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
-</script>
+
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
@@ -148,7 +147,7 @@ if(isset($_SESSION['user_id'])){
               </div>
               <br>
               <div class="social-accounts d-flex justify-content-center">
-                <div class="g-signin2" data-onsuccess="onSignIn"><i class='bx bxl-google'></i></div>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
               </div>
             </div>
           </form>
