@@ -265,7 +265,7 @@ require_once '../classes/genders.class.php';
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
                     </div>
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  >
                     </div>
                 </div>
             </div>

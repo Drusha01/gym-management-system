@@ -110,21 +110,23 @@ if(isset($_SESSION['user_id'])){
             }else{
                 if(!validate_string($_POST, 'fname')){
                     echo 'invalid firstname';
-                }
-                if(!validate_string($_POST, 'mname') ){
-                    echo 'invalid firstname';
+                    return;
                 }
                 if(!validate_string($_POST, 'lname') ){
                     echo 'invalid lastname';
+                    return;
                 }
                 if(!validate_birthdate($_POST, 'birthdate') ){
                     echo 'invalid birthdate';
+                    return;
                 }
                 if(!validate_phone($_POST, 'phone') ){
-                    echo 'invalid birthdate';
+                    echo 'invalid phone';
+                    return;
                 }
                 if(!validate_email($_POST) ){
                     echo 'invalid email';
+                    return;
                 }
                 
                     
