@@ -61,7 +61,12 @@ require_once '../classes/genders.class.php';
       $userObj->setuser_name($_POST['username']);
       $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
       $userObj->setuser_firstname($_POST['fname']);
-      $userObj->setuser_middlename($_POST['mname']);
+      if(isset($_POST['mname'])){
+        $userObj->setuser_middlename($_POST['mname']);
+      }else{
+        $userObj->setuser_middlename(ㅤ);
+      }
+      
       $userObj->setuser_lastname($_POST['lname']);
       $userObj->setuser_birthdate($_POST['birthdate']);
       
@@ -265,7 +270,7 @@ require_once '../classes/genders.class.php';
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
                     </div>
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"   >
                     </div>
                 </div>
             </div>
