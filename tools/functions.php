@@ -150,7 +150,7 @@ function validate_offer_duration($POST,$offer_duration){
 }
 
 function validate_offer_price($POST,$offer_price){
-    return (isset($POST[$offer_price])  && (floatval($POST[$offer_price]))>0);
+    return (isset($POST[$offer_price])  && (floatval($POST[$offer_price])));
 }
 
   
