@@ -248,7 +248,8 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="../../img/profile-resize/<?php echo_safe($user_data['user_profile_picture']);?>">
+        <img class="img-fluid" src="../../images/312476041_1180676142522081_7979367819549623201_n 1.png">
+
       </div>
     </div>
   </div>
