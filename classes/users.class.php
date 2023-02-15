@@ -398,6 +398,39 @@ Class users{
             return false;
         }
     }
+
+    function update_user_status($user_id,$user_status_details){
+        
+        try{
+            $sql = 'UPDATE users
+            SET user_status_id =(SELECT user_status_id FROM user_status WHERE user_status_details = :user_status_details)
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            $query->bindParam(':user_status_details', $user_status_details);
+            $data =  $query->execute();
+            return $data;
+            
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function delete_user($user_id){
+        
+        try{
+            $sql = 'DELETE FROM users WHERE  user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            $data =  $query->execute();
+            return $data;
+            
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
    
 }
 

@@ -42,17 +42,17 @@
                     echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
                     echo '<td class="text-center">';
-                        echo '<select class="form-select-sm" aria-label="Default select example">';
+                        echo '<select class="form-select-sm" aria-label="Default select example" id="user_status';echo_safe($value['user_id']);echo'" onchange="changeUserStatus(';echo_safe($value['user_id']);echo')">';
                             foreach ($user_status_data as $key => $user_status_value) {
                                 if($value['user_status_details'] == $user_status_value['user_status_details']){
-                                    echo '<option value="';echo_safe($user_status_value['user_status_id']);echo'" selected>';echo_safe($user_status_value['user_status_details']);echo'</option>';
+                                    echo '<option value="';echo_safe($user_status_value['user_status_details']);echo'" selected>';echo_safe($user_status_value['user_status_details']);echo'</option>';
                                 }else{
-                                    echo '<option value="';echo_safe($user_status_value['user_status_id']);echo'">';echo_safe($user_status_value['user_status_details']);echo'</option>';
+                                    echo '<option value="';echo_safe($user_status_value['user_status_details']);echo'">';echo_safe($user_status_value['user_status_details']);echo'</option>';
                                 }
                                 
                             }
                     echo'</td>';
-                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $counter; echo')">Delete</button></td>';
+                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
                     echo '</tr>';
                     $counter++;
                     
@@ -66,10 +66,13 @@
 function confirmfunction(id){
     let text = "Are you sure you want to delete #"+id+"?";
     if (confirm(text) == true) {
-        $.ajax({url: "account-delete.php?id="+id, success: function(result){
+        $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details=deleted', success: function(result){
+            console.log(result);
             if(result ==1){
                 // update datatables
-                $( "#offer_id_"+id ).remove();
+                // $( "#offer_id_"+id ).remove();
+                // update selected
+                $('#user_status'+id+' option[value=deleted]').attr('selected','selected'); 
                 alert('deleted successfully');
                 console.log(result)
             }else{
@@ -81,6 +84,23 @@ function confirmfunction(id){
         text = "You canceled!";
     }
     
+}
+
+
+function changeUserStatus(id){
+    console.log(id);
+    console.log($("#user_status option:selected" ).text());
+    $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details='+$("#user_status option:selected" ).text(), success: function(result){
+            console.log(result);
+            if(result == 1){
+                // update datatables
+                //$( "#offer_id_"+id ).remove();
+                alert('changed successfully');
+                console.log(result)
+            }else{
+                alert('changed failed');
+            }
+    }});
 }
 </script>
 

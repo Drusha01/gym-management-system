@@ -295,6 +295,13 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     
 );
 
+-- updating status
+UPDATE users
+SET user_status_id =(SELECT user_status_id FROM user_status WHERE user_status_details = 'active')
+WHERE user_id = 1;
+
+-- hard delete
+DELETE FROM users WHERE  user_id = 1;
 
 -- SELECT * users if it is active
 SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
@@ -304,6 +311,16 @@ LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
 WHERE  user_status_details = 'active'
+;
+
+-- select * users for accounts
+SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+
 ;
 
 -- select * users
