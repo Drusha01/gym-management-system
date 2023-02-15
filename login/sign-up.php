@@ -61,12 +61,7 @@ require_once '../classes/genders.class.php';
       $userObj->setuser_name($_POST['username']);
       $userObj->setuser_password_hashed(password_hash($_POST['password'], PASSWORD_ARGON2I));
       $userObj->setuser_firstname($_POST['fname']);
-      if(isset($_POST['mname'])){
-        $userObj->setuser_middlename($_POST['mname']);
-      }else{
-        $userObj->setuser_middlename(ㅤ);
-      }
-      
+      $userObj->setuser_middlename($_POST['mname']);
       $userObj->setuser_lastname($_POST['lname']);
       $userObj->setuser_birthdate($_POST['birthdate']);
       
@@ -210,10 +205,6 @@ require_once '../classes/genders.class.php';
         $_SESSION['user_profile_picture'] = $user_details['user_profile_picture'];
         $_SESSION['user_date_created'] = $user_details['user_date_created'];
         $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
-        $_SESSION['user_name_verified'] = $user_details['user_name_verified'];
-        $_SESSION['user_email_verified'] = $user_details['user_email_verified'];
-        
-        $_SESSION['user_phone_verified'] = $user_details['user_phone_verified'];
         // go to user page
         header('location:../user/user-profile.php');
       }else{
@@ -274,7 +265,7 @@ require_once '../classes/genders.class.php';
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
                     </div>
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"   >
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
                     </div>
                 </div>
             </div>

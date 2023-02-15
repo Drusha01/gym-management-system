@@ -49,16 +49,19 @@ if(isset($_SESSION['user_id'])){
 
                 $error = false;
                 if(isset($_POST['gender']) &&  ($_POST['gender'] != 'Other' || $_POST['gender'] != 'None')){
-                $userObj->setuser_gender_details($_POST['gender']);
+                    $userObj->setuser_gender_details($_POST['gender']);
+                }else{
+                    echo 'error_gender';
+                    return -1;
                 }
                 if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
-                $userObj->setuser_gender_details($_POST['gender_other']);
-                $genderObj = new genders();
-                $genderObj->insert_new_gender($_POST['gender_other']);
-                //echo 'other_gender';
+                    $userObj->setuser_gender_details($_POST['gender_other']);
+                    $genderObj = new genders();
+                    $genderObj->insert_new_gender($_POST['gender_other']);
+                    //echo 'other_gender';
                 }else{
-                //echo 'error';
-                $error = true;
+                    // echo 'error_gender';
+                    // return -1;
                 }
 
 
@@ -105,7 +108,27 @@ if(isset($_SESSION['user_id'])){
 
 
             }else{
-                echo 'invalid inputs';
+                if(!validate_string($_POST, 'fname')){
+                    echo 'invalid firstname';
+                }
+                if(!validate_string($_POST, 'mname') ){
+                    echo 'invalid firstname';
+                }
+                if(!validate_string($_POST, 'lname') ){
+                    echo 'invalid lastname';
+                }
+                if(!validate_birthdate($_POST, 'birthdate') ){
+                    echo 'invalid birthdate';
+                }
+                if(!validate_phone($_POST, 'phone') ){
+                    echo 'invalid birthdate';
+                }
+                if(!validate_email($_POST) ){
+                    echo 'invalid email';
+                }
+                
+                    
+                // echo 'invalid inputs';
             }
         } else {
             echo '0';

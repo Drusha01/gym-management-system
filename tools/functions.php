@@ -28,10 +28,9 @@ function validate_gender($POST,$gender){
     return (isset($POST[$gender]) && $POST[$gender]!='None');
 }
 
-function validate_birthdate($POST,$birthdate,$format = 'm-d-Y H:i:s'){
+function validate_birthdate($POST,$birthdate){
     //  do this
-    $d = DateTime::createFromFormat($format, $POST[$birthdate]);
-    return $d && $d->format($format) == $POST[$birthdate];
+    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < 0) ;
 }
 
 function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')
@@ -61,7 +60,7 @@ function validate_password_same($POST,$password,$cpassword){
 }
 
 function validate_signup($POST){
-    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname') && validate_email($POST) && 
+    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname')&& validate_string($POST, 'mname') && validate_email($POST) && 
     validate_phone($POST, 'phone') && validate_birthdate($POST,'birthdate') && validate_password_same($POST,'password','cpassword') && validate_password($POST,'password') ); 
     
   
