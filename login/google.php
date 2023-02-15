@@ -8,13 +8,6 @@ if(isset($_POST['idtoken'])){
     if ($payload) {
     $userid = $payload['sub'];
     print_r($payload);
-
-
-    // active
-    // normal
-    // Other
-    // +63
-    // 
     // If request specified a G Suite domain:
     //$domain = $payload['hd'];
     } else {

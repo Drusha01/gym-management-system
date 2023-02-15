@@ -77,8 +77,7 @@ if(isset($_SESSION['user_id'])){
                                   <div class="d-flex flex-column align-items-center text-center">
                                     <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
                                     <div class="mt-3">
-                                      <h4><?php if(isset($_SESSION['user_name'])){
-                                        echo_safe($_SESSION['user_name']);}else {echo 'username not set';}?></h4>
+                                      <h4><?php echo_safe($_SESSION['user_name'])?></h4>
                                       <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
                                       <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
                                     </div>
@@ -172,10 +171,8 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Email</h6>
                                             </div>
                                             <div class="col-9 text-secondary">
-                                              <?php echo_safe($_SESSION['user_email']); if($_SESSION['user_email_verified']){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';} ?>
-                                              
+                                              <?php echo_safe($_SESSION['user_email']) ?>
                                             </div>
-                                            
                                         </div>
                                     </div>
                                     <hr>

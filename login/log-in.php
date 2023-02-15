@@ -68,9 +68,6 @@ if(isset($_SESSION['user_id'])){
 
         $_SESSION['user_date_created'] = $user_details['user_date_created'];
         $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
-        $_SESSION['user_name_verified'] = $user_details['user_name_verified'];
-        $_SESSION['user_email_verified'] = $user_details['user_email_verified'];
-        $_SESSION['user_phone_verified'] = $user_details['user_phone_verified'];
         // go to user page
         header('location:../user/user-profile.php');
         // go to dashboard (admin / userpage)
