@@ -39,16 +39,16 @@ if(isset($_SESSION['admin_id'])){
     <div class="w-100">
         <div class="container-fluid">
             <ul class="nav nav-tabs application">
-                        <li class="nav-item active ">
-                            <a class="nav-link" href="#tab-avail" data-bs-toggle="tab">Avail</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#tab-pay" data-bs-toggle="tab">Payment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#tab-acc" data-bs-toggle="tab">Account</a>
-                        </li>
-                    </ul>
+                <li class="nav-item active ">
+                    <a class="nav-link" href="#tab-avail" data-bs-toggle="tab">Avail</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tab-pay" data-bs-toggle="tab">Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tab-acc" data-bs-toggle="tab">Account</a>
+                </li>
+            </ul>
             <div class="tab-content">
             <div class="tab-pane active show fade" id="tab-avail">
                 <section id="subscription" class="pt-3">
