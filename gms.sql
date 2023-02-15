@@ -139,12 +139,13 @@ CREATE TABLE users(
     user_type_id int NOT NULL ,
     user_gender_id tinyint  NOT NULL,
     user_phone_country_code_id int  NOT NULL,
-    user_phone_number VARCHAR(15) unique  NOT NULL,
+    user_phone_number VARCHAR(15)   NOT NULL,
+    user_name_verified BOOL DEFAULT NULL,
     user_email_verified BOOL DEFAULT NULL,
     user_phone_verified BOOL DEFAULT NULL,
     user_valid_id_validated BOOL DEFAULT NULL,
-    user_email VARCHAR(255) unique  NOT NULL,
-    user_name VARCHAR(255) unique  NOT NULL,
+    user_email VARCHAR(255)   NOT NULL,
+    user_name VARCHAR(255)   NOT NULL,
     user_password_hashed VARCHAR(255)  NOT NULL,
     user_firstname VARCHAR(100)  NOT NULL,
     user_middlename VARCHAR(100)  NOT NULL,
@@ -172,7 +173,7 @@ CREATE INDEX idx_user_password ON users(user_password_hashed);
 -- INSERT for users
 
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
-user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'deleted'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
@@ -182,6 +183,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'hanz.dumapit52@gmail.com',
     true,
     'Drusha00',
+    true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
     'Etrone',
@@ -196,7 +198,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 );
 
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
-user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
@@ -206,6 +208,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     'hanz.dumapit53@gmail.com',
     true,
     'Drusha01',
+    true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
     'Etrone',
@@ -220,7 +223,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 );
 
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
@@ -229,6 +232,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     '09265827343',
     'hanz.dumapit54@gmail.com',
     'Drusha02',
+    true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
     'Etrone',
@@ -244,7 +248,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 
 -- insert for users
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
@@ -253,6 +257,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     '09265827345',
     'hanz.dumapit56@gmail.com',
     'Drusha03',
+    true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
     'Etrone',
@@ -267,7 +272,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
 );
 
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
     (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
@@ -276,6 +281,7 @@ user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user
     '09265827344',
     'hanz.dumapit55@gmail.com',
     'Drusha04',
+    true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hanrickson',
     'Etrone',
@@ -401,6 +407,11 @@ INSERT INTO admins VALUES(
 
 -- SELECT * admins
 SELECT * FROM admins;
+
+-- check if we are admin
+SELECT * FROM admins
+WHERE admin_type_id =(SELECT user_type_id FROM user_types WHERE user_type_details = 'admin') AND admin_user_id =3;
+
 
 -- admin login
 SELECT admin_id,admin_user_id,user_password_hashed FROM admins
@@ -666,7 +677,11 @@ CREATE TABLE trainers(
 
 
 -- inserts for trainer
-
+INSERT INTO trainers VALUES
+(
+	null,
+    
+);
 
 
 -- table for subscriptions

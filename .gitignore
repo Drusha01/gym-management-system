@@ -6,9 +6,10 @@ test/
 images2/
 
 # ingore the local instance 
+
 *classes/database.class.php
 
-*gms.sql
+gms.sql
 
 # ignore all files in the test directory
 test/
