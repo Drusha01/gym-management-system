@@ -210,6 +210,10 @@ require_once '../classes/genders.class.php';
         $_SESSION['user_profile_picture'] = $user_details['user_profile_picture'];
         $_SESSION['user_date_created'] = $user_details['user_date_created'];
         $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
+        $_SESSION['user_name_verified'] = $user_details['user_name_verified'];
+        $_SESSION['user_email_verified'] = $user_details['user_email_verified'];
+        
+        $_SESSION['user_phone_verified'] = $user_details['user_phone_verified'];
         // go to user page
         header('location:../user/user-profile.php');
       }else{
