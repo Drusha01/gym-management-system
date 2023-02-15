@@ -46,12 +46,9 @@ require_once '../classes/genders.class.php';
       $genderObj = new genders();
       $genderObj->insert_new_gender($_POST['gender_other']);
       echo 'other_gender';
-    }else{
-      //echo 'error';
-      $error = true;
     }
 
-    if(validate_signup($_POST) && !$error){
+    if(validate_signup($_POST) ){
 
       // set attributes
       $userObj->setuser_status_details('active');
