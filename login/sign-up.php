@@ -238,9 +238,9 @@ require_once '../classes/genders.class.php';
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-  <section class="container p-4">
+  <section class="container pt-4 pb-4">
     <div class="row content d-flex justify-content-center align-items-center">
-      <div class="col-md-5">
+      <div class="col-12 col-md-8 col-lg-7 col-xl-5">
         <div class="box shadow bg-white rounded">
           <div class="container-fluid bg-danger p-2 rounded-top d-inline-flex justify-content-center">
             <img src="../images/logo.png" alt="" width="55">
@@ -250,43 +250,47 @@ require_once '../classes/genders.class.php';
             </div>
           </div>
           <a class="text-decoration-none text-black m-0" aria-current="page" href="../index.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
-          <div class="container">
-            <form class="form-signup p-1" method="post" enctype="multipart/form-data">
+          <div class="container-fluid w-100">
+            <form class="form-signup px-3" method="post" enctype="multipart/form-data">
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
               <input type="file" class="form-control-file" id="profilepic" name="profilepic" >
             </div>
-            <div class="form-group py-1">
+            <div class="form-floating py-1">
               <input type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required>
+              <label for="floatingInput">Username</label>
             </div>
             <div class="form-group py-1">
                 <div class="row">
-                    <div class="col-md-6 py-1">
+                    <div class="form-floating col-md-6 py-1">
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
+                        <label for="floatingInput" class="ps-4">First Name</label>
                     </div>
-                    <div class="col-md-6 py-1">
+                    <div class="form-floating col-md-6 py-1">
                         <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
+                        <label for="floatingInput" class="ps-4">Middle Name</label>
                     </div>
                 </div>
             </div>
-            <div class="form-group py-1">
+            <div class="form-floating py-1">
                 <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" oninput="functiononkeyup()">
+                <label for="floatingInput">Last Name</label>
             </div>
-            <div class="form-group py-1">
+            <div class="form-floating py-1">
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" oninput="functiononkeyup()" required>
+                <label for="floatingInput">Email</label>
             </div>
-            <div class="form-group py-1">
+            <div class="form-floating py-1">
               <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" minlength="11" maxlength="11" required>
+              <label for="floatingInput">Phone Number</label>
             </div>
             <div class="form-group py-1">
               <div class="row">
-                  <div class="col-md-6 py-1">
-                  <label for="Gender">Gender</label>
-                    <select class="form-select" id="gender" name="gender" onchange="genders()">
+                  <div class="form-floating col-md-6 py-1">
+                    <select class="form-select" id="floatingSelect" name="gender" onchange="genders()">
                       <option value="None" >Select Gender </option>
-                      <?php 
-                      
+                      <?php
                       $genderObj = new genders();
                       $data = $genderObj->get_gender_list();
                       foreach ($data as $key => $value) {
@@ -300,10 +304,11 @@ require_once '../classes/genders.class.php';
                       }
                       ?>
                     </select>
+                    <label for="floatingSelect" class="ps-4">Gender</label>
                   </div>
-                  <div class="col-md-6 py-1">
-                  <label for="exampleFormControlSelect1">Not in the list?</label>
+                  <div class="form-floating col-md-6 py-1">
                         <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"  oninput="functiononkeyup()" onchange="other_genders()"  >
+                        <label for="floatingInput" class="ps-4">Not in the list?</label>
                   </div>
               </div>
             </div>
@@ -315,11 +320,13 @@ require_once '../classes/genders.class.php';
               <label for="exampleFormControlFile1">Valid ID or Birth Certificate</label>
               <input type="file" class="form-control-file" id="valid_id" name="valid_id" accept="image/*"  >
             </div>
-            <div class="form-group py-1">
-            <input type="password" class="form-control" name="password" placeholder="Password" oninput="functiononkeyup()" id="password" required>
+            <div class="form-floating py-1">
+              <input type="password" class="form-control" name="password" placeholder="Password" oninput="functiononkeyup()" id="password" required>
+              <label for="floatingInput">Password</label>
             </div>
-            <div class="form-group py-1">
+            <div class="form-floating py-1">
                 <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" oninput="functiononkeyup()" id="cpassword"required>
+                <label for="floatingInput">Confirm Password</label>
             </div>
             <br>
             <div class="d-grid">
