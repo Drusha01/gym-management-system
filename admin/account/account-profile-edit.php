@@ -16,15 +16,19 @@ if(isset($_SESSION['admin_id'])){
     if($_SESSION['admin_user_status_details'] == 'active'){
         // 
         // query the user information with id
+        // 
+        require_once '../../classes/users.class.php';
+        require_once '../../tools/functions.php';
+        $userObj = new users();
         if(isset($_GET['user_id'])){
-            // 
-            require_once '../../classes/users.class.php';
-            require_once '../../tools/functions.php';
-            $userObj = new users();
+            
             $userObj->setuser_id($_GET['user_id']);
-            if($user_data = $userObj->get_user_details()){
-
-            }else{
+            if(!$user_data = $userObj->get_user_details()){
+                return 'error';
+            }
+        }else if(isset($_GET['trainer_id'])){
+            $userObj->setuser_id($_GET['trainer_id']);
+            if(!$user_data = $userObj->get_user_details()){
                 return 'error';
             }
         }
@@ -49,7 +53,7 @@ if(isset($_SESSION['admin_id'])){
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
     <div class="w-100">
         <div class="row">
-            <h5 class="col-7 col-lg-4 fw-bold  ms-3">Account Profile (Edit)</h5>
+            <h5 class="col-7 col-lg-4 fw-bold  ms-3"><?php if(!isset($_GET['trainer'])){echo 'Account Profile (Edit)'; }else{ echo 'Trainer Profile (Edit)';}?></h5>
             <a class="col text-decoration-none text-black m-0" aria-current="page" href="account.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a> 
         </div>
         <div class="container">

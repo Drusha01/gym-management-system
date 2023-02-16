@@ -52,7 +52,7 @@
                                 
                             }
                     echo'</td>';
-                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
+                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
                     echo '</tr>';
                     $counter++;
                     
