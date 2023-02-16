@@ -49,7 +49,7 @@ if(isset($_SESSION['user_id'])){
 <body>
   <?php require_once '../includes/header.php';?>
     <section class="my_acc">
-        <div class="container-fluid mt-5">
+        <div class="container-fluid mt-6">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true">My Account</button>
@@ -272,8 +272,8 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
                 <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab">
-                    <div class="container-fluid p-3">
-                        Subscriptions
+                    <div class="container-fluid p-3" id="my_subscription">
+                        <?php require_once 'user_subscriptions.php'; ?>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab">
