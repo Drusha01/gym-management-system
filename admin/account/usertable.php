@@ -78,6 +78,7 @@ function confirmfunction(id){
             }else{
                 alert('deletion failed');
             }
+            location.reload();
         }});
     } else {
         return;
@@ -89,8 +90,10 @@ function confirmfunction(id){
 
 function changeUserStatus(id){
     console.log(id);
-    console.log($("#user_status option:selected" ).text());
-    $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details='+$("#user_status option:selected" ).text(), success: function(result){
+    console.log($("#user_status"+id+" option:selected" ).text());
+    
+   // $('#user_status'+id+' option[value='+$("#user_status"+id+" option:selected" ).text()+']').attr('selected',''); 
+    $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details='+$("#user_status"+id+" option:selected" ).text(), success: function(result){
             console.log(result);
             if(result == 1){
                 // update datatables
@@ -99,6 +102,7 @@ function changeUserStatus(id){
                 console.log(result)
             }else{
                 alert('changed failed');
+                location.reload();
             }
     }});
 }

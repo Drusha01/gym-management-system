@@ -254,7 +254,7 @@ require_once '../classes/genders.class.php';
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
-              <input type="file" class="form-control-file" id="profilepic" name="profilepic" >
+              <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
             </div>
             <div class="form-group py-1">
               <input type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required>
@@ -357,12 +357,12 @@ require_once '../classes/genders.class.php';
 
 
 function genders(){
-        $('#gender_other').val(''); 
-        console.log('gender selected  changed');
-    }
-    function other_genders(){
-        $('#gender').val('Other'); 
-        $('#gender option[value=Other]').attr('selected','selected'); 
-        console.log('gender others changed');
-    }
+  $('#gender_other').val(''); 
+  console.log('gender selected  changed');
+}
+function other_genders(){
+  $('#gender').val('Other'); 
+  $('#gender option[value=Other]').attr('selected','selected'); 
+  console.log('gender others changed');
+}
 </script>
