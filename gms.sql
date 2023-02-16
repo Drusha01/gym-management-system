@@ -529,7 +529,7 @@ WHERE admin_type_id =(SELECT user_type_id FROM user_types WHERE user_type_detail
 -- admin login
 SELECT admin_id,admin_user_id,user_password_hashed FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
-WHERE user_name = BINARY 'Drusha03' OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
+WHERE user_name = BINARY 'Drusha02' OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
 
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id

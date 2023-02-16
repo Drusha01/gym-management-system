@@ -6,7 +6,7 @@
         <th>NAME</th>
         <th class="text-center ">AGE</th>
         <th class="text-center">GENDER</th>
-        <th class="text-center">STATUS</th>
+        <th class="text-center">TRAINER STATUS</th>
         <th class="text-center">ACTION</th>
         </tr>
     </thead>
