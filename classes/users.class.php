@@ -119,7 +119,7 @@ Class users{
     function get_user_details(){
         try{
             $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-            user_name,user_phone_verified,user_email_verified,user_phone_verified,user_firstname,user_address,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            user_name,user_phone_verified,user_email_verified,user_name_verified,user_firstname,user_address,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
             LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
@@ -385,6 +385,7 @@ Class users{
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
             LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+            ORDER BY user_name
             ;';
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){
@@ -393,6 +394,39 @@ Class users{
             }else{
                 return false;
             }
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function update_user_status($user_id,$user_status_details){
+        
+        try{
+            $sql = 'UPDATE users
+            SET user_status_id =(SELECT user_status_id FROM user_status WHERE user_status_details = :user_status_details)
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            $query->bindParam(':user_status_details', $user_status_details);
+            $data =  $query->execute();
+            return $data;
+            
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function delete_user($user_id){
+        
+        try{
+            $sql = 'DELETE FROM users WHERE  user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            $data =  $query->execute();
+            return $data;
+            
             
         }catch (PDOException $e){
             return false;

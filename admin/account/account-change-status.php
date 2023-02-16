@@ -17,20 +17,30 @@ if(isset($_SESSION['admin_id'])){
         // do nothing
 
         // get offer id
-        if(isset($_GET['user_id']) && $_SESSION['admin_user_type_details']=='admin'){
+        if(isset($_GET['user_id']) && isset($_GET['user_status_details']) && $_SESSION['admin_user_type_details']=='admin'){
             // include the db
             require_once '../../classes/users.class.php';
+            require_once '../../classes/admins.class.php';
             require_once '../../tools/functions.php';
 
             
             // admin password??
-            $userObj = new users();
+            $adminObj = new admins();
 
-            if($userObj->delete_user($_GET['user_id'])){
-                echo '1';
+            if(!$adminObj->check_admin($_GET['user_id'])){
+                $userObj = new users();
+
+                if($userObj->update_user_status($_GET['user_id'],$_GET['user_status_details'])){
+                    echo '1';
+                }else{
+                    echo '0';
+                }
             }else{
-                echo '0';
+                echo 'the account you are trying to modify is admin';
             }
+
+
+            
 
         }
         

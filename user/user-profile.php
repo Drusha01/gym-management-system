@@ -172,7 +172,7 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Email</h6>
                                             </div>
                                             <div class="col-9 text-secondary">
-                                              <?php echo_safe($_SESSION['user_email']); if($_SESSION['user_email_verified']){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';} ?>
+                                              <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';} ?>
                                               
                                             </div>
                                             

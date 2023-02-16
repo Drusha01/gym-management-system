@@ -205,10 +205,6 @@ require_once '../classes/genders.class.php';
         $_SESSION['user_profile_picture'] = $user_details['user_profile_picture'];
         $_SESSION['user_date_created'] = $user_details['user_date_created'];
         $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
-        $_SESSION['user_name_verified'] = $user_details['user_name_verified'];
-        $_SESSION['user_email_verified'] = $user_details['user_email_verified'];
-        
-        $_SESSION['user_phone_verified'] = $user_details['user_phone_verified'];
         // go to user page
         header('location:../user/user-profile.php');
       }else{
@@ -258,7 +254,7 @@ require_once '../classes/genders.class.php';
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
-              <input type="file" class="form-control-file" id="profilepic" name="profilepic" >
+              <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
             </div>
             <div class="form-group py-1">
               <input type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required>
@@ -269,7 +265,7 @@ require_once '../classes/genders.class.php';
                         <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
                     </div>
                     <div class="col-md-6 py-1">
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  >
                     </div>
                 </div>
             </div>
@@ -361,12 +357,12 @@ require_once '../classes/genders.class.php';
 
 
 function genders(){
-        $('#gender_other').val(''); 
-        console.log('gender selected  changed');
-    }
-    function other_genders(){
-        $('#gender').val('Other'); 
-        $('#gender option[value=Other]').attr('selected','selected'); 
-        console.log('gender others changed');
-    }
+  $('#gender_other').val(''); 
+  console.log('gender selected  changed');
+}
+function other_genders(){
+  $('#gender').val('Other'); 
+  $('#gender option[value=Other]').attr('selected','selected'); 
+  console.log('gender others changed');
+}
 </script>

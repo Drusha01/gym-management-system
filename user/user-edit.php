@@ -344,10 +344,12 @@ xhttp_save_profile.onreadystatechange = function() {
                 $('#gender option[value='+$('#gender_other').val()+']').attr('selected','selected'); 
                 $('#gender_other').val(''); 
             }
-            
+            alert(response);
 
             // alert saved
             
+            
+        }else{
             alert(response);
         }
      

@@ -21,7 +21,7 @@ class admins
         try{
             $sql = 'SELECT admin_id,admin_user_id,user_password_hashed FROM admins
             LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
-            WHERE user_name = BINARY :user_name OR (user_email =  :user_email AND user_email_verified = 1) ; ';
+            WHERE user_name = (BINARY :user_name AND user_name_verified = 1) OR (user_email =  :user_email AND user_email_verified = 1) ; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $user_email);
             $query->bindParam(':user_name', $user_name);

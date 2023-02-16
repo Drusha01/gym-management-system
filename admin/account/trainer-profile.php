@@ -1,3 +1,48 @@
+<?php
+// start session
+session_start();
+
+// includes
+
+
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+    header('location:../user/user-page.php');
+}
+
+
+if(isset($_SESSION['admin_id'])){
+    // check admin user details
+    if($_SESSION['admin_user_status_details'] == 'active'){
+        // 
+        
+        // query the user information with id
+        if(isset($_GET['trainer_id'])){
+            // 
+            require_once '../../classes/trainers.class.php';
+            require_once '../../tools/functions.php';
+            $trainerObj = new trainers();
+            if($user_data = $trainerObj->fetch_trainer_with_id($_GET['trainer_id'])){
+                print_r($user_data);
+            }else{
+                return 'error';
+            }
+        }
+
+    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+        // do this
+    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+        // go to deleted user page
+    }
+
+}else{
+    // go to admin login
+    header('location:../admin_control_log_in2.php');
+}
+
+?>
+
+
 
 <?php require_once '../includes/header.php'; ?>
 
@@ -150,7 +195,7 @@
                     </div>
                     <div class="col-5">
                         <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                            <a class="btn btn-primary float-right " href="trainer_edit.php">MODIFY</a>
+                            <a class="btn btn-primary float-right " href="trainer-edit.php">MODIFY</a>
                         </li>
                     </div>
 
