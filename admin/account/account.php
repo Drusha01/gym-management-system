@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <ul class="nav nav-tabs application">
                         <li class="nav-item active ">
-                            <a class="nav-link" href="#tab-user" data-bs-toggle="tab">User</a>
+                            <a class="nav-link" href="#tab-user" data-bs-toggle="tab">Customer</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#tab-trainer" data-bs-toggle="tab">Trainer</a>
@@ -32,7 +32,7 @@
                             <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
                         </div>
                         <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                            <a href="add_user.php" class="btn btn-success" role="button">Add Account</a>
+                            <a href="add_user.php" class="btn btn-success" role="button">Add Customer</a>
                         </div>
                     </div>
                     <div class="table-responsive table-container">
