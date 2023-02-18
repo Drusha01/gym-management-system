@@ -543,6 +543,13 @@ LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
 WHERE admin_id =1;
+
+-- select all non admins
+SELECT user_id,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_birthdate,user_gender_details  from users
+LEFT JOIN admins ON users.user_id=admins.admin_user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+where admins.admin_user_id is null
+;
         
 -- db for address
 
@@ -792,7 +799,7 @@ CREATE TABLE trainers(
 
 
 -- inserts for trainer
-INSERT INTO trainers VALUES
+INSERT INTO trainers trainer_id,trainer_user_id,trainer_availability_id,trainer_status_id,trainer_date_created,trainer_date_updated VALUES
 (
 	null,
     (SELECT user_id FROM users WHERE user_name = 'JamesNoLegDay'),
@@ -851,6 +858,12 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 WHERE trainer_id = 1;
 ;
 
+-- select all non trainers
+SELECT user_id,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_birthdate,user_gender_details  from users
+LEFT JOIN trainers ON users.user_id=trainers.trainer_user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+where trainers.trainer_user_id is null
+;
 -- table for subscriptions
 CREATE TABLE subscriptions(
 	subscription_id int primary key auto_increment ,

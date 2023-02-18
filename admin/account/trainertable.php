@@ -3,6 +3,7 @@
         <tr>
         <th class="d-lg-none"></th>
         <th class="text-center d-none d-sm-table-cell">#</th>
+        <th>USERNAME</th>
         <th>NAME</th>
         <th class="text-center ">AGE</th>
         <th class="text-center">GENDER</th>
@@ -32,6 +33,7 @@
                 <tr>
                 <th class="d-lg-none"></th>';
                 echo '<th class="text-center d-none d-sm-table-cell">';echo  $counter; echo'</th>';
+                echo '<td class="">'; echo_safe($value['user_name']);'</td>';
                 echo '<td><a href="trainer-profile.php?trainer_id=';echo_safe($value['trainer_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_fullname']);echo'</a></td>';
                 echo '<td class="text-center ">';echo_safe(getAge($value['user_birthdate']));echo '</td>';
                 echo '<td class="text-center">';echo_safe($value['user_gender_details']);echo'</td>';
