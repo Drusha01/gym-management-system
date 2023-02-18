@@ -16,7 +16,7 @@ box-sizing: border-box;}
 	min-height: 250px;
 }
 .carousel-caption {
-	bottom: 250px;
+	bottom: 350px;
 	z-index: 2;
 }
 .carousel-caption h5 {
@@ -118,9 +118,6 @@ box-sizing: border-box;}
     padding: 3%;
 }
 
-.table {
-   border: 3px solid black;
-}
 
 .about-border {
     display: block;
@@ -143,8 +140,8 @@ box-sizing: border-box;}
 }
 .dataTables_filter, .dataTables_info { display: none; }
 
-#my_subscription {
-   height:400px;
+.my_subscription {
+   height:500px;
 }
 
  .user-circle :hover{
@@ -187,6 +184,10 @@ box-sizing: border-box;}
  footer .footer-links a:hover {
     color: black;
  }
+
+ .my-trainer {
+   height: 500px;
+ }
  #avail{
    height: 750px;
 
@@ -200,6 +201,10 @@ box-sizing: border-box;}
    font-size: 12px;
    line-height: 1.42857;
 }
+.user-trainer-prof{
+   margin-top: 27%;
+}
+
 
 
 
@@ -228,7 +233,7 @@ box-sizing: border-box;}
       height:360px;
     }
 	.carousel-caption {
-		bottom: 300px;
+		bottom: 270px;
 	}
 	.carousel-caption h5 {
 		font-size: 17px;
@@ -257,14 +262,48 @@ box-sizing: border-box;}
     #avail{
       height: 1200px;
     }
-    #my_subscription {
-      height:600px
-    }
+    .my_subscription {
+      height:1200px;
+   }
 }
 
 @media (min-width: 675px) {
-   #my_subscription {
-      height:500px
-    }
+   .my_subscription {
+      height:1000px;
+   }
+    .carousel-caption {
+		bottom: 250px;
+	}
+   .user-trainer-prof{
+      margin-top: 10%;
+   }
+   
+
+}
+
+@media (min-width: 900px) {
+    .carousel-caption {
+		bottom: 370px;
+	}
+   .my_subscription {
+      height:900px;
+   }
+}
+@media (min-width: 1039px) {
+   .carousel-caption {
+     bottom: 270px;
+  }
+  .my_subscription {
+   height:800px;
+   }
+   .user-trainer-prof{
+      margin-top: 6%;
+   }
+}
+
+@media (min-width: 1929px) {
+   .carousel-caption {
+     bottom: 800px;
+  }
 }
 
