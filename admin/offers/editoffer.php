@@ -110,6 +110,16 @@ if(isset($_SESSION['admin_id'])){
                             <input type="text" class="form-control" id="offer_name" name="offer_name" value="<?php echo_safe($offer_data['offer_name'])?>" placeholder="<?php echo_safe($offer_data['offer_name'])?>">
                         </div>
                     </div>
+                    <div class="row pb-2">
+                        <div class="col-sm-5">
+                        <label for="exampleFormControlTextarea1">Description of Offer</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group py-3">
+                        <label for="exampleFormControlFile1">Picture of Offer</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
                     <div class="row pb-1">
                         <div class="col-lg-5">
                             <label class="pb-1" for="Age_Qual">Age Qualification</label>
@@ -117,8 +127,6 @@ if(isset($_SESSION['admin_id'])){
                                 <div class="col-3 col-lg-3">
                                     <input type="text" class="form-control"  id="age_qualification_details" name="age_qualification_details" placeholder="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" value="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" onchange="agequalification()">
                                 </div>
-                                
-                                
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
                                 </div>
