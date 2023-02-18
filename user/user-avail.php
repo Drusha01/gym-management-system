@@ -87,30 +87,36 @@ session_start();
                                             <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="table-responsive table-container">
-                                                <table class="table table-striped table-borderless table-fixed table-hover" style="width: 100%">
-                                                <thead class="bg-dark text-light">
-                                                    <tr>
-                                                    <th class="text-center">NAME OF OFFER</th>
-                                                    <th class="text-center">AGE QUALIFICATION</th>
-                                                    <th class="text-center">DAYS</th>
-                                                    <th class="text-center">SLOTS</th>
-                                                    <th class="text-center">PRICE</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                    <td class="text-center">1-Month Gym-Use</td>
-                                                    <td class="text-center">None</td>
-                                                    <td class="text-center">30</td>
-                                                    <td class="text-center">None</td>
-                                                    <td class="text-center">₱800</td>
-                                                    </tr>
-                                                </tbody>
-                                                </table>
+                                        <div class="modal-body container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6">
+                                                    <img src="../images/home-1.jpg" class="img-fluid">
+                                                </div>
+                                                <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                                                    <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
+                                                    <p>Get fit and feel great with our one-month gym membership offer!
+                                                         Enjoy full access to our state-of-the-art gym facilities,
+                                                          expert staff, and group fitness classes to help you reach your
+                                                            fitness goals. Sign up now and take the first step towards a healthier you!</p>
+                                                </div>
                                             </div>
-                                            
+                                            <hr>
+                                            <div class="container-fluid d-flex justify-content-center">
+                                                <div class="row text-center">
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -169,19 +175,27 @@ session_start();
                                             ?>
                                         </select>
                                     </div>
+
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-md-4 py-3 py-lg-0">
+                                    <div class="col-10 col-md-4 py-3 py-lg-0">
                                         <label class="fw-bold pb-2">Search</label>
-                                        <input class="form-control" type="text" placeholder="Enter Trainer Name">
+                                        <select class="form-select" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        </select>
                                     </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                        <button type="button" class="btn btn-success btn-lg"><i class='bx bx-plus-circle'></i></button>
+                                    <div class="col-1 align-self-end mb-4 mb-lg-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                    <button type="button" class="btn btn-danger btn-lg"><i class='bx bx-minus-circle' ></i></button>
+                                    <div class="col-12 col-lg-1 btn-group h-25 align-self-end" >
+                                        <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
+                                        <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                     </div>
+                                    
                                 </div>
                                 <hr class="hr" />
                                 <div class="row py-2">
@@ -206,16 +220,14 @@ session_start();
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                        <button type="button" class="btn btn-success btn-lg"><i class='bx bx-plus-circle'></i></button>
-                                    </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                    <button type="button" class="btn btn-danger btn-lg"><i class='bx bx-minus-circle' ></i></button>
+                                    <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" >
+                                        <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
+                                        <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                     </div>
                                 </div>
                             </div>
                         <div class="button-row d-flex mt-4">
-                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                            <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
                         </div>
                         </div>
                     </div>
@@ -286,11 +298,13 @@ session_start();
                         </div>
                         </div>
                         
-                        <div class="button-row d-flex mt-4">
-                            <div class="px-2">
-                                <button class="btn btn-outline-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                        <div class="row pt-3">
+                            <div class="col d-flex justify-content-start">
+                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
                             </div>
-                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -302,13 +316,13 @@ session_start();
                         <div class="container">
                         To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
                         </div>
-                        <div class="row">
-                        <div class="button-row d-flex mt-4 col-12">
-                            <div class="px-2">
-                                <button class="btn btn-outline-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                        <div class="row pt-3">
+                            <div class="col d-flex justify-content-start">
+                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
                             </div>
-                            <button class="btn btn-success ml-auto" type="button" title="Send">Avail</button>
-                        </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                            </div>
                         </div>
                     </div>
                     </div>
