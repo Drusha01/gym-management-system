@@ -649,6 +649,8 @@ CREATE TABLE offers(
     offer_duration int not null,
 	offer_slots VARCHAR(10) default 'None',
     offer_price float not null,
+    offer_description VARCHAR(1024) not null,
+    offer_file VARCHAR(50),
     offer_date_created datetime default NOW(),
     offer_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (offer_status_id) REFERENCES statuses(status_id),
@@ -658,7 +660,7 @@ CREATE TABLE offers(
 );
 
 -- inserts for offers
-INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price) VALUES
+INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description) VALUES
 (
 	null,
     '1-Month Gym-Use(21 and Above)',
@@ -667,7 +669,9 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
     'None',
-    800.00
+    800.00,
+    'offer_default.jpg',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 ),(
 	null,
     '1-Month Trainer',
@@ -676,7 +680,9 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
     30,
     'None',
-    1500.00
+    1500.00,
+    'offer_default.jpg',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 ),(
 	null,
     '1-Month Locker',
@@ -685,7 +691,9 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
     30,
     'None',
-    100.00
+    100.00,
+    'offer_default.jpg',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 ),(
 	null,
     'Zumba',
@@ -694,7 +702,9 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
     45,
-    500.00
+    500.00,
+    'offer_default.jpg',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 ),(
 	null,
     'Samba',
@@ -703,10 +713,12 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
     45,
-    500.00
+    500.00,
+    'offer_default.jpg',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 );
 
-INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price)VALUES
+INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_description)VALUES
 (
 	null,
     '1-Month Gym-Use(21 and Above)',
@@ -715,7 +727,9 @@ INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subsc
     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
     30,
     'None',
-    800.00
+    800.00,
+    'offer_default.jpg',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 );
 
 
@@ -732,12 +746,21 @@ WHERE status_details ='active'
 ;
 
 -- select offer with id
-SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description FROM offers
 LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
 LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
 LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
-WHERE offer_id = 1 AND status_details ='active'
+WHERE offer_id = 4 AND status_details ='active'
 ;
+
+CREATE TABLE offer_contents(
+	offer_content_id int primary key auto_increment,
+    offer_id int not null,
+    content_name varchar(255),
+    FOREIGN KEY (offer_id) REFERENCES offers(offer_id)
+);
+
+
 
 -- soft delete for offer
 UPDATE offers
@@ -799,7 +822,7 @@ CREATE TABLE trainers(
 
 
 -- inserts for trainer
-INSERT INTO trainers trainer_id,trainer_user_id,trainer_availability_id,trainer_status_id,trainer_date_created,trainer_date_updated VALUES
+INSERT INTO trainers (trainer_id,trainer_user_id,trainer_availability_id,trainer_status_id,trainer_date_created,trainer_date_updated) VALUES
 (
 	null,
     (SELECT user_id FROM users WHERE user_name = 'JamesNoLegDay'),
