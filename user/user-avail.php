@@ -80,7 +80,7 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="gym_subscription">
-                                    <option selected>Select Gym subscription</option>
+                                    <option selected onchange="updateGymUseModal()">Select Gym subscription</option>
                                         <?php 
                                             // requre
                                             require_once '../classes/offers.class.php';
@@ -476,6 +476,14 @@ window.addEventListener('load', setFormHeight, false);
 //SETTING PROPER FORM HEIGHT ONRESIZE
 window.addEventListener('resize', setFormHeight, false);
 $("#exampleModal").prependTo("body");
+</script>
+
+
+<script>
+
+function updateGymUseModal(){
+    console.log('update gym use modal');
+}
 </script>
 
 </body>

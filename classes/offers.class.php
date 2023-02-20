@@ -116,7 +116,7 @@ class offers
             offer_slots = :offer_slots,
             offer_price = :offer_price,
             offer_description = :offer_description,
-            offer_file = :offer_file,
+            offer_file = :offer_file
             WHERE offer_id = :offer_id
             ; ';
             $query=$this->db->connect()->prepare($sql);
