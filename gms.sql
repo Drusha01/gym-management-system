@@ -887,17 +887,62 @@ LEFT JOIN trainers ON users.user_id=trainers.trainer_user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 where trainers.trainer_user_id is null
 ;
+
+-- table for discounts
+CREATE TABLE discounts(
+	discount_id int primary key auto_increment,
+    discount_name VARCHAR(50),
+    discount_details VARCHAR(255),
+    discount_rate FLOAT8
+);
+
+-- insert for discount
+INSERT INTO discounts (discount_id, discount_name, discount_details, discount_rate) VALUES
+(
+	null,
+    'No discount',
+    'No discounted',
+    0
+);
+
+-- table for subscription status
+CREATE TABLE subscription_status(
+	subscription_status_id tinyint primary key auto_increment,
+    subscription_status_details varchar(50) unique
+);
+
+INSERT INTO subscription_status (subscription_status_id, subscription_status_details) VALUES
+( 
+	null,
+    'Paid'
+),( 
+	null,
+    'Pending'
+),( 
+	null,
+    'Partial'
+),( 
+	null,
+    'Unpaid'
+),( 
+	null,
+    'Overdue'
+);
 -- table for subscriptions
 CREATE TABLE subscriptions(
 	subscription_id int primary key auto_increment ,
     subscription_subscriber_user_id int not null,
-    subscription_offer_name,
-    subscription_type_of_subscription_id,
-    subscription_age_qualification_id,
-    subscription_duration int not null , 
-    subscription_price float not null
+    subscription_offer_name VARCHAR(255) not null,	-- for persistence of data
+    subscription_type_of_subscription_details  varchar(50) not null ,	-- for persistence of data
+    subscription_age_qualification_details varchar(50) not null,	-- for persistence of data
+    subscription_duration int not null , -- persistence of data
+    subscription_price float not null,	-- persistence of data
+    subscription_status_details  varchar(50) not null, -- persistence of data
+    subscription_discount_id FLOAT8 not null,	-- persistence of data
+    subscription_date_created datetime default NOW(),
+    subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- foreing keys
 );
-
 
 
 
