@@ -41,7 +41,6 @@ if(isset($_SESSION['admin_id'])){
             // get offer data
             $offer_data = $offersObj->fetch_offer($_POST['offer_id']);
             if(validate_offer($_POST)){
-                $offersObj = new offers();
                 $offer_name = $_POST['offer_name'];
                 $offer_status_details = 'active';
                 $offer_offer_type_of_subscription_details = $_POST['type_of_subscription'];
@@ -105,12 +104,18 @@ if(isset($_SESSION['admin_id'])){
                         }else{
                             $error = true;
                         }
+                    }else{
+                        $filename = $offer_data['offer_file'];
                     }
                 }
 
                 if(!$error){
                     if($offersObj->update($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_description,$filename,$_POST['offer_id'])){
-                        //unlink($offer_file_dir.$filename);
+                        if(file_exists($offer_file_dir.$offer_data['offer_file']) && $offer_data['offer_file']!= 'offer_default.jpg'){
+                            unlink($offer_file_dir.$offer_data['offer_file']);
+                        }
+                        
+                        
                         header('location:offer.php');
                     }
                 }
