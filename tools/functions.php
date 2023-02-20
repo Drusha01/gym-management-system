@@ -30,7 +30,7 @@ function validate_gender($POST,$gender){
 
 function validate_birthdate($POST,$birthdate){
     //  do this
-    return (isset($POST[$birthdate]));
+    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < 0) ;
 }
 
 function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')
@@ -60,7 +60,7 @@ function validate_password_same($POST,$password,$cpassword){
 }
 
 function validate_signup($POST){
-    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname')&& validate_string($POST, 'mname') && validate_email($POST) && 
+    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname')&& validate_email($POST) && 
     validate_phone($POST, 'phone') && validate_birthdate($POST,'birthdate') && validate_password_same($POST,'password','cpassword') && validate_password($POST,'password') ); 
     
   
@@ -142,7 +142,7 @@ function getAge($date) {
 }
 
 function validate_profile_info($POST){
-    return  validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate') && validate_phone($POST, 'phone')&& validate_email($POST);
+    return  validate_string($POST, 'fname')  && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate') && validate_phone($POST, 'phone')&& validate_email($POST);
 }
 
 function validate_offer_duration($POST,$offer_duration){

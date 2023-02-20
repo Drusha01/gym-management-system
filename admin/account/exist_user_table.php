@@ -3,6 +3,7 @@
             <tr>
             <th class="d-lg-none"></th>
             <th class="text-center d-none d-sm-table-cell">#</th>
+            <th>USERNAME</th>
             <th>NAME</th>
             <th class="text-center ">AGE</th>
             <th class="text-center ">GENDER</th>
@@ -11,41 +12,38 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-            <th class="d-lg-none"></th>
-            <th class="text-center d-none d-sm-table-cell">1</th>
-            <td><a href="acc_prof.php" class="text-decoration-none text-dark">Trinidad, James Trinidad</a></td>
-            <td class="text-center ">23</td>
-            <td class="text-center ">Male</td>
-            <td class="text-center">Subscribe</td>
-            <td class="text-center"> <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">Add</button></td>
-            </tr>
-            <tr>
-            <th class="d-lg-none"></th>
-            <th class="text-center d-none d-sm-table-cell">2</th>
-            <td>Nicholas, Shania Gabrielle</td>
-            <td class="text-center ">23</td>
-            <td class="text-center ">Female</td>
-            <td class="text-center">Subscribe</td>
-            <td class="text-center"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button></td>
-            </tr>
-            <tr>
-            <th class="d-lg-none"></th>
-            <th class="text-center d-none d-sm-table-cell">3</th>
-            <td>Lim, Robbie John</td>
-            <td class="text-center ">23</td>
-            <td class="text-center ">Male</td>
-            <td class="text-center">Not Availed</td>
-            <td class="text-center"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button></td>
-            </tr>
-            <tr>
-            <th class="d-lg-none"></th>
-            <th class="text-center d-none d-sm-table-cell">4</th>
-            <td>Villanueva, Rob Roche</td>
-            <td class="text-center ">23</td>
-            <td class="text-center ">Male</td>
-            <td class="text-center">Subscribe</td>
-            <td class="text-center"><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button></td>
-            </tr>
+        <?php 
+        require_once('../../classes/trainers.class.php');
+        require_once('../../classes/trainer_availability.class.php');
+        require_once('../../tools/functions.php');
+
+        // trainer availability instance
+        $trainer_availabilityObj = new trainer_availability();
+        $trainer_availability_data = $trainer_availabilityObj->fetch_trainer_availability();
+
+        // trainer instance
+        $trainerObj = new trainers();
+
+        // fetch
+        $counter =1;
+        if($trainers_data = $trainerObj->fetch_non_trainers()){
+            foreach ($trainers_data as $key => $value) {
+                echo '<tr>';
+                echo '<th class="d-lg-none"></th>';
+                echo '<th class="text-center d-none d-sm-table-cell">';echo $counter;echo '</th>';
+                echo '<td class="" id=row_user_id_';echo_safe($value['user_id']);echo'>'; echo_safe($value['user_name']);'</td>';
+                echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'"  class="text-decoration-none text-dark">';echo_safe($value['user_fullname']);echo'</a></td>';
+                echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
+                echo '<td class="text-center ">';echo_safe($value['user_gender_details']);echo '</td>';
+                echo '<td class="text-center">TO BE IMPLEMENTED</td>';
+                echo '<td class="text-center"> <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" onclick="createModal(\'';echo_safe($value['user_fullname']);echo'\',';echo_safe($value['user_id']);echo',';echo $counter;echo')">Add</button></td>';
+                echo '</tr>';
+                $counter++;
+            }
+        }
+
+
+        ?>
+            
         </tbody>
     </table>

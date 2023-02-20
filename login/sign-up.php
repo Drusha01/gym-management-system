@@ -46,12 +46,9 @@ require_once '../classes/genders.class.php';
       $genderObj = new genders();
       $genderObj->insert_new_gender($_POST['gender_other']);
       echo 'other_gender';
-    }else{
-      //echo 'error';
-      $error = true;
     }
 
-    if(validate_signup($_POST) && !$error){
+    if(validate_signup($_POST) ){
 
       // set attributes
       $userObj->setuser_status_details('active');
@@ -225,6 +222,7 @@ require_once '../classes/genders.class.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -236,6 +234,7 @@ require_once '../classes/genders.class.php';
     <link rel="stylesheet" href="../css/log-in.css">
     <link rel="stylesheet" href="../css/boxicons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <html itemscope itemtype="http://schema.org/Article">
 </head>
 <body>
   <section class="container pt-4 pb-4">
@@ -255,7 +254,7 @@ require_once '../classes/genders.class.php';
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
-              <input type="file" class="form-control-file" id="profilepic" name="profilepic" >
+              <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
             </div>
             <div class="form-floating py-1">
               <input type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required>
@@ -268,7 +267,7 @@ require_once '../classes/genders.class.php';
                         <label for="floatingInput" class="ps-4">First Name</label>
                     </div>
                     <div class="form-floating col-md-6 py-1">
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  required>
+                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  >
                         <label for="floatingInput" class="ps-4">Middle Name</label>
                     </div>
                 </div>
@@ -365,11 +364,12 @@ require_once '../classes/genders.class.php';
 
 
 function genders(){
-        $('#gender_other').val(''); 
-        console.log('gender selected  changed');
-    }
-    function other_genders(){
-        $('#gender option[value=Other]').attr('selected','selected'); 
-        console.log('gender others changed');
-    }
+  $('#gender_other').val(''); 
+  console.log('gender selected  changed');
+}
+function other_genders(){
+  $('#gender').val('Other'); 
+  $('#gender option[value=Other]').attr('selected','selected'); 
+  console.log('gender others changed');
+}
 </script>

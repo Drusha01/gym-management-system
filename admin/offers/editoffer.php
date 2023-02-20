@@ -36,7 +36,6 @@ if(isset($_SESSION['admin_id'])){
 
         } 
         if(isset($_POST['offer_id'])){
-            print_r($_POST);
             if(validate_offer($_POST)){
                 $offersObj = new offers();
                 $offer_name = $_POST['offer_name'];

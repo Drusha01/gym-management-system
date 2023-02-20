@@ -70,7 +70,7 @@ class offers
     function add($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price){
         try{
             $sql = '
-            INSERT INTO offers VALUES
+            INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price) VALUES
             (
                 null,
                 :offer_name,

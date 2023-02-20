@@ -32,7 +32,7 @@
                         echo '<td class="text-center ">';echo_safe($value['offer_duration']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['offer_slots']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['offer_price']); echo '</td>';
-                        echo '<td class="text-center "><a href="editoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="deleteoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-danger btn-sm" onclick="confirmfunction(';echo_safe($value['offer_id']); echo')">Delete</button></td>';
+                        echo '<td class="text-center "><a href="editoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="deleteoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['offer_id']; echo')">Delete</button></td>';
                         echo '</tr>';
                         $counter++;
                     }

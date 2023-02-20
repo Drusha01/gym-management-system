@@ -47,17 +47,21 @@ if(isset($_SESSION['user_id'])){
 
                 // if new gender is found insert first the new gender then 
 
-                if (isset($_POST['gender']) && $_POST['gender'] != $_SESSION['user_gender_details']) {
+                $error = false;
+                if(isset($_POST['gender']) &&  ($_POST['gender'] != 'Other' || $_POST['gender'] != 'None')){
                     $userObj->setuser_gender_details($_POST['gender']);
-                } else if (isset($_POST['gender_other']) && strlen($_POST['gender_other']) > 0) {
+                }else{
+                    echo 'error_gender';
+                    return -1;
+                }
+                if(isset($_POST['gender_other']) && strlen($_POST['gender_other'])>0 ){
                     $userObj->setuser_gender_details($_POST['gender_other']);
                     $genderObj = new genders();
                     $genderObj->insert_new_gender($_POST['gender_other']);
                     //echo 'other_gender';
-                } else {
-                    //echo 'gender_error';
-                    //$error = true;
-                    $userObj->setuser_gender_details($_SESSION['user_gender_details']);
+                }else{
+                    // echo 'error_gender';
+                    // return -1;
                 }
 
 
@@ -104,7 +108,29 @@ if(isset($_SESSION['user_id'])){
 
 
             }else{
-                echo 'invalid inputs';
+                if(!validate_string($_POST, 'fname')){
+                    echo 'invalid firstname';
+                    return;
+                }
+                if(!validate_string($_POST, 'lname') ){
+                    echo 'invalid lastname';
+                    return;
+                }
+                if(!validate_birthdate($_POST, 'birthdate') ){
+                    echo 'invalid birthdate';
+                    return;
+                }
+                if(!validate_phone($_POST, 'phone') ){
+                    echo 'invalid phone';
+                    return;
+                }
+                if(!validate_email($_POST) ){
+                    echo 'invalid email';
+                    return;
+                }
+                
+                    
+                // echo 'invalid inputs';
             }
         } else {
             echo '0';

@@ -98,7 +98,7 @@ Class users{
     function login(){
         try{
             $sql = 'SELECT user_id,user_password_hashed FROM users
-            WHERE user_name = BINARY :user_name OR (user_email =  :user_email AND user_email_verified = 1) ; ';
+            WHERE (user_name = BINARY :user_name AND user_name_verified = true) OR (user_email =  :user_email AND user_email_verified = 1) ; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             $query->bindParam(':user_name', $this->user_name);
@@ -119,7 +119,7 @@ Class users{
     function get_user_details(){
         try{
             $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
-            user_name,user_firstname,user_address,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            user_name,user_phone_verified,user_email_verified,user_name_verified,user_firstname,user_address,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
             LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
@@ -177,7 +177,7 @@ Class users{
     function user_duplicateAll(){
         try{
             $sql = 'SELECT user_id FROM users
-            WHERE user_name = BINARY :user_name OR user_email =  :user_email OR user_phone_number = :user_phone_number;';
+            WHERE (user_name = BINARY :user_name AND user_name_verified =true) OR (user_email =  :user_email AND user_email_verified = true) OR (user_phone_number = :user_phone_number AND user_phone_verified =true)';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             $query->bindParam(':user_name', $this->user_name);
@@ -196,7 +196,7 @@ Class users{
     function user_duplicateEmail(){
         try{
             $sql = 'SELECT user_id FROM users
-            WHERE user_email =  :user_email ;';
+            WHERE user_email =  :user_email AND user_email_verified = true;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             if($query->execute()){
@@ -212,7 +212,7 @@ Class users{
     function user_duplicatePhone(){
         try{
             $sql = 'SELECT user_id FROM users
-            WHERE user_phone_number = :user_phone_number ;';
+            WHERE user_phone_number = :user_phone_number AND user_phone_verified =true;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_phone_number', $this->user_phone_number);
             if($query->execute()){
@@ -228,7 +228,7 @@ Class users{
     function user_duplicateUsername(){
         try{
             $sql = 'SELECT user_id FROM users
-            WHERE user_name = BINARY :user_name ;';
+            WHERE user_name = BINARY :user_name AND user_name_verified =true;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_name', $this->user_name);
             if($query->execute()){
@@ -266,7 +266,7 @@ Class users{
         
         try {
             $sql = 'INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
-            user_name,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
+            user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
                 null,
                 (SELECT user_status_id FROM user_status WHERE user_status_details = :user_status_details),
                 (SELECT user_type_id FROM user_types WHERE user_type_details = :user_type_details),
@@ -275,6 +275,7 @@ Class users{
                 :user_phone_number,
                 :user_email,
                 :user_name,
+                true,
                 :user_password_hashed,
                 :user_firstname,
                 :user_middlename,
@@ -370,6 +371,62 @@ Class users{
             $query->bindParam(':user_profile_picture', $this->user_profile_picture);
             $query->bindParam(':user_id', $this->user_id);
             return $query->execute();
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function fetch_all_users(){
+        try{
+            $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+            user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+            LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+            LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+            LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+            LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+            ORDER BY user_name
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function update_user_status($user_id,$user_status_details){
+        
+        try{
+            $sql = 'UPDATE users
+            SET user_status_id =(SELECT user_status_id FROM user_status WHERE user_status_details = :user_status_details)
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            $query->bindParam(':user_status_details', $user_status_details);
+            $data =  $query->execute();
+            return $data;
+            
+            
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function delete_user($user_id){
+        
+        try{
+            $sql = 'DELETE FROM users WHERE  user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            $data =  $query->execute();
+            return $data;
+            
             
         }catch (PDOException $e){
             return false;
