@@ -798,8 +798,18 @@ CREATE TABLE trainers(
 );
 
 
+INSERT INTO trainers (trainer_id,trainer_user_id,trainer_availability_id,trainer_status_id,trainer_date_created,trainer_date_updated) VALUES
+(
+	null,
+    14,
+    (SELECT trainer_availability_id FROM trainer_availability WHERE trainer_availability_details = 'Available'),
+    (SELECT status_id FROM statuses WHERE status_details= 'active'),
+    now(),
+    now()
+    
+);
 -- inserts for trainer
-INSERT INTO trainers trainer_id,trainer_user_id,trainer_availability_id,trainer_status_id,trainer_date_created,trainer_date_updated VALUES
+INSERT INTO trainers (trainer_id,trainer_user_id,trainer_availability_id,trainer_status_id,trainer_date_created,trainer_date_updated) VALUES
 (
 	null,
     (SELECT user_id FROM users WHERE user_name = 'JamesNoLegDay'),

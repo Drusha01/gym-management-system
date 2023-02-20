@@ -153,9 +153,13 @@ function validate_offer_price($POST,$offer_price){
     return (isset($POST[$offer_price])  && (floatval($POST[$offer_price])));
 }
 
+function validate_offer_description($POST,$offer_description){
+    return (isset($POST[$offer_description]) && strlen(trim($POST[$offer_description]))>1  && strlen(trim($POST[$offer_description])) < 1024) ;
+}
+
   
 
 function validate_offer($POST){
-    return validate_string($POST, 'offer_name') && validate_offer_duration($POST,'offer_duration') && validate_offer_price($POST,'offer_price') && validate_string($POST,'type_of_subscription');
+    return validate_string($POST, 'offer_name') && validate_offer_duration($POST,'offer_duration') && validate_offer_price($POST,'offer_price') && validate_string($POST,'type_of_subscription') && validate_offer_description($POST,'offer_description');
 }
 ?>
