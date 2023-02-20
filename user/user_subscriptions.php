@@ -61,9 +61,9 @@
                     <td class="text-center ">Locker Subscription</td>
                     <td class="text-center">October 16, 2022</td>
                     <td class="text-center">November 15, 2022</td>
-                    <td class="text-center">24</td>
-                    <td class="text-center">Paid</td>
-                    <td class="text-center"><button class="btn btn-success btn-sm px-3">Renew</button></td>
+                    <td class="text-center">---</td>
+                    <td class="text-center">Pending</td>
+                    <td class="text-center"><button class="btn btn-danger btn-sm px-3" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
                     <tr>
                     <th class="d-lg-none"></th>
                     <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
@@ -81,6 +81,25 @@
         </div>
     </div>
 </div>
+<!-- modal -->
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to cancel this subscription?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container-sub">
     <div class="row g-2 mb-2 ">
     <h5 class="col-12 fw-bold">History</h5>
