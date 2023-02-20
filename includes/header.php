@@ -46,6 +46,36 @@
                 </ul>
               </li>
             </ul>
+              <ul class="nav navbar-nav navbar-right d-none d-lg-block">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class='bx bx-bell fs-2'></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" style="width:300px;">
+                      <li>
+                        <a href="#" class="text-decoration-none text-dark dropdown-item">
+                          <div class="fw-normal">You have <b>3 new themes</b> trending</div>
+                          <div class="fw-light">15 minutes ago</div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="text-decoration-none text-dark dropdown-item">
+                          <div class="fw-normal">You have <b>3 new themes</b> trending</div>
+                          <div class="fw-light">15 minutes ago</div>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" class="text-decoration-none text-dark dropdown-item">
+                          <div class="fw-normal">You have <b>3 new themes</b> trending</div>
+                          <div class="fw-light">15 minutes ago</div>
+                        </a>
+                      </li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item text-center" href="#" style="text-indent: 1%;">Show More</a></li>
+                    </ul>
+                  </li>
+              </ul>
+
               <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +83,8 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li><a class="dropdown-item" href="../user/user-profile.php">My Account</a></li>
-                      <li><a class="dropdown-item" href="#">My Subscriptions</a></li>
+                      <li><a class="dropdown-item d-lg-none" href="#">Notifications</a></li>
+                      <li><a class="dropdown-item" href="">My Subscriptions</a></li>
                       <li><a class="dropdown-item" href="#">My Trainer</a></li>
                       <div class="dropdown-divider"></div>
                       <li><a class="dropdown-item" href="../login/log-out.php">Log-Out</a></li>

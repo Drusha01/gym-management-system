@@ -72,9 +72,7 @@ if(isset($_SESSION['user_id'])){
                   <?php require_once 'user-acc.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                    <div class="container-fluid p-3">
-                        Notifications
-                    </div>
+                      <?php require_once 'user-notif.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab">
                     <div class="container-fluid p-3 my_subscription">
