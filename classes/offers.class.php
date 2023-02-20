@@ -143,7 +143,7 @@ class offers
     function select_offers_per_sub_type($type_of_subscription_details){
         try{
             $sql = '
-            SELECT (offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description) FROM offers
+            SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description FROM offers
             LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
             LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
             LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id

@@ -38,7 +38,7 @@ if(isset($_SESSION['admin_id'])){
     <h5 class="col-12 fw-bold mb-3">Accounts</h5>
         <div class="container-fluid">
             <ul class="nav nav-tabs application">
-                        <li class="nav-item active ">
+                        <li class="nav-item active "id="user">
                             <a class="nav-link" href="#tab-user" data-bs-toggle="tab">Customer</a>
                         </li>
                         <li class="nav-item" id="trainer">
@@ -71,7 +71,7 @@ if(isset($_SESSION['admin_id'])){
                  </div>
                  <!-- end of acc table -->
 
-                <div class="tab-pane show fade" id="tab-trainer">
+                <!-- <div class="tab-pane show fade" id="tab-trainer">
                     <div class="row g-2 mb-2 mt-1">
                             <div class="form-group col-12 col-sm-4 table-filter-option">
                                 <label>Type</label>
@@ -90,9 +90,9 @@ if(isset($_SESSION['admin_id'])){
                             </div>
                         </div>
                         <div class="table-container">
-                            <?php require_once 'trainertable.php'; ?>
+                            <?php //require_once 'trainertable.php'; ?>
                         </div>
-                    </div>
+                    </div> -->
             </div>
                 <!-- end of acc table -->
 
@@ -110,6 +110,7 @@ if(isset($_SESSION['admin_id'])){
 $(".nav-item").on("click", function(){
     $(".nav-item").removeClass("active");
     $(this).addClass("active");
+    console.log($(this).attr('id'))
     if($(this).attr('id') =='user'){
         $.ajax({
             type: "GET",
