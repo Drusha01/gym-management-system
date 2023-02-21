@@ -434,6 +434,7 @@ Class users{
     }
 
     function update_email($user_id,$user_email){
+        echo 'nice';
         try{
             $sql = 'UPDATE users
             SET user_email = :user_email ,
@@ -443,6 +444,7 @@ Class users{
             $query->bindParam(':user_id', $user_id);
             $query->bindParam(':user_email', $user_email);
             $data =  $query->execute();
+            
             return $data;
             
             

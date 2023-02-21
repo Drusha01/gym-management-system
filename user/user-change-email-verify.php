@@ -26,6 +26,14 @@ if(isset($_SESSION['user_id'])){
         $userObj = new users();
         $userObj->setuser_email($_POST['email']);
 
+
+        if($userObj->update_email(8,'hanz.dumapit69@gmail.com')){
+          // header('location:user-profile.php');
+          // update session
+          $_SESSION['user_email'] = $email_data['email_verify_email'];
+          echo 'nice';
+        }
+
         // verify if email is taken
         $user_email = $userObj->user_duplicateEmail();
         // check first if we already sent and email in last 60 seconds
