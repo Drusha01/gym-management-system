@@ -48,7 +48,7 @@ if(isset($_SESSION['user_id'])){
 
 <?php require_once '../includes/header.php';?>
 
-<section style="margin-top: 80px;">
+<section class="w-100"style="margin-top: 80px;">
     <!-- first part -->
     <div style="background-color: #E2E2E2;">
         <div class="container-fluid ms-lg-5">

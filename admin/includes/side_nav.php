@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Applications">
+                            <a href="../reports/reports.php" class="nav-link" title="Reports">
                                 <i class='bx bx-line-chart'></i>
                                 <span class="links-name">Reports</span>
                             </a>
