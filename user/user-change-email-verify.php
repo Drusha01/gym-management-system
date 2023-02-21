@@ -30,7 +30,6 @@ if(isset($_SESSION['user_id'])){
         $user_email = $userObj->user_duplicateEmail();
         // check first if we already sent and email in last 60 seconds
         // if so dont sent another one.
-
         $emailObj = new email();
         $email_data =$emailObj->get_last_sent_email($_SESSION['user_id']);
 
@@ -61,6 +60,8 @@ if(isset($_SESSION['user_id'])){
             }
             echo 'code';
           }
+        }else{
+          header('location:user-change-email-address.php');
         }
         // must be code
       }else if(isset($_POST['code'])  ){
@@ -71,10 +72,10 @@ if(isset($_SESSION['user_id'])){
           // update user email and user validated email
           $userObj = new users();
           if($userObj->update_email($email_data['email_verify_user_id'],$email_data['email_verify_email'])){
-           // header('location:user-profile.php');
+            
            // update session
            $_SESSION['user_email'] = $email_data['email_verify_email'];
-           echo 'nice';
+           header('location:user-profile.php');
           }
         }
       }

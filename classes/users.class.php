@@ -322,7 +322,6 @@ Class users{
             user_middlename = :user_middlename,
             user_lastname = :user_lastname,
             user_gender_id = (SELECT user_gender_id FROM user_genders WHERE user_gender_details = :user_gender_details),
-            user_email = :user_email,
             user_phone_number = :user_phone_number,
             user_address = :user_address,
             user_birthdate = :user_birthdate
@@ -333,7 +332,6 @@ Class users{
             $query->bindParam(':user_middlename', $this->user_middlename);
             $query->bindParam(':user_lastname', $this->user_lastname);
             $query->bindParam(':user_gender_details', $this->user_gender_details);
-            $query->bindParam(':user_email', $this->user_email);
 
             $query->bindParam(':user_phone_number', $this->user_phone_number);
             $query->bindParam(':user_address', $this->user_address);
