@@ -98,7 +98,7 @@ Class users{
     function login(){
         try{
             $sql = 'SELECT user_id,user_password_hashed FROM users
-            WHERE (user_name = BINARY :user_name AND user_name_verified = true) OR (user_email =  :user_email AND user_email_verified = 1) ; ';
+            WHERE (user_name = BINARY :user_name AND user_name_verified = 1) OR (user_email =  :user_email AND user_email_verified = 1) ; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_email', $this->user_email);
             $query->bindParam(':user_name', $this->user_name);
@@ -379,7 +379,7 @@ Class users{
 
     function fetch_all_users(){
         try{
-            $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+            $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,user_email_verified,
             user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
             LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id

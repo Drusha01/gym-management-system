@@ -2,6 +2,11 @@
 // start session
 session_start();
 
+
+if(isset($_SESSION['admin_id'])){
+  header('location:admin/admin_control_log_in2.php');
+}
+
 // check if we are logged in
 if(isset($_SESSION['user_id'])){
   // check if the user is active
@@ -73,7 +78,7 @@ if(isset($_SESSION['user_id'])){
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Avail</a>
+                        <a class="nav-link active" aria-current="page" href="user/user-avail.php">Avail</a>
                       </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

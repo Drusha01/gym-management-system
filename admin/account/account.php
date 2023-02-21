@@ -38,17 +38,61 @@ if(isset($_SESSION['admin_id'])){
     <h5 class="col-12 fw-bold mb-3">Accounts</h5>
         <div class="container-fluid">
             <ul class="nav nav-tabs application">
-                        <li class="nav-item active " id="user">
-                            <a class="nav-link" href="#tab-user" data-bs-toggle="tab" >User</a>
+                        <li class="nav-item active "id="user">
+                            <a class="nav-link" href="#tab-user" data-bs-toggle="tab">Customer</a>
                         </li>
                         <li class="nav-item" id="trainer">
                             <a class="nav-link" href="#tab-trainer" data-bs-toggle="tab" >Trainer</a>
                         </li>
                     </ul>
             <div class="tab-content">
-                <div class="tab-pane active show fade" id="tab">
-                    
-                </div>
+                <div class="tab-pane active show fade" id="tab-user">
+                    <div class="row g-2 mb-2 mt-1">
+                        <div class="form-group col-12 col-sm-4 table-filter-option">
+                            <label>Type</label>
+                            <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
+                                <option value="">All</option>
+                                <option value="Subscribe">Subscribe</option>
+                                <option value="Not Availed">Not Availed</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12 col-sm-5 table-filter-option">
+                            <label for="keyword">Search</label>
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
+                        </div>
+                        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+                            <a href="user-add.php" class="btn btn-success" role="button">Add Customer</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive table-container">
+
+                    </div>
+
+                 </div>
+                 <!-- end of acc table -->
+
+                <!-- <div class="tab-pane show fade" id="tab-trainer">
+                    <div class="row g-2 mb-2 mt-1">
+                            <div class="form-group col-12 col-sm-4 table-filter-option">
+                                <label>Type</label>
+                                <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
+                                    <option value="">All</option>
+                                    <option value="asdads">Available</option>
+                                    <option value="Not Subscribed">Not Available</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12 col-sm-5 table-filter-option">
+                                <label for="keyword">Search</label>
+                                <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
+                            </div>
+                            <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+                                <a href="trainer-add.php" class="btn btn-success" role="button">Add Trainer</a>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <?php //require_once 'trainertable.php'; ?>
+                        </div>
+                    </div> -->
             </div>
                 <!-- end of acc table -->
 
@@ -66,6 +110,7 @@ if(isset($_SESSION['admin_id'])){
 $(".nav-item").on("click", function(){
     $(".nav-item").removeClass("active");
     $(this).addClass("active");
+    console.log($(this).attr('id'))
     if($(this).attr('id') =='user'){
         $.ajax({
             type: "GET",

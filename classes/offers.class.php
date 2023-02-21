@@ -31,7 +31,7 @@ class offers
 
     function fetch_offer($offer_id){
         try{
-            $sql = 'SELECT offer_id,offer_name,status_details,type_of_subscription_id,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+            $sql = 'SELECT offer_id,offer_name,status_details,type_of_subscription_id,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description,offer_file FROM offers
             LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
             LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
             LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
@@ -67,10 +67,10 @@ class offers
             return false;
         }
     }
-    function add($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price){
+    function add($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_description,$offer_file){
         try{
             $sql = '
-            INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price) VALUES
+            INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_description,offer_file) VALUES
             (
                 null,
                 :offer_name,
@@ -79,7 +79,9 @@ class offers
                 (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= :age_qualification_details),
                 :offer_duration,
                 :offer_slots,
-                :offer_price
+                :offer_price,
+                :offer_description,
+                :offer_file
             ); ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':offer_name', $offer_name);
@@ -90,6 +92,8 @@ class offers
 
             $query->bindParam(':offer_slots', $offer_slots);
             $query->bindParam(':offer_price', $offer_price);
+            $query->bindParam(':offer_description', $offer_description);
+            $query->bindParam(':offer_file', $offer_file);
 
             if($data = $query->execute()){
                 return $data;
@@ -100,7 +104,7 @@ class offers
             return false;
         }
     }
-    function update($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_id){
+    function update($offer_name,$status_details,$type_of_subscription_details,$age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_description,$offer_file,$offer_id){
         try{
             $sql = '
             UPDATE offers
@@ -110,7 +114,9 @@ class offers
             offer_age_qualification_id  = (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= :age_qualification_details),
             offer_duration = :offer_duration,
             offer_slots = :offer_slots,
-            offer_price = :offer_price
+            offer_price = :offer_price,
+            offer_description = :offer_description,
+            offer_file = :offer_file
             WHERE offer_id = :offer_id
             ; ';
             $query=$this->db->connect()->prepare($sql);
@@ -121,6 +127,8 @@ class offers
             $query->bindParam(':offer_slots', $offer_slots);
 
             $query->bindParam(':offer_price', $offer_price);
+            $query->bindParam(':offer_description', $offer_description);
+            $query->bindParam(':offer_file', $offer_file);
             $query->bindParam(':offer_id', $offer_id);
 
             if($data = $query->execute()){
@@ -134,8 +142,7 @@ class offers
     }
     function select_offers_per_sub_type($type_of_subscription_details){
         try{
-            $sql = '
-            SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+            $sql = 'SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description FROM offers
             LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
             LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
             LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id

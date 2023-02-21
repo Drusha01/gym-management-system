@@ -1,9 +1,35 @@
 <?php
+// start session
 session_start();
-//print_r($_SESSION);
-// check if loged in else go to log in
-?>
 
+// includes
+require_once '../tools/functions.php';
+require_once '../classes/users.class.php';
+
+if(isset($_SESSION['admin_id'])){
+    header('location:../admin/admin_control_log_in2.php');
+}
+// check if we are logged in
+if(isset($_SESSION['user_id'])){
+  // check if the user is active
+  if($_SESSION['user_status_details'] =='active'){
+    // check what type of user are we
+    if($_SESSION['user_type_details'] =='admin'){
+      // go to admin
+    }else if($_SESSION['user_type_details'] == 'normal'){
+      // do nothing
+    } 
+  }else if($_SESSION['user_status_details'] =='inactive'){
+    // handle inactive user details
+  }else if($_SESSION['user_status_details'] =='deleted'){
+    // handle deleted user details
+  }
+} else {
+  // go to login page
+  header('location:../login/log-in.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,8 +81,8 @@ session_start();
                                 <div class="row">
                                     <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
-                                    <select class="form-select" aria-label="Default select example" name="gym_subscription">
-                                    <option selected>Select Gym subscription</option>
+                                    <select class="form-select" aria-label="Default select example" name="gym_subscription" onchange="updateGymUseModal()">
+                                    <option selected >Select Gym subscription</option>
                                         <?php 
                                             // requre
                                             require_once '../classes/offers.class.php';
@@ -74,51 +100,13 @@ session_start();
                                             }
                                         ?>
                                     </select>
+                                    
                                     </div>
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="table-responsive table-container">
-                                                <table class="table table-striped table-borderless table-fixed table-hover" style="width: 100%">
-                                                <thead class="bg-dark text-light">
-                                                    <tr>
-                                                    <th class="text-center">NAME OF OFFER</th>
-                                                    <th class="text-center">AGE QUALIFICATION</th>
-                                                    <th class="text-center">DAYS</th>
-                                                    <th class="text-center">SLOTS</th>
-                                                    <th class="text-center">PRICE</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                    <td class="text-center">1-Month Gym-Use</td>
-                                                    <td class="text-center">None</td>
-                                                    <td class="text-center">30</td>
-                                                    <td class="text-center">None</td>
-                                                    <td class="text-center">₱800</td>
-                                                    </tr>
-                                                </tbody>
-                                                </table>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <!-- End of Modal -->
+                                    
+                                    
 
                                     <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
@@ -144,7 +132,7 @@ session_start();
                                     </div>
                                     <div class="col-4 col-md-2 py-1">
                                     <label class="fw-bold pb-2 ps-1">Quantity</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" id="quantity" onchange="numchange()">
                                     </div>
                                     
                                 </div>
@@ -169,19 +157,38 @@ session_start();
                                             ?>
                                         </select>
                                     </div>
+
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-md-4 py-3 py-lg-0">
+                                    <div class="col-10 col-md-4 py-3 py-lg-0">
                                         <label class="fw-bold pb-2">Search</label>
-                                        <input class="form-control" type="text" placeholder="Enter Trainer Name">
+                                        <select class="form-select" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                            <?php 
+                                            require_once '../classes/trainers.class.php';
+                                            $trainerObj = new trainers();
+
+                                            // fetch
+                                            if($data_result = $trainerObj->fetch_tainers()){
+                                                foreach ($data_result as $key => $value) {
+                                                    if( $value['trainer_availability_details'] =='Available' && $value['user_status_details'] == 'active'){
+                                                        echo '<option value="';echo_safe($value['trainer_id']);echo '">';echo_safe($value['user_fullname']); echo'</option>';
+                                                    }
+                                                }
+                                            }
+                                            
+                                            ?>
+                                        </select>
                                     </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                        <button type="button" class="btn btn-success btn-lg"><i class='bx bx-plus-circle'></i></button>
+                                    <div class="col-1 align-self-end mb-4 mb-lg-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                    <button type="button" class="btn btn-danger btn-lg"><i class='bx bx-minus-circle' ></i></button>
+                                    <div class="col-12 col-lg-1 btn-group h-25 align-self-end" >
+                                        <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
+                                        <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                     </div>
+                                    
                                 </div>
                                 <hr class="hr" />
                                 <div class="row py-2">
@@ -206,16 +213,14 @@ session_start();
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                        <button type="button" class="btn btn-success btn-lg"><i class='bx bx-plus-circle'></i></button>
-                                    </div>
-                                    <div class="col-6 col-md-1 align-self-end py-2 py-lg-0 text-center">
-                                    <button type="button" class="btn btn-danger btn-lg"><i class='bx bx-minus-circle' ></i></button>
+                                    <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" >
+                                        <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
+                                        <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                     </div>
                                 </div>
                             </div>
                         <div class="button-row d-flex mt-4">
-                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                            <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
                         </div>
                         </div>
                     </div>
@@ -286,11 +291,13 @@ session_start();
                         </div>
                         </div>
                         
-                        <div class="button-row d-flex mt-4">
-                            <div class="px-2">
-                                <button class="btn btn-outline-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                        <div class="row pt-3">
+                            <div class="col d-flex justify-content-start">
+                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
                             </div>
-                            <button class="btn btn-primary ml-auto js-btn-next" type="button" title="Next">Next</button>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -302,13 +309,13 @@ session_start();
                         <div class="container">
                         To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
                         </div>
-                        <div class="row">
-                        <div class="button-row d-flex mt-4 col-12">
-                            <div class="px-2">
-                                <button class="btn btn-outline-primary js-btn-prev" type="button" title="Prev">Prev</button>
+                        <div class="row pt-3">
+                            <div class="col d-flex justify-content-start">
+                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
                             </div>
-                            <button class="btn btn-success ml-auto" type="button" title="Send">Avail</button>
-                        </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -440,6 +447,67 @@ window.addEventListener('resize', setFormHeight, false);
 $("#exampleModal").prependTo("body");
 </script>
 
+
+<script>
+
+function updateGymUseModal(){
+    console.log('update gym use modal');
+}
+
+function numchange(){
+    if($("#quantity").val()<0){
+        $("#quantity").val(0)
+    }
+}
+</script>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <img src="../images/312476041_1180676142522081_7979367819549623201_n 1.png" class="img-fluid">
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                        <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
+                        <p>Get fit and feel great with our one-month gym membership offer!
+                            Enjoy full access to our state-of-the-art gym facilities,
+                            expert staff, and group fitness classes to help you reach your
+                                fitness goals. Sign up now and take the first step towards a healthier you!</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="container-fluid d-flex justify-content-center">
+                    <div class="row text-center">
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal -->
 </body>
 
 </html>

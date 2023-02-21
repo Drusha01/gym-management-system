@@ -12,6 +12,7 @@ if(isset($_SESSION['user_id'])){
 }
 
 
+
 if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
@@ -36,13 +37,16 @@ if(isset($_SESSION['admin_id'])){
 
         } 
         if(isset($_POST['offer_id'])){
+            $offersObj = new offers();
+            // get offer data
+            $offer_data = $offersObj->fetch_offer($_POST['offer_id']);
             if(validate_offer($_POST)){
-                $offersObj = new offers();
                 $offer_name = $_POST['offer_name'];
                 $offer_status_details = 'active';
                 $offer_offer_type_of_subscription_details = $_POST['type_of_subscription'];
                 $offer_duration =$_POST['offer_duration'];
                 $offer_price =$_POST['offer_price'];
+                $offer_description =$_POST['offer_description'];
                 // validate age qualification
                 $error =false;
                 if(isset($_POST['age_qualification_details']) && strlen($_POST['age_qualification_details'])>0){
@@ -68,8 +72,50 @@ if(isset($_SESSION['admin_id'])){
                     $error =true;
                 }
 
+                // validate the image
+                if (isset($_FILES['offer_file'])) {
+               
+                    $type = array('png', 'bmp', 'jpg');
+                    $size = (1024 * 1024) * 5; // 5 mb
+                    if (validate_file($_FILES, 'offer_file', $type, $size)) {
+                        $offer_file_dir = dirname(__DIR__, 2) . '/img/offer-contents/';
+                        // check if the folder exist  
+                        if(!is_dir($offer_file_dir)){
+                            // create directory
+                            mkdir($offer_file_dir);
+                        }
+                        $extension = getFileExtensionfromFilename($_FILES['offer_file']['name']);
+                        $filename = md5($_FILES['offer_file']['name']).'.'.$extension;
+                        $counter = 0;
+                        // only move if the filename is unique
+                        while(file_exists($offer_file_dir.$filename)){
+                            $counter++;
+                            $filename = md5($_FILES['offer_file']['name'].$counter).'.'.$extension;
+                        }
+                        // move file
+                        if (move_uploaded_file($_FILES['offer_file']['tmp_name'],$offer_file_dir.$filename )) {
+                            $error = false;
+                            $newfile = true;
+                            // change offer_file photo in db
+                            
+                            // echo 'moved';
+                    
+                            // resize file?
+                        }else{
+                            $error = true;
+                        }
+                    }else{
+                        $filename = $offer_data['offer_file'];
+                    }
+                }
+
                 if(!$error){
-                    if($offersObj->update($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price,$_POST['offer_id'])){
+                    if($offersObj->update($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_description,$filename,$_POST['offer_id'])){
+                        if(file_exists($offer_file_dir.$offer_data['offer_file']) && $offer_data['offer_file']!= 'offer_default.jpg'){
+                            unlink($offer_file_dir.$offer_data['offer_file']);
+                        }
+                        
+                        
                         header('location:offer.php');
                     }
                 }
@@ -101,13 +147,17 @@ if(isset($_SESSION['admin_id'])){
                 <a class="col text-decoration-none text-black m-0" aria-current="page" href="offer.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
             </div>
             <div class="container">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     <input type="text" class="form-control-file" id="offer_id" name="offer_id" value="<?php echo_safe($_GET['id']);?>"style="visibility: hidden;" >
                     <div class="row pb-2">
                         <div class="col-sm-5">
                             <label class="pb-1" for="name_offer">Name of Offer</label>
                             <input type="text" class="form-control" id="offer_name" name="offer_name" value="<?php echo_safe($offer_data['offer_name'])?>" placeholder="<?php echo_safe($offer_data['offer_name'])?>">
                         </div>
+                    </div>
+                    <div class="form-group py-3">
+                        <label for="exampleFormControlFile1">Picture of Offer</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="offer_file"  accept="image/*">
                     </div>
                     <div class="row pb-1">
                         <div class="col-lg-5">
@@ -116,8 +166,6 @@ if(isset($_SESSION['admin_id'])){
                                 <div class="col-3 col-lg-3">
                                     <input type="text" class="form-control"  id="age_qualification_details" name="age_qualification_details" placeholder="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" value="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" onchange="agequalification()">
                                 </div>
-                                
-                                
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
                                 </div>
@@ -208,7 +256,7 @@ if(isset($_SESSION['admin_id'])){
                             <label class="pb-1" for="Age_Qual">Slots</label>
                             <div class="row">
                                 <div class="col-4">
-                                    <input type="number" class="form-control" value="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>" id="offer_slots" name="offer_slots" placeholder="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>" onchange="offer_slotsfunction()">
+                                    <input type="number" class="form-control" value="<?php if($offer_data['offer_slots'] != 'None'){ echo_safe($offer_data['offer_slots']);}?>" id="offer_slots" name="offer_slots" placeholder="<?php if($offer_data['offer_slots'] != 'None'){echo echo_safe($offer_data['offer_slots']);}?>" onchange="offer_slotsfunction()">
                                 </div>
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
@@ -222,6 +270,12 @@ if(isset($_SESSION['admin_id'])){
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col-sm-5">
+                        <label for="exampleFormControlTextarea1">Description of Offer</label>
+                            <textarea class="form-control" id="offer_description" name="offer_description" rows="3" value=""><?php echo_safe($offer_data['offer_description'])?></textarea>
                         </div>
                     </div>
                     <div class="row d-flex flex-row-reverse">

@@ -8,7 +8,7 @@
                 <option value="Trainer Subscription">Trainer Subscription</option>
                 <option value="Locker Subscription">Locker Subscription</option>
                 <option value="Program Subscription">Program Subscription</option>
-                <option value="Program Subscription">X X</option>
+                <option value="Program Subscription">Walk-In</option>
             </select>
         </div>
         <div class="form-group col-12 col-sm-4 table-filter-option">

@@ -7,6 +7,7 @@
         <th>NAME</th>
         <th class="text-center ">AGE</th>
         <th class="text-center">SUBSCRIPTION STATUS</th>
+        <th class="text-center">EMAIL VERIFIED</th>
         <th class="text-center">USER STATUS</th>
         <th class="text-center">ACTION</th>
         </tr>
@@ -14,13 +15,13 @@
     <tbody>
 
 
-<select class="form-select-sm" aria-label="Default select example">
+<!-- <select class="form-select-sm" aria-label="Default select example">
         <option value="1">Paid</option>
         <option value="2">Pending</option>
         <option value="3">Partial</option>
         <option value="4">Unpaid</option>
         <option value="5">Overdue</option>
-    </select>
+    </select> -->
     <?php 
         // include
         require_once '../../classes/users.class.php';
@@ -41,6 +42,7 @@
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
                     echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
+                    echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('VERIFIED');}else{echo 'NOT VERIFIED';}'</td>';
                     echo '<td class="text-center">';
                         echo '<select class="form-select-sm" aria-label="Default select example" id="user_status';echo_safe($value['user_id']);echo'" onchange="changeUserStatus(';echo_safe($value['user_id']);echo')">';
                             foreach ($user_status_data as $key => $user_status_value) {
