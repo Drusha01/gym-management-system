@@ -166,7 +166,8 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="email" class="form-control" name="email" id="email" value="<?php echo_safe($_SESSION['user_email'])?>" placeholder="<?php echo_safe($_SESSION['user_email'])?>">
+                                            <h6 class="mb-0"><?php echo_safe($_SESSION['user_email'])?></h6><a href="user-change-email-address.php">change</a>
+                                            
                                         </div>
                                         <div class="col-sm-2 align-self-center pb-1"> 
                                             <h6 class="mb-0">Phone Number</h6>
@@ -315,7 +316,7 @@ function save_profile_info(){
     xhttp_save_profile.open("POST", "user-edit-ajax-save-profile.php", true);
     xhttp_save_profile.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp_save_profile.send("user_id="+$('#username').val()+"&fname="+$('#fname').val()+"&mname="+$('#mname').val()+"&lname="
-    +$('#lname').val()+"&gender="+$('#gender').val()+"&gender_other="+$('#gender_other').val()+"&email="+$('#email').val()
+    +$('#lname').val()+"&gender="+$('#gender').val()+"&gender_other="+$('#gender_other').val()
     +"&phone="+$('#phone').val()+"&address="+$('#address').val()+"&birthdate="+$('#birthdate').val());
     
 }

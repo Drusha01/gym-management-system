@@ -898,11 +898,35 @@ where trainers.trainer_user_id is null
 -- table for email verification
 CREATE TABLE email_verify(
 	email_verify_id int primary key	auto_increment,
-    email_verify_user_id
+    email_verify_user_id int not null,
     email_verify_email VARCHAR(255) not null,
     email_verify_code int not null,
-    email_date_time DATETIME default NOW()
+    email_date_time DATETIME default NOW(),
+    FOREIGN KEY (email_verify_user_id) REFERENCES users(user_id)
 );
+
+-- email insert
+INSERT INTO email_verify (email_verify_user_id,email_verify_email,email_verify_code) VALUES
+(
+	(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02' AND user_name_verified = 1),
+    'hanz.dumapit55@gmail.com',
+    4558518
+);
+
+SELECT * FROM email_verify;
+
+SELECT  email_verify_user_id,email_verify_email,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) as seconds,email_verify_code FROM email_verify
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id = '7';
+
+UPDATE users
+SET user_email ='hanz.dumapit55@gmail.com',
+user_email_verified = 1
+WHERE user_id = 7;
+
+SELECT * FROM email_verify 
+WHERE  email_verify_code = '4558518' AND email_verify_user_id =7
+ORDER BY email_date_time DESC
+LIMIT 1;
 
 -- table for discounts
 CREATE TABLE discounts(
