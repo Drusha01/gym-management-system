@@ -34,7 +34,7 @@ if(isset($_SESSION['user_id'])){
         $emailObj = new email();
         $email_data =$emailObj->get_last_sent_email($_SESSION['user_id'],$_POST['email']);
 
-        if(!isset($user_email['user_id']) && isset($email_data['seconds'])){
+        if(!isset($user_email['user_id']) && !isset($email_data['seconds'])){
           $code = rand(1000000,10000000);
           $mail = new PHPMailer;
           $mail->isSMTP();
