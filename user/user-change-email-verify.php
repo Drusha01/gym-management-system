@@ -2,6 +2,7 @@
 // start session
 session_start();
 
+
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
@@ -50,7 +51,7 @@ if(isset($_SESSION['user_id'])){
                 // insert to db here
 
                 $emailObj = new email();
-                if($emailObj->insert($_SESSION['user_id'],$_POST['email'],$code)){
+                if($emailObj->insert(3,$_POST['email'],$code)){
                     echo 'insert successfully';
                 }
                 echo 'code';
