@@ -446,6 +446,9 @@ WHERE (user_name = BINARY 'Drusha02' AND  user_type_id= (SELECT user_type_id FRO
 SELECT user_id,user_password_hashed FROM users
 WHERE user_name = BINARY 'Drusha01' OR user_email = 'hanz.dumapit54@gmail.com' OR user_phone_number = '9266827342';
 
+SELECT user_id,user_password_hashed FROM users
+WHERE (user_name = BINARY 'jaydee' AND user_name_verified = 1) OR (user_email =  'jaydee' AND user_email_verified = 1) ;
+
 -- select user details
 SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
 user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
@@ -453,7 +456,7 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-WHERE user_id = 1;
+WHERE user_id = 6;
 
 -- get user password by id
 SELECT user_password_hashed FROM users 
@@ -513,7 +516,7 @@ CREATE TABLE admins(
 INSERT INTO admins VALUES(
 	null,
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'admin'),
-    3,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha01' OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1)) ,
     now(),
     now()
 );
@@ -529,7 +532,7 @@ WHERE admin_type_id =(SELECT user_type_id FROM user_types WHERE user_type_detail
 -- admin login
 SELECT admin_id,admin_user_id,user_password_hashed FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
-WHERE user_name = BINARY 'Drusha02' OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
+WHERE (user_name = BINARY 'Drusha02' AND user_name_verified = 1) OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
 
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
@@ -542,7 +545,7 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-WHERE admin_id =1;
+WHERE admin_id =3;
 
 -- select all non admins
 SELECT user_id,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_birthdate,user_gender_details  from users
@@ -550,6 +553,10 @@ LEFT JOIN admins ON users.user_id=admins.admin_user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 where admins.admin_user_id is null
 ;
+
+SELECT admin_id,admin_user_id,user_password_hashed FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE (user_name = BINARY 'Drusha01' AND user_name_verified = 1) OR (user_email =  's' AND user_email_verified = 1) ; 
         
 -- db for address
 
@@ -738,7 +745,7 @@ INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subsc
 SELECT * FROM offers;
 
 -- select all offers
-SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description ,offer_file FROM offers
 LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
 LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
 LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
@@ -782,7 +789,7 @@ WHERE offer_id =1;
 SELECT COUNT(*) FROM offers;
 
 -- select * offers as per subscription type
-SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price FROM offers
+SELECT offer_id,offer_name,status_details,type_of_subscription_details,age_qualification_details,offer_duration,offer_slots,offer_price,offer_description,offer_file FROM offers
 LEFT OUTER JOIN statuses ON offers.offer_status_id=statuses.status_id
 LEFT OUTER JOIN age_qualifications ON offers.offer_age_qualification_id=age_qualifications.age_qualification_id
 LEFT OUTER JOIN type_of_subscriptions ON offers.offer_type_of_subscription_id=type_of_subscriptions.type_of_subscription_id
@@ -888,6 +895,15 @@ LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 where trainers.trainer_user_id is null
 ;
 
+-- table for email verification
+CREATE TABLE email_verify(
+	email_verify_id int primary key	auto_increment,
+    email_verify_user_id
+    email_verify_email VARCHAR(255) not null,
+    email_verify_code int not null,
+    email_date_time DATETIME default NOW()
+);
+
 -- table for discounts
 CREATE TABLE discounts(
 	discount_id int primary key auto_increment,
@@ -941,6 +957,7 @@ CREATE TABLE subscriptions(
     subscription_discount_id FLOAT8 not null,	-- persistence of data
     subscription_date_created datetime default NOW(),
     subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (subscription_subscriber_user_id) REFERENCES users(user_id)
     -- foreing keys
 );
 

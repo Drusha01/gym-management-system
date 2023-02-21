@@ -4,7 +4,7 @@ session_start();
 
 // check if we are admin
 if(isset($_SESSION['admin_user_id'])){
-  header('location:../admin/admin_control_log-in2.php');
+  header('location:../admin/admin_control_log_in2.php');
 }
 
 

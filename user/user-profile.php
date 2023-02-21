@@ -6,7 +6,9 @@ session_start();
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
 
-
+if(isset($_SESSION['admin_id'])){
+  header('location:../admin/admin_control_log_in2.php');
+}
 // check if we are logged in
 if(isset($_SESSION['user_id'])){
   // check if the user is active
@@ -172,7 +174,7 @@ if(isset($_SESSION['user_id'])){
                                                 <h6 class="mb-0">Email</h6>
                                             </div>
                                             <div class="col-9 text-secondary">
-                                              <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';} ?>
+                                              <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="user-change-email-address.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} ?>
                                               
                                             </div>
                                             

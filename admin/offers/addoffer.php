@@ -164,13 +164,13 @@ if(isset($_SESSION['admin_id'])){
                     <div class="row pb-2">
                         <div class="col-3 col-lg-2">
                             <label class="pb-1" for="name_offer">Days</label>
-                            <input type="number" class="form-control" value="" id="offer_duration" placeholder="30" name="offer_duration" required>
+                            <input type="number" class="form-control" value="" id="offer_duration" placeholder="30" name="offer_duration" required onchange="numchange('offer_duration')">
                         </div>
                     </div>
                     <div class="row pb-2">
                         <div class="col-4 col-lg-2">
                             <label class="pb-1" for="name_offer">Price</label>
-                            <input type="number" class="form-control" value="" id="offer_price" placeholder="₱00.00" name="offer_price" required>
+                            <input type="number" class="form-control" value="" id="offer_price" placeholder="₱00.00" name="offer_price" required onchange="numchange('offer_price')">
                         </div>
                     </div>
                     <div class="row pb-2 pt-2">
@@ -249,7 +249,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     <div class="row d-flex flex-row-reverse">
                         <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                            <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit">Submit</button>
+                            <button type="button" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -279,5 +279,17 @@ if(isset($_SESSION['admin_id'])){
     function offer_slotsfunction_checked(){
         $('#offer_slots').val('') ;
         console.log('check box changed');
+    }
+
+    function numchange(name){
+        if($("#"+name).val()<0){
+            $("#"+name).val(0)
+        }
+    }
+
+    function submit_validation(){
+        console.log('submit');
+
+        $(this).submit()  
     }
 </script>
