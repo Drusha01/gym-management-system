@@ -5,6 +5,7 @@ session_start();
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
+require_once '../classes/email.class.php';
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -23,9 +24,11 @@ if(isset($_SESSION['user_id'])){
       if(isset($_POST['email']) && validate_email($_POST)){
         $userObj = new users();
         $userObj->setuser_email($_POST['email']);
+
+        // verify if email is taken
         $user_email = $userObj->user_duplicateEmail();
         if(!isset($user_email['user_id'])){
-            
+            $code = rand(1000000,10000000);
             $mail = new PHPMailer;
             $mail->isSMTP();
             $mail->SMTPDebug = 2;
@@ -39,19 +42,20 @@ if(isset($_SESSION['user_id'])){
             $mail->addAddress($_POST['email'], $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
             $mail->Subject = 'Email Verification';
             $mail->msgHTML(file_get_contents('message.html'), __DIR__);
-            $mail->Body = 'This is just a plain text message body';
+            $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
             //$mail->addAttachment('attachment.txt');
             if (!$mail->send()) {
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
-                echo 'The code is ';
-                echo(rand(1000000,10000000));
+                // insert to db here
+
+                $emailObj = new email();
+                $emailObj->insert($_SESSION['user_id'],$_POST['email'],$code);
+                echo 'code';
             }
         }else{
             header('location:user-change-email-address.php');
         }
-        print_r($user_email);
-        echo $userObj->getuser_email();
       }else{
         header('location:user-change-email-address.php');
       }
