@@ -189,9 +189,9 @@ box-sizing: border-box;}
    height: 500px;
  }
  #avail{
-   height: 750px;
-
+   height: 1000px;
  }
+
  .btn-circle {
    width: 30px;
    height: 30px;
@@ -241,6 +241,7 @@ box-sizing: border-box;}
       flex-direction: row;
       align-items: center;
   }
+  
 
 }
 @media only screen and (max-width: 767px) {
@@ -276,7 +277,7 @@ box-sizing: border-box;}
       margin-top: 22%;
     }
     #avail{
-      height: 1200px;
+      height: 1245px;
     }
     .my_subscription {
       height:1200px;
@@ -293,7 +294,6 @@ box-sizing: border-box;}
    .user-trainer-prof{
       margin-top: 10%;
    }
-   
 
 }
 
@@ -304,6 +304,9 @@ box-sizing: border-box;}
    .my_subscription {
       height:900px;
    }
+   #avail{
+      height: 800px;
+    }
 }
 @media (min-width: 1039px) {
    .carousel-caption {

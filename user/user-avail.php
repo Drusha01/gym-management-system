@@ -55,7 +55,7 @@ if(isset($_SESSION['user_id'])){
 <br>
 <br>
 <br>
-<section id="avail">
+<section id="avail" class="pb-5">
     <div class="container h-100">
         <div class="multisteps-form">
         <!--progress bar-->
@@ -63,7 +63,7 @@ if(isset($_SESSION['user_id'])){
                 <div class="col-12 col-lg-8 ms-auto me-auto mb-4">
                 <div class="multisteps-form__progress">
                     <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">Selection</button>
-                    <button class="multisteps-form__progress-btn" type="button" title="Address">Checkout</button>
+                    <button class="multisteps-form__progress-btn" type="button" title="Address">Summary</button>
                     <button class="multisteps-form__progress-btn" type="button" title="Order Info">Confirmation</button>
                 </div>
                 </div>
@@ -79,7 +79,7 @@ if(isset($_SESSION['user_id'])){
                         <div class="multisteps-form__content">
                             <div class="form-group py-1">
                                 <div class="row">
-                                    <div class="col-10 col-md-4 py-1">
+                                    <div class="col-10 col-lg-6 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="gym_subscription" onchange="updateGymUseModal()">
                                     <option selected >Select Gym subscription</option>
@@ -105,40 +105,101 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    
-                                    
 
-                                    <div class="col-10 col-md-4 py-1">
-                                    <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
-                                    <select class="form-select" aria-label="Default select example" name="locker_subscription">
-                                        <option selected>Select Locker subscription</option>
-                                        <?php 
-                                        $offersObj = new offers();
+                                    <div class="col-4 col-md-2 py-1">
+                                        <label class="fw-bold pb-2 ps-1">Days</label>
+                                        <input type="number" class="form-control" name="quantity">
+                                    </div>
 
-                                        // fetch
-                                        if($data_result = $offersObj->select_offers_per_sub_type('Locker Subscription')){
-                                            foreach ($data_result as $key => $value) {
-                                                if($value['status_details'] =='active'){
-                                                    echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9998;">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body container-fluid">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6">
+                                                    <img src="../images/home-1.jpg" class="img-fluid">
+                                                </div>
+                                                <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                                                    <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
+                                                    <p>Get fit and feel great with our one-month gym membership offer!
+                                                         Enjoy full access to our state-of-the-art gym facilities,
+                                                          expert staff, and group fitness classes to help you reach your
+                                                            fitness goals. Sign up now and take the first step towards a healthier you!</p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="container-fluid d-flex justify-content-center">
+                                                <div class="row text-center">
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6">
+                                                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!-- End of Modal -->
+
+                                    
+                                </div>
+
+                                <hr class="hr" />
+
+                                <div class="row py-2">
+                                    <div class="col-10 col-lg-6 py-1">
+                                        <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
+                                        <select class="form-select" aria-label="Default select example" name="locker_subscription">
+                                            <option selected>Select Locker subscription</option>
+                                            <?php 
+                                            $offersObj = new offers();
+
+                                            // fetch
+                                            if($data_result = $offersObj->select_offers_per_sub_type('Locker Subscription')){
+                                                foreach ($data_result as $key => $value) {
+                                                    if($value['status_details'] =='active'){
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                    }
                                                 }
                                             }
-                                        }
-                                        
-                                        ?>
-                                    </select>
+                                            
+                                            ?>
+                                        </select>
                                     </div>
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
                                     <div class="col-4 col-md-2 py-1">
-                                    <label class="fw-bold pb-2 ps-1">Quantity</label>
-                                        <input type="number" class="form-control" name="quantity" id="quantity" onchange="numchange()">
+
+                                        <label class="fw-bold pb-2 ps-1">Quantity</label>
+                                        <input type="number" class="form-control" name="quantity">
                                     </div>
-                                    
+                                    <div class="col-4 col-md-2 py-1">
+                                        <label class="fw-bold pb-2 ps-1">Days</label>
+                                        <input type="number" class="form-control" name="quantity">
+                                    </div>
                                 </div>
+
                                 <hr class="hr" />
                                 <div class="row py-2">
-                                    <div class="col-10 col-md-4">
+                                    <div class="col-10 col-lg-6">
                                         <label class="fw-bold pb-2 ps-1">Trainer Subscription</label>
                                         <select class="form-select" aria-label="Default select example" name="trainer_subscription">
                                             <option selected>Open this select menu</option>
@@ -161,8 +222,15 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-10 col-md-4 py-3 py-lg-0">
-                                        <label class="fw-bold pb-2">Search</label>
+                                    <div class="col-4 col-md-2 ">
+                                        <label class="fw-bold pb-2 ps-1">Days</label>
+                                        <input type="number" class="form-control" name="quantity">
+                                    </div>
+                                </div>
+                            
+                                <div class="row ">
+                                    <div class="col-10 col-lg-6 ">
+                                        <label class="fw-bold pb-2 ps-1">Search Trainer</label>
                                         <select class="form-select" aria-label="Default select example">
                                         <option selected>Open this select menu</option>
                                             <?php 
@@ -181,16 +249,19 @@ if(isset($_SESSION['user_id'])){
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="col-1 align-self-end mb-4 mb-lg-2">
-                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
+                                    <div class="col-1 align-self-end mb-1 mb-lg-2">
+                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button>
                                     </div>
-                                    <div class="col-12 col-lg-1 btn-group h-25 align-self-end" >
+
+                                    <div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" >
                                         <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
                                         <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                     </div>
-                                    
                                 </div>
+                                
+
                                 <hr class="hr" />
+
                                 <div class="row py-2">
                                     <div class="col-10 col-md-6">
                                         <label class="fw-bold pb-2 ps-1">Program Subscription</label>
@@ -213,6 +284,10 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-1 align-self-end mb-2">
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
+                                    <div class="col-4 col-md-2 ">
+                                            <label class="fw-bold pb-2 ps-1">Days</label>
+                                            <input type="number" class="form-control" name="quantity">
+                                        </div>
                                     <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" >
                                         <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
                                         <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
@@ -226,7 +301,7 @@ if(isset($_SESSION['user_id'])){
                     </div>
                     <!--single form panel-->
                     <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                    <h3 class="multisteps-form__title">Checkout</h3>
+                    <h3 class="multisteps-form__title">Summary of Subscription</h3>
                     <hr class="hr" />
                     <div class="multisteps-form__content">
                         <div class="row">
@@ -462,7 +537,8 @@ function numchange(){
 </script>
 
 
-    <!-- Modal -->
+<!-- 
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -507,7 +583,136 @@ function numchange(){
             </div>
         </div>
     </div>
-    <!-- End of Modal -->
+    End of Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="ModalTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+<div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trainer Info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body container-fluid">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                    <img src="../images/acc_img.png" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                        <h4>James_No_Legday</h4>
+                        <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Active</span></p>
+                        <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="pt-3 px-3 text-center">
+                        <h5 class="fw-bold">Total Person who Availed</h5>
+                    </div>
+                    <div class="row text-center pt-2 pb-3">
+                        <i class='bx bxs-group' style="font-size: 75px;"></i>
+                        <h4 class="fw-bold">5</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Trinidad, James Lorenz
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Gender</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                Male
+                            </div>
+                        </div>
+                    </div>
+                        <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                San Jose, Zamboanga City
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Phone Number</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                0921-234-5678
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Age</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                22 Years Old
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-9 text-secondary">
+                                James_No_Legday@gmail.com
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Birth Date</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                November 14, 2000
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <h6 class="mb-0">Account Created</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                December 20, 2019
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+    </div>
+</div>
+</div>
+<!-- End of Modal -->
+
+
 </body>
 
 </html>
