@@ -14,8 +14,8 @@ class email
         try{
             $sql = 'INSERT INTO email_verify (email_verify_user_id,email_verify_email,email_verify_code) VALUES
             (
-                :user_id,
-                :user_email,
+                :user_id ,
+                :user_email ,
                 :code
             );';
             $query=$this->db->connect()->prepare($sql);
