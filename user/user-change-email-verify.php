@@ -50,7 +50,9 @@ if(isset($_SESSION['user_id'])){
                 // insert to db here
 
                 $emailObj = new email();
-                $emailObj->insert($_SESSION['user_id'],$_POST['email'],$code);
+                if($emailObj->insert($_SESSION['user_id'],$_POST['email'],$code)){
+                    echo 'insert successfully';
+                }
                 echo 'code';
             }
         }else{

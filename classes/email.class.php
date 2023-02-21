@@ -15,12 +15,12 @@ class email
             $sql = 'INSERT INTO email_verify (email_verify_user_id,email_verify_email,email_verify_code) VALUES
             (
                 :user_id,
-                :email,
+                :user_email,
                 :code
             );';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_id', $user_id);
-            $query->bindParam(':email', $email);
+            $query->bindParam(':user_email', $user_email);
             $query->bindParam(':code', $code);
             $query->execute();
         }catch (PDOException $e){
