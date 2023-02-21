@@ -44,7 +44,8 @@ if(isset($_SESSION['user_id'])){
             if (!$mail->send()) {
                 echo 'Mailer Error: ' . $mail->ErrorInfo;
             } else {
-                echo 'The email message was sent.';
+                echo 'The code is';
+                echo(rand(1000000,10000000));
             }
         }else{
             header('location:user-change-email-address.php');
