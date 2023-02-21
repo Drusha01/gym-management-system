@@ -75,6 +75,7 @@ if(isset($_SESSION['user_id'])){
             
            // update session
            $_SESSION['user_email'] = $email_data['email_verify_email'];
+           $_SESSION['user_email_verified'] = 1;
            header('location:user-profile.php');
           }
         }
