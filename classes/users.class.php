@@ -437,7 +437,7 @@ Class users{
         try{
             $sql = 'UPDATE users
             SET user_email = :user_email ,
-            user_email_verified = true
+            user_email_verified = 1
             WHERE user_id = :user_id;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_id', $user_id);
