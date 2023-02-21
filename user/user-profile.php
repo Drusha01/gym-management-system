@@ -216,55 +216,7 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                 </div>
                             </div>
-                            <div class="row gutters-sm">
-                                <div class="col">
-                                  <div class="card h-100">
-                                    <div class="card-body">
-                                      <div class="row">
-                                            <div class="col align-center">
-                                                <h5> History </h5>
-                                            </div>
-                                            <div class="col">
-                                                <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                                    <a class="btn btn-success float-right " href="#">More Details</a>
-                                                </li>
-                                            </div>
-                                      </div>
-                                      <div class="row mt-2">
-                                        <div class="container">
-                                            <table class="table table-responsive table-striped table-borderless">
-                                                <thead class="bg-dark text-light">
-                                                  <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">AVAILED SERVICE</th>
-                                                    <th scope="col">DATE</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody>
-                                                  <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Walk-In Gym</td>
-                                                    <td>October 16, 2022</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Gym-Use Subscription</td>
-                                                    <td>October 17, 2022</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Locker Subscription</td>
-                                                    <td>October 17, 2022</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                        </div>
-                                      </div>
-                                      
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            
                             </div>
                         </div>
                     </div>

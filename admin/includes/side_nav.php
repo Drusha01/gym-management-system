@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Settings">
+                            <a href="../payment/payment.php" class="nav-link" title="Settings">
                                 <i class='bx bx-money'></i>
                                 <span class="links-name">Payment</span>
                             </a>

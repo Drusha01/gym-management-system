@@ -15,13 +15,13 @@
     <tbody>
 
 
-<select class="form-select-sm" aria-label="Default select example">
+<!-- <select class="form-select-sm" aria-label="Default select example">
         <option value="1">Paid</option>
         <option value="2">Pending</option>
         <option value="3">Partial</option>
         <option value="4">Unpaid</option>
         <option value="5">Overdue</option>
-    </select>
+    </select> -->
     <?php 
         // include
         require_once '../../classes/users.class.php';
