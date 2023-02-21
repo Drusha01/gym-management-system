@@ -69,12 +69,12 @@ if(isset($_SESSION['user_id'])){
         if($_SESSION['user_id'] == $email_data['email_verify_user_id'] && $_POST['code'] ==$email_data['email_verify_code'] ){
           print_r($email_data);
           // update user email and user validated email
-          if($userObj->update_email($email_data['email_verify_user_id'],$email_data['email_verify_email'])){
+          $userObj->update_email($email_data['email_verify_user_id'],$email_data['email_verify_email']);
            // header('location:user-profile.php');
            // update session
            $_SESSION['user_email'] = $email_data['email_verify_email'];
            echo 'nice';
-          }
+          
         }
       }
       else{
