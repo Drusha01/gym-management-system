@@ -28,13 +28,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../payment/payment.php" class="nav-link" title="Settings">
+                            <a href="../payment/payment.php" class="nav-link" title="Payment">
                                 <i class='bx bx-money'></i>
                                 <span class="links-name">Payment</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Dashboard">
+                            <a href="../maintenance/maintenance.php" class="nav-link" title="Maintenance">
                                 <i class='bx bx-wrench'></i>
                                 <span class="links-name">Maintenance</span>
                             </a>
