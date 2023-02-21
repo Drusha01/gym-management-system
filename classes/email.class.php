@@ -22,7 +22,8 @@ class email
             $query->bindParam(':user_id', $user_id);
             $query->bindParam(':user_email', $user_email);
             $query->bindParam(':code', $code);
-            $query->execute();
+            return $query->execute();
+
         }catch (PDOException $e){
             return false;
         }
