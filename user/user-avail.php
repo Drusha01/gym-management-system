@@ -79,8 +79,8 @@ if(isset($_SESSION['user_id'])){
                                 <div class="row">
                                     <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
-                                    <select class="form-select" aria-label="Default select example" name="gym_subscription">
-                                    <option selected onchange="updateGymUseModal()">Select Gym subscription</option>
+                                    <select class="form-select" aria-label="Default select example" name="gym_subscription" onchange="updateGymUseModal()">
+                                    <option selected >Select Gym subscription</option>
                                         <?php 
                                             // requre
                                             require_once '../classes/offers.class.php';
@@ -103,52 +103,7 @@ if(isset($_SESSION['user_id'])){
                                         <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
                                     </div>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body container-fluid">
-                                            <div class="row">
-                                                <div class="col-12 col-lg-6">
-                                                    <img src="../images/home-1.jpg" class="img-fluid">
-                                                </div>
-                                                <div class="col-12 col-lg-6 pt-3 pt-lg-0">
-                                                    <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
-                                                    <p>Get fit and feel great with our one-month gym membership offer!
-                                                         Enjoy full access to our state-of-the-art gym facilities,
-                                                          expert staff, and group fitness classes to help you reach your
-                                                            fitness goals. Sign up now and take the first step towards a healthier you!</p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="container-fluid d-flex justify-content-center">
-                                                <div class="row text-center">
-                                                    <div class="col-12 col-lg-6">
-                                                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <!-- End of Modal -->
+                                    
 
                                     <div class="col-10 col-md-4 py-1">
                                     <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
@@ -174,7 +129,7 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <div class="col-4 col-md-2 py-1">
                                     <label class="fw-bold pb-2 ps-1">Quantity</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" id="quantity" onchange="numchange()">
                                     </div>
                                     
                                 </div>
@@ -207,9 +162,20 @@ if(isset($_SESSION['user_id'])){
                                         <label class="fw-bold pb-2">Search</label>
                                         <select class="form-select" aria-label="Default select example">
                                         <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                            <?php 
+                                            require_once '../classes/trainers.class.php';
+                                            $trainerObj = new trainers();
+
+                                            // fetch
+                                            if($data_result = $trainerObj->fetch_tainers()){
+                                                foreach ($data_result as $key => $value) {
+                                                    if( $value['trainer_availability_details'] =='Available' && $value['user_status_details'] == 'active'){
+                                                        echo '<option value="';echo_safe($value['trainer_id']);echo '">';echo_safe($value['user_fullname']); echo'</option>';
+                                                    }
+                                                }
+                                            }
+                                            
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="col-1 align-self-end mb-4 mb-lg-2">
@@ -484,8 +450,61 @@ $("#exampleModal").prependTo("body");
 function updateGymUseModal(){
     console.log('update gym use modal');
 }
+
+function numchange(){
+    if($("#quantity").val()<0){
+        $("#quantity").val(0)
+    }
+}
 </script>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Gym-Use Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <img src="../images/312476041_1180676142522081_7979367819549623201_n 1.png" class="img-fluid">
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                        <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
+                        <p>Get fit and feel great with our one-month gym membership offer!
+                            Enjoy full access to our state-of-the-art gym facilities,
+                            expert staff, and group fitness classes to help you reach your
+                                fitness goals. Sign up now and take the first step towards a healthier you!</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="container-fluid d-flex justify-content-center">
+                    <div class="row text-center">
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal -->
 </body>
 
 </html>
