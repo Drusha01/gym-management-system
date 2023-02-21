@@ -31,7 +31,7 @@ class email
 
     function get_last_sent_email($user_id,$user_email){
         try{
-            $sql = 'SELECT  email_verify_user_id,email_verify_email,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) as seconds FROM email_verify
+            $sql = 'SELECT  email_verify_user_id,email_verify_email,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) as seconds,email_verify_code FROM email_verify
             WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id =:user_id AND email_verify_email = :user_email;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_id', $user_id);
