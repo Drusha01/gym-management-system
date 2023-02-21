@@ -28,38 +28,46 @@ if(isset($_SESSION['user_id'])){
 
         // verify if email is taken
         $user_email = $userObj->user_duplicateEmail();
-        if(!isset($user_email['user_id'])){
-            $code = rand(1000000,10000000);
-            $mail = new PHPMailer;
-            $mail->isSMTP();
-            $mail->SMTPDebug = 2;
-            $mail->Host = 'smtp.hostinger.com';
-            $mail->Port = 587;
-            $mail->SMTPAuth = true;
-            $mail->Username = 'kenogymofficial@kenogym.online';
-            $mail->Password = 'Uwat09hanz@2keno';
-            $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
-            $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
-            $mail->addAddress($_POST['email'], $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
-            $mail->Subject = 'Email Verification';
-            $mail->msgHTML(file_get_contents('message.html'), __DIR__);
-            $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
-            //$mail->addAttachment('attachment.txt');
-            if (!$mail->send()) {
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
-            } else {
-                // insert to db here
+        // check first if we already sent and email in last 60 seconds
+        // if so dont sent another one.
 
-                $emailObj = new email();
-                if($emailObj->insert(3,$_POST['email'],$code)){
-                    echo 'insert successfully';
-                }
-                echo 'code';
+        $emailObj = new email();
+        $email_data =$emailObj->get_last_sent_email($_SESSION['user_id'],$_POST['email']);
+
+        if(!isset($user_email['user_id']) && isset($email_data['seconds'])){
+          $code = rand(1000000,10000000);
+          $mail = new PHPMailer;
+          $mail->isSMTP();
+          $mail->SMTPDebug = 0;
+          $mail->Host = 'smtp.hostinger.com';
+          $mail->Port = 587;
+          $mail->SMTPAuth = true;
+          $mail->Username = 'kenogymofficial@kenogym.online';
+          $mail->Password = 'Uwat09hanz@2keno';
+          $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+          $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+          $mail->addAddress($_POST['email'], $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
+          $mail->Subject = 'Email Verification';
+          $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+          $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
+          //$mail->addAttachment('attachment.txt');
+          if (!$mail->send()) {
+              echo 'Mailer Error: ' . $mail->ErrorInfo;
+          } else {
+              // insert to db here
+
+              
+            if($emailObj->insert($_SESSION['user_id'],$_POST['email'],$code)){
+                echo 'insert successfully';
             }
-        }else{
-            header('location:user-change-email-address.php');
+            echo 'code';
+          }
         }
-      }else{
+        // must be code
+      }else if(isset($_POST['code'])){
+        print_r($_POST);
+      }
+      else{
         header('location:user-change-email-address.php');
       }
     } 
