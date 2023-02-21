@@ -32,14 +32,14 @@ if(isset($_SESSION['user_id'])){
             $mail->Host = 'smtp.hostinger.com';
             $mail->Port = 587;
             $mail->SMTPAuth = true;
-            $mail->Username = 'hanz.dumapit53@gmail.com';
-            $mail->Password = 'Uwat09hanz';
-            $mail->setFrom('hanz.dumapit53@gmail.com', 'Hanrickson receiver');
-            $mail->addReplyTo('hanz.dumapit53@gmail.com', 'Your Name');
-            $mail->addAddress($_POST['email'], 'Receiver Name');
-            $mail->Subject = 'Checking if PHPMailer works';
+            $mail->Username = 'kenogymofficial@kenogym.online';
+            $mail->Password = 'Uwat09hanz@2keno';
+            $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+            $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+            $mail->addAddress('hanz.dumapit55@gmail.com', $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
+            $mail->Subject = 'Email Verification';
             $mail->msgHTML(file_get_contents('message.html'), __DIR__);
-            $mail->Body = 'This is just a plain text message body something';
+            $mail->Body = 'This is just a plain text message body';
             //$mail->addAttachment('attachment.txt');
             if (!$mail->send()) {
                 echo 'Mailer Error: ' . $mail->ErrorInfo;

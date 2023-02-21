@@ -9,8 +9,8 @@
    $mail->SMTPAuth = true;
    $mail->Username = 'kenogymofficial@kenogym.online';
    $mail->Password = 'Uwat09hanz@2keno';
-   $mail->setFrom('kenogymofficial@kenogym.online', 'Hanrickson receiver');
-   $mail->addReplyTo('kenogymofficial@kenogym.online', 'Your Name');
+   $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+   $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
    $mail->addAddress('hanz.dumapit55@gmail.com', 'Receiver Name');
    $mail->Subject = 'Checking if PHPMailer works';
    $mail->msgHTML(file_get_contents('message.html'), __DIR__);
