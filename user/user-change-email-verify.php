@@ -102,6 +102,7 @@ if(isset($_SESSION['user_id'])){
     <form action="" method="POST">
         <label for="">EMAIL SENT TO <?php echo  $_POST['email']?></label><br>
         <label for="">code</label>
+        <input type="email" value="<?php echo  $_POST['email']?>" style="visibility:hidden;">
         <input type="number" name="code" id="" value="">
         <input type="submit" value="next" name="next" >
     </form>
