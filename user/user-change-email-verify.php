@@ -65,9 +65,10 @@ if(isset($_SESSION['user_id'])){
         }
         // must be code
       }else if(isset($_POST['code'])  ){
-        print_r($email_data);
+        
         $emailObj = new email();
         $email_data = $emailObj->get_last_sent_email($_SESSION['user_id'],$_POST['email']);
+        print_r($email_data);
         if($_SESSION['user_id'] == $email_data['user_id'] && $_POST['code'] ==$email_data['email_verify_code'] ){
           print_r($email_data);
           // update user email and user validated email
@@ -101,7 +102,7 @@ if(isset($_SESSION['user_id'])){
     <form action="" method="POST">
         <label for="">EMAIL SENT TO <?php echo  $_POST['email']?></label><br>
         <label for="">code</label>
-        <input type="code" name="code" id="" value="">
+        <input type="number" name="code" id="" value="">
         <input type="submit" value="next" name="next" >
     </form>
 </body>
