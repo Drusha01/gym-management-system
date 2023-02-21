@@ -72,6 +72,8 @@ if(isset($_SESSION['user_id'])){
           // update user email and user validated email
           if($userObj->update_email($_SESSION['user_id'],$email_data['email_verify_email'])){
            // header('location:user-profile.php');
+           // update session
+           $_SESSION['user_email'] = $email_data['email_verify_email'];
            echo 'nice';
           }
         }
