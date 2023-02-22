@@ -40,13 +40,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Applications">
+                            <a href="../reports/reports.php" class="nav-link" title="Reports">
                                 <i class='bx bx-line-chart'></i>
                                 <span class="links-name">Reports</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Settings">
+                            <a href="../settings/settings.php" class="nav-link" title="Settings">
                                 <i class='bx bx-cog'></i>
                                 <span class="links-name">Settings</span>
                             </a>

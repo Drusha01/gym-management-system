@@ -224,6 +224,13 @@ box-sizing: border-box;}
     border-color: #d8f7eb;
 }
 
+.subscription-page {
+  margin-top: 27%;
+}
+
+
+
+
  @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.carousel-caption {
 		bottom: 300px;
@@ -294,6 +301,10 @@ box-sizing: border-box;}
    .user-trainer-prof{
       margin-top: 10%;
    }
+   .subscription-page {
+    margin-top: 7%;
+  }
+
 
 }
 
@@ -307,6 +318,9 @@ box-sizing: border-box;}
    #avail{
       height: 800px;
     }
+    .subscription-page {
+      margin-top: 7%;
+    }
 }
 @media (min-width: 1039px) {
    .carousel-caption {
@@ -318,11 +332,17 @@ box-sizing: border-box;}
    .user-trainer-prof{
       margin-top: 6%;
    }
+   .subscription-page {
+    margin-top: 7%;
+  }
 }
 
 @media (min-width: 1929px) {
    .carousel-caption {
      bottom: 800px;
+  }
+  .subscription-page {
+    margin-top: 10%;
   }
 }
 

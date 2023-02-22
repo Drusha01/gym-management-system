@@ -113,7 +113,7 @@ if(isset($_SESSION['user_id'])){
         <div class="carousel-inner">
           <div class="carousel-item carousel-image bg-img-1 active">
             <div class="carousel-caption">
-              <h1 class="fw-bolder fst-italic text-white display-4" ><strong>QUALITY YETTT <br> AFFORDABLE GYM</strong></h1>
+              <h1 class="fw-bolder fst-italic text-white display-4" ><strong>QUALITY YET <br> AFFORDABLE GYM</strong></h1>
               <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
             </div>
           </div>
