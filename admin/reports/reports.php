@@ -35,40 +35,35 @@ if(isset($_SESSION['admin_id'])){
 <body>
 <?php require_once '../includes/top_nav_admin.php';?>
 <?php require_once '../includes/side_nav.php';?>
+<style>
+  #update-nav {
+  width: 100%;
+  height: 30px;
+}
+#range-selector {
+  width: 50%;    
+  float: left;
+}
+#date-selector {
+  width: 50%;
+  float: right;  
+}
+</style>
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
     <h5 class="col-12 fw-bold mb-3">Reports</h5>
-    <div class="card chart-container">
-        <canvas id="chart"></canvas>
-    </div>
+    <br/><!-- Just so that JSFiddle's Result label doesn't overlap the Chart -->
+
+    
+
+
+
   </div>
 </main>
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <script>
-      const ctx = document.getElementById("chart").getContext('2d');
-      const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["sunday", "monday", "tuesday",
-          "wednesday", "thursday", "friday", "saturday"],
-          datasets: [{
-            label: 'Last week',
-            backgroundColor: 'rgba(161, 198, 247, 1)',
-            borderColor: 'rgb(47, 128, 237)',
-            data: [3000, 4000, 2000, 5000, 8000, 9000, 2000],
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-              }
-            }]
-          }
-        },
-      });
+      
 </script>
 </html>

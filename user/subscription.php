@@ -48,106 +48,103 @@ if(isset($_SESSION['user_id'])){
 
 <?php require_once '../includes/header.php';?>
 
-<section class="w-100"style="margin-top: 80px;">
-    <!-- first part -->
-    <div style="background-color: #E2E2E2;">
-        <div class="container-fluid ms-lg-5">
-            <div class="row d-flex align-items-center ms-lg-5 text-center text-lg-start pt-4 pt-lg-0">
-                <div class="col-md-6 pb-3 pb-lg-0 ">
-                    <h6 class="fs-4 fw-normal">Our Gym Offers Four</h6>
-                    <h1 class="fs-1 fw-bolder fst-italic" style="color:#A73535;"><strong>SUBSCRIPTIONS</strong></h1>
-                    <p class="fw-light">Transform your body and achieve your fitness goals with our state-of-the-art and affordable gym facilities and expert guidance!</p>
-                    <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Subscribe Now!</a>
-                </div>
-                <div class="col-md-6">
-                    <img src="../images/img-1.jpg" alt="your-image-alt" class="img-fluid shadow-lg" width="500px">
-                </div>
-            </div>
-         </div>
+<section class="subscription-page px-1 px-lg-4">
+    <div class="row">
+        <div class="card border-0" style="background-color: #E2E2E2;">
+        <div class="row p-3 d-flex align-items-center text-center text-lg-start">
+          <div class="col-md-7 ms-lg-5 pb-3">
+            <h6 class="fs-4 fw-normal">Our Gym Offers Four</h6>
+            <h1 class="fs-1 fw-bolder fst-italic" style="color:#A73535;"><strong>SUBSCRIPTIONS</strong></h1>
+            <p class="fw-light">Transform your body and achieve your fitness goals with our state-of-the-art and affordable gym facilities and expert guidance!</p>
+            <a href="../user/user-avail.php" class="btn btn-danger rounded-pill " role="button" style="background-color: #A73535;">Subscribe Now!</a>
+          </div>
+          <div class="col-md-4 d-none d-lg-inline">
+            <img src="../images/img-1.jpg" class="img-fluid">
+          </div>
+        </div>
+      </div>
     </div>
-     <!-- end of first part -->
-     <br>
-     <!-- second part -->
-     <div style="background-color: #18191A;">
-        <div class="container-fluid ms-lg-5">
-            <div class="row d-flex align-items-center  text-center text-lg-start">
-                <div class="col-md-4">
-                    <img src="../images/img-2.png" alt="your-image-alt" class="img-fluid shadow-lg" width="500px">
-                </div>
-                <div class="col-md-6 pb-3 pb-lg-0 ms-0 ms-lg-5">
-                    <h6 class="fs-3 fw-bolder text-light">Gym-use</h6>
+    
+
+    <br>
+  
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6 mt-3">
+        <div class="h-100 text-white bg-dark rounded-3 text-center text-lg-start">
+          <div class="row pt-3">
+            <div class="col-md-6 pt-4 ps-lg-4">
+                <img src="../images/img-2.png" alt="" class="img-fluid ">
+              </div>
+              <div class="col-md-6 pt-2 px-4 px-lg-4 pb-3 pb-lg-4">
+              <h6 class="fs-4 fw-bolder text-light">Gym-use</h6>
                     <p class="fw-light text-light">Unlock your full potential and achieve your fitness goals with our
                          top-of-the-line gym facilities and expert guidance. Whether you're looking to
                           build muscle, increase endurance, or simply maintain a healthy lifestyle,
                            our gym offers everything you need to take your fitness journey to the next level!</p>
                     <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Avail Now!</a>
-                </div>
+              </div>
             </div>
-         </div>
-    </div>
-     <!-- end of second part -->
-     <br>
-     <!-- third part -->
-     <div style="background-color: #1F1F1E;">
-        <div class="container-fluid ms-lg-5">
-            <div class="row d-flex align-items-center  text-center text-lg-start">
-                <div class="col-md-6 pb-3 pb-lg-0 ms-0 ms-lg-5">
-                    <h6 class="fs-3 fw-bolder text-light">Trainer</h6>
-                    <p class="fw-light text-light">Experience the ultimate fitness journey with our professional trainers by your side. 
-                        From customized training plans to expert guidance and motivation, we'll take your workout to the next 
-                        level and help you achieve your fitness goals like never before. Get ready to transform your 
-                        body and mind and become the best version of yourself!</p>
-                    <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Avail Now!</a>
-                </div>
-                <div class="col-md-4">
-                    <img src="../images/img-3.png" alt="your-image-alt" class="img-fluid shadow-lg" width="500px">
-                </div>
+          </div>
+      </div>
+      <div class="col-md-6 mt-3">
+        <div class="h-100 text-white bg-dark rounded-3 text-center text-lg-start">
+          <div class="row pt-3">
+            <div class="col-md-6 pt-4 ps-lg-4">
+                <img src="../images/img-3.png" alt="" class="img-fluid ">
+              </div>
+              <div class="col-md-6 pt-2 px-4 px-lg-4 pb-3 pb-lg-4">
+              <h6 class="fs-4 fw-bolder text-light">Trainer</h6>
+                <p class="fw-light text-light">Experience the ultimate fitness journey with our professional trainers by your side. 
+                    From customized training plans to expert guidance and motivation, we'll take your workout to the next 
+                    level and help you achieve your fitness goals like never before. Get ready to transform your 
+                    body and mind and become the best version of yourself!</p>
+                <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Avail Now!</a>
+              </div>
             </div>
-         </div>
+          </div>
+      </div>
     </div>
-     <!-- end of third part -->
-     <br>
-     <!-- 4th part -->
-     <div style="background-color: #16191E;">
-        <div class="container-fluid ms-lg-5">
-            <div class="row d-flex align-items-center  text-center text-lg-start">
-                <div class="col-md-4">
-                    <img src="../images/img-4.png" alt="your-image-alt" class="img-fluid shadow-lg" width="500px">
-                </div>
-                <div class="col-md-6 pb-3 pb-lg-0 ms-0 ms-lg-5">
-                    <h6 class="fs-3 fw-bolder text-light">Locker</h6>
-                    <p class="fw-light text-light">Maximize your gym experience with our secure and 
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6 mt-3">
+        <div class="h-100 text-white bg-dark rounded-3 text-center text-lg-start">
+          <div class="row pt-3">
+            <div class="col-md-6 pt-4 ps-lg-4">
+                <img src="../images/img-4.png" alt="" class="img-fluid ">
+              </div>
+              <div class="col-md-6 pt-2 px-4 px-lg-4 pb-3 pb-lg-4">
+              <h6 class="fs-4 fw-bolder text-light">Locker</h6>
+                <p class="fw-light text-light">Maximize your gym experience with our secure and 
                         convenient locker facilities. With spacious and easy-to-use lockers available 
                         for your belongings, you can focus on your workout without worrying about the 
                         safety of your personal items. Say goodbye to hassle and hello to peace of mind - only at our gym.</p>
                     <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Avail Now!</a>
-                </div>
+              </div>
             </div>
-         </div>
-    </div>
-     <!-- end of 4th part -->
-     <br>
-     <!-- 5th part -->
-     <div style="background-color: #292929;">
-        <div class="container-fluid ms-lg-5">
-            <div class="row d-flex align-items-center  text-center text-lg-start">
-                <div class="col-md-6 pb-3 pb-lg-0 ms-0 ms-lg-5">
-                    <h6 class="fs-3 fw-bolder text-light">Program</h6>
-                    <p class="fw-light text-light">Get ready to take your cardio game to the next level with our cutting-edge 
+          </div>
+      </div>
+      <div class="col-md-6 mt-3">
+        <div class="h-100 text-white bg-dark rounded-3 text-center text-lg-start">
+          <div class="row pt-3">
+            <div class="col-md-6 pt-4 ps-lg-4">
+                <img src="../images/img-5.png" alt="" class="img-fluid ">
+              </div>
+              <div class="col-md-6 pt-2 px-4 px-lg-4 pb-3 pb-lg-4">
+              <h6 class="fs-5 fw-bolder text-light">Program</h6>
+              <p class="fw-light text-light">Get ready to take your cardio game to the next level with our cutting-edge 
                         gym programs. Whether you're a seasoned runner or just starting out, our expertly designed cardio programs
                          will help you improve endurance, burn fat, and achieve your fitness goals. With personalized training plans
                           and top-of-the-line equipment, you'll have everything you need to crush your cardio workout and take your
                            fitness journey to new heights!</p>
-                    <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Avail Now!</a>
-                </div>
-                <div class="col-md-4">
-                    <img src="../images/img-5.png" alt="your-image-alt" class="img-fluid shadow-lg" width="500px">
-                </div>
+                <a href="../user/user-avail.php" class="btn btn-danger rounded-pill" role="button" style="background-color: #A73535;">Avail Now!</a>
+              </div>
             </div>
-         </div>
+          </div>
+      </div>
     </div>
-     <!-- end of 5th part -->
-    <br>
+   
+<br>
+   
 </section>
 
 
