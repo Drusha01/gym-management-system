@@ -516,7 +516,7 @@ CREATE TABLE admins(
 INSERT INTO admins VALUES(
 	null,
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'admin'),
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha01' OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1)) ,
+    (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1)) ,
     now(),
     now()
 );
@@ -532,7 +532,7 @@ WHERE admin_type_id =(SELECT user_type_id FROM user_types WHERE user_type_detail
 -- admin login
 SELECT admin_id,admin_user_id,user_password_hashed FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
-WHERE (user_name = BINARY 'Drusha02' AND user_name_verified = 1) OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
+WHERE (user_name = BINARY 'Drusha01' AND user_name_verified = 1) OR (user_email =  'hanz.dumapit56@gmail.com' AND user_email_verified = 1) ; 
 
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
@@ -973,16 +973,17 @@ CREATE TABLE subscriptions(
 	subscription_id int primary key auto_increment ,
     subscription_subscriber_user_id int not null,
     subscription_offer_name VARCHAR(255) not null,	-- for persistence of data
-    subscription_type_of_subscription_details  varchar(50) not null ,	-- for persistence of data
-    subscription_age_qualification_details varchar(50) not null,	-- for persistence of data
+    subscription_type_of_subscription_details  varchar(50) not null ,	-- for persistence of data	
     subscription_duration int not null , -- persistence of data
     subscription_price float not null,	-- persistence of data
-    subscription_status_details  varchar(50) not null, -- persistence of data
-    subscription_discount_id FLOAT8 not null,	-- persistence of data
+    subscription_total_duration int not null , -- persistence of data
+    subscription_status_id  int not null, 
+    subscription_start_date datetime,
     subscription_date_created datetime default NOW(),
     subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (subscription_subscriber_user_id) REFERENCES users(user_id)
-    -- foreing keys
+    FOREIGN KEY (subscription_subscriber_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (subscription_status_id) REFERENCES subscription_status(subscription_status_id)
+    -- foreign keys
 );
 
 
