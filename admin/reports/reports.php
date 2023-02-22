@@ -35,20 +35,7 @@ if(isset($_SESSION['admin_id'])){
 <body>
 <?php require_once '../includes/top_nav_admin.php';?>
 <?php require_once '../includes/side_nav.php';?>
-<style>
-  #update-nav {
-  width: 100%;
-  height: 30px;
-}
-#range-selector {
-  width: 50%;    
-  float: left;
-}
-#date-selector {
-  width: 50%;
-  float: right;  
-}
-</style>
+
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
     <h5 class="col-12 fw-bold mb-3">Reports</h5>
