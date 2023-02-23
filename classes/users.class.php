@@ -383,6 +383,8 @@ Class users{
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
             LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+            LEFT JOIN admins ON users.user_id=admins.admin_user_id
+            where admins.admin_user_id is null
             ORDER BY user_name
             ;';
             $query=$this->db->connect()->prepare($sql);
