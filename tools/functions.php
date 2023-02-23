@@ -162,4 +162,10 @@ function validate_offer_description($POST,$offer_description){
 function validate_offer($POST){
     return validate_string($POST, 'offer_name') && validate_offer_duration($POST,'offer_duration') && validate_offer_price($POST,'offer_price') && validate_string($POST,'type_of_subscription') && validate_offer_description($POST,'offer_description');
 }
+
+
+
+function validate_equipment($POST){
+    return  validate_string($POST,'equipment_name')&& validate_string($POST,'equipment_condition_details') &&  intval($POST['equipment_quantity'])>0;
+}
 ?>

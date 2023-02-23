@@ -58,7 +58,7 @@ if(isset($_SESSION['admin_id'])){
     </div>
         <div class="table-responsive table-container">
           <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
-              <thead class="bg-dark text-light">
+            <thead class="bg-dark text-light">
                   <tr>
                   <th class="d-lg-none"></th>
                   <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
@@ -69,30 +69,32 @@ if(isset($_SESSION['admin_id'])){
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                  <th class="d-lg-none"></th>
-                  <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                  <td>Treadmill</td>
-                  <td class="text-center ">Good</td>
-                  <td class="text-center">4</td>
-                  <td class="text-center"><a href="edit-maintenance.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
-                  </tr>
-                  <tr>
-                  <th class="d-lg-none"></th>
-                  <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                  <td>Leg Press Machine</td>
-                  <td class="text-center ">In-Maintenance</td>
-                  <td class="text-center">4</td>
-                  <td class="text-center"><a href="edit-maintenance.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
-                  </tr>
-                  <tr>
-                  <th class="d-lg-none"></th>
-                  <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                  <td>Bench Press</td>
-                  <td class="text-center ">Good</td>
-                  <td class="text-center">4</td>
-                  <td class="text-center"><a href="edit-maintenance.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
-                  </tr>
+              <?php
+                require_once '../../classes/equipments.class.php';
+                require_once '../../tools/functions.php';
+
+
+                $equipmentsObj = new equipments();
+                $equipments_data = $equipmentsObj->fetchAll();
+                $counter=1;
+                foreach ($equipments_data as $key => $value) {
+                  echo '<tr>';
+                  echo'<th class="d-lg-none"></th>';
+                  echo'<th scope="row" class="text-center d-none d-sm-table-cell">'.htmlentities($counter).'</th>';
+                  echo'<td>'.htmlentities($value['equipment_name']).'</td>';
+                  echo'<td class="text-center ">'.htmlentities($value['equipment_condition_details']).'</td>';
+                  echo'<td class="text-center">'.htmlentities($value['equipment_quantity']).'</td>';
+                  echo'<td class="text-center"><a href="edit-maintenance.php?equipment_id='.htmlentities($value['equipment_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalCreate('.htmlentities($counter).','.htmlentities($value['equipment_id']).')">Delete</button></td>';
+                  echo'</tr>';
+                  $counter++;
+                }
+
+              ?>
+
+              
+              
+                  
+                  
               </tbody>
           </table>
         </div>
@@ -111,12 +113,44 @@ if(isset($_SESSION['admin_id'])){
         Are you sure you want to delete this Equipment?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal" onclick="deletefunction()">Yes</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>
 </div>
 
+<script>
+
+  function modalCreate(index,id){
+    console.log('called');
+    console.log(index);
+    $('.modal-body').html('Are you sure you want to delete the equipment #'+index+' ?');
+    $("#btn-success").attr("onclick","deletefunction("+id+")");
+    console.log(id);
+  }
+
+  function deletefunction(id){
+    console.log(id);
+    $.ajax({
+    //
+    type: "GET",
+    url: 'delete-maintenance.php?equipment_id='+id,
+    success: function(result)
+    {
+      if(result ==1){
+        // delete the hmtl
+        location.reload();
+      }else{
+        alert('deletion failed');
+      }
+        console.log('deleted');
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    }
+});
+  }
+</script>
 </body>
 </html>

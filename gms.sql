@@ -557,7 +557,10 @@ where admins.admin_user_id is null
 SELECT admin_id,admin_user_id,user_password_hashed FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE (user_name = BINARY 'Drusha01' AND user_name_verified = 1) OR (user_email =  's' AND user_email_verified = 1) ; 
-        
+   
+   
+   
+
 -- db for address
 
 -- table for province
@@ -928,6 +931,66 @@ WHERE  email_verify_code = '4558518' AND email_verify_user_id =7
 ORDER BY email_date_time DESC
 LIMIT 1;
 
+CREATE TABLE equipments_conditions(
+	equipment_condition_id int primary key auto_increment,
+    equipment_condition_details varchar(50) unique
+);
+
+INSERT INTO equipments_conditions (equipment_condition_id, equipment_condition_details) VALUES
+(
+	null,
+	'Good'
+),(
+	null,
+	'In-Maintenance'
+);
+
+SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good';
+
+-- table for maintenance
+CREATE TABLE equipments(
+	equipment_id int primary key auto_increment,
+    equipment_name VARCHAR(100) not null,
+    equipment_quantity int not null,
+    equipment_condition_id int not null,
+    FOREIGN KEY (equipment_condition_id) REFERENCES equipments_conditions(equipment_condition_id)
+);
+
+INSERT INTO equipments (equipment_id,equipment_name,equipment_quantity,equipment_condition_id) VALUES
+(
+	null,
+    'Treadmill',
+    4,
+    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
+),(
+	null,
+    '	Leg Press Machine',
+    4,
+    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'In-Maintenance')
+),(
+	null,
+    'Bench Press',
+    4,
+    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
+);
+
+-- fetch all
+SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
+LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
+;
+
+-- fetch with id
+SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
+LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
+WHERE equipment_id = 1
+;
+
+UPDATE equipments 
+SET equipment_name= 'Treadmill',
+equipment_quantity = '6',
+equipment_condition_id = (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
+WHERE equipment_id = 1;
+
 -- table for discounts
 CREATE TABLE discounts(
 	discount_id int primary key auto_increment,
@@ -954,20 +1017,22 @@ CREATE TABLE subscription_status(
 INSERT INTO subscription_status (subscription_status_id, subscription_status_details) VALUES
 ( 
 	null,
-    'Paid'
+    'Active'
 ),( 
 	null,
     'Pending'
 ),( 
 	null,
-    'Partial'
+    'Completed'
 ),( 
 	null,
-    'Unpaid'
+    'Deleted'
 ),( 
 	null,
-    'Overdue'
+    'Terminated '
 );
+
+SELECT * FROM subscription_status;
 -- table for subscriptions
 CREATE TABLE subscriptions(
 	subscription_id int primary key auto_increment ,

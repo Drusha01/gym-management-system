@@ -15,6 +15,22 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        require_once '../../classes/equipments.class.php';
+        require_once '../../tools/functions.php';
+        $equipmentsObj = new equipments();
+    
+        if(isset($_POST['edit_maintenance']) ){
+            // validate
+            if(validate_equipment($_POST)){
+                // update
+                if($equipmentsObj->add($_POST['equipment_name'],$_POST['equipment_quantity'],$_POST['equipment_condition_details'])){
+                    header('location:maintenance.php');
+                }
+            }else{
+                // handle error
+            }
+            
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -38,7 +54,7 @@ if(isset($_SESSION['admin_id'])){
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
     <div class="row">
-        <h5 class="col-7 col-lg-4 fw-bold mb-3">Add Equipment</h5>
+        <h5 class="col-7 col-lg-4 fw-bold mb-3">Edit Equipment</h5>
         <a class="col text-decoration-none text-black m-0" aria-current="page" href="maintenance.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
     <div class="container">
@@ -46,20 +62,20 @@ if(isset($_SESSION['admin_id'])){
             <div class="row pb-2">
                 <div class="col-sm-5">
                     <label class="pb-1" for="name_offer">Name of Equipment</label>
-                    <input type="text" class="form-control" value="" id="offer_name" name="offer_name"placeholder="Enter Equipment Name" required>
+                    <input type="text" class="form-control" value=""  id="equipment_name" name="equipment_name"placeholder="Enter Equipment Name" required>
                 </div>
             </div>
             <div class="row pb-2">
                 <div class="col-sm-5">
                     <label class="pb-1" for="name_offer">Condition</label>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_details" checked name="equipment_condition_details" value="Good">
                     <label class="form-check-label" for="flexRadioDefault1">
                         Good
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_details"  name="equipment_condition_details" value="In-Maintenance">
                     <label class="form-check-label" for="flexRadioDefault2">
                         In-Maintenance
                     </label>
@@ -69,12 +85,12 @@ if(isset($_SESSION['admin_id'])){
             <div class="row pb-2">
                 <div class="col-3 col-lg-1">
                     <label class="pb-1" for="name_offer">Quantity</label>
-                    <input type="number" class="form-control" value="" id="offer_duration" placeholder="1" name="offer_duration" required>
+                    <input type="number" class="form-control" value="" id="offer_duration" placeholder="quantity" name="equipment_quantity" min="1" required>
                 </div>
             </div>
             <div class="row d-flex flex-row-reverse">
                 <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                    <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit">Submit</button>
+                    <button type="submit" class="btn btn-success  border-0 rounded" name="add_maintenance" value="add_maintenance" id="submit">Submit</button>
                 </div>
             </div>
         </form>
