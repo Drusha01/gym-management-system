@@ -49,10 +49,16 @@ if(isset($_SESSION['admin_id'])){
         $_SESSION['admin_user_valid_id_photo'] = $admin_data['user_valid_id_photo'];
         $_SESSION['admin_user_profile_picture'] = $admin_data['user_profile_picture'];
 
+        $_SESSION['admin_offer_restriction_details'] = $admin_data['admin_offer_restriction_details'];
+        $_SESSION['admin_avail_restriction_details'] = $admin_data['admin_avail_restriction_details'];
+        $_SESSION['admin_account_restriction_details'] = $admin_data['admin_account_restriction_details'];
+        $_SESSION['admin_payment_restriction_details'] = $admin_data['admin_payment_restriction_details'];
+        $_SESSION['admin_maintenance_restriction_details'] = $admin_data['admin_maintenance_restriction_details'];
+        $_SESSION['admin_reports_restriction_details'] = $admin_data['admin_reports_restriction_details'];
+
         $_SESSION['admin_user_date_created'] = $admin_data['user_date_created'];
         $_SESSION['admin_user_date_updated'] = $admin_data['user_date_updated'];
 
-        //print_r($_SESSION);
 
         header('location:dashboard/dashboard.php');
       }

@@ -18,7 +18,7 @@ if(isset($_SESSION['admin_id'])){
         // do nothing
 
         // get offer id
-        if(isset($_GET['id']) && $_SESSION['admin_user_type_details']=='admin'){
+        if(isset($_GET['id']) && $_SESSION['admin_user_type_details']=='admin' && isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Modify'){
             // include the db
             require_once '../../classes/offers.class.php';
             require_once '../../tools/functions.php';
@@ -37,6 +37,8 @@ if(isset($_SESSION['admin_id'])){
 
             
 
+        }else{
+            header('location:offer.php');
         }
         
 

@@ -500,16 +500,105 @@ user_address = 'malagutay',
 user_birthdate = CURDATE()
 WHERE user_id = 1;
 
+-- table for controls
+CREATE TABLE offer_controls(
+	control_id int primary key auto_increment,
+    control_details varchar(50) unique
+);
+CREATE TABLE avail_controls(
+	control_id int primary key auto_increment,
+    control_details varchar(50) unique
+);
+CREATE TABLE account_controls(
+	control_id int primary key auto_increment,
+    control_details varchar(50) unique
+);
+CREATE TABLE payment_controls(
+	control_id int primary key auto_increment,
+    control_details varchar(50) unique
+);
+CREATE TABLE maintenance_controls(
+	control_id int primary key auto_increment,
+    control_details varchar(50) unique
+);
+CREATE TABLE reports_controls(
+	control_id int primary key auto_increment,
+    control_details varchar(50) unique
+);
+
+INSERT INTO offer_controls (control_id, control_details) VALUES 
+(
+	null,
+    'Modify'
+),(
+	null,
+    'Read-Only'
+);
+
+INSERT INTO avail_controls (control_id, control_details) VALUES 
+(
+	null,
+    'Modify'
+),(
+	null,
+    'Read-Only'
+);
+INSERT INTO account_controls (control_id, control_details) VALUES 
+(
+	null,
+    'Modify'
+),(
+	null,
+    'Read-Only'
+);
+INSERT INTO payment_controls (control_id, control_details) VALUES 
+(
+	null,
+    'Modify'
+),(
+	null,
+    'Read-Only'
+);
+INSERT INTO maintenance_controls (control_id, control_details) VALUES 
+(
+	null,
+    'Modify'
+),(
+	null,
+    'Read-Only'
+);
+INSERT INTO reports_controls (control_id, control_details) VALUES 
+(
+	null,
+    'Modify'
+),(
+	null,
+    'Read-Only'
+);
+
+SELECT control_id FROM offer_controls WHERE control_details="Read-Only";
 
 -- table for admin
 CREATE TABLE admins(
 	admin_id int primary key auto_increment,
     admin_type_id int NOT NULL ,
 	admin_user_id int unique,
+    admin_offer_restriction int not null,
+    admin_avail_restriction int not null,
+    admin_account_restriction int not null,
+    admin_payment_restriction int not null,
+    admin_maintenance_restriction int not null,
+    admin_reports_restriction int not null,
     admin_date_created datetime,
     admin_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (admin_type_id) REFERENCES user_types(user_type_id),
-    FOREIGN KEY (admin_user_id) REFERENCES users(user_id)
+    FOREIGN KEY (admin_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (admin_offer_restriction) REFERENCES offer_controls(control_id),
+    FOREIGN KEY (admin_avail_restriction) REFERENCES avail_controls(control_id),
+    FOREIGN KEY (admin_account_restriction) REFERENCES account_controls(control_id),
+    FOREIGN KEY (admin_payment_restriction) REFERENCES payment_controls(control_id),
+    FOREIGN KEY (admin_maintenance_restriction) REFERENCES maintenance_controls(control_id),
+    FOREIGN KEY (admin_reports_restriction) REFERENCES reports_controls(control_id)
 );
 
 -- INSERT admin
@@ -517,10 +606,28 @@ INSERT INTO admins VALUES(
 	null,
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'admin'),
     (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1)) ,
+    (SELECT control_id FROM offer_controls WHERE control_details = "Read-Only"),
+    (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM reports_controls WHERE control_details = "Modify"),
     now(),
     now()
 );
 
+UPDATE admins 
+SET
+admin_offer_restriction = (SELECT control_id FROM offer_controls WHERE control_details = "Modify"),
+admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_details = "Read-Only"),
+admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
+admin_payment_restriction= (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
+admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "Read-Only"),
+admin_reports_restriction= (SELECT control_id FROM reports_controls WHERE control_details = "Modify")
+WHERE admin_user_id = (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1));
+
+
+ SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1);
 -- SELECT * admins
 SELECT * FROM admins;
 
@@ -546,6 +653,31 @@ LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
 WHERE admin_id =3;
+
+-- admin details
+SELECT admin_id, user_id, user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
+ user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
+ user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,
+ offer_controls.control_details AS admin_offer_restriction_details,
+ avail_controls.control_details AS admin_avail_restriction_details,
+ account_controls.control_details AS admin_account_restriction_details,
+ payment_controls.control_details AS admin_payment_restriction_details,
+ maintenance_controls.control_details AS admin_maintenance_restriction_details,
+ reports_controls.control_details AS admin_reports_restriction_details
+ FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+LEFT OUTER JOIN offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
+LEFT OUTER JOIN avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
+LEFT OUTER JOIN account_controls ON admins.admin_account_restriction=account_controls.control_id
+LEFT OUTER JOIN payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
+LEFT OUTER JOIN maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
+LEFT OUTER JOIN reports_controls ON admins.admin_reports_restriction=reports_controls.control_id
+;
+
 
 -- select all non admins
 SELECT user_id,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_birthdate,user_gender_details  from users
@@ -979,6 +1111,9 @@ SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_detail
 LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
 ;
 
+DELETE FROM equipments 
+WHERE equipment_id = 4;
+
 -- fetch with id
 SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
 LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
@@ -1010,7 +1145,7 @@ INSERT INTO discounts (discount_id, discount_name, discount_details, discount_ra
 
 -- table for subscription status
 CREATE TABLE subscription_status(
-	subscription_status_id tinyint primary key auto_increment,
+	subscription_status_id int primary key auto_increment,
     subscription_status_details varchar(50) unique
 );
 

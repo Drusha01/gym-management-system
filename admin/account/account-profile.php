@@ -16,6 +16,7 @@ if(isset($_SESSION['admin_id'])){
     if($_SESSION['admin_user_status_details'] == 'active'){
         // 
         
+        
         // query the user information with id
         if(isset($_GET['user_id'])){
             // 
@@ -28,7 +29,10 @@ if(isset($_SESSION['admin_id'])){
             }else{
                 return 'error';
             }
+        }else{
+            header('location:account.php');
         }
+        
 
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
@@ -186,11 +190,13 @@ if(isset($_SESSION['admin_id'])){
                         </button>
                         </li>
                     </div>
+                    <?php if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
                     <div class="col-5">
                         <li class="list-group-item d-flex flex-row-reverse flex-wrap">
                             <a class="btn btn-primary float-right " href="account-profile-edit.php?user_id=<?php echo_safe( $_GET['user_id']);?>">MODIFY</a>
                         </li>
                     </div>
+                    <?php }?>
                     </div>
                 </div>
             </div>

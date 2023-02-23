@@ -17,20 +17,26 @@ if(isset($_SESSION['admin_id'])){
         // 
         // query the user information with id
         // 
-        require_once '../../classes/users.class.php';
-        require_once '../../tools/functions.php';
-        $userObj = new users();
-        if(isset($_GET['user_id'])){
-            
-            $userObj->setuser_id($_GET['user_id']);
-            if(!$user_data = $userObj->get_user_details()){
-                return 'error';
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+            require_once '../../classes/users.class.php';
+            require_once '../../tools/functions.php';
+            $userObj = new users();
+            if(isset($_GET['user_id'])){
+                
+                $userObj->setuser_id($_GET['user_id']);
+                if(!$user_data = $userObj->get_user_details()){
+                    return 'error';
+                }
+            }else if(isset($_GET['trainer_id'])){
+                $userObj->setuser_id($_GET['trainer_id']);
+                if(!$user_data = $userObj->get_user_details()){
+                    return 'error';
+                }
+            }else{
+                header('location:account.php');
             }
-        }else if(isset($_GET['trainer_id'])){
-            $userObj->setuser_id($_GET['trainer_id']);
-            if(!$user_data = $userObj->get_user_details()){
-                return 'error';
-            }
+        }else{
+            header('location:account.php');
         }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
@@ -166,7 +172,7 @@ if(isset($_SESSION['admin_id'])){
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <input type="email" class="form-control" name="email" id="email" value="<?php echo_safe($user_data['user_email'])?>" placeholder="<?php echo_safe($user_data['user_email'])?>">
+                                        <?php echo_safe($user_data['user_email']); if(isset($user_data['user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="user-change-email-address.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} ?>
                                         </div>
                                         <div class="col-sm-2 align-self-center pb-1"> 
                                             <h6 class="mb-0">Phone Number</h6>

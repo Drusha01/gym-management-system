@@ -15,17 +15,21 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
-        require_once '../../classes/equipments.class.php';
-        require_once '../../tools/functions.php';
-        $equipmentsObj = new equipments();
-    
-        if(isset($_GET['equipment_id'])){
+        if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+            require_once '../../classes/equipments.class.php';
+            require_once '../../tools/functions.php';
+            $equipmentsObj = new equipments();
+        
+            if(isset($_GET['equipment_id'])){
 
-            if(!($equipment_data = $equipmentsObj->delete($_GET['equipment_id']))){
-                echo '0';
-            }else{
-                echo '1';
+                if(!($equipment_data = $equipmentsObj->delete($_GET['equipment_id']))){
+                    echo '0';
+                }else{
+                    echo '1';
+                }
             }
+        }else{
+            header('location:maintenance.php');
         }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this

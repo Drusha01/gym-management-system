@@ -34,7 +34,7 @@ class trainers
     function fetch_trainer_with_id($trainer_id){
         try{
             $sql = 'SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,",",user_firstname," ",user_middlename) AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details,user_address,
-            user_phone_number,user_email,user_date_created FROM trainers
+            user_phone_number,user_email,user_profile_picture,user_valid_id_photo,user_date_created FROM trainers
             LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
             LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
@@ -43,7 +43,7 @@ class trainers
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':trainer_id', $trainer_id);
             if($query->execute()){
-                $data =  $query->fetchAll();
+                $data =  $query->fetch();
                 return $data;
             }else{
                 return false;

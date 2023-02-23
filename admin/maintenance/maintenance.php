@@ -51,10 +51,12 @@ if(isset($_SESSION['admin_id'])){
             <label for="keyword">Search</label>
             <input type="text" name="keyword" id="keyword" placeholder="Enter Equipment Here" class="form-control ms-md-2">
         </div>
-
-        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+        <?php if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){ ?>
+          <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
             <a href="add-maintenance.php" class="btn btn-success" role="button">Add Equipment</a>
-        </div>
+          </div>
+        <?php }?>
+        
     </div>
         <div class="table-responsive table-container">
           <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
@@ -65,7 +67,9 @@ if(isset($_SESSION['admin_id'])){
                   <th>EQUIPMENT NAME</th>
                   <th class="text-center ">CONDITION</th>
                   <th scope="col" class="text-center">QUANTITY</th>
+                  <?php if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){ ?>
                   <th scope="col" class="text-center">ACTION</th>
+                  <?php }?>
                   </tr>
               </thead>
               <tbody>
@@ -84,7 +88,9 @@ if(isset($_SESSION['admin_id'])){
                   echo'<td>'.htmlentities($value['equipment_name']).'</td>';
                   echo'<td class="text-center ">'.htmlentities($value['equipment_condition_details']).'</td>';
                   echo'<td class="text-center">'.htmlentities($value['equipment_quantity']).'</td>';
-                  echo'<td class="text-center"><a href="edit-maintenance.php?equipment_id='.htmlentities($value['equipment_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalCreate('.htmlentities($counter).','.htmlentities($value['equipment_id']).')">Delete</button></td>';
+                  if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+                    echo'<td class="text-center"><a href="edit-maintenance.php?equipment_id='.htmlentities($value['equipment_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalCreate('.htmlentities($counter).','.htmlentities($value['equipment_id']).')">Delete</button></td>';
+                  }
                   echo'</tr>';
                   $counter++;
                 }

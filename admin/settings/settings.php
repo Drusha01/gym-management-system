@@ -50,7 +50,7 @@ if(isset($_SESSION['admin_id'])){
             <h5 class="col-12 fw-regular ">Add Account</h5>
             <hr>
             <div class="col-12 col-sm-12 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                <a href="add-user.php" class="btn btn-success" role="button">Add User</a>
+                <a href="add-admin.php" class="btn btn-success" role="button">Add User</a>
             </div>
                 <div class="table-responsive table-container">
                     <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
@@ -71,7 +71,7 @@ if(isset($_SESSION['admin_id'])){
                             <td>Trinidad, James Lorenz</td>
                             <td class="text-center ">James_Nolegs</td>
                             <td class="text-center">November 14, 2022</td>
-                            <td class="text-center"><a href="edit-user.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+                            <td class="text-center"><a href="edit-admin.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
                             </tr>
                             <tr>
                             <th class="d-lg-none"></th>
@@ -79,7 +79,7 @@ if(isset($_SESSION['admin_id'])){
                             <td>Nicholas, Shania</td>
                             <td class="text-center ">Can_squatmoredanYOU</td>
                             <td class="text-center">November 14, 2022</td>
-                            <td class="text-center"><a href="edit-user.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+                            <td class="text-center"><a href="edit-admin.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
                             </tr>
                             <tr>
                             <th class="d-lg-none"></th>
@@ -87,7 +87,7 @@ if(isset($_SESSION['admin_id'])){
                             <td>Lim, Robbie John</td>
                             <td class="text-center ">Labuyo_Boi</td>
                             <td class="text-center">November 14, 2022</td>
-                            <td class="text-center"><a href="edit-user.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+                            <td class="text-center"><a href="edit-admin.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
 
                         </tbody>
                     </table>

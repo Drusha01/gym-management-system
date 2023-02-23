@@ -15,18 +15,35 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // 
-        
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
         // query the user information with id
-        if(isset($_GET['trainer_id'])){
-            // 
-            require_once '../../classes/trainers.class.php';
-            require_once '../../tools/functions.php';
-            $trainerObj = new trainers();
-            if($user_data = $trainerObj->fetch_trainer_with_id($_GET['trainer_id'])){
-                print_r($user_data);
+            if(isset($_GET['trainer_id'])){
+                // 
+                require_once '../../classes/trainers.class.php';
+                require_once '../../tools/functions.php';
+                $trainerObj = new trainers();
+                if($user_data = $trainerObj->fetch_trainer_with_id($_GET['trainer_id'])){
+                }else{
+                    return 'error';
+                }
             }else{
-                return 'error';
+                header('location:account.php');
             }
+        }elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only'){
+            if(isset($_GET['trainer_id'])){
+                // 
+                require_once '../../classes/trainers.class.php';
+                require_once '../../tools/functions.php';
+                $trainerObj = new trainers();
+                if($user_data = $trainerObj->fetch_trainer_with_id($_GET['trainer_id'])){
+                }else{
+                    return 'error';
+                }
+            }else{
+                header('location:account.php');
+            }
+        }else{
+            header('location:account.php');
         }
 
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
@@ -61,11 +78,11 @@ if(isset($_SESSION['admin_id'])){
                     <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                        <img src="../../images/acc_img.png" alt="Admin" class="rounded-circle" width="150">
+                        <img src="../../img/profile-resize/<?php echo_safe($user_data['user_profile_picture']);?>" alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
-                            <h4>Trinidad, James Lorenz</h4>
-                            <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Available</span></p>
-                            <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
+                            <h4><?php echo_safe($user_data['user_name'])?></h4>
+                            <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal"><?php echo_safe($user_data['trainer_availability_details'])?></span></p>
+                            <p class="text-muted font-size-sm"><?php echo_safe($user_data['user_address'])?></p>
                         </div>
                         </div>
                     </div>
@@ -115,7 +132,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Trinidad, James Lorenz
+                                <?php echo_safe($user_data['user_fullname'])?>
                             </div>
                         </div>
                         <div class="col">
@@ -123,7 +140,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Gender</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Male
+                                <?php echo_safe($user_data['user_gender_details'])?>
                             </div>
                         </div>
                     </div>
@@ -134,7 +151,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                San Jose, Zamboanga City
+                                <?php echo_safe($user_data['user_address'])?>
                             </div>
                         </div>
                         <div class="col">
@@ -142,7 +159,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Phone Number</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                0921-234-5678
+                                <?php echo_safe($user_data['user_phone_number'])?>
                             </div>
                         </div>
                     </div>
@@ -153,7 +170,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Age</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                22 Years Old
+                                <?php echo_safe(getAge($user_data['user_birthdate'])) ?>
                             </div>
                         </div>
                         <div class="col-6">
@@ -161,7 +178,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-9 text-secondary">
-                                James_No_Legday@gmail.com
+                                <?php echo_safe ($user_data['user_email'])?>
                             </div>
                         </div>
                     </div>
@@ -172,7 +189,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Birth Date</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                November 14, 2000
+                                <?php echo_safe(date_format(date_create($user_data['user_birthdate']), "F d,Y"));?>
                             </div>
                         </div>
                         <div class="col">
@@ -180,7 +197,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Account Created</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                December 20, 2019
+                            <?php echo_safe(date_format(date_create($user_data['user_date_created']), "F d,Y"));?>
                             </div>
                         </div>
                     </div>
@@ -193,11 +210,14 @@ if(isset($_SESSION['admin_id'])){
                         </button>
                         </li>
                     </div>
+                    
+                    <?php if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){ ?>
                     <div class="col-5">
                         <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                            <a class="btn btn-primary float-right " href="trainer-edit.php">MODIFY</a>
+                            <a class="btn btn-primary float-right " href="account-profile-edit.php?user_id=<?php echo_safe($_GET['trainer_id'])?>">MODIFY</a>
                         </li>
                     </div>
+                    <?php }?>
 
                     </div>
                 </div>

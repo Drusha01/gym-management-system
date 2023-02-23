@@ -18,91 +18,89 @@ if(isset($_SESSION['admin_id'])){
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
         require_once '../../tools/functions.php';
-        
-        if(isset($_POST['add_offer']) && $_POST['add_offer'] =='add_offer'){
-            require_once '../../classes/offers.class.php';
+        if(isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Modify'){
+            if(isset($_POST['add_offer']) && $_POST['add_offer'] =='add_offer'){
+                require_once '../../classes/offers.class.php';
 
-            // validate add offer
-            if(validate_offer($_POST)){
-                $offersObj = new offers();
-                $offer_name = $_POST['offer_name'];
-                $offer_status_details = 'active';
-                $offer_offer_type_of_subscription_details = $_POST['type_of_subscription'];
-                $offer_duration =$_POST['offer_duration'];
-                $offer_price =$_POST['offer_price'];
-                $offer_description = $_POST['offer_description'];
-                // validate age qualification
-                $error =false;
-                if(isset($_POST['age_qualification_details']) && strlen($_POST['age_qualification_details'])>0){
-                    // insert
-                    require_once '../../classes/age_qualification.class.php';
-                    $age_qualObj = new age_qualifications();
-                    $age_qualObj->insert($_POST['age_qualification_details']);
-                    // if this is set then
-                    $offer_age_qualification_details =$_POST['age_qualification_details'];
-                }else if(isset($_POST['age_qualification_details_checked']) && $_POST['age_qualification_details_checked'] == 'None'){
-                    $offer_age_qualification_details =$_POST['age_qualification_details_checked'];
-                }else{
-                    $error =true;
-                }
-                
-                // validate slots
-                if(isset($_POST['offer_slots']) && strlen($_POST['offer_slots'])>0 && intval($_POST['offer_slots']) > 0){
-                    // if this is set then
-                    $offer_slots =$_POST['offer_slots'];
-                }else if(isset($_POST['offer_slots_checked']) && $_POST['offer_slots_checked'] == 'None'){
-                    $offer_slots =$_POST['offer_slots_checked'];
-                }else{
-                    $error =true;
-                }
-
-                // validate the image
-                if (isset($_FILES['offer_file'])) {
-               
-                    $type = array('png', 'bmp', 'jpg');
-                    $size = (1024 * 1024) * 5; // 5 mb
-                    if (validate_file($_FILES, 'offer_file', $type, $size)) {
-                        $offer_file_dir = dirname(__DIR__, 2) . '/img/offer-contents/';
-                        // check if the folder exist  
-                        if(!is_dir($offer_file_dir)){
-                            // create directory
-                            mkdir($offer_file_dir);
-                        }
-                        $extension = getFileExtensionfromFilename($_FILES['offer_file']['name']);
-                        $filename = md5($_FILES['offer_file']['name']).'.'.$extension;
-                        $counter = 0;
-                        // only move if the filename is unique
-                        while(file_exists($offer_file_dir.$filename)){
-                            $counter++;
-                            $filename = md5($_FILES['offer_file']['name'].$counter).'.'.$extension;
-                        }
-                        // move file
-                        if (move_uploaded_file($_FILES['offer_file']['tmp_name'],$offer_file_dir.$filename )) {
-                            $error = false;
-                            
-                            // change offer_file photo in db
-                            
-                            // echo 'moved';
+                // validate add offer
+                if(validate_offer($_POST)){
+                    $offersObj = new offers();
+                    $offer_name = $_POST['offer_name'];
+                    $offer_status_details = 'active';
+                    $offer_offer_type_of_subscription_details = $_POST['type_of_subscription'];
+                    $offer_duration =$_POST['offer_duration'];
+                    $offer_price =$_POST['offer_price'];
+                    $offer_description = $_POST['offer_description'];
+                    // validate age qualification
+                    $error =false;
+                    if(isset($_POST['age_qualification_details']) && strlen($_POST['age_qualification_details'])>0){
+                        // insert
+                        require_once '../../classes/age_qualification.class.php';
+                        $age_qualObj = new age_qualifications();
+                        $age_qualObj->insert($_POST['age_qualification_details']);
+                        // if this is set then
+                        $offer_age_qualification_details =$_POST['age_qualification_details'];
+                    }else if(isset($_POST['age_qualification_details_checked']) && $_POST['age_qualification_details_checked'] == 'None'){
+                        $offer_age_qualification_details =$_POST['age_qualification_details_checked'];
+                    }else{
+                        $error =true;
+                    }
                     
-                            // resize file?
-                        }else{
-                            $error = true;
+                    // validate slots
+                    if(isset($_POST['offer_slots']) && strlen($_POST['offer_slots'])>0 && intval($_POST['offer_slots']) > 0){
+                        // if this is set then
+                        $offer_slots =$_POST['offer_slots'];
+                    }else if(isset($_POST['offer_slots_checked']) && $_POST['offer_slots_checked'] == 'None'){
+                        $offer_slots =$_POST['offer_slots_checked'];
+                    }else{
+                        $error =true;
+                    }
+
+                    // validate the image
+                    if (isset($_FILES['offer_file'])) {
+                
+                        $type = array('png', 'bmp', 'jpg');
+                        $size = (1024 * 1024) * 5; // 5 mb
+                        if (validate_file($_FILES, 'offer_file', $type, $size)) {
+                            $offer_file_dir = dirname(__DIR__, 2) . '/img/offer-contents/';
+                            // check if the folder exist  
+                            if(!is_dir($offer_file_dir)){
+                                // create directory
+                                mkdir($offer_file_dir);
+                            }
+                            $extension = getFileExtensionfromFilename($_FILES['offer_file']['name']);
+                            $filename = md5($_FILES['offer_file']['name']).'.'.$extension;
+                            $counter = 0;
+                            // only move if the filename is unique
+                            while(file_exists($offer_file_dir.$filename)){
+                                $counter++;
+                                $filename = md5($_FILES['offer_file']['name'].$counter).'.'.$extension;
+                            }
+                            // move file
+                            if (move_uploaded_file($_FILES['offer_file']['tmp_name'],$offer_file_dir.$filename )) {
+                                $error = false;
+                                
+                                // change offer_file photo in db
+                                
+                                // echo 'moved';
+                        
+                                // resize file?
+                            }else{
+                                $error = true;
+                            }
+                        }
+                    }
+
+                    if(!$error){
+                        if($offersObj->add($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_description,$filename)){
+                            header('location:offer.php');
                         }
                     }
                 }
-
-                if(!$error){
-                    if($offersObj->add($offer_name,$offer_status_details,$offer_offer_type_of_subscription_details,$offer_age_qualification_details,$offer_duration,$offer_slots,$offer_price,$offer_description,$filename)){
-                        header('location:offer.php');
-                    }
-                }
-                
-
-                
             }
-            
+        }else{
+            header('location:offer.php');
         }
-
 
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this

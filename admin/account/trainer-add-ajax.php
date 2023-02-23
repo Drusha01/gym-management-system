@@ -17,15 +17,19 @@ if(isset($_SESSION['admin_id'])){
         // do nothing
 
         // get trainer_user_id
-        if(isset($_GET['trainer_add_with_id'])){
-            require_once '../../classes/trainers.class.php';
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+            if(isset($_GET['trainer_add_with_id'])){
+                require_once '../../classes/trainers.class.php';
 
-            $trainerObj = new trainers();
-            if($trainerObj->add_trainer_with_id($_GET['trainer_add_with_id'])){
-                echo '1';
-            }else{
-                echo '0';
+                $trainerObj = new trainers();
+                if($trainerObj->add_trainer_with_id($_GET['trainer_add_with_id'])){
+                    echo '1';
+                }else{
+                    echo '0';
+                }
             }
+        }else{
+            header('location:account.php');
         }
         
 

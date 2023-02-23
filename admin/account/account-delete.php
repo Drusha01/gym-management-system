@@ -15,24 +15,29 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
-
-        // get offer id
-        if(isset($_GET['user_id']) && $_SESSION['admin_user_type_details']=='admin'){
-            // include the db
-            require_once '../../classes/users.class.php';
-            require_once '../../tools/functions.php';
-
-            
-            // admin password??
-            $userObj = new users();
-
-            if($userObj->delete_user($_GET['user_id'])){
-                echo '1';
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+            if(isset($_GET['user_id']) && $_SESSION['admin_user_type_details']=='admin'){
+                // include the db
+                require_once '../../classes/users.class.php';
+                require_once '../../tools/functions.php';
+    
+                
+                // admin password??
+                $userObj = new users();
+    
+                if($userObj->delete_user($_GET['user_id'])){
+                    echo '1';
+                }else{
+                    echo '0';
+                }
             }else{
-                echo '0';
+                header('location:account.php');
             }
-
+        }else{
+            header('location:account.php');
         }
+        // get offer id
+        
         
 
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){

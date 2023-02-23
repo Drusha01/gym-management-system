@@ -1,3 +1,53 @@
+<?php
+// start session
+session_start();
+
+// includes
+
+
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+    header('location:../user/user-page.php');
+}
+
+
+if(isset($_SESSION['admin_id'])){
+    // check admin user details
+    if($_SESSION['admin_user_status_details'] == 'active'){
+        // 
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+        // query the user information with id
+            if(isset($_GET['trainer_id'])){
+                // 
+                require_once '../../classes/trainers.class.php';
+                require_once '../../tools/functions.php';
+                $trainerObj = new trainers();
+                if($user_data = $trainerObj->fetch_trainer_with_id($_GET['trainer_id'])){
+                }else{
+                    return 'error';
+                }
+            }else{
+                header('location:account.php');
+            }
+        }elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only'){
+            header('location:account.php');
+        }else{
+            header('location:account.php');
+        }
+
+    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+        // do this
+    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+        // go to deleted user page
+    }
+
+}else{
+    // go to admin login
+    header('location:../admin_control_log_in2.php');
+}
+
+?>
+
 
 <?php require_once '../includes/header.php'; ?>
 
@@ -120,42 +170,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row gutters-sm">
-                            <div class="col mt-2">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row mb-3">
-                                            <div class="col-sm-2 align-self-center pb-1"> 
-                                                <h6 class="mb-0">Current Password</h6>
-                                            </div>
-                                            <div class="col-sm-4 text-secondary pb-1">
-                                                <input type="password" class="form-control" value="">
-                                            </div>
-                                            <div class="col-sm-2 align-self-center pb-1"> 
-                                                <h6 class="mb-0">New Password</h6>
-                                            </div>
-                                            <div class="col-sm-4 text-secondary pb-1">
-                                                <input type="password" class="form-control" value="">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-sm-2 align-self-center pb-1"> 
-                                                <h6 class="mb-0">Confirm New Password</h6>
-                                            </div>
-                                            <div class="col-sm-4 text-secondary pb-1">
-                                                <input type="password" class="form-control" value="">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-3 text-secondary">
-                                                <input type="button" class="btn btn-success px-4" value="Change Password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

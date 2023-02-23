@@ -9,7 +9,11 @@
         <th class="text-center">SUBSCRIPTION STATUS</th>
         <th class="text-center">EMAIL VERIFIED</th>
         <th class="text-center">USER STATUS</th>
-        <th class="text-center">ACTION</th>
+        <?php
+        session_start();
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
+            <th class="text-center">ACTION</th>
+        <?php }?>
         </tr>
     </thead>
     <tbody>
@@ -44,6 +48,7 @@
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
                     echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('VERIFIED');}else{echo 'NOT VERIFIED';}'</td>';
                     echo '<td class="text-center">';
+                    if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
                         echo '<select class="form-select-sm" aria-label="Default select example" id="user_status';echo_safe($value['user_id']);echo'" onchange="changeUserStatus(';echo_safe($value['user_id']);echo')">';
                             foreach ($user_status_data as $key => $user_status_value) {
                                 if($value['user_status_details'] == $user_status_value['user_status_details']){
@@ -52,9 +57,14 @@
                                     echo '<option value="';echo_safe($user_status_value['user_status_details']);echo'">';echo_safe($user_status_value['user_status_details']);echo'</option>';
                                 }
                             }
+                    }else{
+                        echo_safe($value['user_status_details']);
+                    }
                     echo'</td>';
-                    echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
-                    echo '</tr>';
+                    if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+                        echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
+                     }
+                       echo '</tr>';
                     $counter++;
                     
                 }

@@ -150,132 +150,162 @@ if(isset($_SESSION['admin_id'])){
                     <tr>
                         <td class="ps-lg-5 pt-3 align-middle">
                             <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Offers</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Offers</label>
                             </div>
                         </td>
                         <td >
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group1" id="group1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Modify
-                            </label>
+                                <input class="form-check-input" type="radio" name="group1" id="group1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Modify
+                                </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group1" id="group1" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Read-Only
-                            </label>
+                                <input class="form-check-input" type="radio" name="group1" id="group1" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Read-Only
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="group1" id="group1" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    None
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="ps-lg-5 pt-3 align-middle">
                             <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Avail</label>
                             </div>
                         </td>
                         <td >
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group2" id="group2">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Modify
-                            </label>
+                                <input class="form-check-input" type="radio" name="Avail" id="Avail">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Modify
+                                </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group2" id="group2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Read-Only
-                            </label>
+                                <input class="form-check-input" type="radio" name="Avail" id="Avail" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Read-Only
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Avail" id="Avail" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    None
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="ps-lg-5 pt-3 align-middle">
                             <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Accounts</label>
                             </div>
                         </td>
                         <td >
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group3" id="group3">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Modify
-                            </label>
+                                <input class="form-check-input" type="radio" name="Accounts" id="Accounts">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Modify
+                                </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group3" id="group3" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Read-Only
-                            </label>
+                                <input class="form-check-input" type="radio" name="Accounts" id="Accounts" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Read-Only
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Accounts" id="Accounts" checked>
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    None
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="ps-lg-5 pt-3 align-middle">
                             <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Payment</label>
                             </div>
                         </td>
                         <td >
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group4" id="group4">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Modify
-                            </label>
+                                <input class="form-check-input" type="radio" name="Payment" id="Payment">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Modify
+                                </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group4" id="group4" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Read-Only
-                            </label>
+                                <input class="form-check-input" type="radio" name="Payment" id="Payment" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Read-Only
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Payment" id="Payment" checked>
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    None
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="ps-lg-5 pt-3 align-middle">
                             <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Maintenance</label>
                             </div>
                         </td>
                         <td >
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group5" id="group5">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Modify
-                            </label>
+                                <input class="form-check-input" type="radio" name="Maintenance" id="Maintenance">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Modify
+                                </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="group5" id="group5" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Read-Only
-                            </label>
+                                <input class="form-check-input" type="radio" name="Maintenance" id="Maintenance" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Read-Only
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Maintenance" id="Maintenance" checked>
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    None
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="ps-lg-5 pt-3 align-middle">
                             <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Reports</label>
                             </div>
                         </td>
                         <td >
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Modify
-                            </label>
+                                <input class="form-check-input" type="radio" name="Reports" id="Reports">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Modify
+                                </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Read-Only
-                            </label>
+                                <input class="form-check-input" type="radio" name="Reports" id="Reports" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Read-Only
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Reports" id="Reports" checked>
+                                <label class="form-check-label" for="flexRadioDefault3">
+                                    None
+                                </label>
                             </div>
                         </td>
                     </tr>

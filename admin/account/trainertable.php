@@ -8,7 +8,11 @@
         <th class="text-center ">AGE</th>
         <th class="text-center">GENDER</th>
         <th class="text-center">TRAINER STATUS</th>
-        <th class="text-center">ACTION</th>
+        <?php  
+        session_start();
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
+            <th class="text-center">ACTION</th>
+        <?php }?>
         </tr>
     </thead>
     <tbody>
@@ -38,20 +42,26 @@
                 echo '<td class="text-center ">';echo_safe(getAge($value['user_birthdate']));echo '</td>';
                 echo '<td class="text-center">';echo_safe($value['user_gender_details']);echo'</td>';
                 echo '<td class="text-center">';
-                echo '<select class="form-select-sm" aria-label="Default select example" name="trainer_availability">';
-                    foreach ($trainer_availability_data as $key => $trainer_availability_value) {
-                        if($trainer_availability_value['trainer_availability_details'] == $value['trainer_availability_details']){
-                            echo '<option value="';echo_safe($trainer_availability_value['trainer_availability_details']);echo'" selected>';echo_safe($trainer_availability_value['trainer_availability_details']);echo'</option>';
-                        }else{
-                            echo '<option value="';echo_safe($trainer_availability_value['trainer_availability_details']);echo'">';echo_safe($trainer_availability_value['trainer_availability_details']);echo'</option>';
+                if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+                    echo '<select class="form-select-sm" aria-label="Default select example" name="trainer_availability">';
+                        foreach ($trainer_availability_data as $key => $trainer_availability_value) {
+                            if($trainer_availability_value['trainer_availability_details'] == $value['trainer_availability_details']){
+                                echo '<option value="';echo_safe($trainer_availability_value['trainer_availability_details']);echo'" selected>';echo_safe($trainer_availability_value['trainer_availability_details']);echo'</option>';
+                            }else{
+                                echo '<option value="';echo_safe($trainer_availability_value['trainer_availability_details']);echo'">';echo_safe($trainer_availability_value['trainer_availability_details']);echo'</option>';
+                            }
+                            
                         }
                         
-                    }
-                    
-                echo "</select>";
+                    echo "</select>";
+                }else{
+                    echo_safe ($value['trainer_availability_details']);
+                }
                 echo '</td>';
-                echo '<td class="text-center"><a href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&trainer=1" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
-                </tr>';
+                if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+                    echo '<td class="text-center"><a href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&trainer=1" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>';
+                }
+                echo '</tr>';
                 $counter++;
             }
         }

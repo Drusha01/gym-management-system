@@ -15,6 +15,13 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+
+        }elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only'){
+            //d
+        }elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'None'){
+            //do not load the page
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -60,9 +67,12 @@ if(isset($_SESSION['admin_id'])){
                             <label for="keyword">Search</label>
                             <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
                         </div>
-                        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                            <a href="user-add.php" class="btn btn-success" role="button">Add Customer</a>
+                        <?php  if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
+                            <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+                            <a href="user-add.php" class="btn btn-success" role="button" id="add-button">Add Customer</a>
                         </div>
+                        <?php }?>
+                        
                     </div>
                     <div class="table-responsive table-container">
 
@@ -117,7 +127,8 @@ $(".nav-item").on("click", function(){
             url: 'user-table-header.php',
             success: function(result)
             {
-                
+                $('#add-button').html('Add Customer');
+                $('#add-button').attr('href','user-add.php');
                 $('div#tab').html(result);
                 $.ajax({
                     type: "GET",
@@ -159,7 +170,8 @@ $(".nav-item").on("click", function(){
             url: 'trainer-table-header.php',
             success: function(result)
             {
-                
+                $('#add-button').html('Add Trainer');
+                $('#add-button').attr('href','trainer-add.php');
                 $('div#tab').html(result);
                 $.ajax({
                     type: "GET",

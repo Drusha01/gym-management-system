@@ -14,22 +14,25 @@ if(isset($_SESSION['user_id'])){
 if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
-        // do nothing
-        require_once '../../classes/equipments.class.php';
-        require_once '../../tools/functions.php';
-        $equipmentsObj = new equipments();
-    
-        if(isset($_POST['edit_maintenance']) ){
-            // validate
-            if(validate_equipment($_POST)){
-                // update
-                if($equipmentsObj->add($_POST['equipment_name'],$_POST['equipment_quantity'],$_POST['equipment_condition_details'])){
-                    header('location:maintenance.php');
+        
+        if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+            require_once '../../classes/equipments.class.php';
+            require_once '../../tools/functions.php';
+            $equipmentsObj = new equipments();
+        
+            if(isset($_POST['edit_maintenance']) ){
+                // validate
+                if(validate_equipment($_POST)){
+                    // update
+                    if($equipmentsObj->add($_POST['equipment_name'],$_POST['equipment_quantity'],$_POST['equipment_condition_details'])){
+                        header('location:maintenance.php');
+                    }
+                }else{
+                    // handle error
                 }
-            }else{
-                // handle error
             }
-            
+        }else{
+            header('location:maintenance.php');
         }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this

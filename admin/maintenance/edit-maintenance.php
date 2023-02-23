@@ -14,29 +14,33 @@ if(isset($_SESSION['user_id'])){
 if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
-        // do nothing
-        require_once '../../classes/equipments.class.php';
-        require_once '../../tools/functions.php';
-        $equipmentsObj = new equipments();
-    
-        if(isset($_POST['edit_maintenance']) && $_GET['equipment_id']){
-            // validate
-            if(validate_equipment($_POST)){
-                // update
-                if($equipmentsObj->update($_POST['equipment_name'],$_POST['equipment_quantity'],$_POST['equipment_condition_details'],$_GET['equipment_id'])){
+
+        if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+            require_once '../../classes/equipments.class.php';
+            require_once '../../tools/functions.php';
+            $equipmentsObj = new equipments();
+        
+            if(isset($_POST['edit_maintenance']) && $_GET['equipment_id']){
+                // validate
+                if(validate_equipment($_POST)){
+                    // update
+                    if($equipmentsObj->update($_POST['equipment_name'],$_POST['equipment_quantity'],$_POST['equipment_condition_details'],$_GET['equipment_id'])){
+                        header('location:maintenance.php');
+                    }
+                }else{
+                    // handle error
+                }
+                
+            }
+            if(isset($_GET['equipment_id'])){
+                
+
+                if(!($equipment_data = $equipmentsObj->fetch_with_id($_GET['equipment_id']))){
                     header('location:maintenance.php');
                 }
-            }else{
-                // handle error
             }
-            
-        }
-        if(isset($_GET['equipment_id'])){
-            
-
-            if(!($equipment_data = $equipmentsObj->fetch_with_id($_GET['equipment_id']))){
-                header('location:maintenance.php');
-            }
+        }else{
+            header('location:maintenance.php');
         }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this

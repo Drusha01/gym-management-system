@@ -38,13 +38,27 @@ class admins
 
     function get_admin_details($admin_user_id){
         try{
-            $sql = '
-            SELECT * FROM admins
-            LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
-            LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
-            LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
-            LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
-            LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+            $sql = 'SELECT admin_id, user_id, user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
+            user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
+            user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,
+            offer_controls.control_details AS admin_offer_restriction_details,
+            avail_controls.control_details AS admin_avail_restriction_details,
+            account_controls.control_details AS admin_account_restriction_details,
+            payment_controls.control_details AS admin_payment_restriction_details,
+            maintenance_controls.control_details AS admin_maintenance_restriction_details,
+            reports_controls.control_details AS admin_reports_restriction_details
+            FROM admins
+           LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+           LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+           LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+           LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+           LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+           LEFT OUTER JOIN offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
+           LEFT OUTER JOIN avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
+           LEFT OUTER JOIN account_controls ON admins.admin_account_restriction=account_controls.control_id
+           LEFT OUTER JOIN payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
+           LEFT OUTER JOIN maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
+           LEFT OUTER JOIN reports_controls ON admins.admin_reports_restriction=reports_controls.control_id
             WHERE admin_id = :admin_user_id;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':admin_user_id', $admin_user_id);

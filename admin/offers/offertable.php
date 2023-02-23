@@ -1,3 +1,5 @@
+
+
 <table id="example"  class="table table-striped table-borderless table-custom table-hover" style="width:100%;border: 3px solid black;">
     <thead class="bg-dark text-light">
         <tr>
@@ -9,7 +11,12 @@
         <th scope="col" class="text-center ">DAYS</th>
         <th scope="col" class="text-center ">SLOTS</th>
         <th scope="col" class="text-center ">PRICE</th>
-        <th scope="col" class="text-center ">ACTION</th>
+        
+        <?php 
+            session_start();
+        if(isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Modify'){?>
+            <th scope="col" class="text-center ">ACTION</th>
+        <?php }?>
         </tr>
     </thead>
     <tbody>
@@ -32,7 +39,9 @@
                         echo '<td class="text-center ">';echo_safe($value['offer_duration']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['offer_slots']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['offer_price']); echo '</td>';
-                        echo '<td class="text-center "><a href="editoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="deleteoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['offer_id']; echo')">Delete</button></td>';
+                        if(isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Modify'){
+                            echo '<td class="text-center "><a href="editoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="deleteoffer.php?id='; echo_safe($value['offer_id']); echo'" class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['offer_id']; echo')">Delete</button></td>';
+                        }
                         echo '</tr>';
                         $counter++;
                     }
