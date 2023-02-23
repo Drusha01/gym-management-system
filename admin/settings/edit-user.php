@@ -39,7 +39,7 @@ if(isset($_SESSION['admin_id'])){
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
     <div class="row">
-        <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">Add User</h5>
+        <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">Edit User</h5>
         <a class="col text-decoration-none text-black m-0" aria-current="page" href="settings.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
     <div class="container-fluid">
@@ -143,7 +143,7 @@ if(isset($_SESSION['admin_id'])){
                 <thead class="bg-dark text-light">
                     <tr>
                     <th class="ps-lg-5 ">Choose what to display</th>
-                    <th>Control</th>
+                    <th >Control</th>
                     </tr>
                 </thead>
                 <tbody>

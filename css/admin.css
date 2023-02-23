@@ -767,6 +767,26 @@ input.upload-photo{
     line-height: 1.42857;
  }
 
+ .dropdown-item:active {
+    background-color: #cb5151;
+  }
+ 
+ .dropdown-list-image {
+     position: relative;
+     height: 2.5rem;
+     width: 2.5rem;
+ }
+ .dropdown-list-image img {
+     height: 2.5rem;
+     width: 2.5rem;
+ }
+ .btn-light {
+     color: #2cdd9b;
+     background-color: #e5f7f0;
+     border-color: #d8f7eb;
+ }
+ 
+
 @media (min-width: 576px) {
     .shortcut{
         display: block;
@@ -780,8 +800,6 @@ input.upload-photo{
     a.btn-continue{
         max-width: 300px;
     }
-    
-
     .btn-continue{
         border-radius: 20px;
     }
@@ -799,8 +817,14 @@ input.upload-photo{
         border: 1px solid lightgray;
         border-radius: 20px;
     }
+    
 }
+@media (min-width: 375px) {
+    .table-user {
+        width: 100%;
+    }
 
+}
 @media (min-width: 768px) {
     .course-1, .course-2{
         height: 350px;
@@ -840,6 +864,10 @@ input.upload-photo{
     .background-color-green-visible{
         background-color: white;
     }
+    .table-user {
+        width: 50%;
+    }
+    
 }
 
 @media (min-width: 992px) {

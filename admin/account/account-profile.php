@@ -92,7 +92,9 @@ if(isset($_SESSION['admin_id'])){
                             <span class="text-secondary">Not Availed</span>
                             </li>
                             <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                <a class="btn btn-success float-right " href="#">More Details</a>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#MoreDetailsSubs">
+                                    More Details
+                            </button>
                             </li>
                         </ul>
                     </div>
@@ -202,7 +204,9 @@ if(isset($_SESSION['admin_id'])){
                             </div>
                             <div class="col">
                                 <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                    <a class="btn btn-success float-right " href="#">More Details</a>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#HistorySubs">
+                                    More Details
+                                </button>
                                 </li>
                             </div>
                         </div>
@@ -233,7 +237,7 @@ if(isset($_SESSION['admin_id'])){
                                 <td>October 17, 2022</td>
                                 </tr>
                             </tbody>
-                            </table>
+                        </table>
                     </div>
                 </div>
         </div>
@@ -249,6 +253,145 @@ if(isset($_SESSION['admin_id'])){
       </div>
       <div class="modal-body">
         <img class="img-fluid" src="../../images/312476041_1180676142522081_7979367819549623201_n 1.png">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="MoreDetailsSubs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Current Subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive table-1">
+                <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+                    <thead class="bg-dark text-light">
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                        <th class="col-3">NAME OF SUBSCRIPTION</th>
+                        <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                        <th scope="col" class="text-center">DATE SUBSCRIBED</th>
+                        <th scope="col" class="text-center">END DATE</th>
+                        <th scope="col" class="text-center">DAYS LEFT</th>
+                        <th scope="col" class="text-center">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
+                        <td>1-Month Gym-Use (21 and above)</td>
+                        <td class="text-center ">Gym-Use Subscription</td>
+                        <td class="text-center">October 16, 2022</td>
+                        <td class="text-center">November 15, 2022</td>
+                        <td class="text-center">24</td>
+                        <td class="text-center">Paid</td>
+                        </tr>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
+                        <td>1-Month Trainer</td>
+                        <td class="text-center ">Trainer Subscription</td>
+                        <td class="text-center">October 16, 2022</td>
+                        <td class="text-center">November 15, 2022</td>
+                        <td class="text-center">24</td>
+                        <td class="text-center">Paid</td>
+                        </tr>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
+                        <td>1-Month Locker</td>
+                        <td class="text-center ">Locker Subscription</td>
+                        <td class="text-center">October 16, 2022</td>
+                        <td class="text-center">November 15, 2022</td>
+                        <td class="text-center">---</td>
+                        <td class="text-center">Pending</td>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
+                        <td>----</td>
+                        <td class="text-center ">Program Subscription</td>
+                        <td class="text-center">----</td>
+                        <td class="text-center">----</td>
+                        <td class="text-center">----</td>
+                        <td class="text-center">----</td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="HistorySubs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">History</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container table-responsive">
+            <table class="table  table-striped table-borderless">
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">AVAILED SERVICE</th>
+                    <th scope="col">DATE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>Walk-In Gym</td>
+                    <td>October 16, 2022</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2</th>
+                    <td>Gym-Use Subscription</td>
+                    <td>October 17, 2022</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">3</th>
+                    <td>Locker Subscription</td>
+                    <td>October 17, 2022</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container d-flex justify-content-center justify-content-lg-end pb-3">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+
+                    <li class="page-item" aria-current="page">
+                        <a class="page-link text-dark" href="#">2</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link text-dark" href="#">3</a>
+                    </li>
+
+                    <li class="page-item">
+                    <a class="page-link text-dark" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
       </div>
     </div>

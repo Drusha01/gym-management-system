@@ -75,7 +75,7 @@ if(isset($_SESSION['admin_id'])){
                         <h5 class="fw-bold">To Train For Today</h5>
                     </div>
                     <div class="container">
-                    <table class="table table-responsive table-striped table-borderless" style="width:100%">
+                        <table class="table table-responsive table-striped table-borderless" style="width:100%">
                             <thead class="bg-dark text-light">
                                 <tr>
                                 <th scope="col">#</th>
@@ -100,7 +100,7 @@ if(isset($_SESSION['admin_id'])){
                         <hr>
                         <div class="col pb-3">
                             <div class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                <a class="btn btn-success float-right " href="#">More Details</a>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#moredetailstrain">More Details</button> 
                             </div>
                         </div>
                     </div>
@@ -241,7 +241,75 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="../../images/312476041_1180676142522081_7979367819549623201_n 1.png">
+        <img src="../../images/312476041_1180676142522081_7979367819549623201_n 1.png" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="moredetailstrain" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">To Train</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-responsive table-striped table-borderless" style="width:100%">
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">GENDER</th>
+                    <th scope="col">AGE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>Trinidad, James Lorenz</td>
+                    <td>Male</td>
+                    <td>25</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2</th>
+                    <td>Nicholas, Shania Grabrielle</td>
+                    <td>Female</td>
+                    <td>30</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">3</th>
+                    <td>Lim, Robbie John</td>
+                    <td>Male</td>
+                    <td>21</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container d-flex justify-content-center justify-content-lg-end pb-3">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+
+                        <li class="page-item" aria-current="page">
+                            <a class="page-link text-dark" href="#">2</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link text-dark" href="#">3</a>
+                        </li>
+
+                        <li class="page-item">
+                        <a class="page-link text-dark" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
       </div>
     </div>
   </div>

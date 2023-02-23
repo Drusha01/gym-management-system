@@ -8,7 +8,7 @@
         <th scope="col" class="text-center">DATE SUBSCRIBED</th>
         <th scope="col" class="text-center">DATE EXPIRATION</th>
         <th scope="col" class="text-center">DAYS LEFT</th>
-        <th scope="col" class="text-center">ACTION</th>
+        <th scope="col" class="text-center">STATUS</th>
         </tr>
     </thead>
     <tbody>
@@ -20,9 +20,8 @@
         <td class="text-center">October 16, 2022</td>
         <td class="text-center">November 15, 2022</td>
         <td class="text-center">4</td>
-        <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
+        <td class="text-center">Nearing</td>
         </tr>
-        
     </tbody>
 </table>
 

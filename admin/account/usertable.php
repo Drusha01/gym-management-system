@@ -1,4 +1,4 @@
-<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width: 100%">
+<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%;border: 3px solid black;">
     <thead class="bg-dark text-light">
         <tr>
         <th class="d-lg-none"></th>
@@ -51,7 +51,6 @@
                                 }else{
                                     echo '<option value="';echo_safe($user_status_value['user_status_details']);echo'">';echo_safe($user_status_value['user_status_details']);echo'</option>';
                                 }
-                                
                             }
                     echo'</td>';
                     echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';

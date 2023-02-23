@@ -62,7 +62,7 @@ if(isset($_SESSION['admin_id'])){
                 <section id="walk-in">
                 <?php require_once 'walk-in.php';?>
                 </section>
-                </div>
+            </div>
             <div class="tab-pane show fade" id="tab-pay">
                 <section id="pending" class="pt-3">
                 <?php require_once 'pending.php';?>
