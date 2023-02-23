@@ -81,7 +81,7 @@ if(isset($_SESSION['user_id'])){
                                 <div class="row">
                                     <div class="col-10 col-lg-6 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
-                                    <select class="form-select" aria-label="Default select example" name="gym_subscription" onchange="updateGymUseModal()">
+                                    <select class="form-select" aria-label="Default select example" name="gym_subscription" id="gym_use" onchange="updateGymUseModal()">
                                     <option selected >Select Gym subscription</option>
                                         <?php 
                                             // requre
@@ -94,7 +94,7 @@ if(isset($_SESSION['user_id'])){
                                             if($data_result = $offersObj->select_offers_per_sub_type('Gym Subscription')){
                                                 foreach ($data_result as $key => $value) {
                                                     if($value['status_details'] =='active'){
-                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="gym_offer_duration_'.htmlentities($value['offer_duration']).'"  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
                                                     }
                                                 }
                                             }
@@ -108,7 +108,7 @@ if(isset($_SESSION['user_id'])){
 
                                     <div class="col-4 col-md-2 py-1">
                                         <label class="fw-bold pb-2 ps-1">Days</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="gym_use_total_duration" min="0" onchange="gym_use_total_durationChange()">
                                     </div>
 
                                     <!-- Modal -->
@@ -189,11 +189,11 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-4 col-md-2 py-1">
 
                                         <label class="fw-bold pb-2 ps-1">Quantity</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" min="0">
                                     </div>
                                     <div class="col-4 col-md-2 py-1">
                                         <label class="fw-bold pb-2 ps-1">Days</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" min="0">
                                     </div>
                                 </div>
 
@@ -224,7 +224,7 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <div class="col-4 col-md-2 ">
                                         <label class="fw-bold pb-2 ps-1">Days</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity" min="0">
                                     </div>
                                 </div>
                             
@@ -523,10 +523,24 @@ $("#exampleModal").prependTo("body");
 </script>
 
 
+
+
 <script>
+
+var gym_use_id;
+var gym_use_quantity;
+
+var locker_use_id;
+var locker_
 
 function updateGymUseModal(){
     console.log('update gym use modal');
+
+    // ajax the offer?
+}
+
+function gym_use_total_durationChange(){
+    console.log('gym_use_total_durationChange');
 }
 
 function numchange(){

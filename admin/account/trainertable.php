@@ -43,7 +43,7 @@
                 echo '<td class="text-center">';echo_safe($value['user_gender_details']);echo'</td>';
                 echo '<td class="text-center">';
                 if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                    echo '<select class="form-select-sm" aria-label="Default select example" name="trainer_availability">';
+                    echo '<select class="form-select-sm" aria-label="Default select example" name="trainer_availability" onchange="trainer_statuschange('.htmlentities($value['trainer_id']).')">';
                         foreach ($trainer_availability_data as $key => $trainer_availability_value) {
                             if($trainer_availability_value['trainer_availability_details'] == $value['trainer_availability_details']){
                                 echo '<option value="';echo_safe($trainer_availability_value['trainer_availability_details']);echo'" selected>';echo_safe($trainer_availability_value['trainer_availability_details']);echo'</option>';
@@ -71,3 +71,10 @@
         
     </tbody>
 </table>
+
+<script>
+    function trainer_statuschange(trainer_id){
+        console.log('called');
+        console.log(trainer_id);
+    }
+</script>
