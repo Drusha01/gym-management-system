@@ -18,6 +18,7 @@ if(isset($_SESSION['user_id'])){
       // go to admin
     }else if($_SESSION['user_type_details'] == 'normal'){
       // do nothing
+      // HANDLE HERE IF WE ALREADY AVAIL
     } 
   }else if($_SESSION['user_status_details'] =='inactive'){
     // handle inactive user details
@@ -82,7 +83,7 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-10 col-lg-6 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="gym_subscription" id="gym_use" onchange="updateGymUseModal()">
-                                    <option selected >Select Gym subscription</option>
+                                    <option value="0" name=""selected >Select Gym subscription</option>
                                         <?php 
                                             // requre
                                             require_once '../classes/offers.class.php';
@@ -94,7 +95,7 @@ if(isset($_SESSION['user_id'])){
                                             if($data_result = $offersObj->select_offers_per_sub_type('Gym Subscription')){
                                                 foreach ($data_result as $key => $value) {
                                                     if($value['status_details'] =='active'){
-                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="gym_offer_duration_'.htmlentities($value['offer_duration']).'"  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="gym-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
                                                     }
                                                 }
                                             }
@@ -108,7 +109,7 @@ if(isset($_SESSION['user_id'])){
 
                                     <div class="col-4 col-md-2 py-1">
                                         <label class="fw-bold pb-2 ps-1">Days</label>
-                                        <input type="number" class="form-control" name="gym_use_total_duration" min="0" onchange="gym_use_total_durationChange()">
+                                        <input type="number" class="form-control" name="gym_use_total_duration" min="0" id="gym_use_total_duration" onchange="gym_use_total_durationChange()">
                                     </div>
 
                                     <!-- Modal -->
@@ -166,8 +167,8 @@ if(isset($_SESSION['user_id'])){
                                 <div class="row py-2">
                                     <div class="col-10 col-lg-6 py-1">
                                         <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
-                                        <select class="form-select" aria-label="Default select example" name="locker_subscription">
-                                            <option selected>Select Locker subscription</option>
+                                        <select class="form-select" aria-label="Default select example" name="locker_subscription" id="locker_use" onchange="updateLockerUseModal()">
+                                            <option value ="None" selected>Select Locker subscription</option>
                                             <?php 
                                             $offersObj = new offers();
 
@@ -175,7 +176,7 @@ if(isset($_SESSION['user_id'])){
                                             if($data_result = $offersObj->select_offers_per_sub_type('Locker Subscription')){
                                                 foreach ($data_result as $key => $value) {
                                                     if($value['status_details'] =='active'){
-                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="locker-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
                                                     }
                                                 }
                                             }
@@ -189,11 +190,11 @@ if(isset($_SESSION['user_id'])){
                                     <div class="col-4 col-md-2 py-1">
 
                                         <label class="fw-bold pb-2 ps-1">Quantity</label>
-                                        <input type="number" class="form-control" name="quantity" min="0">
+                                        <input type="number" class="form-control" id="locker-quantity" min="0" onchange="locker_use_quantityChange()">
                                     </div>
                                     <div class="col-4 col-md-2 py-1">
                                         <label class="fw-bold pb-2 ps-1">Days</label>
-                                        <input type="number" class="form-control" name="quantity" min="0">
+                                        <input type="number" class="form-control" id="locker-total-duration" min="0" onchange="locker_use_total_durationChange()">
                                     </div>
                                 </div>
 
@@ -527,20 +528,110 @@ $("#exampleModal").prependTo("body");
 
 <script>
 
-var gym_use_id;
-var gym_use_quantity;
+var gym_use_id =0;
+var gym_use_duration;
+var gym_use_multiplier =1;
 
 var locker_use_id;
-var locker_
+var locker_quantity;
+var locker_duration;
+var locker_multiplier=1;
 
 function updateGymUseModal(){
     console.log('update gym use modal');
+    if($('#gym-use-'+$('#gym_use').val()).attr('name') != null){
+        var content = JSON.parse($('#gym-use-'+$('#gym_use').val()).attr('name'));
+        //console.log(content);
 
-    // ajax the offer?
+        // UPDATE MODAL 
+
+        // UDPATE THE DURATION 
+        gym_use_id = content.offer_id;
+        gym_use_duration = content.offer_duration;
+        $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
+    }else{
+        gym_use_id =0;
+        gym_use_duration =0;
+        gym_use_multiplier =1;
+        $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
+        $('#locker_use').val('None');
+
+        // update locker modal
+
+        // update locker values
+        locker_use_id=0;
+        locker_duration =0;
+        $('#locker-quantity').val(0);
+        $('#locker-total-duration').val(locker_duration*locker_multiplier);
+    }
+    
+    
+    
+    
 }
 
 function gym_use_total_durationChange(){
     console.log('gym_use_total_durationChange');
+    if($('#gym_use_total_duration').val()>gym_use_duration*gym_use_multiplier){
+        gym_use_multiplier++;
+    }else  {
+        gym_use_multiplier--;
+        
+    }
+    if(gym_use_multiplier == 0){
+        gym_use_multiplier=1;
+    }
+    $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
+}
+
+function updateLockerUseModal(){
+    // first check if the gym use id is populater
+    if(gym_use_id >0){
+        if($('#locker-use-'+$('#locker_use').val()).attr('name')!=null){
+            console.log('update gym use modal');
+            var content = JSON.parse($('#locker-use-'+$('#locker_use').val()).attr('name'));
+            console.log(content);
+
+            // UPDATE MODAL 
+
+            // UPDATE DURATION AND QUANTITY
+            locker_use_id=content.offer_id;
+            locker_duration =content.offer_duration;
+            $('#locker-quantity').val(1);
+            $('#locker-total-duration').val(locker_duration*locker_multiplier);
+        }else{
+            locker_use_id=0;
+            locker_duration =0;
+            $('#locker-quantity').val(0);
+            $('#locker-total-duration').val(locker_duration*locker_multiplier);
+        }
+        
+    }else{
+        alert('please select Gym-Subscription');
+        $('#locker_use').val('None');
+
+        //$('#mySelect option:nth-child(5)').attr('selected','selected');
+    }
+}
+
+function locker_use_total_durationChange(){
+    console.log('locker_use_total_durationChange');
+    if($('#locker-total-duration').val()>locker_duration*locker_multiplier){
+        locker_multiplier++;
+    }else  {
+        locker_multiplier--;
+        
+    }
+    if(locker_multiplier == 0){
+        locker_multiplier=1;
+    }
+    $('#locker-total-duration').val(locker_duration*locker_multiplier);
+}
+
+function locker_use_quantityChange(){
+    if(locker_use_id !=0 && $('#locker-quantity').val()<=0){
+        $('#locker-quantity').val(1);
+    }
 }
 
 function numchange(){
