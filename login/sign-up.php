@@ -316,7 +316,13 @@ require_once '../classes/genders.class.php';
               <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" value="<?php echo date('Y-m-d', time()-(60*60*24*365*18)); ?>" required>
             </div>
             <div class="form-group py-2">
-              <label for="exampleFormControlFile1">Valid ID or Birth Certificate</label>
+              <label for="exampleFormControlFile1" class="pb-1">
+                <a class="d-none d-lg-block text-decoration-none text-dark"data-bs-toggle="tooltip" data-bs-placement="right" title="Valid ID must have a birthdate.">Valid ID or Birth Certificate</a> 
+                <div class="row d-lg-none">
+                  <div class="col-10"><p class="d-lg-none">Valid ID or Birth Certificate</p> </div>
+                  <div class="col-2"><a tabindex="0" class="btn btn-dark btn-sm d-lg-none btn-circle fw-bolder" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Info about Valid ID" data-bs-content="Valid ID must have a Birth Date on it.">?</a></div>
+                </div>
+              </label>
               <input type="file" class="form-control-file" id="valid_id" name="valid_id" accept="image/*"  >
             </div>
             <div class="form-floating py-1">
@@ -335,7 +341,6 @@ require_once '../classes/genders.class.php';
         </form>
 
           </div>
-          
           <div class="d-flex">
               <hr class="my-auto flex-grow-1">
               <div class="px-4">OR</div>
@@ -354,9 +359,9 @@ require_once '../classes/genders.class.php';
     </div>
   </section>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-     crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+crossorigin="anonymous"></script>
 </body>
 </html>
 <script>
@@ -372,4 +377,13 @@ function other_genders(){
   $('#gender option[value=Other]').attr('selected','selected'); 
   console.log('gender others changed');
 }
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
 </script>

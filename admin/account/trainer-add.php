@@ -266,7 +266,7 @@ if(isset($_SESSION['admin_id'])){
                     <!-- new trainer -->
                 <div class="tab-pane show fade" id="tab-new">
                     <form action="" method="POST" id="add_account_form">
-                        <div class="row">
+                        <div class="row pt-3">
                             <div class="col-12 col-lg-6">
                                 <div class="row form-group pb-2">
                                 <label for="exampleFormControlFile1">Profile Picture</label>

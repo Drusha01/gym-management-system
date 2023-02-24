@@ -46,6 +46,7 @@ if(isset($_SESSION['admin_id'])){
                         <option value="Trainer Subscription">Trainer Subscription</option>
                         <option value="Locker Subscription">Locker Subscription</option>
                         <option value="Program Subscription">Program Subscription</option>
+                        <option value="Program Subscription">Walk-In Subscription</option>
                     </select>
                 </div>
                 <div class="form-group col-12 col-sm-5 table-filter-option">

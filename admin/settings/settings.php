@@ -133,24 +133,6 @@ if(isset($_SESSION['admin_id'])){
         </div>
         <!-- end of second aprt -->
 
-        <!-- 2nd part -->
-        <h5 class="col-12 fw-regular pt-4">Walk-In</h5>
-        <hr>
-        <div class="row">
-            <div class="col-lg-3 mt-3">
-                Price of Walk-In Gym-Use
-            </div>
-            <div class="col-lg-1 pt-2">
-                <input type="number" class="form-control" value="" id="offer_name" name="offer_name"placeholder="30" required>
-            </div>
-            <div class="col-lg-3 mt-3">
-                Price of Walk-In Trainer
-            </div>
-            <div class="col-lg-1 pt-2">
-                <input type="number" class="form-control" value="" id="offer_name" name="offer_name"placeholder="30" required>
-            </div>
-        </div>
-        <!-- end of second aprt -->
         <br>
 
         <h5 class="col-12 fw-regular">Overdue</h5>
@@ -168,10 +150,24 @@ if(isset($_SESSION['admin_id'])){
 
     </div>
 </main>
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this user?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger"data-bs-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-<script>
-      
-</script>
+
 </html>
