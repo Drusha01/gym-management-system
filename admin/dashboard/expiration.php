@@ -1,5 +1,5 @@
 <h5 class="col-12 fw-bold mb-3">Expiration</h5>
-    <div class="container ms-3 ms-lg-0 ">
+    <div class="container">
         <div class="row">
             <!-- Start of card -->
             <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12 col-12 pb-2">

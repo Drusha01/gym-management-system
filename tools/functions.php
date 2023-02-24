@@ -20,7 +20,7 @@ function validate_username($POST,$username){
 }
 function validate_phone($POST,$phone){
     // do this
-    return (isset($POST[$phone]) && strlen($POST[$phone] == 10)&& (intval($POST[$phone])));
+    return (isset($POST[$phone]) && strlen($POST[$phone]) == 11 && (intval($POST[$phone])));
 }
 
 function validate_gender($POST,$gender){
@@ -30,7 +30,13 @@ function validate_gender($POST,$gender){
 
 function validate_birthdate($POST,$birthdate){
     //  do this
-    return (isset($POST[$birthdate]));
+    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < 0) ;
+}
+
+function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')
+{
+    $d = DateTime::createFromFormat($format, $POST[$birthdate]);
+    return $d && $d->format($format) == $POST[$birthdate];
 }
 
 function validate_password($POST,$password){
@@ -54,7 +60,7 @@ function validate_password_same($POST,$password,$cpassword){
 }
 
 function validate_signup($POST){
-    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname')&& validate_string($POST, 'mname') && validate_email($POST) && 
+    return (validate_username($POST, 'username') && validate_string($POST, 'fname') && validate_string($POST, 'lname')&& validate_email($POST) && 
     validate_phone($POST, 'phone') && validate_birthdate($POST,'birthdate') && validate_password_same($POST,'password','cpassword') && validate_password($POST,'password') ); 
     
   
@@ -136,7 +142,30 @@ function getAge($date) {
 }
 
 function validate_profile_info($POST){
-    return validate_string($POST, 'fname') && validate_string($POST, 'mname') && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate');
+    return  validate_string($POST, 'fname')  && validate_string($POST, 'lname') && validate_birthdate($POST, 'birthdate') && validate_phone($POST, 'phone');
+}
 
+function validate_offer_duration($POST,$offer_duration){
+    return (isset($POST[$offer_duration])  && (intval($POST[$offer_duration]))>0);
+}
+
+function validate_offer_price($POST,$offer_price){
+    return (isset($POST[$offer_price])  && (floatval($POST[$offer_price])));
+}
+
+function validate_offer_description($POST,$offer_description){
+    return (isset($POST[$offer_description]) && strlen(trim($POST[$offer_description]))>1  && strlen(trim($POST[$offer_description])) < 1024) ;
+}
+
+  
+
+function validate_offer($POST){
+    return validate_string($POST, 'offer_name') && validate_offer_duration($POST,'offer_duration') && validate_offer_price($POST,'offer_price') && validate_string($POST,'type_of_subscription') && validate_offer_description($POST,'offer_description');
+}
+
+
+
+function validate_equipment($POST){
+    return  validate_string($POST,'equipment_name')&& validate_string($POST,'equipment_condition_details') &&  intval($POST['equipment_quantity'])>0;
 }
 ?>

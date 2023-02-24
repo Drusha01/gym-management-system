@@ -291,12 +291,14 @@ p.justify{
 .faculty h3{
     font-size: 1.5rem !important;
 }
+
 ul.application .nav-item.active{
+    color: black;
     border-bottom: 2px solid #A73535;
 }
 
 ul.application a.nav-link{
-    color: #141414;
+    color: #A73535;
     font-weight: 600;
     cursor: pointer;
 }
@@ -309,13 +311,13 @@ ul.application .counter{
     border-radius: 6px;
     line-height: 15px;
 }
-
-
+.dataTables_filter, .dataTables_info { display: none; }
 .page-item.active .page-link{
     background-color: #A73535;
     border-color: #A73535;
     color: white;
 }
+.dataTables_filter, .dataTables_info { display: none; }
 
 .page-link{
     color: #A73535
@@ -372,17 +374,12 @@ td div.action-button{
     align-items: flex-start;
 }
 
-
-
 .table-container{
     overflow-x: hidden;
 }
 
 table#table-pending tr td{
     vertical-align: middle;
-}
-.table-custom {
-    border: 3px solid black;
 }
 
 .faculty h4{
@@ -500,6 +497,7 @@ main#home{
     padding-top: 0;
 }
 
+
 div.sign-up{
     max-width: 500px;
     padding-top: 1.5rem;
@@ -517,6 +515,8 @@ div.sign-in{
 .fa-network-wired, .fa-laptop-code{
     font-size: 2rem;
 }
+
+
 
 
 a.link-here{
@@ -757,6 +757,35 @@ input.upload-photo{
 .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+ }
+
+ .dropdown-item:active {
+    background-color: #cb5151;
+  }
+ 
+ .dropdown-list-image {
+     position: relative;
+     height: 2.5rem;
+     width: 2.5rem;
+ }
+ .dropdown-list-image img {
+     height: 2.5rem;
+     width: 2.5rem;
+ }
+ .btn-light {
+     color: #2cdd9b;
+     background-color: #e5f7f0;
+     border-color: #d8f7eb;
+ }
+ 
 
 @media (min-width: 576px) {
     .shortcut{
@@ -771,8 +800,6 @@ input.upload-photo{
     a.btn-continue{
         max-width: 300px;
     }
-
-
     .btn-continue{
         border-radius: 20px;
     }
@@ -790,8 +817,14 @@ input.upload-photo{
         border: 1px solid lightgray;
         border-radius: 20px;
     }
+    
 }
+@media (min-width: 375px) {
+    .table-user {
+        width: 100%;
+    }
 
+}
 @media (min-width: 768px) {
     .course-1, .course-2{
         height: 350px;
@@ -831,6 +864,10 @@ input.upload-photo{
     .background-color-green-visible{
         background-color: white;
     }
+    .table-user {
+        width: 50%;
+    }
+    
 }
 
 @media (min-width: 992px) {
