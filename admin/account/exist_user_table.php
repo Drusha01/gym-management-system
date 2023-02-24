@@ -1,3 +1,16 @@
+<?php 
+session_start();
+if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+
+}elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only'){
+    //d
+}else{
+    //do not load the page
+    header('HTTP/1.1 404 Not Found');
+    exit();
+}
+?>
+
 <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width: 100%">
         <thead class="bg-dark text-light">
             <tr>

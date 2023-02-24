@@ -16,23 +16,28 @@ if(isset($_SESSION['admin_id'])){
     if($_SESSION['admin_user_status_details'] == 'active'){
         // 
         
-        
-        // query the user information with id
-        if(isset($_GET['user_id'])){
-            // 
-            require_once '../../classes/users.class.php';
-            require_once '../../tools/functions.php';
-            $userObj = new users();
-            $userObj->setuser_id($_GET['user_id']);
-            if($user_data = $userObj->get_user_details()){
+        if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
+            // query the user information with id
+            if(isset($_GET['user_id'])){
+                // 
+                require_once '../../classes/users.class.php';
+                require_once '../../tools/functions.php';
+                $userObj = new users();
+                $userObj->setuser_id($_GET['user_id']);
+                if($user_data = $userObj->get_user_details()){
 
+                }else{
+                    return 'error';
+                }
             }else{
-                return 'error';
+                header('location:account.php');
             }
-        }else{
+        }elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only'){
             header('location:account.php');
+        }else{
+            //do not load the page
+            header('location:../dashboard/dashboard.php');
         }
-        
 
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this

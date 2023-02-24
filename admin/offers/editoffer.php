@@ -122,8 +122,10 @@ if(isset($_SESSION['admin_id']) ){
                     }
                 }
             }
-        }else{
+        }else if(isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Read-Only'){
             header('location:offer.php');
+        }else{
+            header('location:../dashboard/dashboard.php');
         }
 
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){

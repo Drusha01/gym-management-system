@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid overflow-auto">
     <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-3 col-xl-2 d-md-block background-color-green sidebar collapse">
@@ -15,48 +17,75 @@
                             <span class="links-name">Notifications</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <?php 
+                    if((isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Modify') || (isset($_SESSION['admin_offer_restriction_details']) && $_SESSION['admin_offer_restriction_details'] == 'Read-Only')){
+                        echo'
+                        <li class="nav-item">
                         <a href="../offers/offer.php" class="nav-link" title="Offers">
-                            <i class='bx bxs-offer'></i>
+                            <i class="bx bxs-offer"></i>
                             <span class="links-name">Offers</span>
                         </a>
-                    </li>
+                    </li>';
+                    }
+                    if((isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify') || (isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only')){
+                        echo'
                     <li class="nav-item">
                         <a href="../avail/avail.php" class="nav-link" title="Avail">
-                            <i class='bx bx-calendar-plus'></i>
+                            <i class="bx bx-calendar-plus"></i>
                             <span class="links-name">Avail</span>
                         </a>
                     </li>
+                    ';
+                    }
+                    if((isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify') || (isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only')){
+                        echo'
                     <li class="nav-item">
                         <a href="../account/account.php" class="nav-link" title="Accounts">
-                            <i class='bx bx-user' ></i>
+                            <i class="bx bx-user" ></i>
                             <span class="links-name">Accounts</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    ';
+                    }
+                    if((isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Modify') || (isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Read-Only')){
+                        echo'
+                   <li class="nav-item">
                         <a href="../payment/payment.php" class="nav-link" title="Payment">
-                            <i class='bx bx-money'></i>
+                            <i class="bx bx-money"></i>
                             <span class="links-name">Payment</span>
                         </a>
-                    </li>
+                    </li>';
+                    }
+                    if((isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify') || (isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Read-Only')){
+                        echo'
                     <li class="nav-item">
                         <a href="../maintenance/maintenance.php" class="nav-link" title="Maintenance">
-                            <i class='bx bx-wrench'></i>
+                            <i class="bx bx-wrench"></i>
                             <span class="links-name">Maintenance</span>
                         </a>
                     </li>
+                    ';
+                    }
+                    if((isset($_SESSION['admin_reports_restriction_details']) && $_SESSION['admin_reports_restriction_details'] == 'Modify') || (isset($_SESSION['admin_reports_restriction_details']) && $_SESSION['admin_reports_restriction_details'] == 'Read-Only')){
+                        echo'
                     <li class="nav-item">
                         <a href="../reports/reports.php" class="nav-link" title="Reports">
-                            <i class='bx bx-line-chart'></i>
+                            <i class="bx bx-line-chart"></i>
                             <span class="links-name">Reports</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    ';
+                    }
+                    if((isset($_SESSION['admin_user_type_details']) && $_SESSION['admin_user_type_details'] == 'admin') ){
+                        echo'
+                  <li class="nav-item">
                         <a href="../settings/settings.php" class="nav-link" title="Settings">
-                            <i class='bx bx-cog'></i>
+                            <i class="bx bx-cog"></i>
                             <span class="links-name">Settings</span>
                         </a>
                     </li>
+                    ';
+                    }?>
                     <hr class="line">
                     <li id="logout-link" class="nav-item">
                         <a class="logout-link nav-link" href="../../login/log-out.php" title="Logout">

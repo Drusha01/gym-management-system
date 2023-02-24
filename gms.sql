@@ -533,6 +533,9 @@ INSERT INTO offer_controls (control_id, control_details) VALUES
 ),(
 	null,
     'Read-Only'
+),(
+	null,
+    'None'
 );
 
 INSERT INTO avail_controls (control_id, control_details) VALUES 
@@ -542,6 +545,9 @@ INSERT INTO avail_controls (control_id, control_details) VALUES
 ),(
 	null,
     'Read-Only'
+),(
+	null,
+    'None'
 );
 INSERT INTO account_controls (control_id, control_details) VALUES 
 (
@@ -550,6 +556,9 @@ INSERT INTO account_controls (control_id, control_details) VALUES
 ),(
 	null,
     'Read-Only'
+),(
+	null,
+    'None'
 );
 INSERT INTO payment_controls (control_id, control_details) VALUES 
 (
@@ -558,6 +567,9 @@ INSERT INTO payment_controls (control_id, control_details) VALUES
 ),(
 	null,
     'Read-Only'
+),(
+	null,
+    'None'
 );
 INSERT INTO maintenance_controls (control_id, control_details) VALUES 
 (
@@ -566,6 +578,9 @@ INSERT INTO maintenance_controls (control_id, control_details) VALUES
 ),(
 	null,
     'Read-Only'
+),(
+	null,
+    'None'
 );
 INSERT INTO reports_controls (control_id, control_details) VALUES 
 (
@@ -574,6 +589,9 @@ INSERT INTO reports_controls (control_id, control_details) VALUES
 ),(
 	null,
     'Read-Only'
+),(
+	null,
+    'None'
 );
 
 SELECT control_id FROM offer_controls WHERE control_details="Read-Only";
@@ -619,10 +637,10 @@ INSERT INTO admins VALUES(
 UPDATE admins 
 SET
 admin_offer_restriction = (SELECT control_id FROM offer_controls WHERE control_details = "Modify"),
-admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_details = "Read-Only"),
-admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
+admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
+admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Read-Only"),
 admin_payment_restriction= (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
-admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "Read-Only"),
+admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "None"),
 admin_reports_restriction= (SELECT control_id FROM reports_controls WHERE control_details = "Modify")
 WHERE admin_user_id = (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1));
 
@@ -752,6 +770,9 @@ INSERT INTO type_of_subscriptions VALUES
 ),(
 	null,
     'Program Subscription'
+),(
+	null,
+    'Walk-In'
 );
 
 SELECT * from type_of_subscriptions;

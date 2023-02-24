@@ -28,8 +28,11 @@ if(isset($_SESSION['admin_id'])){
                     echo '0';
                 }
             }
+        }elseif(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only'){
+            //d
         }else{
-            header('location:account.php');
+            //do not load the page
+            header('location:../dashboard/dashboard.php');
         }
         
 

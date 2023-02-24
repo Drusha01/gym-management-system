@@ -28,8 +28,11 @@ if(isset($_SESSION['admin_id'])){
                     echo '1';
                 }
             }
-        }else{
+        }elseif(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Read-Only'){
             header('location:maintenance.php');
+        }else{
+            //do not load the page
+            header('location:../dashboard/dashboard.php');
         }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
