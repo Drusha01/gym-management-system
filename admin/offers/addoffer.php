@@ -234,7 +234,7 @@ if(isset($_SESSION['admin_id'])){
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"  name="offer_slots_checked" value="None" id="offer_slots_checked" onchange="offer_slotsfunction_checked()">
                                         <label class="form-check-label" for="flexCheckDefault">
-                                            None
+                                            Unlimited
                                         </label>
                                     </div>
                                 </div>
