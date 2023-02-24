@@ -16,7 +16,7 @@ box-sizing: border-box;}
 	min-height: 250px;
 }
 .carousel-caption {
-	bottom: 250px;
+	bottom: 350px;
 	z-index: 2;
 }
 .carousel-caption h5 {
@@ -91,6 +91,10 @@ box-sizing: border-box;}
     font-size: 32px;
     flex: none;
  }
+ .scroll {
+   max-height: 150px;
+   overflow-y: scroll;
+}
 
  .my_acc {
    margin-top: 6em;
@@ -114,9 +118,6 @@ box-sizing: border-box;}
     padding: 3%;
 }
 
-.table {
-   border: 3px solid black;
-}
 
 .about-border {
     display: block;
@@ -125,7 +126,23 @@ box-sizing: border-box;}
     background: #A73535;
     margin: 20px auto;
 }
+.table-filter-option{
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+   align-items: flex-start;
+}
+.dataTables_filter, .dataTables_info { display: none; }
+.page-item.active .page-link{
+    background-color: #A73535;
+    border-color: #A73535;
+    color: white;
+}
+.dataTables_filter, .dataTables_info { display: none; }
 
+.my_subscription {
+   height:500px;
+}
 
  .user-circle :hover{
    color: black;
@@ -168,7 +185,51 @@ box-sizing: border-box;}
     color: black;
  }
 
- 
+ .my-trainer {
+   height: 500px;
+ }
+ #avail{
+   height: 1000px;
+ }
+
+ .btn-circle {
+   width: 30px;
+   height: 30px;
+   padding: 6px 0px;
+   border-radius: 15px;
+   text-align: center;
+   font-size: 12px;
+   line-height: 1.42857;
+}
+.user-trainer-prof{
+   margin-top: 27%;
+}
+
+.dropdown-item:active {
+   background-color: #cb5151;
+ }
+
+.dropdown-list-image {
+    position: relative;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.dropdown-list-image img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.btn-light {
+    color: #2cdd9b;
+    background-color: #e5f7f0;
+    border-color: #d8f7eb;
+}
+
+.subscription-page {
+  margin-top: 27%;
+}
+
+
+
 
  @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.carousel-caption {
@@ -183,6 +244,12 @@ box-sizing: border-box;}
 	.img-area img {
 		width: 100%;
 	}
+   .table-filter-option{
+      flex-direction: row;
+      align-items: center;
+  }
+  
+
 }
 @media only screen and (max-width: 767px) {
    .carousel-inner > .item > img {
@@ -190,7 +257,7 @@ box-sizing: border-box;}
       height:360px;
     }
 	.carousel-caption {
-		bottom: 300px;
+		bottom: 270px;
 	}
 	.carousel-caption h5 {
 		font-size: 17px;
@@ -216,5 +283,66 @@ box-sizing: border-box;}
    .my_acc {
       margin-top: 22%;
     }
+    #avail{
+      height: 1245px;
+    }
+    .my_subscription {
+      height:1200px;
+   }
+}
+
+@media (min-width: 675px) {
+   .my_subscription {
+      height:1000px;
+   }
+    .carousel-caption {
+		bottom: 250px;
+	}
+   .user-trainer-prof{
+      margin-top: 10%;
+   }
+   .subscription-page {
+    margin-top: 7%;
+  }
+
+
+}
+
+@media (min-width: 900px) {
+    .carousel-caption {
+		bottom: 370px;
+	}
+   .my_subscription {
+      height:900px;
+   }
+   #avail{
+      height: 800px;
+    }
+    .subscription-page {
+      margin-top: 7%;
+    }
+}
+@media (min-width: 1039px) {
+   .carousel-caption {
+     bottom: 270px;
+  }
+  .my_subscription {
+   height:800px;
+   }
+   .user-trainer-prof{
+      margin-top: 6%;
+   }
+   .subscription-page {
+    margin-top: 7%;
+  }
+}
+
+@media (min-width: 1929px) {
+   .carousel-caption {
+     bottom: 800px;
+  }
+  .subscription-page {
+    margin-top: 10%;
+  }
 }
 

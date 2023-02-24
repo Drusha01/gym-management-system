@@ -7,7 +7,7 @@ require_once '../../classes/users.class.php';
 $userObj = new Users();
 
 // set attributes
-if(isset($_POST['phone']) && strlen($_POST['phone']) ==10 ) {
+if(isset($_POST['phone']) && strlen($_POST['phone']) ==11 ) {
     $userObj->setuser_phone_number($_POST['phone']);
     if($userObj->user_duplicatePhone()){
         echo '0';

@@ -6,7 +6,9 @@ session_start();
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
 
-
+if(isset($_SESSION['admin_id'])){
+  header('location:../admin/admin_control_log_in2.php');
+}
 // check if we are logged in
 if(isset($_SESSION['user_id'])){
   // check if the user is active
@@ -14,9 +16,10 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
+      header('location:../admin/dashboard/dashboard.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // go to user-page
-      header('location:../user-page.php');
+      header('location:user-page.php');
     } 
   }else if($_SESSION['user_status_details'] =='inactive'){
     // handle inactive user details

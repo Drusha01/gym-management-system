@@ -23,7 +23,8 @@ function functiononkeyup() {
   
   //make ajax first
   let username = $('#username').val(); 
-  if(username.length>=6 || ValidateEmail(email) || phone.length ==10 ){
+  if(username.length>=6 || ValidateEmail(email) || phone.length ==11 ){
+    console.log(username.length);
     if((username.length)>=6){
       // check if it is a valid username
       // ajax text username if valid
@@ -31,6 +32,11 @@ function functiononkeyup() {
       xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhttp.send("username="+username);
     }
+  }
+  if(username.length <6){
+    $('#submit').html('Username must be >= 6 ');
+    $("#username").css("color","red");
+
   }
   if(validateallvar){
     setInterval(validateAll, 500);
@@ -138,12 +144,17 @@ xhttp.onreadystatechange = function() {
           xhttpEmail.send("email="+email);
         }else{
           let phone = $('#phone').val();
-          if(phone.length==10){
+          if(phone.length==11  ){
             // ajax here
             console.log('ajax');
             xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
             xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttpPhone.send("phone="+phone);
+          }else{
+            // $("#phone").css("color","red");
+            // // change the sign up
+            // $('#submit').html('phone number must be 11 digits ');
+            // $("#submit").attr("disabled", true);
           }
         }
       }else{
@@ -172,12 +183,17 @@ xhttpEmail.onreadystatechange = function() {
       $('#submit').html('Sign-up');
       console.log('email valid');
       let phone = $('#phone').val();
-      if(phone.length==10){
+      if(phone.length== 11){
         // ajax here
         console.log('ajax');
         xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
         xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttpPhone.send("phone="+phone);
+      }else{
+        $("#phone").css("color","red");
+        // change the sign up
+        $('#submit').html('phone number must be 11 digits ');
+        $("#submit").attr("disabled", true);
       }
       
     }else{
@@ -187,6 +203,13 @@ xhttpEmail.onreadystatechange = function() {
       $('#submit').html('Email taken');
       $("#email").css("color","red");
       $("#submit").attr("disabled", true);
+      if(phone.length== 11){
+        // ajax here
+        console.log('ajax');
+        xhttpPhone.open("POST", "../ajax/user/phonecheck.php", true);
+        xhttpPhone.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttpPhone.send("phone="+phone);
+      }
       return;
     }
     
@@ -239,7 +262,7 @@ xhttpPhone.onreadystatechange = function() {
         // console.log(password);
         // console.log(confirmpassword);
 
-        if( username.length<6 ||(firstname) == 0 || lastname == 0 || phone.length < 10 || phone.length > 10 || !ValidateEmail(email)|| !ValidatePasswordLength(password) || !ValidatePasswordUppercase(password) || !ValidatePasswordLowercase(password)
+        if( username.length<6 ||(firstname) == 0 || lastname == 0 || phone.length < 11 || phone.length > 11 || !ValidateEmail(email)|| !ValidatePasswordLength(password) || !ValidatePasswordUppercase(password) || !ValidatePasswordLowercase(password)
         || !ValidatePasswordIsnum(password) || !validatedPassowrdConfirmPassword(password,confirmpassword) || (gender == 'None' && gender_other.length == 0)){
             // submit.disabled = true;
              $("#submit").attr("disabled", true);
@@ -262,8 +285,8 @@ xhttpPhone.onreadystatechange = function() {
               $("#email").css("color","red");
               return;
             }
-            if(phone.length < 10 || phone.length > 10){
-              $('#submit').html('Phone number must be 10 digits');
+            if(phone.length < 11 || phone.length > 11){
+              $('#submit').html('Phone number must be 11 digits');
               $("#phone").css("color","red");
               console.log('phone err');
               return;

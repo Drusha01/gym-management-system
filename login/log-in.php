@@ -3,8 +3,8 @@
 session_start();
 
 // check if we are admin
-if(isset($_SESSION['admin_user_d'])){
-  header('location:../admin/admin_control_login.php-page.php');
+if(isset($_SESSION['admin_user_id'])){
+  header('location:../admin/admin_control_log_in2.php');
 }
 
 
@@ -20,6 +20,7 @@ if(isset($_SESSION['user_id'])){
     // check what type of user are we
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
+      // header('location:../admin/dashboard/dashboard.php');
     }else if($_SESSION['user_type_details'] == 'normal'){
       // go to userpage
       header('location:../user/user-page.php');
@@ -67,6 +68,9 @@ if(isset($_SESSION['user_id'])){
 
         $_SESSION['user_date_created'] = $user_details['user_date_created'];
         $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
+        $_SESSION['user_name_verified'] = $user_details['user_name_verified'];
+        $_SESSION['user_email_verified'] = $user_details['user_email_verified'];
+        $_SESSION['user_phone_verified'] = $user_details['user_phone_verified'];
         // go to user page
         header('location:../user/user-profile.php');
         // go to dashboard (admin / userpage)
@@ -85,16 +89,22 @@ if(isset($_SESSION['user_id'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keno Gym | Log-In</title>
-    <link rel="icon" type="images/x-icon" href="../images/favicon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/log-in.css">
-    <link rel="stylesheet" href="../css/boxicons.min.css">
+  <meta name="google-signin-client_id" content="53523092857-46kpu1ffikh67k7kckngcbm6k7naf8ic.apps.googleusercontent.com">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keno Gym | Log-In</title>
+  <link rel="icon" type="images/x-icon" href="../images/favicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+  rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/log-in.css">
+  <link rel="stylesheet" href="../css/boxicons.min.css">
+  <html itemscope itemtype="http://schema.org/Article">
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
 </head>
 <body>
   <section class="container">
@@ -135,9 +145,12 @@ if(isset($_SESSION['user_id'])){
               <hr class="my-auto flex-grow-1">
             </div>
             <div class="sign-up-accounts">
-              <div class="social-accounts d-flex justify-content-center">
+            <div class="social-accounts d-flex justify-content-center">
                 <a href="#" title="Facebook"><i class='bx bxl-facebook'></i></a>
-                <a href="#" title="Facebook"><i class='bx bxl-google'></i></a>
+              </div>
+              <br>
+              <div class="social-accounts d-flex justify-content-center">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
               </div>
             </div>
           </form>
@@ -153,3 +166,34 @@ if(isset($_SESSION['user_id'])){
 </html>
 
 <?php require_once("../js/login.js");?>
+
+
+
+
+<!-- Last part of BODY element in file index.html -->
+<script>
+function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://kenogym.online/login/google.php');
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    signOut();
+    // refresh / go to user/login
+    //location.reload();
+    console.log('Signed in as: ' + xhr.responseText);
+  };
+  xhr.send('idtoken=' + id_token);
+}
+
+
+</script>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+

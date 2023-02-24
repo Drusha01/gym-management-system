@@ -1,45 +1,4 @@
-<?php
-// start session
-session_start();
 
-// includes
-require_once '../tools/functions.php';
-require_once '../classes/users.class.php';
-
-
-// check if we are logged in
-if(isset($_SESSION['admin_user_id'])){
-  // check if the user is active
-  if($_SESSION['admin_user_status_details'] =='active'){
-    // check what type of user are we
-    if($_SESSION['admin_user_type_details'] =='admin'){
-      // go to admin
-      
-    }else if($_SESSION['admin_user_type_details'] == 'normal'){
-      // do nothing
-    } 
-  }else if($_SESSION['admin_user_status_details'] =='inactive'){
-    // handle inactive user details
-  }else if($_SESSION['admin_user_status_details'] =='deleted'){
-    // handle deleted user details
-  }
-} else {
-  // must be admin login
-  if(isset($_POST['admin_login'])&& strlen($_POST['admin_login']) >=6 && isset($_POST['admin_password']) && strlen($_POST['admin_password']) >=12){
-    print_r($_POST);
-
-    $userObj = new users;
-    $userObj->setuser_name($_POST['admin_login']);
-    $userObj->setuser_email($_POST['admin_login']);
-    
-    // get user id and hashed password
-
-    // verify user password and hashed
-  }
-  
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +31,7 @@ if(isset($_SESSION['admin_user_id'])){
           </div>
           <form class="mb-3 px-4" method="POST">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control rounded" placeholder="Enter your Email" id="floatingInput" name="admin_login" id="admin_login">
+              <input type="text" class="form-control rounded" placeholder="Enter your Email / Username" id="floatingInput" name="admin_login" id="admin_login">
               <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating mb-3">
@@ -84,7 +43,7 @@ if(isset($_SESSION['admin_user_id'])){
               <label class="form-check-label">Remember Me</label>
             </div>
             <div class="d-grid gap-2 mb-3">
-              <button type="submit" class="btn btn-dark btn-lg border-0 rounded"> Log In</button>
+              <button type="button" class="btn btn-dark btn-lg border-0 rounded" onclick="window.location.href='dashboard/dashboard.php';"> Log In</button>
             </div>
           </form>
         </div>
