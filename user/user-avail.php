@@ -202,8 +202,17 @@ if(isset($_SESSION['user_id'])){
                                 <div class="row py-2">
                                     <div class="col-10 col-lg-6">
                                         <label class="fw-bold pb-2 ps-1">Trainer Subscription</label>
-                                        <select class="form-select" aria-label="Default select example" name="trainer_subscription">
-                                            <option selected>Open this select menu</option>
+                                        <select class="form-select" aria-label="Default select example" name='<?php 
+                                                require_once '../classes/trainers.class.php';
+                                                $trainerObj = new trainers();
+
+                                                // // fetch
+                                                if($data_result = $trainerObj->fetch_tainers()){
+                                                    echo json_encode($data_result);
+                                                }
+                                                
+                                                ?>'id="trainer_use" onchange="updateTrainerUseModal()">
+                                            <option value="None" selected>Open this select menu</option>
                                             <?php 
                                             $offersObj = new offers();
 
@@ -211,7 +220,7 @@ if(isset($_SESSION['user_id'])){
                                             if($data_result = $offersObj->select_offers_per_sub_type('Trainer Subscription')){
                                                 foreach ($data_result as $key => $value) {
                                                     if($value['status_details'] =='active'){
-                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="trainer-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
                                                     }
                                                 }
                                             }
@@ -225,39 +234,41 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <div class="col-4 col-md-2 ">
                                         <label class="fw-bold pb-2 ps-1">Days</label>
-                                        <input type="number" class="form-control" name="quantity" min="0">
+                                        <input type="number" class="form-control" id="trainer-total-duration" min="0" onchange="trainer_use_total_durationChange()">
                                     </div>
                                 </div>
                             
-                                <div class="row ">
-                                    <div class="col-10 col-lg-6 ">
-                                        <label class="fw-bold pb-2 ps-1">Search Trainer</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
-                                            <?php 
-                                            require_once '../classes/trainers.class.php';
-                                            $trainerObj = new trainers();
+                                <div class="trainers">
+                                    <!-- <div class="row">
+                                        <div class="col-10 col-lg-6 ">
+                                            <label class="fw-bold pb-2 ps-1">Search Trainer</label>
+                                            <select class="form-select" aria-label="Default select example" onchange="trainer_selected_changed()">
+                                            <option value="None" selected>Open this select menu</option>
+                                                <?php 
+                                                // require_once '../classes/trainers.class.php';
+                                                // $trainerObj = new trainers();
 
-                                            // fetch
-                                            if($data_result = $trainerObj->fetch_tainers()){
-                                                foreach ($data_result as $key => $value) {
-                                                    if( $value['trainer_availability_details'] =='Available' && $value['user_status_details'] == 'active'){
-                                                        echo '<option value="';echo_safe($value['trainer_id']);echo '">';echo_safe($value['user_fullname']); echo'</option>';
-                                                    }
-                                                }
-                                            }
-                                            
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-1 align-self-end mb-1 mb-lg-2">
-                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button>
-                                    </div>
+                                                // // fetch
+                                                // if($data_result = $trainerObj->fetch_tainers()){
+                                                //     foreach ($data_result as $key => $value) {
+                                                //         if( $value['trainer_availability_details'] =='Available' && $value['user_status_details'] == 'active'){
+                                                //             echo '<option value="'.htmlentities($value['trainer_id']).'" name=\''.json_encode($value).'\'>';echo_safe($value['user_fullname']); echo'</option>';
+                                                //         }
+                                                //     }
+                                                // }
+                                                
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-1 align-self-end mb-1 mb-lg-2">
+                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button>
+                                        </div>
 
-                                    <div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" >
-                                        <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
-                                        <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
-                                    </div>
+                                        <div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" >
+                                            <button type="button" class="btn btn-success" onclick="add_newTrainer()"><i class='bx bx-plus-circle'></i></button>
+                                            <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
+                                        </div>
+                                    </div> -->
                                 </div>
                                 
 
@@ -537,6 +548,13 @@ var locker_quantity;
 var locker_duration;
 var locker_multiplier=1;
 
+var trainer_use_id;
+var trainer_duration;
+var trainer_multiplier=1;
+var trainers_id =[];
+var trainers_list;
+var trainers_quantity=1;
+
 function updateGymUseModal(){
     console.log('update gym use modal');
     if($('#gym-use-'+$('#gym_use').val()).attr('name') != null){
@@ -550,19 +568,30 @@ function updateGymUseModal(){
         gym_use_duration = content.offer_duration;
         $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
     }else{
+        // ask the user if he/she is sure to change it ?? modal maybe
         gym_use_id =0;
         gym_use_duration =0;
         gym_use_multiplier =1;
         $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
-        $('#locker_use').val('None');
+        
 
         // update locker modal
 
         // update locker values
         locker_use_id=0;
         locker_duration =0;
+        locker_quantity =0;
+        locker_multiplier=1;
+        $('#locker_use').val('None');
         $('#locker-quantity').val(0);
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
+
+        // update trainer values
+        trainer_use_id =0;
+        trainer_duration =0;
+        trainer_multiplier=1;
+        $('#trainer_use').val('None');
+        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
     }
     
     
@@ -584,11 +613,13 @@ function gym_use_total_durationChange(){
     $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
 }
 
+// ---------------------------------------------------- LOCKER ----------------------------------------------------
+
 function updateLockerUseModal(){
     // first check if the gym use id is populater
     if(gym_use_id >0){
         if($('#locker-use-'+$('#locker_use').val()).attr('name')!=null){
-            console.log('update gym use modal');
+            console.log('update locker use modal');
             var content = JSON.parse($('#locker-use-'+$('#locker_use').val()).attr('name'));
             console.log(content);
 
@@ -609,28 +640,131 @@ function updateLockerUseModal(){
     }else{
         alert('please select Gym-Subscription');
         $('#locker_use').val('None');
-
-        //$('#mySelect option:nth-child(5)').attr('selected','selected');
     }
 }
 
 function locker_use_total_durationChange(){
     console.log('locker_use_total_durationChange');
-    if($('#locker-total-duration').val()>locker_duration*locker_multiplier){
-        locker_multiplier++;
-    }else  {
-        locker_multiplier--;
-        
+    if($('#locker-use-'+$('#locker_use').val()).attr('name')!=null){
+        if($('#locker-total-duration').val()>locker_duration*locker_multiplier){
+            locker_multiplier++;
+            // check if the locker is greater than the gym use
+            if(locker_duration*locker_multiplier >gym_use_duration*gym_use_multiplier){
+                locker_multiplier--;
+                alert('locker use can\'t be greater than gym use');
+            }
+        }else  {
+            locker_multiplier--;
+            
+        }
+        if(locker_multiplier == 0){
+            locker_multiplier=1;
+        }
+        $('#locker-total-duration').val(locker_duration*locker_multiplier);
+    }else{
+        alert('please select Gym-Subscription');
+        $('#locker_use').val('None');
+        $('#locker-total-duration').val(locker_duration*locker_multiplier);
     }
-    if(locker_multiplier == 0){
-        locker_multiplier=1;
-    }
-    $('#locker-total-duration').val(locker_duration*locker_multiplier);
 }
 
 function locker_use_quantityChange(){
-    if(locker_use_id !=0 && $('#locker-quantity').val()<=0){
-        $('#locker-quantity').val(1);
+    if($('#locker-use-'+$('#locker_use').val()).attr('name')!=null){
+        if(locker_use_id !=0 && $('#locker-quantity').val()<=0){
+            $('#locker-quantity').val(1);
+        }
+    }else{
+        alert('please select Gym-Subscription');
+        $('#locker_use').val('None');
+        $('#locker-quantity').val(0);
+    }
+}
+
+// ---------------------------------------------------- TRAINER ----------------------------------------------------
+function updateTrainerUseModal(){
+    if(gym_use_id >0){
+        if($('#trainer-use-'+$('#trainer_use').val()).attr('name')!=null){
+            console.log('update trainer use modal');
+            var content = JSON.parse($('#trainer-use-'+$('#trainer_use').val()).attr('name'));
+            console.log(content);
+
+            // UPDATE MODAL 
+
+            // UPDATE DURATION 
+            trainer_use_id=content.offer_id;
+            trainer_duration =content.offer_duration;
+            $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+            trainers_list = JSON.parse($('#trainer_use').attr('name'));
+            add_newTrainer();
+        }else{
+            // set all to default
+            trainer_use_id=0;
+            trainer_duration =0;
+            trainers_id = [];
+            trainers_quantity=1;
+            $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+            $('.trainers').html('');
+            
+        }
+        
+    }else{
+        alert('please select Gym-Subscription');
+        $('#trainer_use').val('None');
+
+    }
+}
+
+function trainer_use_total_durationChange(){
+    //console.log('trainer_use_total_durationChange');
+    if($('#trainer-use-'+$('#trainer_use').val()).attr('name')!=null){
+        if($('#trainer-total-duration').val()>trainer_duration*trainer_multiplier){
+            trainer_multiplier++;
+            // check if the locker is greater than the gym use
+            if(trainer_duration*trainer_multiplier >gym_use_duration*gym_use_multiplier){
+                trainer_multiplier--;
+                alert('trainer duration can\'t be greater than gym use');
+            }
+        }else  {
+            trainer_multiplier--;
+            
+        }
+        if(trainer_multiplier == 0){
+            trainer_multiplier=1;
+        }
+        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+    }else{
+        alert('please select Gym-Subscription');
+        $('#trainer_use').val('None');
+        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+    }
+}
+
+function trainer_selected_changed(selected_id){
+    console.log('trainer_selected cahgned');
+    // update the trainer-selected modal
+
+    // update trainer list 
+
+    // add plus button
+
+   
+}
+
+function trainers_remove(){
+
+}
+
+
+function add_newTrainer(){
+    console.log('add new trainer');
+    console.log(trainers_list);
+
+    // only add if the trainers_id is less than the trainer_list
+    if(trainers_id.length<trainers_list.length){
+        $('.trainers').append('<div class="row" trainer-'+(trainers_id.length)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_id.length)+'" aria-label="Default select example" onchange="trainer_selected_changed()"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_id.length)+'"></div></div> ');
+        trainers_list.forEach(element => {
+            $('#select-trainer-'+(trainers_id.length)).append('<option value="'+element.trainer_id+'" selected>'+element.trainer_id+'</option>');
+        });
     }
 }
 
