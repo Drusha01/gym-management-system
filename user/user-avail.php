@@ -553,6 +553,7 @@ var trainer_duration;
 var trainer_multiplier=1;
 var trainers_id =[];
 var trainers_list;
+var trainers_list2;
 var trainers_quantity=1;
 
 function updateGymUseModal(){
@@ -695,6 +696,7 @@ function updateTrainerUseModal(){
             trainer_duration =content.offer_duration;
             $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
             trainers_list = JSON.parse($('#trainer_use').attr('name'));
+            trainers_list2=trainers_list;
             add_newTrainer();
         }else{
             // set all to default
@@ -744,8 +746,26 @@ function trainer_selected_changed(selected_id){
     // update the trainer-selected modal
 
     // update trainer list 
-
+    console.log($('#select-trainer-'+selected_id).val());
+    var selectedVal = $('#select-trainer-'+selected_id).val();
+    
+    trainers_list2.forEach(function(element,index,selected_id) {
+        if(element.trainer_id == selectedVal){
+            //console.log(selectedVal);
+            trainers_id.push(element);
+            trainers_list2.splice(index,1);
+            console.log(trainers_list2);
+        }
+           
+        
+    });
+    console.log(trainers_id);
     // add plus button
+    if(trainers_list2.length>0){
+        $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer()"><i class="bx bx-plus-circle"></i></button>');
+    }
+    // update_trainer_list
+    update_trainers_list();
 
    
 }
@@ -754,16 +774,28 @@ function trainers_remove(){
 
 }
 
-
+function update_trainers_list(){
+    console.log('update');
+    length = trainers_id.length;
+    for (let i = 0; i < length; i++) {
+        $('#select-trainer-'+i).html('');
+        $('#select-trainer-'+i).append('<option value="'+trainers_id[i].trainer_id+'" >'+trainers_id[i].user_fullname+'</option>');
+        trainers_list2.forEach(function(element,index) {
+            $('#select-trainer-'+i).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
+        });
+    }
+}
 function add_newTrainer(){
     console.log('add new trainer');
     console.log(trainers_list);
 
+    update_trainers_list();
+
     // only add if the trainers_id is less than the trainer_list
-    if(trainers_id.length<trainers_list.length){
-        $('.trainers').append('<div class="row" trainer-'+(trainers_id.length)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_id.length)+'" aria-label="Default select example" onchange="trainer_selected_changed()"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_id.length)+'"></div></div> ');
-        trainers_list.forEach(element => {
-            $('#select-trainer-'+(trainers_id.length)).append('<option value="'+element.trainer_id+'" selected>'+element.trainer_id+'</option>');
+    if(trainers_list2.length>0){
+        $('.trainers').append('<div class="row" trainer-'+(trainers_id.length)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_id.length)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_id.length)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_id.length)+'"></div></div> ');
+        trainers_list2.forEach(element => {
+            $('#select-trainer-'+(trainers_id.length)).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
         });
     }
 }

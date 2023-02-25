@@ -17,6 +17,9 @@ if(isset($_SESSION['admin_id'])){
         // do nothing
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
+        if(!$_SESSION['admin_user_type_details'] == 'admin'){
+            header('location:../dashboard.dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
         // go to deleted user page
     }
@@ -58,37 +61,51 @@ if(isset($_SESSION['admin_id'])){
                             <tr>
                             <th class="d-lg-none"></th>
                             <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                            <th>NAME</th>
                             <th class="text-center ">USER NAME</th>
+                            <th>NAME</th>
+                            <th scope="col" class="text-center">ADMIN TYPE</th>
+                            <th scope="col" class="text-center">OFFER</th>
+                            <th scope="col" class="text-center">AVAIL</th>
+                            <th scope="col" class="text-center">ACCOUNT</th>
+                            <th scope="col" class="text-center">PAYMENT</th>
+                            <th scope="col" class="text-center">MAINTENANCE</th>
+                            <th scope="col" class="text-center">REPORT</th>
                             <th scope="col" class="text-center">DATE CREATED</th>
                             <th scope="col" class="text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <th class="d-lg-none"></th>
-                            <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                            <td>Trinidad, James Lorenz</td>
-                            <td class="text-center ">James_Nolegs</td>
-                            <td class="text-center">November 14, 2022</td>
-                            <td class="text-center"><a href="edit-admin.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
-                            </tr>
-                            <tr>
-                            <th class="d-lg-none"></th>
-                            <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                            <td>Nicholas, Shania</td>
-                            <td class="text-center ">Can_squatmoredanYOU</td>
-                            <td class="text-center">November 14, 2022</td>
-                            <td class="text-center"><a href="edit-admin.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
-                            </tr>
-                            <tr>
-                            <th class="d-lg-none"></th>
-                            <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                            <td>Lim, Robbie John</td>
-                            <td class="text-center ">Labuyo_Boi</td>
-                            <td class="text-center">November 14, 2022</td>
-                            <td class="text-center"><a href="edit-admin.php" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
+                            <?php 
+                            require_once '../../classes/admins.class.php';
 
+                            $adminObj = new admins();
+                            $admin_datas = $adminObj->fetchAll_exceptMe($_SESSION['admin_id']);
+                            $counter=1;
+                            foreach ($admin_datas as $key => $value) {
+                                echo '<tr>';
+                                echo '<th class="d-lg-none"></th>';
+                                echo '<th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>';
+                                echo '<td class="text-center ">'.htmlentities($value['user_name']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['user_fullname']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['user_type_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_offer_restriction_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_avail_restriction_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_account_restriction_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_payment_restriction_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_maintenance_restriction_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_report_restriction_details']).'</td>';
+                                echo '<td class="text-center ">'.htmlentities($value['admin_date_created']).'</td>';
+                                echo '<td class="text-center"><a href="edit-admin.php?admin_id='.htmlentities($value['admin_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="UpdateModal('.htmlentities($counter).','.htmlentities($value['admin_id']).',\''.htmlentities($value['user_name']).'\')">Delete</button></td>';
+                                echo '</tr>';
+                                $counter++;
+                            }
+                            
+
+
+                            ?>
+                            
+                            
+                           
                         </tbody>
                     </table>
                 </div>
@@ -158,16 +175,38 @@ if(isset($_SESSION['admin_id'])){
         <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="deleteModalBody">
         Are you sure you want to delete this user?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger"data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-danger"data-bs-dismiss="modal" id="DeleteThisButton">Yes</button>
       </div>
     </div>
   </div>
 </div>
-</body>
 
+<script>
+    function UpdateModal(number,admin_id,user_name){
+        console.log(user_name);
+        $('#deleteModalBody').html('Are you sure you want to '+number+'. '+user_name+'?');
+        $('#DeleteThisButton').attr('onclick','DeleteThisUser('+admin_id+',\''+user_name+'\')');
+    }
+
+    function DeleteThisUser(admin_id,user_name){
+        console.log('deleted'+user_name);
+        $.ajax({url: "delete-admin.php?admin_id="+admin_id, 
+            success: function(result){
+            console.log(result);
+            if(result ==1){
+                alert('deleted successfully');
+                console.log(result)
+            }else{
+                alert('deletion failed');
+            }
+            location.reload();
+        }});
+    }
+</script>
+</body>
 </html>

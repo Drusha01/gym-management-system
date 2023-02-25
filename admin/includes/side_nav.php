@@ -66,7 +66,7 @@
                     </li>
                     ';
                     }
-                    if((isset($_SESSION['admin_reports_restriction_details']) && $_SESSION['admin_reports_restriction_details'] == 'Modify') || (isset($_SESSION['admin_reports_restriction_details']) && $_SESSION['admin_reports_restriction_details'] == 'Read-Only')){
+                    if((isset($_SESSION['admin_report_restriction_details']) && $_SESSION['admin_report_restriction_details'] == 'Modify') || (isset($_SESSION['admin_report_restriction_details']) && $_SESSION['admin_report_restriction_details'] == 'Read-Only')){
                         echo'
                     <li class="nav-item">
                         <a href="../reports/reports.php" class="nav-link" title="Reports">
