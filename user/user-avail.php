@@ -56,7 +56,7 @@ if(isset($_SESSION['user_id'])){
 <br>
 <br>
 <br>
-<section id="avail" class="pb-5">
+<section id="avail" class="container pb-5">
     <div class="container h-100">
         <div class="multisteps-form">
         <!--progress bar-->
@@ -305,8 +305,9 @@ if(isset($_SESSION['user_id'])){
                                         <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                     </div>
                                 </div>
+
                             </div>
-                        <div class="button-row d-flex mt-4">
+                        <div class="button-row d-flex justify-content-end mt-4">
                             <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
                         </div>
                         </div>
@@ -389,31 +390,37 @@ if(isset($_SESSION['user_id'])){
                     </div>
                     </div>
                     <!--single form panel-->
-                    <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                    <h3 class="multisteps-form__title">Confirmation</h3>
-                    <hr class="hr" />
-                    <div class="multisteps-form__content">
-                        <div class="container">
-                        To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col d-flex justify-content-start">
-                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
+                    <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn" >
+                        <h3 class="multisteps-form__title">Confirmation</h3>
+                        <hr class="hr" />
+                        <div class="multisteps-form__content">
+                            <div class="container">
+                            To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
                             </div>
-                            <div class="col d-flex justify-content-end">
-                                <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                            <div class="row pt-3">
+                                <div class="col d-flex justify-content-start">
+                                    <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                    </div>
-                    
+
                 </form>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
+
         </div>
     </div>
 
 </section>
+
 
 
 <?php require_once '../includes/footer.php';?>
