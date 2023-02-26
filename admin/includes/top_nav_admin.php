@@ -15,7 +15,7 @@
         <ul class="nav navbar-nav navbar-right d-none d-lg-block pe-3">
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class='bx bx-bell fs-1 text-dark'></i>
+                    <i class='bx bx-bell fs-1 text-dark'></i> <span class="position-absolute top-75 start-100 translate-middle badge rounded-pill bg-danger">+99 <span class="visually-hidden">unread messages</span></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" style="width:300px;">
                     <li>

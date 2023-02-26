@@ -78,7 +78,6 @@
                         <td class="text-center"><span class="badge bg-danger rounded-pill">Not Active</span></td>
                         </tr>
 
-
                     </tbody>
                 </table>
             </div>
