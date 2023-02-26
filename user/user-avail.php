@@ -212,7 +212,7 @@ if(isset($_SESSION['user_id'])){
                                                 }
                                                 
                                                 ?>'id="trainer_use" onchange="updateTrainerUseModal()">
-                                            <option value="None" selected>Open this select menu</option>
+                                            <option value="None" selected>Select Trainer Subscription</option>
                                             <?php 
                                             $offersObj = new offers();
 
@@ -277,8 +277,8 @@ if(isset($_SESSION['user_id'])){
                                 <div class="row py-2">
                                     <div class="col-10 col-md-6">
                                         <label class="fw-bold pb-2 ps-1">Program Subscription</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                        <select class="form-select" aria-label="Default select example" id="program_use" onchange="updateProgramUseModal()">
+                                            <option value="None" selected >Select Program Subscription</option>
                                             <?php 
                                             $offersObj = new offers();
 
@@ -286,7 +286,7 @@ if(isset($_SESSION['user_id'])){
                                             if($data_result = $offersObj->select_offers_per_sub_type('Program Subscription')){
                                                 foreach ($data_result as $key => $value) {
                                                     if($value['status_details'] =='active'){
-                                                        echo '<option value="';echo_safe($value['offer_id']);echo '">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo')</option>';
+                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="program-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
                                                     }
                                                 }
                                             }
@@ -298,7 +298,7 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <div class="col-4 col-md-2 ">
                                             <label class="fw-bold pb-2 ps-1">Days</label>
-                                            <input type="number" class="form-control" name="quantity">
+                                            <input type="number" class="form-control" name="program-total-duration" onchange="program_use_total_durationChange()">
                                         </div>
                                     <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" >
                                         <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
@@ -306,9 +306,9 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                 </div>
                             </div>
-                        <div class="button-row d-flex mt-4">
-                            <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
-                        </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next" onclick="validate_allSubscriptions()">Next</button>
+                            </div>
                         </div>
                     </div>
                     <!--single form panel-->
@@ -539,7 +539,7 @@ $("#exampleModal").prependTo("body");
 
 <script>
 
-var gym_use_id =0;
+var gym_use_id =null;
 var gym_use_duration;
 var gym_use_multiplier =1;
 
@@ -554,23 +554,29 @@ var trainer_multiplier=1;
 var trainers_id =[];
 var trainers_list;
 var trainers_list2;
-var trainers_quantity=1;
+var trainers_quantity=0;
+
+
+var program_use_id;
+var program_duration;
+var program_multiplier;
 
 function updateGymUseModal(){
     console.log('update gym use modal');
     if($('#gym-use-'+$('#gym_use').val()).attr('name') != null){
         var content = JSON.parse($('#gym-use-'+$('#gym_use').val()).attr('name'));
+        console.log(content);
         //console.log(content);
 
         // UPDATE MODAL 
 
         // UDPATE THE DURATION 
-        gym_use_id = content.offer_id;
+        gym_use_id = content;
         gym_use_duration = content.offer_duration;
         $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
     }else{
         // ask the user if he/she is sure to change it ?? modal maybe
-        gym_use_id =0;
+        gym_use_id =null;
         gym_use_duration =0;
         gym_use_multiplier =1;
         $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
@@ -579,7 +585,7 @@ function updateGymUseModal(){
         // update locker modal
 
         // update locker values
-        locker_use_id=0;
+        locker_use_id=null;
         locker_duration =0;
         locker_quantity =0;
         locker_multiplier=1;
@@ -587,12 +593,23 @@ function updateGymUseModal(){
         $('#locker-quantity').val(0);
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
+        // update trainer modal
+
         // update trainer values
-        trainer_use_id =0;
+        trainer_use_id =null;
         trainer_duration =0;
         trainer_multiplier=1;
+        var trainers_id = [];
+        var trainers_quantity=0;
         $('#trainer_use').val('None');
+        $('.trainers').html('');
         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+
+        // update program modal
+
+        // update program values
+        $('#program_use').val('None');
+        $('#program-total-duration').val(program_duration*program_multiplier);
     }
     
     
@@ -602,23 +619,28 @@ function updateGymUseModal(){
 
 function gym_use_total_durationChange(){
     console.log('gym_use_total_durationChange');
-    if($('#gym_use_total_duration').val()>gym_use_duration*gym_use_multiplier){
-        gym_use_multiplier++;
-    }else  {
-        gym_use_multiplier--;
-        
+    if(gym_use_id != null){
+        if($('#gym_use_total_duration').val()>gym_use_duration*gym_use_multiplier){
+            gym_use_multiplier++;
+        }else  {
+            gym_use_multiplier--;
+            
+        }
+        if(gym_use_multiplier == 0){
+            gym_use_multiplier=1;
+        }
+        $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
+    }else{
+        alert('please select Gym-Subscription');
+        $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
     }
-    if(gym_use_multiplier == 0){
-        gym_use_multiplier=1;
-    }
-    $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
 }
 
 // ---------------------------------------------------- LOCKER ----------------------------------------------------
 
 function updateLockerUseModal(){
     // first check if the gym use id is populater
-    if(gym_use_id >0){
+    if(gym_use_id != null){
         if($('#locker-use-'+$('#locker_use').val()).attr('name')!=null){
             console.log('update locker use modal');
             var content = JSON.parse($('#locker-use-'+$('#locker_use').val()).attr('name'));
@@ -627,7 +649,7 @@ function updateLockerUseModal(){
             // UPDATE MODAL 
 
             // UPDATE DURATION AND QUANTITY
-            locker_use_id=content.offer_id;
+            locker_use_id=content;
             locker_duration =content.offer_duration;
             $('#locker-quantity').val(1);
             $('#locker-total-duration').val(locker_duration*locker_multiplier);
@@ -663,7 +685,7 @@ function locker_use_total_durationChange(){
         }
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
     }else{
-        alert('please select Gym-Subscription');
+        alert('please select Locker-Subscription');
         $('#locker_use').val('None');
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
     }
@@ -675,7 +697,7 @@ function locker_use_quantityChange(){
             $('#locker-quantity').val(1);
         }
     }else{
-        alert('please select Gym-Subscription');
+        alert('please select Locker-Subscription');
         $('#locker_use').val('None');
         $('#locker-quantity').val(0);
     }
@@ -683,7 +705,7 @@ function locker_use_quantityChange(){
 
 // ---------------------------------------------------- TRAINER ----------------------------------------------------
 function updateTrainerUseModal(){
-    if(gym_use_id >0){
+    if(gym_use_id != null){
         if($('#trainer-use-'+$('#trainer_use').val()).attr('name')!=null){
             console.log('update trainer use modal');
             var content = JSON.parse($('#trainer-use-'+$('#trainer_use').val()).attr('name'));
@@ -692,7 +714,7 @@ function updateTrainerUseModal(){
             // UPDATE MODAL 
 
             // UPDATE DURATION 
-            trainer_use_id=content.offer_id;
+            trainer_use_id=content;
             trainer_duration =content.offer_duration;
             $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
             trainers_list = JSON.parse($('#trainer_use').attr('name'));
@@ -703,16 +725,13 @@ function updateTrainerUseModal(){
             trainer_use_id=0;
             trainer_duration =0;
             trainers_id = [];
-            trainers_quantity=1;
+            trainers_quantity=0;
             $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
             $('.trainers').html('');
-            
         }
-        
     }else{
         alert('please select Gym-Subscription');
         $('#trainer_use').val('None');
-
     }
 }
 
@@ -735,7 +754,7 @@ function trainer_use_total_durationChange(){
         }
         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
     }else{
-        alert('please select Gym-Subscription');
+        alert('please select Trainer-Subscription');
         $('#trainer_use').val('None');
         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
     }
@@ -746,65 +765,131 @@ function trainer_selected_changed(selected_id){
     // update the trainer-selected modal
 
     // update trainer list 
-    console.log($('#select-trainer-'+selected_id).val());
+    console.log('selected_index:'+selected_id);   
+    console.log('selected:'+$('#select-trainer-'+selected_id).val());
     var selectedVal = $('#select-trainer-'+selected_id).val();
-    
-    trainers_list2.forEach(function(element,index,selected_id) {
+    trainers_list2.forEach(function(element,index) {
         if(element.trainer_id == selectedVal){
-            //console.log(selectedVal);
-            trainers_id.push(element);
-            trainers_list2.splice(index,1);
-            console.log(trainers_list2);
+            // first we check if the selected value is in the trainers_id array
+            for (let index = 0; index < trainers_id.length; index++) {
+                if(trainers_id[index].trainer_id == element.trainer_id){
+
+                    if(trainers_id[selected_id] == null){
+                        $('#select-trainer-'+selected_id).val('None');
+                    }else{
+                        $('#select-trainer-'+selected_id).val(trainers_id[selected_id].trainer_id);
+                    }
+                    //console.log(trainers_id[index]);
+                    alert('already selected');
+                    // dont add
+                    return;
+                }
+            }
+            if(trainers_id[selected_id] == null){
+                trainers_id.push(element);
+                if(trainers_id.length <trainers_list2.length  &&selected_id+1 == trainers_quantity){
+                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+
+                }else{
+                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+                }
+            }else{
+                trainers_id[selected_id] = element;
+                if(trainers_id.length ==trainers_quantity ){
+                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+
+                }else{
+                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+                }
+            }
+
+            // if(trainers_id.length <trainers_list2.length){
+            //     $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+
+            // }else{
+            //     $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+            // }
         }
-           
-        
     });
     console.log(trainers_id);
-    // add plus button
-    if(trainers_list2.length>0){
-        $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer()"><i class="bx bx-plus-circle"></i></button>');
-    }
-    // update_trainer_list
-    update_trainers_list();
-
-   
 }
 
-function trainers_remove(){
+function deleteTrainer(selected_id){
+    trainers_id.splice(selected_id, 1);
+    //trainers_id.remove(selected_id);
+    $('#select-trainer-'+selected_id).val('None');
+    $('#button-trainer-'+selected_id).html('');
+    console.log(trainers_id)
+    
 
-}
+}   
 
-function update_trainers_list(){
-    console.log('update');
-    length = trainers_id.length;
-    for (let i = 0; i < length; i++) {
-        $('#select-trainer-'+i).html('');
-        $('#select-trainer-'+i).append('<option value="'+trainers_id[i].trainer_id+'" >'+trainers_id[i].user_fullname+'</option>');
-        trainers_list2.forEach(function(element,index) {
-            $('#select-trainer-'+i).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
-        });
-    }
-}
-function add_newTrainer(){
+
+function add_newTrainer(selected_id){
+    trainers_quantity++;
     console.log('add new trainer');
     console.log(trainers_list);
-
-    update_trainers_list();
+    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
 
     // only add if the trainers_id is less than the trainer_list
     if(trainers_list2.length>0){
-        $('.trainers').append('<div class="row" trainer-'+(trainers_id.length)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_id.length)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_id.length)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_id.length)+'"></div></div> ');
+        $('.trainers').append('<div class="row" id=trainer-'+(trainers_id.length)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_id.length)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_id.length)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_id.length)+'"></div></div> ');
         trainers_list2.forEach(element => {
             $('#select-trainer-'+(trainers_id.length)).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
         });
     }
 }
+// ---------------------------------------------------- PROGRAM ----------------------------------------------------
+function updateProgramUseModal(){
+    
+    if(gym_use_id != null){
+        if($('#program-use-'+$('#program_use').val()).attr('name')!=null){
+            console.log('update program use modal');
+            var content = JSON.parse($('#program-use-'+$('#program_use').val()).attr('name'));
+            console.log(content);
 
-function numchange(){
-    if($("#quantity").val()<0){
-        $("#quantity").val(0)
+        }else{
+            // set all to default
+           
+        }
+    }else{
+        alert('please select Gym-Subscription');
+        $('#program_use').val('None');
     }
 }
+
+function program_use_total_durationChange(){
+    if($('#program-use-'+$('#program_use').val()).attr('name')!=null){
+        if($('#program-total-duration').val()>program_duration*program_multiplier){
+            trainer_multiplier++;
+            // check if the locker is greater than the gym use
+            if(program_duration*program_multiplier >gym_use_duration*gym_use_multiplier){
+                program_multiplier--;
+                alert('trainer duration can\'t be greater than gym use');
+            }
+        }else  {
+            program_multiplier--;
+            
+        }
+        if(program_multiplier == 0){
+            program_multiplier=1;
+        }
+        $('#program-total-duration').val(program_duration*program_multiplier)
+    }else{
+        alert('please select Program-Subscription');
+        $('#program_use').val('None');
+        $('#program-total-duration').val(program_duration*program_multiplier);
+    }
+}
+// ---------------------------------------------------- VALIDATE ALL SUBSCRIPTION ----------------------------------------------------
+function validate_allSubscriptions(){
+    console.log('validating all subscription')
+    console.log(gym_use_id);
+    console.log(locker_use_id);
+    console.log(trainer_use_id);
+    console.log(trainers_id);
+}
+
 </script>
 
 
