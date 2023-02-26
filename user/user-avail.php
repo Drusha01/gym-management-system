@@ -881,7 +881,7 @@ function updateProgramUseModal(selected_id){
             console.log('e;');
             console.log(programs_use_id);
 
-            $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier);
+            $('#program-total-duration').val(program_duration*program_multiplier);
 
             // add the button
             if(programs_use_id.length < program_list.length){
@@ -889,11 +889,11 @@ function updateProgramUseModal(selected_id){
             }
         }else{
             // set all to default
-            programs_use_id[selected_id] = null;
-            program_duration =0;
+            program_use_id=null;
+            trainer_duration =0;
             trainers_id = [];
             trainers_quantity=0;
-            $('#program-total-duration-'+selected_id).val(trainer_duration*trainer_multiplier);
+            $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
             $('.trainers').html('');
 
         }
@@ -904,7 +904,7 @@ function updateProgramUseModal(selected_id){
 }
 
 function addNewProgram(){
-    if()
+    
 }
 
 function deleteProgram(selected_id){
