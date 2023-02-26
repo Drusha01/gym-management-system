@@ -274,35 +274,44 @@ if(isset($_SESSION['user_id'])){
 
                                 <hr class="hr" />
 
-                                <div class="row py-2">
-                                    <div class="col-10 col-md-6">
-                                        <label class="fw-bold pb-2 ps-1">Program Subscription</label>
-                                        <select class="form-select" aria-label="Default select example" id="program_use" onchange="updateProgramUseModal()">
-                                            <option value="None" selected >Select Program Subscription</option>
-                                            <?php 
-                                            $offersObj = new offers();
+                                <div class="programs">    
+                                    <div class="row py-2" id="program-use-0">
+                                        <div class="col-10 col-md-6">
+                                            <label class="fw-bold pb-2 ps-1">Program Subscription</label>
+                                            <select class="form-select" aria-label="Default select example" id="program_use" name='<?php 
+                                                    $offersObj = new offers();
 
-                                            // fetch
-                                            if($data_result = $offersObj->select_offers_per_sub_type('Program Subscription')){
-                                                foreach ($data_result as $key => $value) {
-                                                    if($value['status_details'] =='active'){
-                                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="program-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
+                                                    // // fetch
+                                                    if($data_result = $offersObj->select_offers_per_sub_type('Program Subscription')){
+                                                        echo json_encode($data_result);
+                                                    }
+                                                    
+                                                    ?>' onchange="updateProgramUseModal(0)">
+                                                <option value="None" selected >Select Program Subscription</option>
+                                                <?php 
+                                                $offersObj = new offers();
+
+                                                // fetch
+                                                if($data_result = $offersObj->select_offers_per_sub_type('Program Subscription')){
+                                                    foreach ($data_result as $key => $value) {
+                                                        if($value['status_details'] =='active'){
+                                                            echo '<option value="';echo_safe($value['offer_id']);echo '" id="program-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-1 align-self-end mb-2">
-                                        <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
-                                    </div>
-                                    <div class="col-4 col-md-2 ">
-                                            <label class="fw-bold pb-2 ps-1">Days</label>
-                                            <input type="number" class="form-control" name="program-total-duration" onchange="program_use_total_durationChange()">
+                                                ?>
+                                            </select>
                                         </div>
-                                    <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" >
-                                        <button type="button" class="btn btn-success"><i class='bx bx-plus-circle'></i></button>
-                                        <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
+                                        <div class="col-1 align-self-end mb-2">
+                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button>
+                                        </div>
+                                        <div class="col-4 col-md-2 ">
+                                            <label class="fw-bold pb-2 ps-1">Days</label>
+                                            <input type="number" class="form-control" name="program-total-duration" id="program-total-duration" onchange="program_use_total_durationChange()">
+                                        </div>
+                                        <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" id="button-div-0">
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -557,9 +566,12 @@ var trainers_list2;
 var trainers_quantity=0;
 
 
-var program_use_id;
+var programs_use_id=[];
+var program_list;
 var program_duration;
-var program_multiplier;
+var program_multiplier=1;
+var program_quantity=1;
+var programs_default=null;
 
 function updateGymUseModal(){
     console.log('update gym use modal');
@@ -654,7 +666,7 @@ function updateLockerUseModal(){
             $('#locker-quantity').val(1);
             $('#locker-total-duration').val(locker_duration*locker_multiplier);
         }else{
-            locker_use_id=0;
+            locker_use_id=null;
             locker_duration =0;
             $('#locker-quantity').val(0);
             $('#locker-total-duration').val(locker_duration*locker_multiplier);
@@ -722,7 +734,7 @@ function updateTrainerUseModal(){
             add_newTrainer();
         }else{
             // set all to default
-            trainer_use_id=0;
+            trainer_use_id=null;
             trainer_duration =0;
             trainers_id = [];
             trainers_quantity=0;
@@ -802,13 +814,6 @@ function trainer_selected_changed(selected_id){
                     $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
                 }
             }
-
-            // if(trainers_id.length <trainers_list2.length){
-            //     $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-
-            // }else{
-            //     $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-            // }
         }
     });
     console.log(trainers_id);
@@ -840,17 +845,57 @@ function add_newTrainer(selected_id){
     }
 }
 // ---------------------------------------------------- PROGRAM ----------------------------------------------------
-function updateProgramUseModal(){
+function updateProgramUseModal(selected_id){
     
     if(gym_use_id != null){
         if($('#program-use-'+$('#program_use').val()).attr('name')!=null){
+            if(programs_default == null){
+                programs_default = $('.programs').html();
+            }
             console.log('update program use modal');
-            var content = JSON.parse($('#program-use-'+$('#program_use').val()).attr('name'));
-            console.log(content);
+            program_list = JSON.parse($('#program_use').attr('name'));
+            console.log(program_list);
+            var selectedVal =$('#program_use').val();
+            
+            // check if we already append it in the list
+            program_list.forEach(element => {
+                if(element.offer_id == selectedVal){
+                    console.log(element);
+                    for (let index = 0; index < programs_use_id.length; index++) {
+                        if(element.offer_id == programs_use_id[index].offer_id){
+                            // do something here
+                            return;
+                        }
+                        
+                    }
+                    if(programs_use_id[selected_id] == null){
+                        programs_use_id.push(element);
+                    }else{
+                        programs_use_id[selected_id] = element;
+                    }
 
+                    // update the duration
+                    program_duration = programs_use_id[selected_id].offer_duration;
+                }
+            });
+            console.log('e;');
+            console.log(programs_use_id);
+
+            $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier);
+
+            // add the button
+            if(programs_use_id.length < program_list.length){
+                $('#button-div-'+selected_id).html('<button type="button" class="btn btn-success" onclick="addNewProgram()"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+            }
         }else{
             // set all to default
-           
+            programs_use_id[selected_id] = null;
+            program_duration =0;
+            trainers_id = [];
+            trainers_quantity=0;
+            $('#program-total-duration-'+selected_id).val(trainer_duration*trainer_multiplier);
+            $('.trainers').html('');
+
         }
     }else{
         alert('please select Gym-Subscription');
@@ -858,10 +903,18 @@ function updateProgramUseModal(){
     }
 }
 
+function addNewProgram(){
+    if()
+}
+
+function deleteProgram(selected_id){
+    console.log(selected_id);
+}
+
 function program_use_total_durationChange(){
     if($('#program-use-'+$('#program_use').val()).attr('name')!=null){
         if($('#program-total-duration').val()>program_duration*program_multiplier){
-            trainer_multiplier++;
+            program_multiplier++;
             // check if the locker is greater than the gym use
             if(program_duration*program_multiplier >gym_use_duration*gym_use_multiplier){
                 program_multiplier--;
@@ -874,7 +927,7 @@ function program_use_total_durationChange(){
         if(program_multiplier == 0){
             program_multiplier=1;
         }
-        $('#program-total-duration').val(program_duration*program_multiplier)
+        $('#program-total-duration').val(program_duration*program_multiplier);
     }else{
         alert('please select Program-Subscription');
         $('#program_use').val('None');
