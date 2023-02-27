@@ -326,59 +326,75 @@ if(isset($_SESSION['user_id'])){
                     <hr class="hr" />
                     <div class="multisteps-form__content">
                         <div class="row">
-                            <div class="col-12 col-lg-4 ms-5">
-                                <div class="row py-1">
-                                    <p><span class="fw-bold">Name: </span>Juan Dela Cruz</p>
-                                </div>
-                                <div class="row py-1">
-                                    <p><span class="fw-bold">Phone Number: </span>0912345678</p>
-                                </div>
-                                <div class="row py-1">
-                                    <p><span class="fw-bold">Email: </span>Cruz@gmail.com</p>
-                                </div>
-                                <div class="row py-1">
-                                    <p><span class="fw-bold">Gender: </span>Male</p>
-                                </div>
-                                <div class="row py-1">
-                                    <p><span class="fw-bold">Age: </span>22</p>
-                                </div>
-                            </div>
-                            
 
-                            <div class="col-12 col-md-7 ">
+                            <div class="col-12 col-md-12 ">
                             <div class="card shadow-sm h-100">
                             <div class="card-body">
                                 <h5 class="card-title">Summary</h5>
                                 <hr class="hr" />
                                 <div class="container-fluid scroll overflow-auto">
-                                    <div class="row">
-                                        <p class="fw-bold m-0">Gym-Use Subscription</p>
-                                        <div class="col-8 col-lg-9">
-                                            <p class="card-text">1-Month Gym-Use(21 and Above)</p>
-                                        </div>
-                                        <div class="col-4 col-lg-3">
-                                            <p><span class="fw-bold">₱800</span></p>
-                                        </div>
+                                    <div class="row table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Offer Name</th>
+                                                <th class="text-center" scope="col">Qty</th>
+                                                <th class="text-center" scope="col">Price</th>
+                                                <th class="text-center" scope="col">Days</th>
+                                                <th class="text-center" scope="col">Total Days</th>
+                                                <th class="text-center" scope="col">Total Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                <th scope="row">1</th>
+                                                <td>1-Month Subscription</td>
+                                                <td class="text-center" >1</td>
+                                                <td class="text-center" >₱800</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >90</td>
+                                                <td class="text-center" >₱2400</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">2</th>
+                                                <td>1-Month Locker</td>
+                                                <td class="text-center" >2</td>
+                                                <td class="text-center" >₱100</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >60</td>
+                                                <td class="text-center" >₱200</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">3</th>
+                                                <td>1-Month Trainer</td>
+                                                <td class="text-center" >2</td>
+                                                <td class="text-center" >₱1500</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >90</td>
+                                                <td class="text-center" >₱3000</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">4</th>
+                                                <td>Zumba</td>
+                                                <td class="text-center" >1</td>
+                                                <td class="text-center" >₱500</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >₱500</td>
+                                                </tr>
+                                                <tr>
+                                                <th scope="row">5</th>
+                                                <td>Circuit Training</td>
+                                                <td class="text-center" >1</td>
+                                                <td class="text-center" >₱500</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >30</td>
+                                                <td class="text-center" >₱500</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="row">
-                                        <p class="fw-bold m-0">Trainer Subscription</p>
-                                        <div class="col-8 col-lg-9">
-                                            <p class="card-text">1-Month Trainer</p>
-                                        </div>
-                                        <div class="col-4 col-lg-3">
-                                            <p><span class="fw-bold">₱1500</span></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <p class="fw-bold m-0">Locker Subscription</p>
-                                        <div class="col-8 col-lg-9">
-                                            <p class="card-text">1-Month Locker</p>
-                                        </div>
-                                        <div class="col-4 col-lg-3">
-                                            <p><span class="fw-bold">₱100</span></p>
-                                        </div>
-                                    </div>
-
                                 </div>
                                 <hr class="hr" />
                                 <h5 class="card-title d-flex justify-content-end">Total: <span class="fw-light">₱2400</span></h5>
