@@ -831,18 +831,19 @@ function deleteTrainer(selected_id){
 
 
 function add_newTrainer(selected_id){
-    trainers_quantity++;
+    
     console.log('add new trainer');
     console.log(trainers_list);
     $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
 
     // only add if the trainers_id is less than the trainer_list
     if(trainers_list2.length>0){
-        $('.trainers').append('<div class="row" id=trainer-'+(trainers_id.length)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_id.length)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_id.length)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_id.length)+'"></div></div> ');
+        $('.trainers').append('<div class="row" id=trainer-'+(trainers_quantity)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_quantity)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_quantity)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_quantity)+'"></div></div> ');
         trainers_list2.forEach(element => {
-            $('#select-trainer-'+(trainers_id.length)).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
+            $('#select-trainer-'+(trainers_quantity)).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
         });
     }
+    trainers_quantity++;
 }
 // ---------------------------------------------------- PROGRAM ----------------------------------------------------
 function updateProgramUseModal(selected_id){
