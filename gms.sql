@@ -1227,16 +1227,21 @@ INSERT INTO subscription_status (subscription_status_id, subscription_status_det
     'Deleted'
 ),( 
 	null,
-    'Terminated '
+    'Terminated'
 );
+
+SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending';
+
+drop table subscriptions;
 
 SELECT * FROM subscription_status;
 -- table for subscriptions
 CREATE TABLE subscriptions(
 	subscription_id int primary key auto_increment ,
+    subscription_quantity int not null,
     subscription_subscriber_user_id int not null,
     subscription_offer_name VARCHAR(255) not null,	-- for persistence of data
-    subscription_type_of_subscription_details  varchar(50) not null ,	-- for persistence of data	
+    subscription_type_of_subscription_id  int not null ,	
     subscription_duration int not null , -- persistence of data
     subscription_price float not null,	-- persistence of data
     subscription_total_duration int not null , -- persistence of data
@@ -1245,10 +1250,86 @@ CREATE TABLE subscriptions(
     subscription_date_created datetime default NOW(),
     subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (subscription_subscriber_user_id) REFERENCES users(user_id),
-    FOREIGN KEY (subscription_status_id) REFERENCES subscription_status(subscription_status_id)
+    FOREIGN KEY (subscription_status_id) REFERENCES subscription_status(subscription_status_id),
+    FOREIGN KEY (subscription_type_of_subscription_id) REFERENCES type_of_subscriptions(type_of_subscription_id)
+    
     -- foreign keys
 );
 
+SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02';
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    1,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
+    30,
+    800,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
+    NOW()
+);
+
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    1,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
+    30,
+    800,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
+    NOW()
+);
+
+
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
+    30,
+    100,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
+    NOW()
+);
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha04'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
+    30,
+    100,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Terminated'),
+    NOW()
+);
+
+(SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active' );
+
+SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
+WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
+ORDER BY user_fullname
+;
+
+SELECT * FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_subscriber_user_id =7 AND( subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = '');
+;
 
 
 SELECT  CURDATE();

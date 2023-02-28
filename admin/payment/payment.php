@@ -51,6 +51,8 @@ if(isset($_SESSION['admin_id'])){
                         <th class="text-center align-middle d-none d-sm-table-cell" rowspan="3">#</th>
                         <th class="text-center align-middle" rowspan="3" >NAME</th>
                         <th class="text-center" colspan="8">SUBSCRIPTION TYPE</th>
+                        <th class="text-center" rowspan="3">Total</th>
+                        <th class="text-center" rowspan="3">Total Paid</th>
                         <th class="text-center align-middle" rowspan="3">ACTION</th>
                         </tr>
                         <tr>
@@ -68,19 +70,22 @@ if(isset($_SESSION['admin_id'])){
                         <th class="text-center">Paid</th>
                         <th class="text-center">Amount</th>
                         <th class="text-center">Paid</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
                       <td class="text-center">1</td>
                       <td class="text-center">Trinidad, James Lorenz</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center">1</td>
+                      <td class="text-center">800 X 1 = <br>₱800</td>
+                      <td class="text-center">0</td>
+                      <td class="text-center">1500 X 1 X 2 =<br>₱3000</td>
+                      <td class="text-center">0</td>
+                      <td class="text-center">100 X 1 X 2 =<br>₱200</td>
+                      <td class="text-center">0</td>
+                      <td class="text-center">500 X 1 X 2 =<br>₱1000</td>
+                      <td class="text-center">0</td>
+                      <td class="text-center"><br>₱6000</td>
+                      <td class="text-center"><br>₱0</td>
                       <td class="text-center"><a href="#" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="#" class="btn btn-danger btn-sm"">Delete</button></td>
                     </tbody>
                 </table>
