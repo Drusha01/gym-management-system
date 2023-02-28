@@ -239,7 +239,7 @@ if(isset($_SESSION['user_id'])){
                                 </div>
                             
                                 <div class="trainers">
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-10 col-lg-6 ">
                                             <label class="fw-bold pb-2 ps-1">Search Trainer</label>
                                             <select class="form-select" aria-label="Default select example" onchange="trainer_selected_changed()">
@@ -268,7 +268,7 @@ if(isset($_SESSION['user_id'])){
                                             <button type="button" class="btn btn-success" onclick="add_newTrainer()"><i class='bx bx-plus-circle'></i></button>
                                             <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 
 
@@ -796,10 +796,16 @@ function trainer_selected_changed(selected_id){
     console.log('selected_index:'+selected_id);   
     console.log('selected:'+$('#select-trainer-'+selected_id).val());
     var selectedVal = $('#select-trainer-'+selected_id).val();
-    // if($('#select-trainer-'+selected_id).val() == 'None'){
-    //     trainers_id.splice(selected_id, 1);
-    //     $('#button-trainer-'+selected_id).html('');
-    // }
+    if($('#select-trainer-'+selected_id).val() == 'None' && selected_id != trainers_quantity){
+        alert('error');
+        trainer_use_id=null;
+        trainer_duration =0;
+        trainers_id = [];
+        trainers_quantity=0;
+        $('#trainer_use').val('None');
+        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+        $('.trainers').html('');
+    }
     
     trainers_list2.forEach(function(element,index) {
         if(element.trainer_id == selectedVal){
@@ -811,7 +817,7 @@ function trainer_selected_changed(selected_id){
                         $('#select-trainer-'+selected_id).val('None');
                     }else{
                         $('#select-trainer-'+selected_id).val('None');
-                        trainers_id.splice(selected_id, 1);
+                        //trainers_id.splice(selected_id, 1);
                     }
                     //console.log(trainers_id[index]);
                     alert('already selected');
