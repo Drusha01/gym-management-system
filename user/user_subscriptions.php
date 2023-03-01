@@ -1,21 +1,34 @@
 <div class="container-sub">
     <div class="row g-2 mb-2 ">
-    <h5 class="col-12 fw-bold">Current Subscription</h5>
-        <div class="form-group col-12 col-sm-3 table-filter-option">
-            <label class="ps-2 pb-2">Type</label>
-            <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
-                <option value="">All</option>
-                <option value="Gym-Use Subscription">Gym-Use Subscription</option>
-                <option value="Trainer Subscription">Trainer Subscription</option>
-                <option value="Locker Subscription">Locker Subscription</option>
-                <option value="Program Subscription">Program Subscription</option>
-            </select>
+        <h5 class="col-12 fw-bold">Current Subscription</h5>
+        <div class="row g-2 mb-2 ">
+            <div class="form-group col-12 col-sm-3 table-filter-option">
+                <label class="ps-2 pb-2">Type</label>
+                <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
+                    <option value="">All</option>
+                    <option value="Gym-Use Subscription">Gym-Use Subscription</option>
+                    <option value="Trainer Subscription">Trainer Subscription</option>
+                    <option value="Locker Subscription">Locker Subscription</option>
+                    <option value="Program Subscription">Program Subscription</option>
+                </select>
+            </div>
+            <div class="form-group col-12 col-sm-4 table-filter-option">
+                <label for="keyword" class="ps-2 pb-2">Search</label>
+                <input type="text" name="keyword" id="keyword" placeholder="Enter Subscription Here" class="form-control ms-md-2">
+            </div>
+             <!-- ito kapag malapit na ung expiration -->
+            <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                <button class="btn btn-success" role="button">Renew</button>
+            </div> -->
+            <!-- ito kapag bago lng ang subscription -->
+            <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                <button class="btn btn-secondary"role="button"  disabled>Renew</button>
+            </div>
+            <!-- ito kapag kaka avail lng ng customer -->
+            <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+            </div> -->
         </div>
-        <div class="form-group col-12 col-sm-4 table-filter-option">
-            <label for="keyword" class="ps-2 pb-2">Search</label>
-            <input type="text" name="keyword" id="keyword" placeholder="Enter Subscription Here" class="form-control ms-md-2">
-        </div>
-        
         <div class="table-responsive table-1">
             <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                 <thead class="bg-dark text-light">
@@ -28,7 +41,6 @@
                     <th scope="col" class="text-center">END DATE</th>
                     <th scope="col" class="text-center">DAYS LEFT</th>
                     <th scope="col" class="text-center">STATUS</th>
-                    <th scope="col" class="text-center">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +53,6 @@
                     <td class="text-center">November 15, 2022</td>
                     <td class="text-center">24</td>
                     <td class="text-center">Paid</td>
-                    <td class="text-center"><button class="btn btn-success btn-sm px-3">Renew</button></td>
                     </tr>
                     <tr>
                     <th class="d-lg-none"></th>
@@ -52,7 +63,6 @@
                     <td class="text-center">November 15, 2022</td>
                     <td class="text-center">24</td>
                     <td class="text-center">Paid</td>
-                    <td class="text-center"><button class="btn btn-success btn-sm px-3">Renew</button></td>
                     </tr>
                     <tr>
                     <th class="d-lg-none"></th>
@@ -63,21 +73,39 @@
                     <td class="text-center">November 15, 2022</td>
                     <td class="text-center">---</td>
                     <td class="text-center">Pending</td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm px-3" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
                     <tr>
                     <th class="d-lg-none"></th>
                     <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
-                    <td>----</td>
+                    <td>Zumba</td>
                     <td class="text-center ">Program Subscription</td>
+                    <td class="text-center">October 16, 2022</td>
+                    <td class="text-center">November 15, 2022</td>
                     <td class="text-center">----</td>
-                    <td class="text-center">----</td>
-                    <td class="text-center">----</td>
-                    <td class="text-center">----</td>
-                    <td class="text-center"><button class="btn btn-secondary btn-sm px-3">Renew</button></td>
+                    <td class="text-center">Pending</td>
                     </tr>
                     </tr>
                 </tbody>
             </table>
+            <!-- ito kapag wla pa nakapagsubscibe -->
+            <!-- <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th class="d-lg-none"></th>
+                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                    <th class="col-3">NAME OF SUBSCRIPTION</th>
+                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                    <th scope="col" class="text-center">DATE SUBSCRIBED</th>
+                    <th scope="col" class="text-center">END DATE</th>
+                    <th scope="col" class="text-center">DAYS LEFT</th>
+                    <th scope="col" class="text-center">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
+                    </tr>
+                </tbody>
+            </table> -->
         </div>
     </div>
 </div>
@@ -90,7 +118,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to cancel this subscription?
+        Are you sure you want to cancel?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
@@ -117,7 +145,6 @@
             <label for="keyword" class="ps-2 pb-2">Search</label>
             <input type="text" name="keyword" id="keyword" placeholder="Enter Subscription Here" class="form-control ms-md-2">
         </div>
-        
         <div class="table-responsive table-1">
             <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                 <thead class="bg-dark text-light">

@@ -430,5 +430,24 @@ $(".nav-item").on("click", function(){
     </div>
 </div>
 <!-- End of Modal -->
+<!-- Modal -->
+<div class="modal fade" id="Modalactivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Activation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body container-fluid">
+        Are you Sure you want to activate this?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal -->
 </body>
 </html>
