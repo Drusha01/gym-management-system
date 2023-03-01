@@ -23,15 +23,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td class="d-lg-none d-sm-none"></td>
-                    <td class="text-center d-none d-sm-table-cell">1</td>
-                    <td class="text-center">Trinidad, James Lorenz</td>
-                    <td class="text-center">Active</td>
-                    <td class="text-center">Pending</td>
-                    <td class="text-center">Active</td>
-                    <td class="text-center">None</td>
-                    <td class="text-center"><a href="edit-user.php" class="btn btn-success btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#Modalactivate">Activate</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
 
                     <?php 
                         require_once '../../classes/subscriptions.class.php';
@@ -93,6 +84,15 @@
                     
                     ?>
                 
+                <tr>
+                    <td class="d-lg-none d-sm-none"></td>
+                    <td class="text-center d-none d-sm-table-cell">1</td>
+                    <td class="text-center">Trinidad, James Lorenz</td>
+                    <td class="text-center">Active</td>
+                    <td class="text-center">Pending</td>
+                    <td class="text-center">Active</td>
+                    <td class="text-center">None</td>
+                    <td class="text-center"><a href="edit-user.php" class="btn btn-success btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#Modalactivate">Activate</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
 
                     </tr>
                 </tbody>
