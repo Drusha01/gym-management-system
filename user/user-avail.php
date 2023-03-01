@@ -320,7 +320,7 @@ if(isset($_SESSION['user_id'])){
                                 </ul>
                             </div>
                             <div class="col d-flex justify-content-end">
-                                <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next" onclick="validate_allSubscriptions()">Next</button>
+                                <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next" onclick="validate_allSubscriptions()" disabled id="first_next">Next</button>
                             </div>
                         </div>
                     </div>
@@ -600,6 +600,7 @@ function updateGymUseModal(){
         gym_use_id = content;
         gym_use_duration = content.offer_duration;
         $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
+        $('#first_next').removeAttr('disabled');
     }else{
         // ask the user if he/she is sure to change it ?? modal maybe
         gym_use_id =null;
@@ -636,6 +637,10 @@ function updateGymUseModal(){
         // update program values
         $('#program_use').val('None');
         $('#program-total-duration').val(program_duration*program_multiplier);
+
+
+
+        $('#first_next').attr('disabled','disabled');
     }
     
     
@@ -843,7 +848,7 @@ function add_newTrainer(selected_id){
             trainers_id.push(element);
             // add to the list
             $('#trainer_list_ul').append('<li id="trainer_id_'+element.trainer_id+'"><button type="button" class="btn btn-danger" onclick="deleteTrainer('+element.trainer_id+')"><i class="bx bx-minus-circle"></i></button> '+element.user_fullname+' </li>');
-
+            $('#select-trainer-'+selected_id).val('None');
         }
     });
 
@@ -972,6 +977,11 @@ function program_use_total_durationChange(selected_id){
 // ---------------------------------------------------- VALIDATE ALL SUBSCRIPTION ----------------------------------------------------
 function validate_allSubscriptions(){
     console.log('validating all subscription')
+    
+    if(!gym_use_id){
+        alert('gym use not selected');
+        
+    }
     $('#tbody_summary').html('');
     // first check the gym use
     if(gym_use_id){
@@ -987,7 +997,7 @@ function validate_allSubscriptions(){
             counter++;
             total+=locker_quantity*locker_multiplier*locker_use_id.offer_price;
         }
-        if(trainer_use_id !=null && trainer_use_id.offer_duration <= gym_use_id.offer_duration){
+        if(trainer_use_id !=null && trainer_use_id.offer_duration <= gym_use_id.offer_duration && trainers_id.length>0){
             $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+trainer_use_id.offer_name+'</td><td class="text-center" >'+trainers_id.length+'</td><td class="text-center" >₱'+trainer_use_id.offer_price+'</td><td class="text-center" >'+trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainer_multiplier*trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainers_id.length+' X ('+trainer_multiplier*trainer_use_id.offer_duration+'/'+trainer_use_id.offer_duration+') X ₱'+trainer_use_id.offer_price+' =</td><td class="text-center" >₱'+trainers_id.length*trainer_multiplier*trainer_use_id.offer_price+'</td></tr>');
             console.log(trainer_use_id);
             console.log(trainers_id);
