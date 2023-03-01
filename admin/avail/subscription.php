@@ -77,14 +77,14 @@
                                 }
                                 
                                 
-                                echo ' <td class="text-center"><a href="subscription-edit.php?user_id='.($value['subscription_subscriber_user_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>';
+                                echo ' <td class="text-center"><a href="subscription-edit.php?user_id='.($value['subscription_subscriber_user_id']).'" class="btn btn-primary btn-sm" role="button">Manage</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>';
                                 echo '</tr>';
                             }
                         }
                     
                     ?>
                 
-                <tr>
+                <!-- <tr>
                     <td class="d-lg-none d-sm-none"></td>
                     <td class="text-center d-none d-sm-table-cell">1</td>
                     <td class="text-center">Trinidad, James Lorenz</td>
@@ -94,7 +94,7 @@
                     <td class="text-center">None</td>
                     <td class="text-center"><a href="edit-user.php" class="btn btn-success btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#Modalactivate">Activate</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
 
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
