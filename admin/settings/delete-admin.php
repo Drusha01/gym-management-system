@@ -31,6 +31,8 @@ if(isset($_SESSION['admin_id'])){
             }
             
             
+        }else{
+            echo '0';
         }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this

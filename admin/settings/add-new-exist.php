@@ -1,3 +1,11 @@
+<?php
+session_start();
+if($_SESSION['admin_user_type_details'] != 'admin'){
+    header('location:../dashboard/dashboard.php');
+}
+?>
+
+
 <div class="row g-2 mb-2 mt-1">
     <div class="form-group col-12 col-sm-4 table-filter-option">
         <label>Type</label>

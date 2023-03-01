@@ -15,11 +15,12 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if($_SESSION['admin_user_type_details'] != 'admin'){
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
-        if(!$_SESSION['admin_user_type_details'] == 'admin'){
-            header('location:../dashboard.dashboard.php');
-        }
+        
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
         // go to deleted user page
     }

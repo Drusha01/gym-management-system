@@ -592,7 +592,7 @@ SELECT control_id FROM offer_controls WHERE control_details="Read-Only";
 CREATE TABLE admins(
 	admin_id int primary key auto_increment,
     admin_type_id int NOT NULL ,
-	admin_user_id int unique,
+	admin_user_id int unique not null,
     admin_offer_restriction int not null,
     admin_avail_restriction int not null,
     admin_account_restriction int not null,

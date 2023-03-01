@@ -58,6 +58,9 @@ if(isset($_SESSION['admin_id'])){
 
         $_SESSION['admin_user_date_created'] = $admin_data['user_date_created'];
         $_SESSION['admin_user_date_updated'] = $admin_data['user_date_updated'];
+        $_SESSION['admin_user_name_verified'] = $user_details['user_name_verified'];
+        $_SESSION['admin_user_email_verified'] = $user_details['user_email_verified'];
+        $_SESSION['admin_user_phone_verified'] = $user_details['user_phone_verified'];
 
 
         header('location:dashboard/dashboard.php');

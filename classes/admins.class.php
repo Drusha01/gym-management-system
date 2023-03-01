@@ -39,7 +39,7 @@ class admins
     function get_admin_details($admin_user_id){
         try{
             $sql = 'SELECT admin_id, user_id, user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
-            user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
+            user_phone_number, user_email, user_name, user_phone_verified,user_email_verified,user_name_verified,user_firstname, user_middlename, user_lastname, user_address,
             user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,
             offer_controls.control_details AS admin_offer_restriction_details,
             avail_controls.control_details AS admin_avail_restriction_details,

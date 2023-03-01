@@ -14,6 +14,9 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if($_SESSION['admin_user_type_details'] != 'admin'){
+            header('location:../dashboard/dashboard.php');
+        }
         if($_SESSION['admin_user_type_details'] == 'admin'){
             // get the admin details
             require_once '../../classes/admins.class.php';

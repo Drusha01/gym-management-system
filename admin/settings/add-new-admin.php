@@ -16,6 +16,12 @@ if(isset($_SESSION['admin_id'])){
         // do nothing
         if($_SESSION['admin_user_type_details'] == 'admin'){
             // get the admin details
+
+            if($_SESSION['admin_user_type_details'] != 'admin'){
+                header('location:../dashboard/dashboard.php');
+            }
+
+
             require_once '../../classes/users.class.php';
             require_once '../../classes/admins.class.php';
             $userObj = new users();

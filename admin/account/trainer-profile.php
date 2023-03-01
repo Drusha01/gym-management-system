@@ -261,7 +261,7 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="../../images/312476041_1180676142522081_7979367819549623201_n 1.png" class="img-fluid">
+        <img src="<?php echo_safe('../../img/valid-id/'.$user_data['user_valid_id_photo'])?>" class="img-fluid">
       </div>
     </div>
   </div>
