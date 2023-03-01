@@ -239,6 +239,7 @@ if(isset($_SESSION['user_id'])){
                                 </div>
                             
                                 <div class="trainers">
+                                    
                                     <!-- <div class="row">
                                         <div class="col-10 col-lg-6 ">
                                             <label class="fw-bold pb-2 ps-1">Search Trainer</label>
@@ -270,7 +271,8 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div> -->
                                 </div>
-                                
+                                <ul id="trainer_list_ul">
+                                </ul>
 
                                 <hr class="hr" />
 
@@ -314,6 +316,8 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                 </div>
+                                <ul id="program_list_ul">
+                                </ul>
                             </div>
                             <div class="col d-flex justify-content-end">
                                 <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next" onclick="validate_allSubscriptions()">Next</button>
@@ -343,20 +347,13 @@ if(isset($_SESSION['user_id'])){
                                                 <th class="text-center" scope="col">Price</th>
                                                 <th class="text-center" scope="col">Days</th>
                                                 <th class="text-center" scope="col">Total Days</th>
-                                                <th class="text-center" scope="col">Total Price</th>
+                                                <th class="text-center" scope="col">CALCULATION</th>
+                                                <th class="text-center" scope="col">Sub-Total Price</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                <th scope="row">1</th>
-                                                <td>1-Month Subscription</td>
-                                                <td class="text-center" >1</td>
-                                                <td class="text-center" >₱800</td>
-                                                <td class="text-center" >30</td>
-                                                <td class="text-center" >90</td>
-                                                <td class="text-center" >₱2400</td>
-                                                </tr>
-                                                <tr>
+                                            <tbody id="tbody_summary">
+                                                
+                                                <!-- <tr>
                                                 <th scope="row">2</th>
                                                 <td>1-Month Locker</td>
                                                 <td class="text-center" >2</td>
@@ -391,13 +388,13 @@ if(isset($_SESSION['user_id'])){
                                                 <td class="text-center" >30</td>
                                                 <td class="text-center" >30</td>
                                                 <td class="text-center" >₱500</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <hr class="hr" />
-                                <h5 class="card-title d-flex justify-content-end">Total: <span class="fw-light">₱2400</span></h5>
+                                <h5 class="card-title d-flex justify-content-end">Total: <span class="fw-light" id="total_price">₱</span></h5>
                             </div>
                             </div>
                         </div>
@@ -584,6 +581,7 @@ var trainers_quantity=0;
 
 var programs_use_id=[];
 var program_list;
+var programs_duration=[];
 var program_duration;
 var program_multiplier=1;
 var program_quantity=1;
@@ -679,6 +677,7 @@ function updateLockerUseModal(){
             // UPDATE DURATION AND QUANTITY
             locker_use_id=content;
             locker_duration =content.offer_duration;
+            locker_quantity =1;
             $('#locker-quantity').val(1);
             $('#locker-total-duration').val(locker_duration*locker_multiplier);
         }else{
@@ -721,8 +720,9 @@ function locker_use_total_durationChange(){
 
 function locker_use_quantityChange(){
     if($('#locker-use-'+$('#locker_use').val()).attr('name')!=null){
+        locker_quantity =$('#locker-quantity').val();
         if(locker_use_id !=0 && $('#locker-quantity').val()<=0){
-            $('#locker-quantity').val(1);
+            $('#locker-quantity').val(1); 
         }
     }else{
         alert('please select Locker-Subscription');
@@ -756,6 +756,7 @@ function updateTrainerUseModal(){
             trainers_quantity=0;
             $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
             $('.trainers').html('');
+            $('#trainer_list_ul').html('');
         }
     }else{
         alert('please select Gym-Subscription');
@@ -796,68 +797,24 @@ function trainer_selected_changed(selected_id){
     console.log('selected_index:'+selected_id);   
     console.log('selected:'+$('#select-trainer-'+selected_id).val());
     var selectedVal = $('#select-trainer-'+selected_id).val();
-    if($('#select-trainer-'+selected_id).val() == 'None' && selected_id != trainers_quantity){
-        alert('error');
-        trainer_use_id=null;
-        trainer_duration =0;
-        trainers_id = [];
-        trainers_quantity=0;
-        $('#trainer_use').val('None');
-        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
-        $('.trainers').html('');
+    
+    if(selectedVal != 'None'){
+        $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button>');
     }
     
-    trainers_list2.forEach(function(element,index) {
-        if(element.trainer_id == selectedVal){
-            // first we check if the selected value is in the trainers_id array
-            for (let index = 0; index < trainers_id.length; index++) {
-                if(trainers_id[index].trainer_id == element.trainer_id){
-
-                    if(trainers_id[selected_id] == null){
-                        $('#select-trainer-'+selected_id).val('None');
-                    }else{
-                        $('#select-trainer-'+selected_id).val('None');
-                        //trainers_id.splice(selected_id, 1);
-                    }
-                    //console.log(trainers_id[index]);
-                    alert('already selected');
-                    // dont add
-                    return;
-                }
-            }
-            if(trainers_id[selected_id] == null){
-                trainers_id.push(element);
-                if(trainers_id.length <trainers_list2.length  &&selected_id+1 == trainers_quantity){
-                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-
-                }else{
-                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                }
-            }else{
-                trainers_id[selected_id] = element;
-                if(trainers_id.length ==trainers_quantity ){
-                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-
-                }else{
-                    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                }
-            }
-        }
-    });
     console.log(trainers_id);
 }
 
-function deleteTrainer(selected_id){
+function deleteTrainer(trainer_id){
     
     //trainers_id.remove(selected_id);
-    var selectedVal = $('#select-trainer-'+selected_id).val();
-    trainers_id.forEach(function(element,index)  {
-        if(element.trainer_id == selectedVal){
+   trainers_id.forEach(function(element,index) {
+        if(element.trainer_id == trainer_id){
             trainers_id.splice(index, 1);
+            $('#trainer_id_'+trainer_id).remove();
         }
-    });
-    $('#select-trainer-'+selected_id).val('None');
-    $('#button-trainer-'+selected_id).html('');
+   });
+   
     console.log(trainers_id)
     
 
@@ -868,16 +825,38 @@ function add_newTrainer(selected_id){
     
     console.log('add new trainer');
     console.log(trainers_list);
-    $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+    var selectedVal = $('#select-trainer-'+selected_id).val();
+    // $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+    $('#button-trainer-'+selected_id).html('');
+
+    var valid =true;
+    trainers_id.forEach(element => {
+        if(element.trainer_id == selectedVal ){
+            alert('already selected');
+            valid = false;
+            return;
+        }
+    });
+    trainers_list.forEach(element => {
+        if(element.trainer_id == selectedVal && valid){
+            console.log(element)
+            trainers_id.push(element);
+            // add to the list
+            $('#trainer_list_ul').append('<li id="trainer_id_'+element.trainer_id+'"><button type="button" class="btn btn-danger" onclick="deleteTrainer('+element.trainer_id+')"><i class="bx bx-minus-circle"></i></button> '+element.user_fullname+' </li>');
+
+        }
+    });
 
     // only add if the trainers_id is less than the trainer_list
-    if(trainers_list2.length>0){
-        $('.trainers').append('<div class="row" id=trainer-'+(trainers_quantity)+'><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_quantity)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_quantity)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_quantity)+'"></div></div> ');
+    
+    if(trainers_quantity <10){
+        trainers_quantity = 100;;
+        $('.trainers').append('<div class="row" id=trainer><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_quantity)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_quantity)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_quantity)+'"></div></div> ');
         trainers_list2.forEach(element => {
             $('#select-trainer-'+(trainers_quantity)).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
         });
     }
-    trainers_quantity++;
+    
 }
 // ---------------------------------------------------- PROGRAM ----------------------------------------------------
 function updateProgramUseModal(selected_id){
@@ -894,66 +873,35 @@ function updateProgramUseModal(selected_id){
             
             console.log(program_list);
             var selectedVal =$('#program_use-'+selected_id).val();
-            
-            // check if we already append it in the list
-            program_list.forEach(element => {
-                if(element.offer_id == selectedVal){
-                    console.log(element);
-                    for (let index = 0; index < programs_use_id.length; index++) {
-                        if(element.offer_id == programs_use_id[index].offer_id){
-                            // do something here
-                            if(programs_use_id[selected_id] == null){
-                                $('#program_use-'+selected_id).val('None');
-                            }else{
-                                $('#program_use-'+selected_id).val('None');
-                                // set all things to default
-                            }
-                            alert('already selected');
-                            return;
-                        }
-                        
-                    }
-                    if(programs_use_id[selected_id] == null){
-                        console.log('appended');
-                        programs_use_id.push(element);
-                        if(programs_use_id.length <program_list.length  &&selected_id+1 == program_quantity){
-                            $('#button-div-'+selected_id).html('<button type="button" class="btn btn-success" onclick="addNewProgram('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                        }else{
-                            $('#button-div-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                        }
-                    }else{
-                        programs_use_id[selected_id] = element;
-                        if(programs_use_id.length == program_quantity ){
-                            $('#button-div-'+selected_id).html('<button type="button" class="btn btn-success" onclick="addNewProgram('+selected_id+')"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                        }else{
-                            $('#button-div-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                        }
-                    }
-
-                    // update the duration
-                    program_duration = programs_use_id[selected_id].offer_duration;
-
-                    $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier);
-                    // add the button
-                    if(programs_use_id.length < program_list.length){
-                       // $('#button-div-'+selected_id).html('<button type="button" class="btn btn-success" onclick="addNewProgram()"><i class="bx bx-plus-circle"></i></button><button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-                    }
+            console.log($('#program_use-'+selected_id).val());
+            var valid = true;
+            programs_use_id.forEach(element => {
+                if(selectedVal == element.offer_id ){
+                    alert('already selected');
+                    valid = false;
+                    return;
                 }
             });
-            console.log('e;');
-            console.log(programs_use_id);
-
+            program_list.forEach(element => {
+                if(selectedVal == element.offer_id && valid){
+                    program_duration = element.offer_duration;
+                    program_multiplier = 1;
+                    $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier)
+                    $('#button-div-0').html('<button type="button" class="btn btn-success" onclick="addNewProgram('+element.offer_id+')"><i class="bx bx-plus-circle"></i></button>');
+                }
+            });
+            
+            
+            
             
 
             
         }else{
             // set all to default
-            program_use_id=null;
-            trainer_duration =0;
-            trainers_id = [];
-            trainers_quantity=0;
-            $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
-            $('.trainers').html('');
+            program_duration = 0;
+            program_multiplier = 1;
+            $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier)
+            $('#button-div-0').html('');
 
         }
     }else{
@@ -963,36 +911,49 @@ function updateProgramUseModal(selected_id){
 }
 
 function addNewProgram(selected_id){
-    $('#button-div-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteProgram('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
-    if(program_quantity<program_list.length){
-        $('.programs').append('<div class="row py-2" id="program-use-'+program_quantity+'"><div class="col-10 col-md-6"><label class="fw-bold pb-2 ps-1">Program Subscription</label><select class="form-select" aria-label="Default select example" id="program_use-'+program_quantity+'" name="" onchange="updateProgramUseModal('+program_quantity+')"><option value="None" selected="">Select Program Subscription</option></select></div><div class="col-1 align-self-end mb-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><strong>?</strong></button></div><div class="col-4 col-md-2 "><label class="fw-bold pb-2 ps-1">Days</label><input type="number" class="form-control" name="program-total-duration-'+program_quantity+'" id="program-total-duration-'+program_quantity+'" onchange="program_use_total_durationChange('+program_quantity+')"></div><div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" id="button-div-'+program_quantity+'"></div></div>');
-        // add the select
-        program_list.forEach(element => {
-            $('#program_use-'+program_quantity).append('<option value="'+element.offer_id+'" >'+element.offer_name+' (₱'+element.offer_price+') DAYS('+element.offer_duration+')</option>');
-        });
-    }
-    program_quantity++;
-    console.log(program_list);
+    var selectedVal = $('#program-use-'+selected_id).val();
+    console.log(selectedVal);
+    var valid = true;
+    programs_use_id.forEach(element => {
+        if(selectedVal == element.offer_id){
+            alert('already selected');
+            valid = false;
+            return;
+        }
+    });
+    program_list.forEach(element => {
+        if(selectedVal == element.offer_id && valid){
+            console.log($('#program-total-duration-0').val());
+            console.log(element);
+            programs_use_id.push(element);
+            programs_duration.push($('#program-total-duration-0').val());
+            $('#program_list_ul').append('<li id="program_id_'+element.offer_id+'"><button type="button" class="btn btn-danger" onclick="deleteProgram('+element.offer_id+')"><i class="bx bx-minus-circle"></i></button> '+$('#program-use-'+selected_id).html()+' DURATION ('+$('#program-total-duration-0').val()+') </li>')
+
+        }
+    });
+    console.log(programs_use_id);
 }
 
 function deleteProgram(selected_id){
-    var selectedVal =$('#program_use-'+selected_id).val();
+    var selectedVal = $('#program-use-'+selected_id).val();
     programs_use_id.forEach(function(element,index)  {
         if(element.offer_id == selectedVal){
             programs_use_id.splice(index, 1);
+            programs_duration.splice(index, 1);
+            $('#program_id_'+element.offer_id).remove();
         }
     });
 
 }
 
-function program_use_total_durationChange($selected_id){
-    if($('#program-use-'+$('#program_use').val()).attr('name')!=null){
+function program_use_total_durationChange(selected_id){
+    if($('#program-use-'+$('#program_use-'+selected_id).val()).attr('name')!=null){
         if($('#program-total-duration-'+selected_id).val()>program_duration*program_multiplier){
             program_multiplier++;
             // check if the locker is greater than the gym use
             if(program_duration*program_multiplier >gym_use_duration*gym_use_multiplier){
                 program_multiplier--;
-                alert('trainer duration can\'t be greater than gym use');
+                alert('program duration can\'t be greater than gym use');
             }
         }else  {
             program_multiplier--;
@@ -1011,10 +972,48 @@ function program_use_total_durationChange($selected_id){
 // ---------------------------------------------------- VALIDATE ALL SUBSCRIPTION ----------------------------------------------------
 function validate_allSubscriptions(){
     console.log('validating all subscription')
-    console.log(gym_use_id);
-    console.log(locker_use_id);
-    console.log(trainer_use_id);
-    console.log(programs_use_id);
+    $('#tbody_summary').html('');
+    // first check the gym use
+    if(gym_use_id){
+        var total = gym_use_multiplier*gym_use_id.offer_price;
+        // check locker
+        console.log(gym_use_id);
+        var counter =1;
+        $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+gym_use_id.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+gym_use_id.offer_price+'</td><td class="text-center" >'+gym_use_id.offer_duration+'</td><td class="text-center" >'+gym_use_multiplier*gym_use_id.offer_duration+'</td><td class="text-center" >1 X ('+gym_use_multiplier*gym_use_id.offer_duration+'/'+gym_use_id.offer_duration+') X ₱'+gym_use_id.offer_price+' =</td><td class="text-center" >₱'+gym_use_multiplier*gym_use_id.offer_price+'</td></tr>');
+        counter++;
+        if(locker_use_id != null && locker_use_id.offer_duration <= gym_use_id.offer_duration  ){
+            console.log(locker_use_id);
+            $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+locker_use_id.offer_name+'</td><td class="text-center" >'+locker_quantity+'</td><td class="text-center" >₱'+locker_use_id.offer_price+'</td><td class="text-center" >'+locker_use_id.offer_duration+'</td><td class="text-center" >'+locker_multiplier*locker_use_id.offer_duration+'</td><td class="text-center" >'+locker_quantity+' X ('+locker_multiplier*locker_use_id.offer_duration+'/'+locker_use_id.offer_duration+') X ₱'+locker_use_id.offer_price+' =</td><td class="text-center" >₱'+locker_quantity*locker_multiplier*locker_use_id.offer_price+'</td></tr>');
+            counter++;
+            total+=locker_quantity*locker_multiplier*locker_use_id.offer_price;
+        }
+        if(trainer_use_id !=null && trainer_use_id.offer_duration <= gym_use_id.offer_duration){
+            $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+trainer_use_id.offer_name+'</td><td class="text-center" >'+trainers_id.length+'</td><td class="text-center" >₱'+trainer_use_id.offer_price+'</td><td class="text-center" >'+trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainer_multiplier*trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainers_id.length+' X ('+trainer_multiplier*trainer_use_id.offer_duration+'/'+trainer_use_id.offer_duration+') X ₱'+trainer_use_id.offer_price+' =</td><td class="text-center" >₱'+trainers_id.length*trainer_multiplier*trainer_use_id.offer_price+'</td></tr>');
+            console.log(trainer_use_id);
+            console.log(trainers_id);
+            counter++;
+            total+=trainers_id.length*trainer_multiplier*trainer_use_id.offer_price;
+        }
+        if(programs_use_id.length>0){
+            for (let index = 0; index < programs_duration.length; index++) {
+                if(programs_duration[index]<= gym_use_id.offer_duration){
+                    console.log(programs_use_id);
+                    console.log(programs_duration);
+                }
+                
+            }
+            programs_use_id.forEach(function(element,index) {
+                $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+element.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+element.offer_price+'</td><td class="text-center" >'+element.offer_duration+'</td><td class="text-center" >'+programs_duration[index]+'</td><td class="text-center" >1 X ('+programs_duration[index]+'/'+element.offer_duration+') X ₱'+element.offer_price+' =</td><td class="text-center" >₱'+1*(programs_duration[index]/element.offer_duration)*element.offer_price+'</td></tr>');
+                counter++;
+                total+=(programs_duration[index]/element.offer_duration)*element.offer_price;
+            });
+        }
+        $('#total_price').html('₱'+total);
+    }
+    
+    
+    
+    
 }
 
 </script>
