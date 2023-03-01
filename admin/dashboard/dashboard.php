@@ -50,37 +50,38 @@ if(isset($_SESSION['admin_id'])){
                 </li>
             </ul>
             <div class="tab-content">
-            <div class="tab-pane active show fade" id="tab-avail">
-                <section id="subscription" class="pt-3">
-                <?php require_once 'subscription.php';?>
-                </section>
-                <br>
-                <section id="expiration">
-                <?php require_once 'expiration.php';?>
-                </section>
-                <br>
-                <section id="walk-in">
-                <?php require_once 'walk-in.php';?>
-                </section>
-            </div>
-            <div class="tab-pane show fade" id="tab-pay">
-                <section id="pending" class="pt-3">
-                <?php require_once 'pending.php';?>
-                </section>
-                <section id="partial" class="pt-3">
-                <?php require_once 'partial.php';?>
-                </section>
-                <section id="unpaid" class="pt-3">
-                <?php require_once 'unpaid.php';?>
-                </section>
-                <section id="overdue" class="pt-3">
-                <?php require_once 'overdue.php';?>
-                </section>
-            </div>
-            <div class="tab-pane show fade" id="tab-acc">
-                <section id="pending" class="pt-3">
-                <?php require_once 'account.php';?>
-                </section>
+                <div class="tab-pane active show fade" id="tab-avail">
+                    <section id="subscription" class="pt-3">
+                    <?php require_once 'subscription.php';?>
+                    </section>
+                    <br>
+                    <section id="expiration">
+                    <?php require_once 'expiration.php';?>
+                    </section>
+                    <br>
+                    <section id="walk-in">
+                    <?php require_once 'walk-in.php';?>
+                    </section>
+                </div>
+                <div class="tab-pane show fade" id="tab-pay">
+                    <section id="pending" class="pt-3">
+                    <?php require_once 'pending.php';?>
+                    </section>
+                    <section id="partial" class="pt-3">
+                    <?php require_once 'partial.php';?>
+                    </section>
+                    <section id="unpaid" class="pt-3">
+                    <?php require_once 'unpaid.php';?>
+                    </section>
+                    <section id="overdue" class="pt-3">
+                    <?php require_once 'overdue.php';?>
+                    </section>
+                </div>
+                <div class="tab-pane show fade" id="tab-acc">
+                    <section id="pending" class="pt-3">
+                    <?php require_once 'account.php';?>
+                    </section>
+                </div>
             </div>
         </div>
     </div>

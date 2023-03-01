@@ -19,16 +19,8 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="user-page.php">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="../user/subscription.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Subscriptions
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="../user/subscription.php">Gym-Use</a></li>
-                  <li><a class="dropdown-item" href="#">Trainer</a></li>
-                  <li><a class="dropdown-item" href="#">Locker</a></li>
-                  <li><a class="dropdown-item" href="#">Programs</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../user/subscription.php">Subscriptions</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="user-avail.php">Avail</a>
