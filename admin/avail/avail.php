@@ -431,7 +431,7 @@ $(".nav-item").on("click", function(){
 </div>
 <!-- End of Modal -->
 <!-- Modal -->
-<div class="modal fade" id="Modalactivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+<!-- <div class="modal fade" id="Modalactivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
@@ -447,7 +447,7 @@ $(".nav-item").on("click", function(){
         </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- End of Modal -->
 </body>
 </html>
