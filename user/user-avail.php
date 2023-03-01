@@ -635,11 +635,18 @@ function updateGymUseModal(){
         // update program modal
 
         // update program values
-        $('#program_use').val('None');
-        $('#program-total-duration').val(program_duration*program_multiplier);
+        $('#program_use-0').val('None');
+        $('#program-total-duration-0').val(0);
+        $('#button-div-0').html('');
+        $('#program_list_ul').html('');
 
-
-
+        programs_use_id=[];
+        program_list;
+        programs_duration=[];
+        program_duration;
+        program_multiplier=1;
+        program_quantity=1;
+        programs_default=null;
         $('#first_next').attr('disabled','disabled');
     }
     
