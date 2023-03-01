@@ -92,9 +92,11 @@
                     <td class="text-center">Pending</td>
                     <td class="text-center">Active</td>
                     <td class="text-center">None</td>
+
                     <td class="text-center"><a href="edit-user.php" class="btn btn-success btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#Modalactivate">Activate</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>
 
                     </tr> -->
+
                 </tbody>
             </table>
         </div>
