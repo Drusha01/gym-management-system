@@ -54,10 +54,13 @@ if(isset($_SESSION['admin_id'])){
         $_SESSION['admin_account_restriction_details'] = $admin_data['admin_account_restriction_details'];
         $_SESSION['admin_payment_restriction_details'] = $admin_data['admin_payment_restriction_details'];
         $_SESSION['admin_maintenance_restriction_details'] = $admin_data['admin_maintenance_restriction_details'];
-        $_SESSION['admin_reports_restriction_details'] = $admin_data['admin_reports_restriction_details'];
+        $_SESSION['admin_report_restriction_details'] = $admin_data['admin_report_restriction_details'];
 
         $_SESSION['admin_user_date_created'] = $admin_data['user_date_created'];
         $_SESSION['admin_user_date_updated'] = $admin_data['user_date_updated'];
+        $_SESSION['admin_user_name_verified'] = $user_details['user_name_verified'];
+        $_SESSION['admin_user_email_verified'] = $user_details['user_email_verified'];
+        $_SESSION['admin_user_phone_verified'] = $user_details['user_phone_verified'];
 
 
         header('location:dashboard/dashboard.php');

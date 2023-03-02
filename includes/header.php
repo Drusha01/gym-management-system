@@ -19,16 +19,8 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="user-page.php">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="../user/subscription.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Subscriptions
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="../user/subscription.php">Gym-Use</a></li>
-                  <li><a class="dropdown-item" href="#">Trainer</a></li>
-                  <li><a class="dropdown-item" href="#">Locker</a></li>
-                  <li><a class="dropdown-item" href="#">Programs</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../user/subscription.php">Subscriptions</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="user-avail.php">Avail</a>
@@ -49,7 +41,7 @@
               <ul class="nav navbar-nav navbar-right d-none d-lg-block">
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class='bx bx-bell fs-2'></i>
+                      <i class='bx bx-bell fs-2'></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" style="width:300px;">
                       <li>

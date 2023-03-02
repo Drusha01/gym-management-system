@@ -4,7 +4,7 @@ session_start();
 
 // includes
 
-
+require_once '../../tools/functions.php'; 
 // check if we are normal user
 if(isset($_SESSION['user_id'])){
     header('location:../user/user-page.php');
@@ -48,10 +48,10 @@ if(isset($_SESSION['admin_id'])){
             <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
-                <img src="../../images/acc_img.png" alt="Admin" class="rounded-circle" width="150">
+                <img src="../../img/profile-resize/<?php echo htmlentities($_SESSION['admin_user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
                 <div class="mt-3">
-                    <h4>James_No_Legday</h4>
-                    <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Active</span></p>
+                    <h4><?php echo htmlentities($_SESSION['admin_user_name']);?></h4>
+                    <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal"><?php echo htmlentities($_SESSION['admin_user_status_details']);?></span></p>
                     <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
                 </div>
                 </div>
@@ -67,7 +67,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Trinidad, James Lorenz
+                            <?php echo htmlentities($_SESSION['admin_user_lastname']. ', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename']) ?>
                             </div>
                         </div>
                         <div class="col">
@@ -75,7 +75,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Gender</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Male
+                            <?php echo htmlentities($_SESSION['admin_user_gender_details']) ?>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                San Jose, Zamboanga City
+                                <?php echo htmlentities($_SESSION['admin_user_address']) ?>
                             </div>
                         </div>
                         <div class="col">
@@ -94,7 +94,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Phone Number</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                0921-234-5678
+                                <?php echo htmlentities($_SESSION['admin_user_phone_number']) ?>
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Age</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                22 Years Old
+                                <?php echo htmlentities(getAge($_SESSION['admin_user_birthdate'])) ?>
                             </div>
                         </div>
                         <div class="col-6">
@@ -113,7 +113,9 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-9 text-secondary">
-                                James_No_Legday@gmail.com
+                                 <?php echo_safe($_SESSION['admin_user_email']);// if(isset($_SESSION['admin_user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="user-change-email-address.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} 
+                                ?> 
+                                             
                             </div>
                         </div>
                     </div>
@@ -124,7 +126,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Birth Date</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                November 14, 2000
+                            <?php echo htmlentities(date_format(date_create($_SESSION['admin_user_birthdate']), "F d,Y"));?>
                             </div>
                         </div>
                         <div class="col">
@@ -132,7 +134,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Account Created</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                December 20, 2019
+                                <?php echo htmlentities(date_format(date_create($_SESSION['admin_user_date_created']), "F d,Y"));?>
                             </div>
                         </div>
                     </div>
@@ -163,7 +165,7 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="../../images/312476041_1180676142522081_7979367819549623201_n 1.png" class="img-fluid">
+        <img src="../<?php echo_safe('../img/valid-id/'.$_SESSION['admin_user_valid_id_photo'])?>" class="img-fluid">
       </div>
     </div>
   </div>

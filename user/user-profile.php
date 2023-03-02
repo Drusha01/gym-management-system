@@ -222,18 +222,18 @@ if(isset($_SESSION['user_id'])){
                             </div>
                         </div>
                     </div>
-                  <?php //require_once 'user-acc.php'; ?>
+                  <?php require_once 'user-acc.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
                       <?php require_once 'user-notif.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab">
-                    <div class="container-fluid p-3 my_subscription">
+                    <div class="container-fluid p-3 ">
                         <?php require_once 'user_subscriptions.php'; ?>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab">
-                    <div class="container-fluid p-3 my-trainer">
+                    <div class="container-fluid p-3">
                       <?php require_once 'user-trainer.php'; ?>
                     </div>
                 </div>
