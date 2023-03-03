@@ -367,7 +367,7 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '09265827344',
-    'hanz.dumapit55@gmail.com',
+    'hanz.dumapit56@gmail.com',
     'Drusha04',
     true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
@@ -715,7 +715,7 @@ WHERE admin_id = 1
 ;
 
 -- select all sub admins
-SELECT admin_id, user_id, CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
+SELECT admin_id, user_id,user_name, CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
  user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
  user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,CAST(admin_date_created AS DATE) admin_date_created,
  offer_controls.control_details AS admin_offer_restriction_details,

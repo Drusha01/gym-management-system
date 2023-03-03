@@ -423,7 +423,7 @@ if(isset($_SESSION['user_id'])){
                                 <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
                             </div>
                             <div class="col d-flex justify-content-end">
-                                <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                                <button class="btn btn-outline-danger ml-auto" type="button" title="Send" onclick="avail()">Avail</button>
                             </div>
                         </div>
                     </div>
@@ -581,7 +581,7 @@ var trainers_quantity=0;
 
 var programs_use_id=[];
 var program_list;
-var programs_duration=[];
+var programs_multiplier=[];
 var program_duration;
 var program_multiplier=1;
 var program_quantity=1;
@@ -938,7 +938,7 @@ function addNewProgram(selected_id){
             console.log($('#program-total-duration-0').val());
             console.log(element);
             programs_use_id.push(element);
-            programs_duration.push($('#program-total-duration-0').val());
+            programs_multiplier.push({multiplier:$('#program-total-duration-0').val()});
             $('#program_list_ul').append('<li id="program_id_'+element.offer_id+'"><button type="button" class="btn btn-danger" onclick="deleteProgram('+element.offer_id+')"><i class="bx bx-minus-circle"></i></button> '+$('#program-use-'+selected_id).html()+' DURATION ('+$('#program-total-duration-0').val()+') </li>')
 
         }
@@ -951,7 +951,7 @@ function deleteProgram(selected_id){
     programs_use_id.forEach(function(element,index)  {
         if(element.offer_id == selectedVal){
             programs_use_id.splice(index, 1);
-            programs_duration.splice(index, 1);
+            programs_multiplier.splice(index, 1);
             $('#program_id_'+element.offer_id).remove();
         }
     });
@@ -1012,17 +1012,17 @@ function validate_allSubscriptions(){
             total+=trainers_id.length*trainer_multiplier*trainer_use_id.offer_price;
         }
         if(programs_use_id.length>0){
-            for (let index = 0; index < programs_duration.length; index++) {
-                if(programs_duration[index]<= gym_use_id.offer_duration){
+            for (let index = 0; index < programs_multiplier.length; index++) {
+                if(programs_multiplier[index]<= gym_use_id.offer_duration){
                     console.log(programs_use_id);
-                    console.log(programs_duration);
+                    console.log(programs_multiplier);
                 }
                 
             }
             programs_use_id.forEach(function(element,index) {
-                $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+element.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+element.offer_price+'</td><td class="text-center" >'+element.offer_duration+'</td><td class="text-center" >'+programs_duration[index]+'</td><td class="text-center" >1 X ('+programs_duration[index]+'/'+element.offer_duration+') X ₱'+element.offer_price+' =</td><td class="text-center" >₱'+1*(programs_duration[index]/element.offer_duration)*element.offer_price+'</td></tr>');
+                $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+element.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+element.offer_price+'</td><td class="text-center" >'+element.offer_duration+'</td><td class="text-center" >'+programs_multiplier[index].duration+'</td><td class="text-center" >1 X ('+programs_multiplier[index].duration+'/'+element.offer_duration+') X ₱'+element.offer_price+' =</td><td class="text-center" >₱'+1*(programs_multiplier[index].duration/element.offer_duration)*element.offer_price+'</td></tr>');
                 counter++;
-                total+=(programs_duration[index]/element.offer_duration)*element.offer_price;
+                total+=(programs_multiplier[index].duration/element.offer_duration)*element.offer_price;
             });
         }
         $('#total_price').html('₱'+total);
@@ -1032,6 +1032,49 @@ function validate_allSubscriptions(){
     
     
 }
+
+// avail
+function avail(){
+    console.log('avail');
+
+    $.ajax({
+    method: "POST",
+    url: "user-avail-ajax.php",
+    data: { gym_use_id:gym_use_id, gym_use_multiplier:gym_use_multiplier,locker_use_id: locker_use_id,locker_quantity:locker_quantity, locker_multiplier:locker_multiplier,
+    
+        trainer_use_id:trainer_use_id,trainer_multiplier:trainer_multiplier,trainers_id:trainers_id,programs_use_id:programs_use_id,programs_multiplier:programs_multiplier
+    }
+    })
+    .done(function( msg ) {
+        alert( "Data Saved: " + msg );
+    });
+}
+
+// var gym_use_id =null;
+// var gym_use_duration;
+// var gym_use_multiplier =1;
+
+// var locker_use_id;
+// var locker_quantity;
+// var locker_duration;
+// var locker_multiplier=1;
+
+// var trainer_use_id;
+// var trainer_duration;
+// var trainer_multiplier=1;
+// var trainers_id =[];
+// var trainers_list;
+// var trainers_list2;
+// var trainers_quantity=0;
+
+
+// var programs_use_id=[];
+// var program_list;
+// var programs_duration=[];
+// var program_duration;
+// var program_multiplier=1;
+// var program_quantity=1;
+// var programs_default=null;
 
 </script>
 

@@ -1,7 +1,7 @@
 <?php
    require '../vendor/autoload.php';
    use PHPMailer\PHPMailer\PHPMailer;
-   $mail = new PHPMailer;
+   $mail = new PHPMailer();
    $mail->isSMTP();
    $mail->SMTPDebug = 2;
    $mail->Host = 'smtp.hostinger.com';
