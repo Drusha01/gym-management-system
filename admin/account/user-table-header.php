@@ -21,7 +21,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
     </div>
     <div class="form-group col-12 col-sm-5 table-filter-option">
         <label for="keyword">Search</label>
-        <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
+        <input type="text" name="keyword" id="keyword" placeholder="Enter Username / Name" class="form-control ms-md-2">
     </div>
     <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
         <a href="user-add.php" class="btn btn-success" role="button">Add Account</a>
