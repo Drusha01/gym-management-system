@@ -152,8 +152,8 @@ if(isset($_SESSION['admin_id'])){
                                 </div>
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="None" name="age_qualification_details_checked" id="age_qualification_details_checked" id="age_qualification_details_checked" onchange="agequalification_check()">
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="None" name="age_qualification_details_checked" id="age_qualification_details_checked" id="age_qualification_details_checked" onchange="agequalification_check()" checked>
+                                        <label class="form-check-label" for="age_qualification_details_checked">
                                             None
                                         </label>
                                     </div>
@@ -186,7 +186,7 @@ if(isset($_SESSION['admin_id'])){
                                         echo '
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="type_of_subscription" value ="';echo_safe($value['type_of_subscription_details']); echo '" id="';echo_safe($value['type_of_subscription_details']); echo '" required>
-                                <label class="form-check-label" for="flexRadioDefault1">
+                                <label class="form-check-label" for="'.htmlentities($value['type_of_subscription_details']).'">
                                 ';echo_safe($value['type_of_subscription_details']); echo '
                                 </label>
                             </div>';
@@ -225,15 +225,15 @@ if(isset($_SESSION['admin_id'])){
                             <label class="pb-1" for="Age_Qual">Slots</label>
                             <div class="row">
                                 <div class="col-4">
-                                    <input type="number" class="form-control" value="" name="offer_slots" id="offer_slots" placeholder="" onchange="offer_slotsfunction()">
+                                    <input type="number" class="form-control" value="" name="offer_slots" id="offer_slots" placeholder="" onchange="offer_slotsfunction()" min="1">
                                 </div>
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>
                                 </div>
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"  name="offer_slots_checked" value="None" id="offer_slots_checked" onchange="offer_slotsfunction_checked()">
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox"  name="offer_slots_checked" value="None" id="offer_slots_checked" onchange="offer_slotsfunction_checked()" checked>
+                                        <label class="form-check-label" for="offer_slots_checked">
                                             Unlimited
                                         </label>
                                     </div>
@@ -249,7 +249,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     <div class="row d-flex flex-row-reverse">
                         <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                            <button type="button" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Submit</button>
+                            <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -268,7 +268,15 @@ if(isset($_SESSION['admin_id'])){
         console.log('text input changed');
     }
     function agequalification_check(){
-        $('#age_qualification_details').val('') ;
+
+        
+        if (!$('#age_qualification_details_checked').is(":checked")){
+            console.log('not check');
+            alert('cannot uncheck if the qualification is not populated')
+            $('#age_qualification_details_checked').prop('checked', true); 
+        }else{
+            $('#age_qualification_details').val('') ;
+        }
         console.log('check box changed');
     }
 
@@ -277,7 +285,13 @@ if(isset($_SESSION['admin_id'])){
         console.log('text input changed');
     }
     function offer_slotsfunction_checked(){
-        $('#offer_slots').val('') ;
+        if (!$('#offer_slots_checked').is(":checked")){
+            console.log('not check');
+            alert('cannot uncheck if the slots is not populated')
+            $('#offer_slots_checked').prop('checked', true); 
+        }else{
+            $('#offer_slots').val('') ;
+        }
         console.log('check box changed');
     }
 
@@ -290,6 +304,7 @@ if(isset($_SESSION['admin_id'])){
     function submit_validation(){
         console.log('submit');
 
+        $(this).attr('type','submit')
         $(this).submit()  
     }
 </script>

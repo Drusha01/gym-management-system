@@ -48,7 +48,7 @@
             <ul class="dropdown-menu text-small dropdown-user">
                 <li><a class="dropdown-item" href="../profile/profile.php">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="../../login/log-out.php">Sign out</a></li>
+                <li><a class="dropdown-item" href="../log-out.php">Sign out</a></li>
             </ul>
         </div>
         
