@@ -54,19 +54,19 @@ if(isset($_SESSION['user_id'])){
         <div class="container-fluid mt-6 custom-nav">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true">My Account</button>
+                  <button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true"  onclick="changeActiveTab('account-tab')">My Account</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification" type="button" role="tab" aria-controls="notification" aria-selected="false">Notifications</button>
+                  <button class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification" type="button" role="tab" aria-controls="notification" aria-selected="false"  onclick="changeActiveTab('notification-tab')">Notifications</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="Subscription-tab" data-bs-toggle="tab" data-bs-target="#Subscription" type="button" role="tab" aria-controls="contact" aria-selected="false">My Subscriptions</button>
+                  <button class="nav-link" id="Subscription-tab" data-bs-toggle="tab" data-bs-target="#Subscription" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('Subscription-tab')">My Subscriptions</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="trainer-tab" data-bs-toggle="tab" data-bs-target="#trainer" type="button" role="tab" aria-controls="contact" aria-selected="false">My Trainers</button>
+                    <button class="nav-link" id="trainer-tab" data-bs-toggle="tab" data-bs-target="#trainer" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('trainer-tab')">My Trainers</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="contact" aria-selected="false">Payment</button>
+                    <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('payment-tab')">Payment</button>
                   </li>
               </ul>
               <div class="tab-content" id="myTabContent">
@@ -196,18 +196,19 @@ if(isset($_SESSION['user_id'])){
                                             </div>
                                             <div class="col-sm-9 text-secondary">
 
-                                                <?php echo_safe(date_format(date_create($_SESSION['user_date_created']), "F d,Y"));?>
+                                                <?php echo_safe(date_format(date_create($_SESSION['user_date_created']), "F d, Y"));?>
                                             </div>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row px-3 ">
-                                      <div class="col">
-                                      <li class="list-group-item d-flex  flex-wrap">
-                                              <a class="btn btn-success float-right" id="view-valid-id" href="<?php echo_safe('../img/valid-id/'.$_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
+                                    <div class="col-7">
+                                        <li class="list-group-item d-flex">
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            View Valid ID
+                                        </button>
                                         </li>
-                                        
-                                      </div>
+                                    </div>
                                       <div class="col">
                                         <li class="list-group-item d-flex flex-row-reverse flex-wrap">
                                               <a class="btn btn-primary float-right " href="user-edit.php">MODIFY</a>
@@ -224,20 +225,20 @@ if(isset($_SESSION['user_id'])){
                     </div>
                   <?php //require_once 'user-acc.php'; ?>
                 </div>
-                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab" onclick="changeActiveTab('notification')">
                       <?php require_once 'user-notif.php'; ?>
                 </div>
-                <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab">
+                <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription')">
                     <div class="container-fluid p-3 ">
                         <?php require_once 'user_subscriptions.php'; ?>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab">
+                <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer')">
                     <div class="container-fluid p-3">
                       <?php require_once 'user-trainer.php'; ?>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" onclick="changeActiveTab('payment')">
                     <div class="container-fluid p-3">
                       <?php require_once 'user-payment.php'; ?>
                     </div>
@@ -247,7 +248,19 @@ if(isset($_SESSION['user_id'])){
     </section>
 
     
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img class="img-fluid" src="<?php echo_safe('../img/valid-id/'.$_SESSION['user_valid_id_photo'])?>">
 
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 
@@ -270,7 +283,25 @@ if(isset($_SESSION['user_id'])){
 //   $('.btn btn-success float-right').magnificPopup({type:'image'});
 // });
 
-$(document).ready(function() {
-  $('#view-valid-id').magnificPopup({type:'image'});
-});
+// $(document).ready(function() {
+//   $('#view-valid-id').magnificPopup({type:'image'});
+// });
+
+function changeActiveTab(tab){
+  console.log(tab);
+  var myParam = location.search.split('active=')[1];
+  console.log(myParam);
+}
+
+window.onload = (event) =>{
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const active = urlParams.get('active')
+  console.log(active);
+  if(active != null){
+    $('#'+active).trigger('click');
+  }
+
+};
+
 </script>

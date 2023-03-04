@@ -5,6 +5,7 @@ session_start();
 // includes
 require_once '../tools/functions.php';
 require_once '../classes/users.class.php';
+require_once '../classes/subscriptions.class.php';
 
 if(isset($_SESSION['admin_id'])){
     header('location:../admin/admin_control_log_in2.php');
@@ -19,6 +20,12 @@ if(isset($_SESSION['user_id'])){
     }else if($_SESSION['user_type_details'] == 'normal'){
       // do nothing
       // HANDLE HERE IF WE ALREADY AVAIL
+      $subscriptionsObj = new subscriptions();
+      
+      if($subscription_data =$subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
+        header('location:user-profile.php?active=Subscription-tab');
+      }
+      
     } 
   }else if($_SESSION['user_status_details'] =='inactive'){
     // handle inactive user details
