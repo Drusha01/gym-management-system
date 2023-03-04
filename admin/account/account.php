@@ -66,7 +66,7 @@ if(isset($_SESSION['admin_id'])){
                         </div>
                         <div class="form-group col-12 col-sm-5 table-filter-option">
                             <label for="keyword">Search</label>
-                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Username / Name" class="form-control ms-md-2">
                         </div>
                         <?php  if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
                             <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
@@ -137,7 +137,7 @@ $(".nav-item").on("click", function(){
                     success: function(result)
                     {
                         $('div.table-responsive').html(result);
-                        dataTable = $("#table-1").DataTable({
+                        dataTable = $(".table-responsive").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
                         });
