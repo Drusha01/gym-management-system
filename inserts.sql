@@ -114,7 +114,7 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '09265827005',
     'Kent.Adlawan@gmail.com',
-    'Drusha03',
+    'Kent01',
     true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Kent',
@@ -135,7 +135,7 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '09265827006',
     'Sidrick.Cadungog@gmail.com',
-    'Drusha03',
+    'Sidrick01',
     true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Sidrick',
@@ -324,7 +324,7 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '09265827015',
     'Jaydee_Ballaho@gmail.com',
-    'Drusha03',
+    'Jaydee01',
     true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Jaydee',
@@ -345,7 +345,7 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '09265827016',
     'Hannazelle.dumapit56@gmail.com',
-    'Drusha03',
+    'Hannazelle01',
     true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
     'Hannazelle',
@@ -359,6 +359,11 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
 	now()
     
 );
+
+select COUNT(*) FROM users WHERE user_status_id= (SELECT user_status_id FROM user_status WHERE user_status_details = 'active');
+
+select COUNT(*) FROM users;
+SELECT *  FROM users;
 
 
 

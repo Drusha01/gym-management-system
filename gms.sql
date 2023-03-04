@@ -408,8 +408,19 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-ORDER BY user_name
+ORDER BY user_status_details,user_name
 ;
+
+SELECT user_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,user_email_verified,
+user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+-- LEFT JOIN admins ON users.user_id=admins.admin_user_id
+-- where admins.admin_user_id is null
+ORDER BY user_status_details,user_name
+LIMIT 10,20;
 
 -- select * users
 SELECT * FROM users
@@ -1246,7 +1257,7 @@ CREATE TABLE subscriptions(
     subscription_price float not null,	-- persistence of data
     subscription_total_duration int not null , -- persistence of data
     subscription_status_id  int not null, 
-    subscription_start_date datetime,
+    subscription_start_date datetime not null,
     subscription_date_created datetime default NOW(),
     subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (subscription_subscriber_user_id) REFERENCES users(user_id),
@@ -1293,7 +1304,7 @@ subscription_status_id, subscription_start_date)VALUES (
 	null,
     2,
     (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
-    '1-Month Gym-Use(21 and Above)',
+    '1-Month Locker-Use(21 and Above)',
     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
     30,
     100,
@@ -1301,12 +1312,25 @@ subscription_status_id, subscription_start_date)VALUES (
     (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
     NOW()
 );
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Trainer-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Trainer Subscription'),
+    30,
+    1500,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
+    NOW()
+);
 
 INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
 subscription_status_id, subscription_start_date)VALUES (
 	null,
     2,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha04'),
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
     '1-Month Gym-Use(21 and Above)',
     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
     30,
@@ -1324,12 +1348,14 @@ LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.use
 WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
 ORDER BY user_fullname
 ;
-
+(SELECT user_id FROM users WHERE user_name = BINARY 'Jaydee01');
 SELECT * FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_subscriber_user_id =7 AND( subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = '');
+WHERE (subscription_subscriber_user_id =25 AND  subscription_status_details = 'Pending') OR (subscription_subscriber_user_id =25 AND  subscription_status_details = 'Active')
 ;
+
+SELECT * FROM subscriptions;
 
 
 SELECT  CURDATE();

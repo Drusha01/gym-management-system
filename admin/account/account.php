@@ -133,7 +133,7 @@ $(".nav-item").on("click", function(){
                 $('div#tab').html(result);
                 $.ajax({
                     type: "GET",
-                    url: 'usertable.php',
+                    url: 'usertable.php?page=1',
                     success: function(result)
                     {
                         $('div.table-responsive').html(result);
@@ -222,7 +222,7 @@ $.ajax({
         $('div#tab').html(result);
         $.ajax({
             type: "GET",
-            url: 'usertable.php',
+            url: 'usertable.php?page=1',
             success: function(result)
             {
                 $('div.table-responsive').html(result);

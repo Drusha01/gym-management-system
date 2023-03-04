@@ -59,6 +59,27 @@ class subscriptions
             return false;
         }
     }
+
+    function fetchUserActiveAndPendingSubscription($user_id){
+        try{
+            $sql = 'SELECT * FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE (subscription_subscriber_user_id = :user_id AND  subscription_status_details = "Pending") OR (subscription_subscriber_user_id = :user_id AND  subscription_status_details = "Active")
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            
+            $query->bindParam(':user_id', $user_id);
+             if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
 }
 
