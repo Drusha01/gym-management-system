@@ -28,7 +28,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
         </div>
     </div>
 
-    <div class="table-responsive table-container">
+    <div class="table-responsive">
 
     </div>
 </div>
