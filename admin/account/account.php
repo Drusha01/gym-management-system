@@ -226,7 +226,7 @@ $.ajax({
             success: function(result)
             {
                 $('div.table-responsive').html(result);
-                dataTable = $("#table-1").DataTable({
+                dataTable = $("div.table-responsive").DataTable({
                     "dom": '<"top"f>rt<"bottom"lp><"clear">',
                     responsive: true,
                 });

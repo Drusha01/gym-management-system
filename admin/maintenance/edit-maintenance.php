@@ -83,14 +83,14 @@ if(isset($_SESSION['admin_id'])){
                 <div class="col-sm-5">
                     <label class="pb-1" for="name_offer">Condition</label>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_details" <?php if(isset($equipment_data['equipment_condition_details'])&& $equipment_data['equipment_condition_details'] == 'Good'){echo 'checked';}?> name="equipment_condition_details" value="Good">
-                    <label class="form-check-label" for="flexRadioDefault1">
+                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_detail" <?php if(isset($equipment_data['equipment_condition_details'])&& $equipment_data['equipment_condition_details'] == 'Good'){echo 'checked';}?> value="Good">
+                    <label class="form-check-label" for="equipment_condition_detail">
                         Good
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_details" <?php if(isset($equipment_data['equipment_condition_details'])&&$equipment_data['equipment_condition_details'] == 'In-Maintenance'){echo 'checked';}?> name="equipment_condition_details" value="In-Maintenance">
-                    <label class="form-check-label" for="flexRadioDefault2">
+                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_details" <?php if(isset($equipment_data['equipment_condition_details'])&&$equipment_data['equipment_condition_details'] == 'In-Maintenance'){echo 'checked';}?> value="In-Maintenance">
+                    <label class="form-check-label" for="equipment_condition_details">
                         In-Maintenance
                     </label>
                     </div>
