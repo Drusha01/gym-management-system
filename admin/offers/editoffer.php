@@ -270,7 +270,7 @@ if(isset($_SESSION['admin_id']) ){
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="None" name="offer_slots_checked" id="offer_slots_checked" onchange="offer_slotsfunction_checked()" <?php if($offer_data['offer_slots'] == 'None'){echo 'checked';}?>>
                                         <label class="form-check-label" for="flexCheckDefault">
-                                            None
+                                            Unlimited
                                         </label>
                                     </div>
                                 </div>

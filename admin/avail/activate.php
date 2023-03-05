@@ -184,11 +184,10 @@ if(isset($_SESSION['admin_id'])){
                         <td class="text-center" >1 X (60/60) X ₱1000 =</td>
                         <td class="text-center" >₱1000</td>
                         <th class="text-center" scope="col">
-                        <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Dectivate</button>
+                        <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Deactivate</button>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                         </th>
                     </tr>
-                    
                 </tbody>
             </table>
         </div>
