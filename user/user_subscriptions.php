@@ -11,6 +11,7 @@
                     <th class="text-center" scope="col">Qty</th>
                     <th class="text-center" scope="col">Price</th>
                     <th class="text-center" scope="col">Days</th>
+                    <th class="text-center" scope="col">Start Date</th>
                     <th class="text-center" scope="col">End Date</th>
                     <th class="text-center" scope="col">Sub Total Price</th>
                     <th class="text-center" scope="col">ACTION</th>
@@ -27,11 +28,22 @@
                     foreach ($subscription_data as $key => $value) {
                         echo '
                         <tr>
-                            <th scope="row">'.htmlentities($counter).'</th>
-                            <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                            <th scope="row">'.htmlentities($counter).'</th>';
+                        if($value['type_of_subscription_details'] =='Trainer Subscription'){
+                            echo ' <td>'.htmlentities($value['subscription_offer_name']).' <a href="user-profile.php?active=trainer-tab"><button type="button" class="btn btn-info" >Trainer Info</button></a></td>';
+                        }else{
+                            echo ' <td>'.htmlentities($value['subscription_offer_name']).'</td>';
+                        }
+                        echo' 
                             <td class="text-center " >'.htmlentities($value['subscription_quantity']).'</td>
                             <td class="text-center" >₱'.htmlentities($value['subscription_price']).'</td>
                             <td class="text-center" >'.htmlentities($value['subscription_total_duration']).'</td>';
+                        if($value['subscription_status_details'] == 'Active'){
+                            echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>';
+                        }else{
+                            echo '<td class="text-center" > - - - - - </td>' ;
+                        }
+                            
                         if(isset($value['subscription_end_date'])){
                             echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_end_date']), "F d, Y")).'</td>';
                         }else{
@@ -99,8 +111,10 @@
             </div> -->
             <!-- ito kapag bago lng ang subscription -->
             <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                <button class="btn btn-danger"role="button"  disabled>Cancel All</button>
                 <button class="btn btn-secondary"role="button"  disabled>Renew All</button>
             </div>
+            
             <!-- ito kapag kaka avail lng ng customer -->
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>

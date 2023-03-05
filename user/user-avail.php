@@ -909,19 +909,12 @@ function updateProgramUseModal(selected_id){
                     $('#button-div-0').html('<button type="button" class="btn btn-success" onclick="addNewProgram('+element.offer_id+')"><i class="bx bx-plus-circle"></i></button>');
                 }
             });
-            
-            
-            
-            
-
-            
         }else{
             // set all to default
             program_duration = 0;
             program_multiplier = 1;
             $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier)
             $('#button-div-0').html('');
-
         }
     }else{
         alert('please select Gym-Subscription');
@@ -945,7 +938,7 @@ function addNewProgram(selected_id){
             console.log($('#program-total-duration-0').val());
             console.log(element);
             programs_use_id.push(element);
-            programs_multiplier.push({multiplier:$('#program-total-duration-0').val()});
+            programs_multiplier.push({duration:$('#program-total-duration-0').val()});
             $('#program_list_ul').append('<li id="program_id_'+element.offer_id+'"><button type="button" class="btn btn-danger" onclick="deleteProgram('+element.offer_id+')"><i class="bx bx-minus-circle"></i></button> '+$('#program-use-'+selected_id).html()+' DURATION ('+$('#program-total-duration-0').val()+') </li>')
 
         }
