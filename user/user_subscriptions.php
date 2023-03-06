@@ -12,16 +12,12 @@
                     <option value="Program Subscription">Program Subscription</option>
                 </select>
             </div>
-            <div class="form-group col-12 col-sm-4 table-filter-option">
-                <label for="keyword" class="ps-2 pb-2">Search</label>
-                <input type="text" name="keyword" id="keyword" placeholder="Enter Subscription Here" class="form-control ms-md-2">
-            </div>
              <!-- ito kapag malapit na ung expiration -->
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-success" role="button">Renew</button>
             </div> -->
             <!-- ito kapag bago lng ang subscription -->
-            <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+            <div class="form-group col-12 col-sm-9 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-secondary"role="button"  disabled>Renew</button>
             </div>
             <!-- ito kapag kaka avail lng ng customer -->
