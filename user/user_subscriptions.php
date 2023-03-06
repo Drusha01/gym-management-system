@@ -25,52 +25,64 @@
                     $subscriptionsObj = new subscriptions();
                     $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id']);
                     $counter =1;
-                    foreach ($subscription_data as $key => $value) {
-                        echo '
-                        <tr>
-                            <th scope="row">'.htmlentities($counter).'</th>';
-                        if($value['type_of_subscription_details'] =='Trainer Subscription'){
-                            echo ' <td>'.htmlentities($value['subscription_offer_name']).' <a href="user-profile.php?active=trainer-tab"><button type="button" class="btn btn-info" >Trainer Info</button></a></td>';
-                        }else{
-                            echo ' <td>'.htmlentities($value['subscription_offer_name']).'</td>';
-                        }
-                        echo' 
-                            <td class="text-center " >'.htmlentities($value['subscription_quantity']).'</td>
-                            <td class="text-center" >₱'.htmlentities($value['subscription_price']).'</td>
-                            <td class="text-center" >'.htmlentities($value['subscription_total_duration']).'</td>';
-                        if($value['subscription_status_details'] == 'Active'){
-                            echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>';
-                        }else{
-                            echo '<td class="text-center" > - - - - - </td>' ;
-                        }
-                            
-                        if(isset($value['subscription_end_date'])){
-                            echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_end_date']), "F d, Y")).'</td>';
-                        }else{
-                            echo '<td class="text-center" > - - - - - </td>' ;
-                        }
+                    if($subscription_data){
+                        foreach ($subscription_data as $key => $value) {
+                            echo '
+                            <tr>
+                                <th scope="row">'.htmlentities($counter).'</th>';
+                            if($value['type_of_subscription_details'] =='Trainer Subscription'){
+                                echo ' <td>'.htmlentities($value['subscription_offer_name']).' <a href="user-profile.php?active=trainer-tab"><button type="button" class="btn btn-info" >Trainer Info</button></a></td>';
+                            }else{
+                                echo ' <td>'.htmlentities($value['subscription_offer_name']).'</td>';
+                            }
+                            echo' 
+                                <td class="text-center " >'.htmlentities($value['subscription_quantity']).'</td>
+                                <td class="text-center" >₱'.htmlentities($value['subscription_price']).'</td>
+                                <td class="text-center" >'.htmlentities($value['subscription_total_duration']).'</td>';
+                            if($value['subscription_status_details'] == 'Active'){
+                                echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>';
+                            }else{
+                                echo '<td class="text-center" > - - - - - </td>' ;
+                            }
+                                
+                            if(isset($value['subscription_end_date'])){
+                                echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_end_date']), "F d, Y")).'</td>';
+                            }else{
+                                echo '<td class="text-center" > - - - - - </td>' ;
+                            }
 
+                            echo'
+                                <td class="text-center" >'.htmlentities($value['subscription_quantity'].' X ('.$value['subscription_total_duration'].' / '.$value['subscription_duration']).') X ₱'.number_format($value['subscription_price'],2).'  =  ₱'.number_format($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']),2).'</td>';
+                            echo '<th class="text-center" scope="col">';
+                                if($value['subscription_status_details'] == 'Pending'){
+                                echo '<a href="user-cancel-subscription.php?subscription_id='.htmlentities($value['subscription_id']).'"><button class="btn btn-danger btn-sm" >Cancel</button></a>';
+                            }else if($value['subscription_status_details'] == 'Active' && $value['subscription_days_to_end']<=5){
+                                echo '<button type="button" class="btn btn-success">Renew</button>';
+                            }else if($value['subscription_status_details'] == 'Active' && $value['subscription_days_to_end']>5){
+                                echo '<button type="button" class="btn btn-secondary">Renew</button>';
+                            }else{
+                                echo '    <th class="text-center" scope="col">
+                                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Deactivate</button>';
+                            }
                         echo'
-                            <td class="text-center" >'.htmlentities($value['subscription_quantity'].' X ('.$value['subscription_total_duration'].' / '.$value['subscription_duration']).') X ₱'.number_format($value['subscription_price'],2).'  =  ₱'.number_format($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']),2).'</td>';
-                        echo '<th class="text-center" scope="col">';
-                            if($value['subscription_status_details'] == 'Pending'){
-                            echo '<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Cancel</button>';
-                        }else if($value['subscription_status_details'] == 'Active' && $value['subscription_days_to_end']<=5){
-                            echo '<button type="button" class="btn btn-success">Renew</button>';
-                        }else if($value['subscription_status_details'] == 'Active' && $value['subscription_days_to_end']>5){
-                            echo '<button type="button" class="btn btn-secondary">Renew</button>';
-                        }else{
-                            echo '    <th class="text-center" scope="col">
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Deactivate</button>';
+                                
+                                </th>
+                            </tr>';
+                            $counter++;
                         }
-                       echo'
-                            
-                            </th>
-                        </tr>';
-                        $counter++;
+                        echo ' </tbody>
+                        </table>';
+                        echo '  <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                                    <button class="btn btn-danger"role="button"  disabled>Cancel All</button>
+                                    <button class="btn btn-secondary"role="button"  disabled>Renew All</button>
+                                </div>';
+                    }else{
+                        echo '<h4>No Subscription yet!</h4>';
+                        echo '<a href="user-avail.php"><button class="btn btn-success"role="button"  >Avail</button></a>';
                     }
                     
                     ?>
+                    
                     
                     <!-- <tr>
                         <th scope="row">2</th>
@@ -87,9 +99,8 @@
                         </th>
                     </tr> -->
                     
-                </tbody>
-            </table>
-
+               
+            query the completed subscription of this user
             <div class="row g-2 mb-2 ">
             <div class="form-group col-12 col-sm-3 table-filter-option" style="visibility:hidden;">
                 <label class="ps-2 pb-2">Type</label>
@@ -110,10 +121,7 @@
                 <button class="btn btn-success" role="button">Renew</button>
             </div> -->
             <!-- ito kapag bago lng ang subscription -->
-            <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                <button class="btn btn-danger"role="button"  disabled>Cancel All</button>
-                <button class="btn btn-secondary"role="button"  disabled>Renew All</button>
-            </div>
+            
             
             <!-- ito kapag kaka avail lng ng customer -->
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">

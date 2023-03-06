@@ -360,10 +360,70 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     
 );
 
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    1,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Jaydee01'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
+    30,
+    800,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
+    NOW()
+);
+
+
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Jaydee01'),
+    '1-Month Locker-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
+    30,
+    100,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
+    NOW()
+);
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Jaydee01'),
+    '1-Month Trainer-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Trainer Subscription'),
+    30,
+    1500,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
+    NOW()
+);
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Jaydee01'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
+    30,
+    100,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Terminated'),
+    NOW()
+);
+
 select COUNT(*) FROM users WHERE user_status_id= (SELECT user_status_id FROM user_status WHERE user_status_details = 'active');
 
-select COUNT(*) FROM users;
-SELECT *  FROM users;
+select COUNT(*) as number_of_users FROM users;
+SELECT *  FROM users
+LIMIT 0,10
+;
 
 
 

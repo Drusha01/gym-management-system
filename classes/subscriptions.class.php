@@ -81,6 +81,36 @@ class subscriptions
             return false;
         }
     }
+
+    function insert_subscription($subscription_quantity,$subscription_subscriber_user_id,$subscription_offer_name,$type_of_subscription_id,$subscription_duration,$subscription_price,$subscription_total_duration){
+        try{
+            $sql = 'INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+            subscription_status_id, subscription_start_date)VALUES (
+                null,
+                :subscription_quantity,
+                :subscription_subscriber_user_id,
+                :subscription_offer_name,
+                :type_of_subscription_id,
+                :subscription_duration,
+                :subscription_price,
+                :subscription_total_duration,
+                (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"),
+                NOW()
+            ); ';
+            $query=$this->db->connect()->prepare($sql);
+            
+            $query->bindParam(':subscription_quantity', $subscription_quantity);
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
+            $query->bindParam(':subscription_offer_name', $subscription_offer_name);
+            $query->bindParam(':type_of_subscription_id', $type_of_subscription_id);
+            $query->bindParam(':subscription_duration', $subscription_duration);
+            $query->bindParam(':subscription_price', $subscription_price);
+            $query->bindParam(':subscription_total_duration', $subscription_total_duration);
+             return$query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
 }
 

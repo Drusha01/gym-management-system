@@ -80,6 +80,7 @@ if(isset($_SESSION['user_id'])){
             <div class="row">
                 <div class="col-12 col-lg-8 m-auto">
                 <form class="multisteps-form__form">
+                    <input type="number" name="user_id" id="user_id" value="<?php echo htmlentities($_SESSION['user_id'])?>" style="visibility:hidden;">
                     <!--single form panel-->
                     <div class="multisteps-form__panel shadow p-4 rounded bg-white js-active" data-animation="scaleIn">
                         <h3 class="multisteps-form__title">Subscription Selection</h3>
@@ -214,7 +215,7 @@ if(isset($_SESSION['user_id'])){
                                                 $trainerObj = new trainers();
 
                                                 // // fetch
-                                                if($data_result = $trainerObj->fetch_tainers()){
+                                                if($data_result = $trainerObj->fetch_available_trainers()){
                                                     echo json_encode($data_result);
                                                 }
                                                 
@@ -996,16 +997,16 @@ function validate_allSubscriptions(){
         // check locker
         console.log(gym_use_id);
         var counter =1;
-        $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+gym_use_id.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+gym_use_id.offer_price+'</td><td class="text-center" >'+gym_use_id.offer_duration+'</td><td class="text-center" >'+gym_use_multiplier*gym_use_id.offer_duration+'</td><td class="text-center" >1 X ('+gym_use_multiplier*gym_use_id.offer_duration+'/'+gym_use_id.offer_duration+') X ₱'+gym_use_id.offer_price+' =</td><td class="text-center" >₱'+gym_use_multiplier*gym_use_id.offer_price+'</td></tr>');
+        $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+gym_use_id.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+new Intl.NumberFormat('en-US').format(gym_use_id.offer_price)+'</td><td class="text-center" >'+gym_use_id.offer_duration+'</td><td class="text-center" >'+gym_use_multiplier*gym_use_id.offer_duration+'</td><td class="text-center" >1 X ('+gym_use_multiplier*gym_use_id.offer_duration+'/'+gym_use_id.offer_duration+') X ₱'+new Intl.NumberFormat('en-US').format(gym_use_id.offer_price)+' =</td><td class="text-center" >₱'+new Intl.NumberFormat('en-US').format(gym_use_multiplier*gym_use_id.offer_price)+'</td></tr>');
         counter++;
         if(locker_use_id != null && locker_use_id.offer_duration <= gym_use_id.offer_duration  ){
             console.log(locker_use_id);
-            $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+locker_use_id.offer_name+'</td><td class="text-center" >'+locker_quantity+'</td><td class="text-center" >₱'+locker_use_id.offer_price+'</td><td class="text-center" >'+locker_use_id.offer_duration+'</td><td class="text-center" >'+locker_multiplier*locker_use_id.offer_duration+'</td><td class="text-center" >'+locker_quantity+' X ('+locker_multiplier*locker_use_id.offer_duration+'/'+locker_use_id.offer_duration+') X ₱'+locker_use_id.offer_price+' =</td><td class="text-center" >₱'+locker_quantity*locker_multiplier*locker_use_id.offer_price+'</td></tr>');
+            $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+locker_use_id.offer_name+'</td><td class="text-center" >'+locker_quantity+'</td><td class="text-center" >₱'+new Intl.NumberFormat('en-US').format(locker_use_id.offer_price)+'</td><td class="text-center" >'+locker_use_id.offer_duration+'</td><td class="text-center" >'+locker_multiplier*locker_use_id.offer_duration+'</td><td class="text-center" >'+locker_quantity+' X ('+locker_multiplier*locker_use_id.offer_duration+'/'+locker_use_id.offer_duration+') X ₱'+new Intl.NumberFormat('en-US').format(locker_use_id.offer_price)+' =</td><td class="text-center" >₱'+new Intl.NumberFormat('en-US').format(locker_quantity*locker_multiplier*locker_use_id.offer_price)+'</td></tr>');
             counter++;
             total+=locker_quantity*locker_multiplier*locker_use_id.offer_price;
         }
         if(trainer_use_id !=null && trainer_use_id.offer_duration <= gym_use_id.offer_duration && trainers_id.length>0){
-            $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+trainer_use_id.offer_name+'</td><td class="text-center" >'+trainers_id.length+'</td><td class="text-center" >₱'+trainer_use_id.offer_price+'</td><td class="text-center" >'+trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainer_multiplier*trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainers_id.length+' X ('+trainer_multiplier*trainer_use_id.offer_duration+'/'+trainer_use_id.offer_duration+') X ₱'+trainer_use_id.offer_price+' =</td><td class="text-center" >₱'+trainers_id.length*trainer_multiplier*trainer_use_id.offer_price+'</td></tr>');
+            $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+trainer_use_id.offer_name+'</td><td class="text-center" >'+trainers_id.length+'</td><td class="text-center" >₱'+new Intl.NumberFormat('en-US').format(trainer_use_id.offer_price)+'</td><td class="text-center" >'+trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainer_multiplier*trainer_use_id.offer_duration+'</td><td class="text-center" >'+trainers_id.length+' X ('+trainer_multiplier*trainer_use_id.offer_duration+'/'+trainer_use_id.offer_duration+') X ₱'+new Intl.NumberFormat('en-US').format(trainer_use_id.offer_price)+' =</td><td class="text-center" >₱'+new Intl.NumberFormat('en-US').format(trainers_id.length*trainer_multiplier*trainer_use_id.offer_price)+'</td></tr>');
             console.log(trainer_use_id);
             console.log(trainers_id);
             counter++;
@@ -1020,12 +1021,12 @@ function validate_allSubscriptions(){
                 
             }
             programs_use_id.forEach(function(element,index) {
-                $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+element.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+element.offer_price+'</td><td class="text-center" >'+element.offer_duration+'</td><td class="text-center" >'+programs_multiplier[index].duration+'</td><td class="text-center" >1 X ('+programs_multiplier[index].duration+'/'+element.offer_duration+') X ₱'+element.offer_price+' =</td><td class="text-center" >₱'+1*(programs_multiplier[index].duration/element.offer_duration)*element.offer_price+'</td></tr>');
+                $('#tbody_summary').append('<tr><th scope="row">'+counter+'</th><td>'+element.offer_name+'</td><td class="text-center" >1</td><td class="text-center" >₱'+(new Intl.NumberFormat('en-US').format(element.offer_price))+'</td><td class="text-center" >'+element.offer_duration+'</td><td class="text-center" >'+programs_multiplier[index].duration+'</td><td class="text-center" >1 X ('+programs_multiplier[index].duration+'/'+element.offer_duration+') X ₱'+new Intl.NumberFormat('en-US').format(element.offer_price)+' =</td><td class="text-center" >₱'+(new Intl.NumberFormat().format(1*(programs_multiplier[index].duration/element.offer_duration)*element.offer_price))+'</td></tr>');
                 counter++;
                 total+=(programs_multiplier[index].duration/element.offer_duration)*element.offer_price;
             });
         }
-        $('#total_price').html('₱'+total);
+        $('#total_price').html('₱'+new Intl.NumberFormat('en-US').format(total));
     }
     
     
@@ -1036,18 +1037,28 @@ function validate_allSubscriptions(){
 // avail
 function avail(){
     console.log('avail');
-
     $.ajax({
     method: "POST",
     url: "user-avail-ajax.php",
+    dataType: 'text',
     data: { gym_use_id:gym_use_id, gym_use_multiplier:gym_use_multiplier,locker_use_id: locker_use_id,locker_quantity:locker_quantity, locker_multiplier:locker_multiplier,
     
         trainer_use_id:trainer_use_id,trainer_multiplier:trainer_multiplier,trainers_id:trainers_id,programs_use_id:programs_use_id,programs_multiplier:programs_multiplier
+    },
+    success: function(result){
+        
+        if(result == 1){
+            console.log(result);
+            alert('Availed successfully');
+            
+            location.href = "user-profile.php?active=Subscription-tab";
+        }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
     }
-    })
-    .done(function( msg ) {
-        alert( "Data Saved: " + msg );
     });
+
 }
 
 // var gym_use_id =null;
