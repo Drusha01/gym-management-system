@@ -70,7 +70,7 @@ if(isset($_SESSION['admin_id'])){
                             <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Customer Here" class="form-control ms-md-2">
                         </div>
                         <?php  if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
-                            <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+                            <div class="col-12 col-sm-4 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
                             <a href="user-add.php" class="btn btn-success" role="button" id="add-button">Add Customer</a>
                         </div>
                         <?php }?>

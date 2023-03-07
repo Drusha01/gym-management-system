@@ -64,12 +64,12 @@ if(isset($_SESSION['admin_id'])){
                 </div>
                 
               <div class="table-responsive table-1">
-                <table id="table-1" class="table table-striped table-bordered nowrap " style="width:100%;border: 2px solid grey;">
+                <table id="table-1" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                     <thead class="table-secondary">
                         <tr>
                             <th class="d-lg-none"></th>
                             <th class="text-center">#</th>
-                            <th class="text-center">Payment Description</th>
+                            <th class="ps-3">Payment Description</th>
                             <th class="text-center">Discount</th>
                             <th class="text-center">Amount</th>
                             <th class="text-center">Penalties Due</th>
@@ -81,52 +81,52 @@ if(isset($_SESSION['admin_id'])){
                         <tr>
                             <td class="d-lg-none"></td>
                             <td class="text-center">1</td>
-                            <td class="text-center">1-Month Gym-Use Subscription</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">₱800</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">₱800</td>
-                            <td class="text-center">₱0</td>
+                            <td class="ps-3">1-Month Gym-Use Subscription</td>
+                            <td class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#add_discount">Add Discount</button></td>
+                            <td class="text-end">₱800</td>
+                            <td class="text-end">None</td>
+                            <td class="text-end">₱800</td>
+                            <td class="text-end">₱0</td>
                         </tr>
                         <tr>
                             <td class="d-lg-none"></td>
                             <td class="text-center">2</td>
-                            <td class="text-center">1-Month Trainer Subscription</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">₱1500</td>
-                            <td class="text-center">₱100</td>
-                            <td class="text-center">₱300</td>
-                            <td class="text-center">₱1200</td>
+                            <td class="ps-3">1-Month Trainer Subscription</td>
+                            <td class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#add_discount">Add Discount</button></td>
+                            <td class="text-end">₱1500</td>
+                            <td class="text-end">₱100</td>
+                            <td class="text-end">₱300</td>
+                            <td class="text-end">₱1200</td>
                         </tr>
                         <tr>
                             <td class="d-lg-none"></td>
                             <td class="text-center">3</td>
-                            <td class="text-center">1-Month Locker Subscription</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">₱100</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">₱100</td>
-                            <td class="text-center">₱0</td>
+                            <td class="ps-3">1-Month Locker Subscription</td>
+                            <td class="text-center"><button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#add_discount">Add Discount</button></td>
+                            <td class="text-end">₱100</td>
+                            <td class="text-end">None</td>
+                            <td class="text-end">₱100</td>
+                            <td class="text-end">₱0</td>
                         </tr>
                         <tr>
                             <td class="d-lg-none"></td>
                             <td class="text-center">4</td>
-                            <td class="text-center">Zumba</td>
-                            <td class="text-center">%20</td>
-                            <td class="text-center">₱500</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">₱300</td>
-                            <td class="text-center">₱100</td>
+                            <td class="ps-3">Zumba</td>
+                            <td class="text-end"><button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit_discount"><i class='bx bx-edit align-middle'></i></button>%20</td>
+                            <td class="text-end">₱500</td>
+                            <td class="text-end">None</td>
+                            <td class="text-end">₱300</td>
+                            <td class="text-end">₱100</td>
                         </tr>
                     </tbody>
                     <tfoot class="table-success">
                         <tr>
                             <td class="d-lg-none"></td>
-                            <td colspan="3" class="text-end fw-bolder fs-5 pe-5">Total:</td>
-                            <td class="text-center">₱2900</td>
-                            <td class="text-center">₱100</td>
-                            <td class="text-center">₱1500</td>
-                            <td class="text-center fw-bolder fs-5">₱1300</td>
+                            <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
+                            <td class="text-end">₱2900</td>
+                            <td class="text-end">₱100</td>
+                            <td class="text-end">₱1500</td>
+                            <td class="text-end fw-bolder fs-5">₱1300</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -172,7 +172,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     
                     <div class="col-12 col-lg-2 d-grid d-lg-inline pt-3 pt-lg-1">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpartial">Confirm</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmvoid">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -193,15 +193,28 @@ if(isset($_SESSION['admin_id'])){
             <label for="pass">Password:</label>
             <input type="password" class="form-control" id="pass">
         </div>
-        
-        <div class="form-check pt-2">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Remember Me
-            </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirmvoid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Void Payment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        User: Drusha01
+        <br>
+        <div class="form-group pt-1">
+            <label for="pass">Password:</label>
+            <input type="password" class="form-control" id="pass">
         </div>
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
@@ -224,13 +237,75 @@ if(isset($_SESSION['admin_id'])){
             <label for="pass">Password:</label>
             <input type="password" class="form-control" id="pass">
         </div>
-        
-        <div class="form-check pt-2">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Remember Me
-            </label>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="add_discount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Discount</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <div class="row">
+                <div class="col-6 col-lg-2 d-flex align-items-center">
+                    <label for="fixeddisc" class="pe-3">Fixed</label>
+                </div>
+                <div class="col-6 col-lg-3 d-flex align-items-center">
+                    <input type="number" class="form-control" id="fixeddisc" placeholder="₱00.00">
+                </div>
+                <div class="col-6 col-lg-2 d-flex align-items-center pt-3 pt-lg-0">
+                    <label for="fixedpercent" class=" pe-3">Percent</label>
+                </div>
+                <div class="col-6 col-lg-3 d-flex align-items-center pt-3 pt-lg-0">
+                    <input type="number" class="form-control" id="fixedpercent" placeholder="00%">
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit_discount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Discount</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <div class="row d-flex justify-content-center">
+                <div class="col-6 col-lg-2 d-flex align-items-center">
+                    <label for="fixeddisc" class="pe-3">Fixed</label>
+                </div>
+                <div class="col-6 col-lg-3 d-flex align-items-center">
+                    <input type="number" class="form-control" id="fixeddisc" placeholder="₱00.00">
+                </div>
+                <div class="col-6 col-lg-2 d-flex align-items-center pt-3 pt-lg-0">
+                    <label for="fixedpercent" class=" pe-3">Percent</label>
+                </div>
+                <div class="col-6 col-lg-3 d-flex align-items-center pt-3 pt-lg-0">
+                    <input type="number" class="form-control" id="fixedpercent" placeholder="00%">
+                </div>
+            </div>
+            <div class="d-flex">
+              <hr class="my-auto flex-grow-1">
+              <div class="px-4">or</div>
+              <hr class="my-auto flex-grow-1">
+            </div>
+            <div class="text-center ">
+                <button type="button" class="btn btn-danger" >Remove Discount <i class='bx bx-minus-circle fs-5' style="vertical-align: middle;"></i></button>
+            </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
