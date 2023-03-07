@@ -206,6 +206,9 @@
             </div> -->
 
              <!-- ito kapag malapit na ung expiration -->
+        </div>
+    </div>
+</div>
 
 <div class="d-flex justify-content-end">
     <ul class="nav mb-1" id="pills-tab" role="tablist">
@@ -330,7 +333,7 @@
             </div> -->
         <!-- </div> -->
             <!-- ito kapag wla pa nakapagsubscibe -->
-            <!-- <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+            <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
 
                 <thead class="bg-dark text-light">
                     <tr>
@@ -353,11 +356,11 @@
                 <tbody>
                     <tr>
 
-                        <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
+                        <!-- <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
                     </tr>
                 </tbody>
-            </table> -->
-                    <!-- <th class="d-lg-none"></th>
+            </table>  -->
+                    <th class="d-lg-none"></th>
                     <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
                     <td>1-Month Gym-Use (21 and above)</td>
                     <td class="text-center ">Gym-Use Subscription</td>
@@ -393,9 +396,8 @@
                     <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
                     </tr>
                 </tbody>
-            </table> -->
-
             </table>
+
         </div>
     </div>
     </div>
