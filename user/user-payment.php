@@ -1,16 +1,6 @@
 <div class="container-sub">
     <div class="row g-2 mb-2 ">
     <h5 class="col-12 fw-bold">Payment</h5>
-        <div class="form-group col-12 col-sm-3 table-filter-option">
-            <label class="ps-2 pb-2">Type</label>
-            <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
-                <option value="">All</option>
-                <option value="Gym-Use Subscription">Gym-Use Subscription</option>
-                <option value="Trainer Subscription">Trainer Subscription</option>
-                <option value="Locker Subscription">Locker Subscription</option>
-                <option value="Program Subscription">Program Subscription</option>
-            </select>
-        </div>
         <div class="table-responsive table-1">
             <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                 <thead class="bg-dark text-light">
@@ -78,3 +68,6 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>

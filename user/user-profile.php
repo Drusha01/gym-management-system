@@ -202,13 +202,12 @@ if(isset($_SESSION['user_id'])){
                                     </div>
                                     <hr>
                                     <div class="row px-3 ">
-                                      <div class="col">
-                                      <li class="list-group-item d-flex  flex-wrap">
+                                      <div class="col-7">
+                                        <li class="list-group-item d-flex  flex-wrap">
                                               <a class="btn btn-success float-right" id="view-valid-id" href="<?php echo_safe('../img/valid-id/'.$_SESSION['user_valid_id_photo'])?>">View Valid ID</a>
                                         </li>
-                                        
                                       </div>
-                                      <div class="col">
+                                      <div class="col-5">
                                         <li class="list-group-item d-flex flex-row-reverse flex-wrap">
                                               <a class="btn btn-primary float-right " href="user-edit.php">MODIFY</a>
                                         </li>
