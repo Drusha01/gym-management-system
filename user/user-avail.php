@@ -431,7 +431,7 @@ if(isset($_SESSION['user_id'])){
                                     <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Back</button>
                                 </div>
                                 <div class="col d-flex justify-content-end">
-                                    <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                                    <button class="btn btn-outline-danger ml-auto" type="button" title="Send" onclick="avail()">Avail</button>
                                 </div>
                             </div>
                         </div>
@@ -1052,7 +1052,7 @@ function avail(){
         trainer_use_id:trainer_use_id,trainer_multiplier:trainer_multiplier,trainers_id:trainers_id,programs_use_id:programs_use_id,programs_multiplier:programs_multiplier
     },
     success: function(result){
-        
+        console.log(result);
         if(result == 1){
             console.log(result);
             alert('Availed successfully');

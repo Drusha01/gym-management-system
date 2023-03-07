@@ -112,10 +112,10 @@ session_start();
                         $counter++;
                     }
                 }
-                echo '1';
             }else{
                 exit('gym insert error');
             }
+            echo '1';
         } 
     }else{
         exit('gym_subscription error');
