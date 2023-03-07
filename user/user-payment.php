@@ -11,56 +11,70 @@
                 <option value="Program Subscription">Program Subscription</option>
             </select>
         </div>
-        <div class="form-group col-12 col-sm-4 table-filter-option">
-            <label for="keyword" class="ps-2 pb-2">Search</label>
-            <input type="text" name="keyword" id="keyword" placeholder="Enter Subscription Here" class="form-control ms-md-2">
-        </div>
-        
         <div class="table-responsive table-1">
             <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                 <thead class="bg-dark text-light">
                     <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                    <th class="col-3">NAME OF SUBSCRIPTION</th>
-                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-                    <th scope="col" class="text-center">UNPAID AMOUNT</th>
-                    <th scope="col" class="text-center">OVERDUE AMOUNT</th>
+                        <th class="d-lg-none"></th>
+                        <th class="text-center">#</th>
+                        <th class="text-center text-uppercase">Payment Description</th>
+                        <th class="text-center text-uppercase">Discount</th>
+                        <th class="text-center text-uppercase">Amount</th>
+                        <th class="text-center text-uppercase">Penalties Due</th>
+                        <th class="text-center text-uppercase">Paid Amount</th>
+                        <th class="text-center text-uppercase">Balance</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                    <td>1-Month Gym-Use (21 and above)</td>
-                    <td class="text-center ">Gym-Use Subscription</td>
-                    <td class="text-center">₱800.00</td>
-                    <td class="text-center">₱1500.00</td>
+                        <td class="d-lg-none"></td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">1-Month Gym-Use Subscription</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱800</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱800</td>
+                        <td class="text-center">₱0</td>
                     </tr>
 
                     <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                    <td>1-Month Trainer</td>
-                    <td class="text-center ">Trainer Subscription</td>
-                    <td class="text-center">₱1500.00</td>
-                    <td class="text-center">---</td>
+                        <td class="d-lg-none"></td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">1-Month Trainer Subscription</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱1500</td>
+                        <td class="text-center">₱100</td>
+                        <td class="text-center">₱300</td>
+                        <td class="text-center">₱1200</td>
                     </tr>
 
                     <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                    <td>1-Month Locker</td>
-                    <td class="text-center ">Locker Subscription</td>
-                    <td class="text-center">₱100.00</td>
-                    <td class="text-center">---</td>
+                        <td class="d-lg-none"></td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">1-Month Locker Subscription</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱100</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱100</td>
+                        <td class="text-center">₱0</td>
+                    </tr>
+
+                    <tr>
+                        <td class="d-lg-none"></td>
+                        <td class="text-center">4</td>
+                        <td class="text-center">Zumba</td>
+                        <td class="text-center">%20</td>
+                        <td class="text-center">₱500</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱300</td>
+                        <td class="text-center">₱100</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="d-flex justify-content-end pe-4">
-            <p class="fw-bold fs-5">Total Amount: <span class="fw-normal">₱2100.00</span></p>
+            <p class="fw-bold fs-5">Total Balance: <span class="fw-normal">₱2100.00</span></p>
         </div>
     </div>
 </div>

@@ -40,53 +40,33 @@ if(isset($_SESSION['admin_id'])){
     <h5 class="col-12 fw-bold mb-3">Payment</h5>
     <div class="container-fluid">
         <div class="row g-2 mb-2 mt-1">
-            <div class="form-group col-12 col-sm-8 table-filter-option">
+            <div class="form-group col-12 col-sm-5 table-filter-option">
                 <label for="keyword">Search</label>
                 <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
             </div>
               <div class="table-responsive table-1">
-                <table id="table-1" class="table table-bordered table-striped " style="width:100%;border: 3px solid black;">
-                    <thead class="table-dark ">
+                <table id="table-1" class="table table-striped table-bordered nowrap" style="width:100%;border: 2px solid grey;">
+                    <thead class="table-light">
                         <tr>
-                        <th class="text-center align-middle d-none d-sm-table-cell" rowspan="3">#</th>
-                        <th class="text-center align-middle" rowspan="3" >NAME</th>
-                        <th class="text-center" colspan="8">SUBSCRIPTION TYPE</th>
-                        <th class="text-center" rowspan="3">Total</th>
-                        <th class="text-center" rowspan="3">Total Paid</th>
-                        <th class="text-center align-middle" rowspan="3">ACTION</th>
-                        </tr>
-                        <tr>
-                        <th class="text-center" colspan="2">Gym-Use</th>
-                        <th class="text-center" colspan="2">Trainer</th>
-                        <th class="text-center" colspan="2">Locker</th>
-                        <th class="text-center" colspan="2">Program</th>
-                        </tr>
-                        <tr>
-                        <th class="text-center">Amount</th>
-                        <th class="text-center">Paid</th>
-                        <th class="text-center">Amount</th>
-                        <th class="text-center">Paid</th>
-                        <th class="text-center">Amount</th>
-                        <th class="text-center">Paid</th>
-                        <th class="text-center">Amount</th>
-                        <th class="text-center">Paid</th>
-                        
+                            <th class="d-lg-none"></th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Total Amount</th>
+                            <th class="text-center">Total Paid</th>
+                            <th class="text-center">Total Balance</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                      <td class="text-center">1</td>
-                      <td class="text-center">Trinidad, James Lorenz</td>
-                      <td class="text-center">800 X 1 = <br>₱800</td>
-                      <td class="text-center">0</td>
-                      <td class="text-center">1500 X 1 X 2 =<br>₱3000</td>
-                      <td class="text-center">0</td>
-                      <td class="text-center">100 X 1 X 2 =<br>₱200</td>
-                      <td class="text-center">0</td>
-                      <td class="text-center">500 X 1 X 2 =<br>₱1000</td>
-                      <td class="text-center">0</td>
-                      <td class="text-center"><br>₱6000</td>
-                      <td class="text-center"><br>₱0</td>
-                      <td class="text-center"><a href="#" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="#" class="btn btn-danger btn-sm"">Delete</button></td>
+                        <tr>
+                            <td class="d-lg-none"></td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">Trinidad, James Lorenz</td>
+                            <td class="text-center">₱800</td>
+                            <td class="text-center">₱500</td>
+                            <td class="text-center">₱300</td>
+                            <td class="text-center"><a href="viewpayment.php" class="btn btn-success btn-sm" role="button">View Payment</a></td>
+                        </tr>
                     </tbody>
                 </table>
               </div>
@@ -94,9 +74,6 @@ if(isset($_SESSION['admin_id'])){
         </div>
     </div>
 </main>
-
-
-
 
 </body>
 </html>

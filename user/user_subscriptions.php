@@ -112,17 +112,15 @@
                     <option value="Program Subscription">Program Subscription</option>
                 </select>
             </div>
-            <div class="form-group col-12 col-sm-4 table-filter-option" style="visibility:hidden;">
-                <label for="keyword" class="ps-2 pb-2">Search</label>
-                <input type="text" name="keyword" id="keyword" placeholder="Enter Subscription Here" class="form-control ms-md-2">
-            </div>
+
              <!-- ito kapag malapit na ung expiration -->
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-success" role="button">Renew</button>
             </div> -->
             <!-- ito kapag bago lng ang subscription -->
-            
-            
+            <div class="form-group col-12 col-sm-9 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                <button class="btn btn-secondary"role="button"  disabled>Renew</button>
+            </div>
             <!-- ito kapag kaka avail lng ng customer -->
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
@@ -130,6 +128,7 @@
         </div>
             <!-- ito kapag wla pa nakapagsubscibe -->
             <!-- <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+
                 <thead class="bg-dark text-light">
                     <tr>
                     <th class="d-lg-none"></th>
@@ -140,14 +139,64 @@
                     <th scope="col" class="text-center">END DATE</th>
                     <th scope="col" class="text-center">DAYS LEFT</th>
                     <th scope="col" class="text-center">STATUS</th>
+
+                    <th scope="col" class="text-center">ACTION</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+
                         <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
                     </tr>
                 </tbody>
             </table> -->
+                    <th class="d-lg-none"></th>
+                    <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
+                    <td>1-Month Gym-Use (21 and above)</td>
+                    <td class="text-center ">Gym-Use Subscription</td>
+                    <td class="text-center">October 16, 2022</td>
+                    <td class="text-center">November 15, 2022</td>
+                    <td class="text-center">24</td>
+                    <td class="text-center">Active</td>
+                    <td class="text-center"><button class="btn btn-secondary btn-sm"role="button"  disabled>Renew</button></td>
+                    </tr>
+                    <tr>
+                    <th class="d-lg-none"></th>
+                    <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
+                    <td>1-Month Trainer</td>
+                    <td class="text-center ">Trainer Subscription</td>
+                    <td class="text-center">October 16, 2022</td>
+                    <td class="text-center">November 15, 2022</td>
+                    <td class="text-center">24</td>
+                    <td class="text-center">Active</td>
+                    <td class="text-center"><button class="btn btn-secondary btn-sm"role="button"  disabled>Renew</button></td>
+                    </tr>
+                    <tr>
+                    <th class="d-lg-none"></th>
+                    <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
+                    <td>1-Month Locker</td>
+                    <td class="text-center ">Locker Subscription</td>
+                    <td class="text-center">October 16, 2022</td>
+                    <td class="text-center">November 15, 2022</td>
+                    <td class="text-center">5</td>
+                    <td class="text-center">Active</td>
+                    <td class="text-center"><button class="btn btn-success btn-sm" role="button">Renew</button></td>
+                    <tr>
+                    <th class="d-lg-none"></th>
+                    <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
+                    <td>Zumba</td>
+                    <td class="text-center ">Program Subscription</td>
+                    <td class="text-center">October 16, 2022</td>
+                    <td class="text-center">November 15, 2022</td>
+                    <td class="text-center">----</td>
+                    <td class="text-center">Pending</td>
+                    <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
+                    </tr>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>

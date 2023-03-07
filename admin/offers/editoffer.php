@@ -269,8 +269,8 @@ if(isset($_SESSION['admin_id']) ){
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="None" name="offer_slots_checked" id="offer_slots_checked" onchange="offer_slotsfunction_checked()" <?php if($offer_data['offer_slots'] == 'None'){echo 'checked';}?>>
-                                        <label class="form-check-label" for="offer_slots_checked">
-                                            None
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Unlimited
                                         </label>
                                     </div>
                                 </div>
@@ -285,7 +285,7 @@ if(isset($_SESSION['admin_id']) ){
                     </div>
                     <div class="row d-flex flex-row-reverse">
                         <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                            <button type="submit" class="btn btn-success  border-0 rounded" name="save_offer" id="submit" value="offer_edit">Submit</button>
+                            <button type="submit" class="btn btn-success  border-0 rounded" name="save_offer" id="submit" value="offer_edit">Save Changes</button>
                         </div>
                     </div>
                 </form>

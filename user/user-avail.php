@@ -410,7 +410,7 @@ if(isset($_SESSION['user_id'])){
                         
                         <div class="row pt-3">
                             <div class="col d-flex justify-content-start">
-                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
+                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Back</button>
                             </div>
                             <div class="col d-flex justify-content-end">
                                 <button class="btn btn-outline-danger ml-auto js-btn-next" type="button" title="Next">Next</button>
@@ -419,25 +419,31 @@ if(isset($_SESSION['user_id'])){
                     </div>
                     </div>
                     <!--single form panel-->
-                    <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn">
-                    <h3 class="multisteps-form__title">Confirmation</h3>
-                    <hr class="hr" />
-                    <div class="multisteps-form__content">
-                        <div class="container">
-                        To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
-                        </div>
-                        <div class="row pt-3">
-                            <div class="col d-flex justify-content-start">
-                                <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Prev</button>
+                    <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn" >
+                        <h3 class="multisteps-form__title">Confirmation</h3>
+                        <hr class="hr" />
+                        <div class="multisteps-form__content">
+                            <div class="container fs-4">
+                            To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
                             </div>
-                            <div class="col d-flex justify-content-end">
-                                <button class="btn btn-outline-danger ml-auto" type="button" title="Send" onclick="avail()">Avail</button>
+                            <div class="row pt-3">
+                                <div class="col d-flex justify-content-start">
+                                    <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Back</button>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button class="btn btn-outline-danger ml-auto" type="button" title="Send">Avail</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     </div>
                     
                 </form>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>

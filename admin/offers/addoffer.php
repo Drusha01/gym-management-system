@@ -249,7 +249,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     <div class="row d-flex flex-row-reverse">
                         <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                            <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Submit</button>
+                            <button type="button" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Add Offer</button>
                         </div>
                     </div>
                 </form>
