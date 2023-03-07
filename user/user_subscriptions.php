@@ -45,7 +45,7 @@
                                 echo '<td class="text-center" > - - - - - </td>' ;
                             }
                                 
-                            if(isset($value['subscription_end_date'])){
+                            if(isset($value['subscription_end_date']) && $value['subscription_status_details'] == 'Active'){
                                 echo ' <td class="text-center" >'.htmlentities(date_format(date_create($value['subscription_end_date']), "F d, Y")).'</td>';
                             }else{
                                 echo '<td class="text-center" > - - - - - </td>' ;
