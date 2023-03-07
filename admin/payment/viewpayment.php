@@ -43,23 +43,26 @@ if(isset($_SESSION['admin_id'])){
         </div>
             <div class="container-fluid">
                 <div class="row pb-2">
-                <div class="col-12 col-lg-9 mt-3 d-flex align-items-baseline">
-                    <h5 class="fw-bold ">Trinidad, James Lorenz</h5>
-                </div>
-                <div class="col-3 d-none d-lg-flex justify-content-end align-items-baseline">
-                    <div class="btn-group dropstart">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Save As
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="min-width:30px;">
-                        <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">Word <i class='bx bxs-file-doc fs-5'></i></button></li>
-                        <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">PDF <i class='bx bxs-file-pdf fs-5' ></i></button></li>
-                        <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">Print <i class='bx bx-printer fs-5' ></i></button></li>
-                        </ul>
+                    <div class="col-12 col-lg-10">
+                        <h5 class="fw-bold ">Trinidad, James Lorenz</h5>
+                    </div>
+                    <div class="col-lg-1 d-none d-lg-flex justify-content-end">
+                        <div class="btn-group dropstart">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Save As
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="min-width:30px;">
+                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">Word <i class='bx bxs-file-doc fs-5'></i></button></li>
+                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">PDF <i class='bx bxs-file-pdf fs-5' ></i></button></li>
+                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">Print <i class='bx bx-printer fs-5' ></i></button></li>
+                            </ul>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-1 d-grid d-lg-flex justify-content-lg-end">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpayment">Confirm</button>
+                    </div>
                 </div>
-            </div>
+                
               <div class="table-responsive table-1">
                 <table id="table-1" class="table table-striped table-bordered nowrap " style="width:100%;border: 2px solid grey;">
                     <thead class="table-secondary">
@@ -199,6 +202,35 @@ if(isset($_SESSION['admin_id'])){
         </div>
 
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirmpayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm Full Payment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        User: Drusha01
+        <br>
+        <div class="form-group pt-1">
+            <label for="pass">Password:</label>
+            <input type="password" class="form-control" id="pass">
+        </div>
+        
+        <div class="form-check pt-2">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Remember Me
+            </label>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>

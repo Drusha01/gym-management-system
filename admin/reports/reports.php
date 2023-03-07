@@ -31,7 +31,29 @@ if(isset($_SESSION['admin_id'])){
 
 
 <?php require_once '../includes/header.php'; ?>
-
+<head>
+    <script type="text/javascript" src="canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                data: [
+                {
+                    type: "column",
+                    dataPoints: [
+                    { x: 10, y: 10 },
+                    { x: 20, y: 15 },
+                    { x: 30, y: 25 },
+                    { x: 40, y: 30 },
+                    { x: 50, y: 28 }
+                    ]
+                }
+                ]
+            });
+    
+            chart.render();
+        }
+    </script>
+</head>
 <body>
 <?php require_once '../includes/top_nav_admin.php';?>
 <?php require_once '../includes/side_nav.php';?>
@@ -39,13 +61,8 @@ if(isset($_SESSION['admin_id'])){
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
     <h5 class="col-12 fw-bold mb-3">Reports</h5>
-    <div class="col-12 col-lg-5">
-      <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-      <span></span> <b class="caret"></b>
-      </div>
-    </div>
-    
+    <canvas id="myChart"></canvas>
+
 
 
   </div>
@@ -53,32 +70,28 @@ if(isset($_SESSION['admin_id'])){
 
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script type="text/javascript">
-$(function() {
+<script>
+const ctx = document.getElementById('myChart');
 
-    var start = moment().subtract(29, 'days');
-    var end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
     }
-
-    $('#reportrange').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        }
-    }, cb);
-
-    cb(start, end);
-    
+  }
 });
 </script>
 
