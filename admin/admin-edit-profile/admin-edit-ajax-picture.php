@@ -185,7 +185,7 @@ if(isset($_SESSION['admin_id'])){
 
 }else{
     // go to admin login
-    header('location:../admin_control_log_in2.php');
+    header('location:../admin_control_log_in.php');
 }
 
 ?>

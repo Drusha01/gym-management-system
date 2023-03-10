@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 
 if(isset($_SESSION['admin_id'])){
-  header('location:../admin/admin_control_log_in2.php');
+  header('location:../admin/admin_control_log_in.php');
 }
 // check if we are logged in
 if(isset($_SESSION['user_id'])){

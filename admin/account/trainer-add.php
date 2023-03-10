@@ -222,7 +222,7 @@ if(isset($_SESSION['admin_id'])){
         // handle deleted user details
     }
 }else{
-    header('location:../admin_control_log_in2.php');
+    header('location:../admin_control_log_in.php');
 }
 ?>
 
