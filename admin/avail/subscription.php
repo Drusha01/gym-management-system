@@ -79,6 +79,7 @@
                                 
                                 echo ' <td class="text-center"><a href="activate.php?user_id='.($value['subscription_subscriber_user_id']).'" class="btn btn-primary btn-sm" role="button">Manage</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>';
                                 echo '</tr>';
+                                $counter++;
                             }
                         }
                     

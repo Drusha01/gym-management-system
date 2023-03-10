@@ -16,7 +16,7 @@ if(isset($_SESSION['admin_id'])){
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
         if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-            if(isset($_GET['trainer_id']) && isset($_GET['trainer_status']) && $_SESSION['admin_user_type_details']=='admin'){
+            if(isset($_GET['user_id']) && isset($_GET['user_status_details']) && $_SESSION['admin_user_type_details']=='admin'){
                 // include the db
                 require_once '../../classes/trainers.class.php';
                 require_once '../../classes/admins.class.php';
@@ -24,15 +24,16 @@ if(isset($_SESSION['admin_id'])){
     
                 
                 // admin password??
-                $trainerObj = new trainers();
-                if($trainerObj->update_trainer_availability($_GET['trainer_id'],$_GET['trainer_status'])){
-                    echo '1';
-                }else{
-                    echo '0';
-                }
-                
+                $adminObj = new admins();
     
-                
+                if(!$adminObj->check_admin($_GET['user_id'])){
+                    
+                    print_r($_GET);
+    
+                    
+                }else{
+                    echo 'the account you are trying to modify is admin';
+                }
             }else{
                 header('location:account.php');
             }
@@ -50,7 +51,7 @@ if(isset($_SESSION['admin_id'])){
 
 }else{
     // go to admin login
-    header('location:../admin_control_log_in.php');
+    header('location:../admin_control_log_in2.php');
 }
 
 ?>

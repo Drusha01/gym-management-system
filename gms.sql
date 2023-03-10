@@ -1111,7 +1111,9 @@ where trainers.trainer_user_id is null
 
 update trainers 
 SET trainer_availability_id = (SELECT trainer_availability_id FROM trainer_availability WHERE trainer_availability_details = 'Unavailable')
-WHERE trainer_id = 4;
+WHERE trainer_id = 1;
+
+SELECT * FROM trainers;
 
 -- table for email verification
 CREATE TABLE email_verify(
@@ -1357,12 +1359,19 @@ LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.use
 WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
 ORDER BY user_fullname
 ;
-(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
+(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03');
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
 subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE (subscription_subscriber_user_id =7 AND  subscription_status_details = 'Pending') OR (subscription_subscriber_user_id =7 AND  subscription_status_details = 'Active')
+WHERE (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Pending') OR (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
+;
+
+SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Pending' OR subscription_status_details = 'Active'
 ;
 
 SELECT * FROM subscriptions;
@@ -1371,7 +1380,7 @@ use gms;
 
 SELECT * FROM offers;
 
-DELETE FROM subscriptions WHERE subscription_id = 7;
+DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03');
 
 SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
 

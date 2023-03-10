@@ -55,7 +55,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                 echo '<td class="text-center">';echo_safe($value['user_gender_details']);echo'</td>';
                 echo '<td class="text-center">';
                 if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                    echo '<select class="form-select-sm" aria-label="Default select example" name="trainer_availability" onchange="trainer_statuschange('.htmlentities($value['trainer_id']).')">';
+                    echo '<select class="form-select-sm" aria-label="Default select example" name="trainer_availability" id="trainer_availability_'.htmlentities($value['trainer_id']).'" onchange="trainer_statuschange('.htmlentities($value['trainer_id'].','.$counter.',\''.$value['user_fullname']).'\')">';
                         foreach ($trainer_availability_data as $key => $trainer_availability_value) {
                             if($trainer_availability_value['trainer_availability_details'] == $value['trainer_availability_details']){
                                 echo '<option value="';echo_safe($trainer_availability_value['trainer_availability_details']);echo'" selected>';echo_safe($trainer_availability_value['trainer_availability_details']);echo'</option>';
@@ -71,7 +71,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                 }
                 echo '</td>';
                 if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                    echo '<td class="text-center"><a href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&trainer=1" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button></td>';
+                    echo '<td class="text-center"><a href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&trainer=1" class="btn btn-primary btn-sm" role="button">Edit</a> <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="trainer_delete('.$value['trainer_id'].','.$counter.',\''.htmlentities($value['user_fullname']).'\')">Delete</button></td>';
                 }
                 echo '</tr>';
                 $counter++;
@@ -84,9 +84,62 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
     </tbody>
 </table>
 
+
 <script>
-    function trainer_statuschange(trainer_id){
-        console.log('called');
+    function trainer_statuschange(trainer_id,index,name){
+        
+        var trainer_status = $('#trainer_availability_'+trainer_id).val();
+        console.log(trainer_status);
         console.log(trainer_id);
+        let text = "Are you sure you want to change status of #"+index+'. '+name+"?";
+        if (confirm(text) == true) {
+            $.ajax({url: "trainer-delete.php?trainer_id="+trainer_id+'&trainer_status='+trainer_status, success: function(result){
+                console.log(result);
+                if(result ==1){
+                    // update datatables
+                    // $( "#offer_id_"+id ).remove();
+                    // update selected
+                    alert('changed successfully');
+                    $('#trainer_availability_'+trainer_id).val(trainer_status);
+                    console.log(result)
+                }else{
+                    alert('deletion failed');
+                    location.reload();
+                }
+                
+            }});
+        } else {
+            return;
+            text = "You canceled!";
+        }
+        
+    }
+    function trainer_delete(trainer_id,index,name){
+        console.log('delete');
+        console.log(trainer_id);
+        console.log(index);
+        console.log(name);
+        let text = "Are you sure you want to delete #"+index+'. '+name+"?";
+        if (confirm(text) == true) {
+            $.ajax({url: "trainer-delete.php?trainer_id="+trainer_id+'&trainer_status=Unavailable', success: function(result){
+                console.log(result);
+                if(result ==1){
+                    // update datatables
+                    // $( "#offer_id_"+id ).remove();
+                    // update selected
+                    alert('deleted successfully');
+                    $('#trainer_availability_'+trainer_id).val('Unavailable')
+
+                    
+                    console.log(result)
+                }else{
+                    alert('deletion failed');
+                location.reload();
+                }
+            }});
+        } else {
+            return;
+            text = "You canceled!";
+        }
     }
 </script>

@@ -84,7 +84,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                     }
                     echo'</td>';
                     if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                        echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
+                        echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo','.$counter.',\''.htmlentities($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']).'\')">Delete</button></td>';
                      }
                        echo '</tr>';
                     $counter++;
@@ -99,7 +99,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                     echo '<tr>';
                     echo '<th class="d-lg-none"></th>';
                     echo '<th class="text-center d-none d-sm-table-cell">';echo $counter;echo'</th>';
-                    echo '<td class="">'; echo_safe($value['user_name']);'</td>';
+                    echo '<td class="">'; echo_safe($value['user_lastname']);'</td>';
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
                     echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
@@ -119,7 +119,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                     }
                     echo'</td>';
                     if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                        echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo')">Delete</button></td>';
+                        echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo ',\'sdfsd\')">Delete</button></td>';
                         }
                         echo '</tr>';
                     $counter++;
@@ -202,8 +202,9 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
             
         </div>
 <script> 
-function confirmfunction(id){
-    let text = "Are you sure you want to delete #"+id+"?";
+function confirmfunction(id,index,name){
+    console.log(name)
+    let text = "Are you sure you want to delete #"+index+'.'+name+"?";
     if (confirm(text) == true) {
         $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details=deleted', success: function(result){
             console.log(result);
@@ -239,6 +240,7 @@ function changeUserStatus(id){
                 //$( "#offer_id_"+id ).remove();
                 alert('changed successfully');
                 console.log(result)
+                location.reload();
             }else{
                 alert('changed failed');
                 location.reload();

@@ -111,6 +111,20 @@ class trainers
             return false;
         }
     }
+
+    function update_trainer_availability($trainer_id,$trainer_availability_details){
+        try{
+            $sql = 'UPDATE trainers 
+            SET trainer_availability_id = (SELECT trainer_availability_id FROM trainer_availability WHERE trainer_availability_details = :trainer_availability_details)
+            WHERE trainer_id = :trainer_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':trainer_id', $trainer_id);
+            $query->bindParam(':trainer_availability_details', $trainer_availability_details);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
 }
 
