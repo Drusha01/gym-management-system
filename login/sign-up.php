@@ -287,7 +287,7 @@ require_once '../classes/genders.class.php';
             <div class="form-group py-1">
               <div class="row">
                   <div class="form-floating col-md-6 py-1">
-                    <select class="form-select" id="floatingSelect" name="gender" onchange="genders()">
+                    <select class="form-select" id="gender" name="gender" onchange="genders()">
                       <option value="None" >Select Gender </option>
                       <?php
                       $genderObj = new genders();
@@ -375,7 +375,7 @@ function genders(){
 function other_genders(){
   $('#gender').val('Other'); 
   $('#gender option[value=Other]').attr('selected','selected'); 
-  console.log('gender others changed');
+  console.log('gender others chandged');
 }
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
