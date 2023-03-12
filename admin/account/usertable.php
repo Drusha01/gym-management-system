@@ -69,7 +69,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
                     echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
-                    echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('VERIFIED');}else{echo 'NOT VERIFIED';}'</td>';
+                    echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('<i class="bx bxs-check-square fs-3 align-bottom" style="color:green;" >');}else{echo '';}'</td>';
                     echo '<td class="text-center">';
                     if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
                         echo '<select class="form-select-sm" aria-label="Default select example" id="user_status';echo_safe($value['user_id']);echo'" onchange="changeUserStatus(';echo_safe($value['user_id']);echo')">';

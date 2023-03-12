@@ -20,7 +20,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
             <th>NAME</th>
             <th class="text-center ">AGE</th>
             <th class="text-center ">GENDER</th>
-            <th class="text-center">STATUS</th>
+            <th class="text-center">SUBSCRIPTION STATUS</th>
             <th class="text-center">ACTION</th>
             </tr>
         </thead>
