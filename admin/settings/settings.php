@@ -65,12 +65,12 @@ if(isset($_SESSION['admin_id'])){
                             <th class="text-center ">USER NAME</th>
                             <th>NAME</th>
                             <th scope="col" class="text-center">ADMIN TYPE</th>
-                            <th scope="col" class="text-center">OFFER</th>
+                            <!-- <th scope="col" class="text-center">OFFER</th>
                             <th scope="col" class="text-center">AVAIL</th>
                             <th scope="col" class="text-center">ACCOUNT</th>
                             <th scope="col" class="text-center">PAYMENT</th>
                             <th scope="col" class="text-center">MAINTENANCE</th>
-                            <th scope="col" class="text-center">REPORT</th>
+                            <th scope="col" class="text-center">REPORT</th> -->
                             <th scope="col" class="text-center">DATE CREATED</th>
                             <th scope="col" class="text-center">ACTION</th>
                             </tr>
@@ -89,12 +89,12 @@ if(isset($_SESSION['admin_id'])){
                                 echo '<td class="text-center ">'.htmlentities($value['user_name']).'</td>';
                                 echo '<td class="text-center ">'.htmlentities($value['user_fullname']).'</td>';
                                 echo '<td class="text-center ">'.htmlentities($value['user_type_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_offer_restriction_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_avail_restriction_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_account_restriction_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_payment_restriction_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_maintenance_restriction_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_report_restriction_details']).'</td>';
+                                // echo '<td class="text-center ">'.htmlentities($value['admin_offer_restriction_details']).'</td>';
+                                // echo '<td class="text-center ">'.htmlentities($value['admin_avail_restriction_details']).'</td>';
+                                // echo '<td class="text-center ">'.htmlentities($value['admin_account_restriction_details']).'</td>';
+                                // echo '<td class="text-center ">'.htmlentities($value['admin_payment_restriction_details']).'</td>';
+                                // echo '<td class="text-center ">'.htmlentities($value['admin_maintenance_restriction_details']).'</td>';
+                                // echo '<td class="text-center ">'.htmlentities($value['admin_report_restriction_details']).'</td>';
                                 echo '<td class="text-center ">'.htmlentities($value['admin_date_created']).'</td>';
                                 echo '<td class="text-center"><a href="edit-admin.php?admin_id='.htmlentities($value['admin_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="UpdateModal('.htmlentities($counter).','.htmlentities($value['admin_id']).',\''.htmlentities($value['user_name']).'\')">Delete</button></td>';
                                 echo '</tr>';

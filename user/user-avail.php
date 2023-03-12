@@ -88,6 +88,7 @@ if(isset($_SESSION['user_id'])){
                         <div class="multisteps-form__content">
                             <div class="form-group py-1">
                                 <div class="row">
+                                <h6>Subscribed till : March 4,2023</h6>
                                     <div class="col-10 col-lg-6 py-1">
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="gym_subscription" id="gym_use" onchange="updateGymUseModal()">
@@ -173,6 +174,7 @@ if(isset($_SESSION['user_id'])){
                                 <hr class="hr" />
 
                                 <div class="row py-2">
+                                <h6>Subscribed till : March 4,2023</h6>
                                     <div class="col-10 col-lg-6 py-1">
                                         <label class="fw-bold pb-2 ps-1">Locker Subscription</label>
                                         <select class="form-select" aria-label="Default select example" name="locker_subscription" id="locker_use" onchange="updateLockerUseModal()">
@@ -645,6 +647,7 @@ function updateGymUseModal(){
         $('#trainer_use').val('None');
         $('.trainers').html('');
         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+        $('#trainer_list_ul').html('')
 
         // update program modal
 

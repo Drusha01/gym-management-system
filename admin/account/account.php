@@ -127,6 +127,7 @@ $(".nav-item").on("click", function(){
         $.ajax({
             type: "GET",
             url: 'user-table-header.php',
+            responseType:'application/json',
             success: function(result)
             {
                 $('#add-button').html('Add Customer');

@@ -197,7 +197,7 @@ if(isset($_SESSION['admin_id'])){
                             <th scope="row">'.htmlentities($counter).'</th>
                             <td>'.htmlentities($value['subscription_offer_name']).'</td>
                             <td class="text-center " >'.htmlentities($value['subscription_quantity']).'</td>
-                            <td class="text-center" >₱'.htmlentities($value['subscription_price']).'</td>
+                            <td class="text-center" >₱'.htmlentities(number_format($value['subscription_price'],2)).'</td>
                             <td class="text-center" >'.htmlentities($value['subscription_duration']).'</td>
                             <td class="text-center" >'.htmlentities($value['subscription_total_duration']).'</td>
                             <td class="text-center" >'.htmlentities($value['subscription_quantity'].' X ('.$value['subscription_total_duration'].' / '.$value['subscription_duration']).') X ₱'.number_format($value['subscription_price'],2).'  = </td>

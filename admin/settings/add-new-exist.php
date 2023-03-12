@@ -1,5 +1,4 @@
 <?php
-session_start();
 if($_SESSION['admin_user_type_details'] != 'admin'){
     header('location:../dashboard/dashboard.php');
 }
@@ -38,7 +37,7 @@ if($_SESSION['admin_user_type_details'] != 'admin'){
                     require_once '../../classes/users.class.php';
                     $userObj = new users();
 
-                    $users_data = $userObj->fetch_all_users();
+                    $users_data = $userObj->fetch_all_users(0,1000000);
 
                     $counter=1;
                     foreach ($users_data as $key => $value) {

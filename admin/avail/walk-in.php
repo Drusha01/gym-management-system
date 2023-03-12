@@ -4,7 +4,26 @@
             <div class="col-12 col-lg-5">
                 <div class="form-group rounded">
                 <label for="search" class="pb-2 ms-1">Search</label>
-                <input type="search" class="form-control rounded" placeholder="Search for Existing Account" aria-label="Search" aria-describedby="search-addon" />
+                <br>
+                <input type="search" id="form1" class="form-control" />
+                <select class="form-select" aria-label="Default select example" name='users' id="users" onchange="users_selected_change()">
+                        <option value="None" selected>Select User </option>
+                        <?php 
+                        require_once('../../classes/users.class.php');
+
+                        $userObj = new users();
+                        
+                        if($users_data = $userObj->fetch_all_users(0,100000)){
+                            foreach ($users_data as $key => $value) {
+                                # code...
+                                echo '<option value="'.$value['user_id'].'" >'.$value['user_fullname'].' </option>';
+                            }
+
+                        }
+                        ?>
+                    </select>
+                    
+                
                 </div>
             </div>
             <div class="col-6 col-lg-1 d-flex align-items-end mb-1 pt-3">
@@ -13,8 +32,8 @@
             <div class="col-6 col-lg-5 d-flex align-items-end mb-1">
                 <div class="form-group rounded">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="Gym-Use" name="Gym-Use"  onchange="gym_use_changed()">
+                        <label class="form-check-label" for="Gym-Use">
                             Gym-Use
                         </label>
                     </div>
@@ -25,8 +44,22 @@
         <div class="row">
             <div class="col-12 col-lg-5">
                 <div class="form-group rounded">
-                <label for="search" class="pb-2 ms-1">Search</label>
-                <input type="search" class="form-control rounded" placeholder="Search for Trainer Account" aria-label="Search" aria-describedby="search-addon" />
+                <label for="search" class="pb-2 ms-1">Trainer</label>
+                    <select class="form-select" aria-label="Default select example" name='trainers' id="trainers" onchange="trainer_selected_change()">
+                        <option value="None" selected>Select Trainer </option>
+                        <?php 
+                        require_once('../../classes/trainers.class.php');
+
+                        $trainerObj = new trainers();
+                        
+                        if($trainers_data = $trainerObj->fetch_available_trainers()){
+                            foreach ($trainers_data as $key => $value) {
+                                # code...
+                                echo '<option value="'.htmlentities($value['trainer_id']).'" >'.htmlentities($value['user_fullname']).' </option>';
+                            }
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="col-6 col-lg-1 d-flex align-items-end mb-1 pt-3">
@@ -35,8 +68,8 @@
             <div class="col-6 col-lg-5 d-flex align-items-end mb-1">
                 <div class="form-group rounded">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="Trainer" name="Trainer" onchange="trainer_check_change()">
+                        <label class="form-check-label" for="Trainer">
                             Trainer
                         </label>
                     </div>
@@ -45,20 +78,20 @@
         </div>
         <div class="row pt-3 pt-lg-0">
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-success me-md-2" type="button" id="liveToastBtn">Avail</button>
+            <button class="btn btn-success me-md-2" type="button" id="walk_in" onclick="walk_in_avail()">Avail</button>
             </div>
         </div>
 
         <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-            <strong class="me-auto">Avail Walk-In</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                <strong class="me-auto">Avail Walk-In</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Succesfully Availed Walk-In <i class='bx bxs-check-square fs-3 align-bottom' style="color:green;" ></i>
+                </div>
             </div>
-            <div class="toast-body">
-                Succesfully Availed Walk-In <i class='bx bxs-check-square fs-3 align-bottom' style="color:green;" ></i>
-            </div>
-        </div>
         </div>
     </div>
 
@@ -116,6 +149,59 @@
 </div>
 
 <script>
-    
+    var user_id;
+    var trainer_id;
+    function trainer_selected_change(){
+        if($('#trainers').val() != 'None'){
+            // check
+            $('#Trainer').prop('checked', true);
+            trainer_id = $('#trainers').val();
+        }else{
+            $('#Trainer').prop('checked', false);
+        }
+    }
+    function users_selected_change(){
+        if($('#users').val() != 'None'){
+            // check
+            $('#Gym-Use').prop('checked', true);
+            user_id =$('#users').val();
+           
+        }else{
+            $('#Gym-Use').prop('checked', false);
+        }
+    }
+    function gym_use_changed(){
+        if($('#Gym-Use').prop('checked')){
+            alert('please select customer');
+            $('#Gym-Use').prop('checked',!$('#Gym-Use').prop('checked') );
+        }else{
+            user_id = null;
+            $('#users').val('None')
+        }
+        
+        console.log(check)
+    }
+    function trainer_check_change(){
+        if($('Trainer').prop('checked')){
+            alert('please select customer');
+            $('#Trainer').prop('checked',!$('#Gym-Use').prop('checked') );
+        }else{
+            trainer_id = null;
+            $('#trainers').val('None')
+        }
+    }
+    function walk_in_avail(){
+        console.log(user_id);
+        console.log(trainer_id);
+        $('#liveToast').toast('show')
+
+        // ajax here 
+
+        // if result is successful show the  toast
+
+        // else if the ajax failed or it didnt proceed as usual, it
+    }
+
+
 </script>
 

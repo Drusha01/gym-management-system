@@ -1,5 +1,4 @@
 <?php
-session_start();
 if($_SESSION['admin_user_type_details'] != 'admin'){
     header('location:../dashboard/dashboard.php');
 }

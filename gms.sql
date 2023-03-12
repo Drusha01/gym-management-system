@@ -825,7 +825,10 @@ INSERT INTO type_of_subscriptions VALUES
     'Program Subscription'
 ),(
 	null,
-    'Walk-In'
+    'Walk-In Gym Subscription'
+),(
+	null,
+    'Walk-In Trainer Subscription'
 );
 
 SELECT * from type_of_subscriptions;
@@ -876,77 +879,7 @@ CREATE TABLE offers(
 );
 
 -- inserts for offers
-INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description) VALUES
-(
-	null,
-    '1-Month Gym-Use(21 and Above)',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
-    30,
-    'None',
-    800.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-),(
-	null,
-    '1-Month Trainer',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Trainer Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
-    30,
-    'None',
-    1500.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-),(
-	null,
-    '1-Month Locker',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Locker Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
-    30,
-    'None',
-    100.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-),(
-	null,
-    'Zumba',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Program Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
-    30,
-    45,
-    500.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-),(
-	null,
-    'Samba',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Program Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
-    30,
-    45,
-    500.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-);
 
-INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description)VALUES
-(
-	null,
-    '1-Month Gym-Use(21 and Above)',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details= 'Gym Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= '21 above'),
-    30,
-    'None',
-    800.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-);
 
 
 
@@ -1278,78 +1211,7 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
-SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02';
-INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_status_id, subscription_start_date)VALUES (
-	null,
-    1,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
-    '1-Month Gym-Use(21 and Above)',
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
-    30,
-    800,
-    90,
-    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
-    NOW()
-);
 
-
-INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_status_id, subscription_start_date)VALUES (
-	null,
-    1,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03'),
-    '1-Month Gym-Use(21 and Above)',
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
-    30,
-    800,
-    90,
-    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
-    NOW()
-);
-
-
-
-INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_status_id, subscription_start_date)VALUES (
-	null,
-    2,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
-    '1-Month Locker-Use(21 and Above)',
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
-    30,
-    100,
-    90,
-    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
-    NOW()
-);
-INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_status_id, subscription_start_date)VALUES (
-	null,
-    2,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
-    '1-Month Trainer-Use(21 and Above)',
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Trainer Subscription'),
-    30,
-    1500,
-    90,
-    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
-    (SELECT DATE_ADD(NOW(), INTERVAL -85 DAY)  ) 
-);
-
-INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_status_id, subscription_start_date)VALUES (
-	null,
-    2,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
-    '1-Month Gym-Use(21 and Above)',
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
-    30,
-    100,
-    90,
-    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Terminated'),
-    (SELECT DATE_ADD(NOW(), INTERVAL -84 DAY)  ) 
-);
 
 (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active' );
 
