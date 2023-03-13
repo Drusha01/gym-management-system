@@ -1,5 +1,3 @@
-
-
 <div class="d-flex justify-content-end">
     <ul class="nav mb-1" id="pills-tab" role="tablist">
     <li class="nav-item px-1" role="presentation">
@@ -17,8 +15,140 @@
     <!-- current subs -->
     <div class="container-sub">
         <div class="row g-2 mb-2 ">
-            <h5 class="col-12 fw-bold">Current Subscription</h5>
+
+<?php 
+// query my active / pending subscription
+
+    require_once('../classes/subscriptions.class.php');
+    $subscriptionsObj = new subscriptions();
+
+    if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
+        // check the subs if active
+        if($subscription_data[0]['subscription_status_details'] == 'Pending'){
+            echo '<h5 class="col-12 fw-bold">Pending</h5>';
+            echo '<div class="row g-2 mb-2 ">';
+            echo '<div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                </div>';
+            echo '</div>';
+            echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+
+                    <thead class="bg-dark text-light">
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                        <th class="col-3">NAME OF SUBSCRIPTION</th>
+                        <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                        <th class="text-center">QUANTITY</th>
+                        <th class="text-center">SUBSCRIPTION DAYS</th>
+                        <th class="text-center">SUBSCRIPTION TOTAL DAYS</th>
+                        <th class="text-center">PRICE</th>
+                        <th class="text-center">SUB TOTAL PRICE</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+                $counter=1;
+            foreach ($subscription_data as $key => $value) {
+                echo '<tr>
+                <th class="d-lg-none"></th>
+                    <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                    <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                    <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
+                    <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
+                    <td class="text-center ">'.htmlentities($value['subscription_duration']).'</td>
+                    <td class="text-center ">'.htmlentities($value['subscription_total_duration']).'</td>
+                    <td class="text-center ">'.htmlentities(number_format($value['subscription_price'],2,'.', ',')).'</td>
+                    <td class="text-center ">'.htmlentities(number_format($value['subscription_price']*($value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration'])),2,'.', ',')).'</td>
+                    </tr>';
+            }
+            echo ' </tbody>
+             </table>
+
+            </div>
+        </div>
+    </div>';
+        }else{
+            echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
+            echo '<div class="row g-2 mb-2 ">';
+            echo '<div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">put renew if needed</button>
+                </div>';
+            echo '</div>';
+            echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+
+                    <thead class="bg-dark text-light">
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                        <th class="col-3">NAME OF SUBSCRIPTION</th>
+                        <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                        <th class="text-center">QUANTITY</th>
+                        <th class="text-center">START DATE</th>
+                        <th class="text-center">END DATE</th>
+                        <th class="text-center">DAYS LEFT</th>
+                        <th class="text-center">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+                    $counter=1;
+            foreach ($subscription_data as $key => $value) {
+                
+                $end_date = date_create($value['subscription_start_date']);
+                date_add($end_date, date_interval_create_from_date_string(strval($value['subscription_total_duration'])." days"));
+                $date2=date_create(date("Y-m-d"));
+                $diff=date_diff($date2,date_create($value['subscription_start_date']),true);
+                if($value['subscription_total_duration']-$diff->format("%d")+1>0){
+                    echo '<tr>
+                    <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                        <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                        <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
+                        <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
+                        <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
+                        <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
+                        <td class="text-center ">'.htmlentities($value['subscription_total_duration']-$diff->format("%d")+1).'</td>
+                        <td class="text-center ">ACTIVE</td>
+                        </tr>';
+                }else{
+                    // update the subscription make it complete
+
+                    echo '<tr>
+                    <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                        <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                        <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
+                        <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
+                        <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
+                        <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
+                        <td class="text-center ">'.htmlentities($value['subscription_total_duration']-$diff->format("%d")+1).'</td>
+                        <td class="text-center ">COMPLETE</td>
+                        </tr>';
+                }
+                
+            }
+            echo ' </tbody>
+            </table>
+
+           </div>
+       </div>
+   </div>';
+        }
+        
+
+    }else{
+        echo '
             <div class="row g-2 mb-2 ">
+                <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                    <a class="btn btn-success" role="button" href="user-avail.php">Avail</a>
+                </div>
+            </div>';
+    }
+
+?>
+
+
+            
+            <!-- <div class="row g-2 mb-2 "> -->
                 <!-- ito kapag malapit na ung expiration -->
                 <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                     <button class="btn btn-success" role="button">Renew</button>
@@ -28,36 +158,9 @@
                 <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                     <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
                 </div> -->
-            </div>
-            <div class="table-responsive table-1">
-                <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
-                    <thead class="bg-dark text-light">
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                        <th class="col-3">NAME OF SUBSCRIPTION</th>
-                        <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-                        <th scope="col" class="text-center">QTY</th>
-                        <th scope="col" class="text-center">DATE SUBSCRIBED</th>
-                        <th scope="col" class="text-center">END DATE</th>
-                        <th scope="col" class="text-center">DAYS LEFT</th>
-                        <th scope="col" class="text-center">STATUS</th>
-                        <th scope="col" class="text-center">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                        <td>1-Month Gym-Use (21 and above)</td>
-                        <td class="text-center ">Gym-Use Subscription</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">24</td>
-                        <td class="text-center">Active</td>
-                        <td class="text-center"><button class="btn btn-secondary btn-sm"role="button" data-bs-toggle="modal" data-bs-target="#addModal">Add More</button></td>
-                        </tr>
+            <!-- </div> -->
+            
+<!--                         
                         <tr>
                         <th class="d-lg-none"></th>
                         <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
@@ -93,19 +196,19 @@
                         <td class="text-center">5</td>
                         <td class="text-center">Active</td>
                         <td class="text-center"><button class="btn btn-success btn-sm" role="button">Renew</button></td>
-                        </tr>
+                        </tr> -->
                         
-                    </tbody>
+                    <!-- </tbody>
                 </table>
 
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- pending subs -->
-    <div class="container-sub">
+    <!-- <div class="container-sub">
     <div class="row g-2 mb-2 ">
         <h5 class="col-12 fw-bold">Pending</h5>
-        <div class="row g-2 mb-2 ">
+        <div class="row g-2 mb-2 "> -->
                 <!-- ito kapag malapit na ung expiration -->
 
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
@@ -123,7 +226,7 @@
             </div> -->
         <!-- </div> -->
             <!-- ito kapag wla pa nakapagsubscibe -->
-            <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+            <!-- <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
 
                 <thead class="bg-dark text-light">
                     <tr>
@@ -140,13 +243,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr> -->
 
                         <!-- <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
                     </tr>
                 </tbody>
             </table>  -->
-                    <th class="d-lg-none"></th>
+                    <!-- <th class="d-lg-none"></th>
                     <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
                     <td>1-Month Gym-Use (21 and above)</td>
                     <td class="text-center ">Gym-Use Subscription</td>
@@ -187,7 +290,7 @@
         </div>
     </div>
     </div>
-  </div>
+  </div> -->
  <!-- end of subs -->
     <!-- history -->
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -290,7 +393,7 @@
 </div>
 
 <!-- modal add more-->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -305,19 +408,19 @@
                     <option value="0" name=""selected >Select Gym subscription</option>
                         <?php 
                             // requre
-                            require_once '../classes/offers.class.php';
-                            require_once '../tools/functions.php';
-                            // instance
-                            $offersObj = new offers();
+                            // require_once '../classes/offers.class.php';
+                            // require_once '../tools/functions.php';
+                            // // instance
+                            // $offersObj = new offers();
 
-                            // fetch
-                            if($data_result = $offersObj->select_offers_per_sub_type('Gym Subscription')){
-                                foreach ($data_result as $key => $value) {
-                                    if($value['status_details'] =='active'){
-                                        echo '<option value="';echo_safe($value['offer_id']);echo '" id="gym-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
-                                    }
-                                }
-                            }
+                            // // fetch
+                            // if($data_result = $offersObj->select_offers_per_sub_type('Gym Subscription')){
+                            //     foreach ($data_result as $key => $value) {
+                            //         if($value['status_details'] =='active'){
+                            //             echo '<option value="';echo_safe($value['offer_id']);echo '" id="gym-use-'.htmlentities($value['offer_id']).'" name=\''.json_encode($value).'\'  duration="'.htmlentities($value['offer_duration']).'">';echo_safe($value['offer_name']);echo ' (₱';echo_safe($value['offer_price']);echo') DAYS('.htmlentities($value['offer_duration']).')</option>';
+                            //         }
+                            //     }
+                            // }
                         ?>
                     </select>
                     
@@ -344,7 +447,7 @@
 
 
 
-<!-- Modal info -->
+
 <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9998;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -388,5 +491,5 @@
         </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- End of Modal -->

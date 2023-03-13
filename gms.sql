@@ -878,6 +878,7 @@ CREATE TABLE offers(
     
 );
 
+
 -- inserts for offers
 
 
@@ -908,6 +909,7 @@ CREATE TABLE offer_contents(
     content_name varchar(255),
     FOREIGN KEY (offer_id) REFERENCES offers(offer_id)
 );
+
 
 
 
@@ -1211,6 +1213,9 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
+-- activation / making it active
+
+
 
 
 (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active' );
@@ -1221,7 +1226,7 @@ LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.use
 WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
 ORDER BY user_fullname
 ;
-(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03');
+(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha04');
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
 subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
@@ -1236,8 +1241,12 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE subscription_status_details = 'Pending' OR subscription_status_details = 'Active'
 ;
 
+DELETE FROM subscriptions
+WHERE (subscription_subscriber_user_id =9 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'));
+
 SELECT * FROM subscriptions;
 
+SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending';
 use gms;
 
 SELECT * FROM offers;

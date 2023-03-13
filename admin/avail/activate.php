@@ -164,9 +164,24 @@ if(isset($_SESSION['admin_id'])){
                 </div>
             </div>
         </div>
+        <?php 
+                    
+            require_once '../../classes/subscriptions.class.php';
+
+            $subscriptionsObj = new subscriptions();
+            $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id']);
+        ?>
         <div class="d-flex flex-row-reverse bd-highlight">
-            <div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark">Activate All</button></div>
-            <div class="p-2 bd-highlight"><a href="#link" class="btn btn-outline-success" role="button">Pay</a></div>
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-danger">Delete </button></div>
+            <?php
+            if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Active'){
+                echo '<div class="p-2 bd-highlight"><a href="#link" class="btn btn-outline-success" role="button">Pay</a></div>';
+            }else{
+                echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark">Activate </button></div>';
+            }
+            ?>
+            
+            
         </div>
         <div class="table-responsive table-container">
             <table id="example" class="table table-striped table-bordered" style="width:100%;border: 3px solid black;">
@@ -180,16 +195,11 @@ if(isset($_SESSION['admin_id'])){
                     <th class="text-center" scope="col">Total Days</th>
                     <th class="text-center" scope="col">Calculation</th>
                     <th class="text-center" scope="col">Sub Total Price</th>
-                    <th class="text-center" scope="col">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
                     
-                    require_once '../../classes/subscriptions.class.php';
-
-                    $subscriptionsObj = new subscriptions();
-                    $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id']);
                     $counter =1;
                     foreach ($subscription_data as $key => $value) {
                         echo '
@@ -202,16 +212,7 @@ if(isset($_SESSION['admin_id'])){
                             <td class="text-center" >'.htmlentities($value['subscription_total_duration']).'</td>
                             <td class="text-center" >'.htmlentities($value['subscription_quantity'].' X ('.$value['subscription_total_duration'].' / '.$value['subscription_duration']).') X ₱'.number_format($value['subscription_price'],2).'  = </td>
                             <td class="text-center" >₱'.htmlentities(number_format($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']),2)).'</td>';
-                        if($value['subscription_status_details'] == 'Pending'){
-                            echo '    <th class="text-center" scope="col">
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Activate</button>';
-                        }else{
-                            echo '    <th class="text-center" scope="col">
-                            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Deactivate</button>';
-                        }
                        echo'
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
-                            </th>
                         </tr>';
                         $counter++;
                     }
