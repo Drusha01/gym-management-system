@@ -613,8 +613,52 @@ function updateGymUseModal(){
         // UDPATE THE DURATION 
         gym_use_id = content;
         gym_use_duration = content.offer_duration;
+        gym_use_multiplier =1;
         $('#gym_use_total_duration').val(gym_use_duration*gym_use_multiplier);
         $('#first_next').removeAttr('disabled');
+
+  
+        
+
+        // update locker modal
+
+        // update locker values
+        locker_use_id=null;
+        locker_duration =0;
+        locker_quantity =0;
+        locker_multiplier=1;
+        $('#locker_use').val('None');
+        $('#locker-quantity').val(0);
+        $('#locker-total-duration').val(locker_duration*locker_multiplier);
+
+        // update trainer modal
+
+        // update trainer values
+        trainer_use_id =null;
+        trainer_duration =0;
+        trainer_multiplier=1;
+        var trainers_id = [];
+        var trainers_quantity=0;
+        $('#trainer_use').val('None');
+        $('.trainers').html('');
+        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+        $('#trainer_list_ul').html('')
+
+        // update program modal
+
+        // update program values
+        $('#program_use-0').val('None');
+        $('#program-total-duration-0').val(0);
+        $('#button-div-0').html('');
+        $('#program_list_ul').html('');
+
+        programs_use_id=[];
+        program_list;
+        programs_duration=[];
+        program_duration;
+        program_multiplier=1;
+        program_quantity=1;
+        programs_default=null;
     }else{
         // ask the user if he/she is sure to change it ?? modal maybe
         gym_use_id =null;
@@ -677,6 +721,101 @@ function gym_use_total_durationChange(){
             gym_use_multiplier++;
         }else  {
             gym_use_multiplier--;
+            // check other value
+            if(locker_duration*locker_multiplier>gym_use_duration*gym_use_multiplier || trainer_duration*trainer_multiplier >gym_use_duration*gym_use_multiplier){
+                let text = "Gym use duration is less than the other duration!\n Reset other subscription? ";
+                if (confirm(text) == true) {
+                     // update locker values
+                    locker_use_id=null;
+                    locker_duration =0;
+                    locker_quantity =0;
+                    locker_multiplier=1;
+                    $('#locker_use').val('None');
+                    $('#locker-quantity').val(0);
+                    $('#locker-total-duration').val(locker_duration*locker_multiplier);
+
+                    // update trainer modal
+
+                    // update trainer values
+                    trainer_use_id =null;
+                    trainer_duration =0;
+                    trainer_multiplier=1;
+                    var trainers_id = [];
+                    var trainers_quantity=0;
+                    $('#trainer_use').val('None');
+                    $('.trainers').html('');
+                    $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+                    $('#trainer_list_ul').html('')
+
+                    // update program modal
+
+                    // update program values
+                    $('#program_use-0').val('None');
+                    $('#program-total-duration-0').val(0);
+                    $('#button-div-0').html('');
+                    $('#program_list_ul').html('');
+
+                    programs_use_id=[];
+                    program_list;
+                    programs_duration=[];
+                    program_duration;
+                    program_multiplier=1;
+                    program_quantity=1;
+                    programs_default=null;
+                } else {
+                    gym_use_multiplier++;
+                }
+            }
+            var counter=0;
+            programs_use_id.forEach(element => {
+                console.log(programs_multiplier[counter].duration);
+                if(programs_multiplier[counter].duration > gym_use_duration*gym_use_multiplier){
+                    let text = "Gym use duration is less than the other duration!\n Reset other subscription? ";
+                    if (confirm(text) == true) {
+                        // update locker values
+                        locker_use_id=null;
+                        locker_duration =0;
+                        locker_quantity =0;
+                        locker_multiplier=1;
+                        $('#locker_use').val('None');
+                        $('#locker-quantity').val(0);
+                        $('#locker-total-duration').val(locker_duration*locker_multiplier);
+
+                        // update trainer modal
+
+                        // update trainer values
+                        trainer_use_id =null;
+                        trainer_duration =0;
+                        trainer_multiplier=1;
+                        var trainers_id = [];
+                        var trainers_quantity=0;
+                        $('#trainer_use').val('None');
+                        $('.trainers').html('');
+                        $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+                        $('#trainer_list_ul').html('')
+
+                        // update program modal
+
+                        // update program values
+                        $('#program_use-0').val('None');
+                        $('#program-total-duration-0').val(0);
+                        $('#button-div-0').html('');
+                        $('#program_list_ul').html('');
+
+                        programs_use_id=[];
+                        program_list;
+                        programs_duration=[];
+                        program_duration;
+                        program_multiplier=1;
+                        program_quantity=1;
+                        programs_default=null;
+                    } else {
+                        gym_use_multiplier++;
+                    }
+                }
+                
+                counter++;
+            });
             
         }
         if(gym_use_multiplier == 0){
