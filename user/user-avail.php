@@ -654,7 +654,7 @@ function updateGymUseModal(){
 
         programs_use_id=[];
         program_list;
-        programs_duration=[];
+        programs_multiplier=[];
         program_duration;
         program_multiplier=1;
         program_quantity=1;
@@ -701,7 +701,7 @@ function updateGymUseModal(){
 
         programs_use_id=[];
         program_list;
-        programs_duration=[];
+        programs_multiplier=[];
         program_duration;
         program_multiplier=1;
         program_quantity=1;
@@ -757,7 +757,7 @@ function gym_use_total_durationChange(){
 
                     programs_use_id=[];
                     program_list;
-                    programs_duration=[];
+                    programs_multiplier=[];
                     program_duration;
                     program_multiplier=1;
                     program_quantity=1;
@@ -804,7 +804,7 @@ function gym_use_total_durationChange(){
 
                         programs_use_id=[];
                         program_list;
-                        programs_duration=[];
+                        programs_multiplier=[];
                         program_duration;
                         program_multiplier=1;
                         program_quantity=1;
@@ -839,13 +839,21 @@ function updateLockerUseModal(){
             console.log(content);
 
             // UPDATE MODAL 
-
-            // UPDATE DURATION AND QUANTITY
-            locker_use_id=content;
-            locker_duration =content.offer_duration;
-            locker_quantity =1;
-            $('#locker-quantity').val(1);
-            $('#locker-total-duration').val(locker_duration*locker_multiplier);
+            if(content.offer_duration*locker_multiplier<= gym_use_duration*gym_use_multiplier){
+                // UPDATE DURATION AND QUANTITY
+                locker_use_id=content;
+                locker_duration =content.offer_duration;
+                locker_quantity =1;
+                $('#locker-quantity').val(1);
+                $('#locker-total-duration').val(locker_duration*locker_multiplier);
+            }else{
+                alert('Locker duration can\'t be greater than Gym duration');
+                locker_use_id=null;
+                locker_duration =0;
+                $('#locker-quantity').val(0);
+                $('#locker-total-duration').val(locker_duration*locker_multiplier);
+                $('#locker_use').val('None');
+            }
         }else{
             locker_use_id=null;
             locker_duration =0;
@@ -906,14 +914,26 @@ function updateTrainerUseModal(){
             console.log(content);
 
             // UPDATE MODAL 
+            if(content.offer_duration*trainer_multiplier<= gym_use_duration*gym_use_multiplier){
 
-            // UPDATE DURATION 
-            trainer_use_id=content;
-            trainer_duration =content.offer_duration;
-            $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
-            trainers_list = JSON.parse($('#trainer_use').attr('name'));
-            trainers_list2=trainers_list;
-            add_newTrainer();
+                // UPDATE DURATION 
+                trainer_use_id=content;
+                trainer_duration =content.offer_duration;
+                $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+                trainers_list = JSON.parse($('#trainer_use').attr('name'));
+                trainers_list2=trainers_list;
+                add_newTrainer();
+            }else{
+                alert('Trainer duration can\'t be greater than Gym duration');
+                trainer_use_id=null;
+                trainer_duration =0;
+                trainers_id = [];
+                trainers_quantity=0;
+                $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
+                $('.trainers').html('');
+                $('#trainer_list_ul').html('');
+                $('#trainer_use').val('None');
+            }
         }else{
             // set all to default
             trainer_use_id=null;
