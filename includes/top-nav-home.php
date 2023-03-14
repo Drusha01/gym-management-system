@@ -25,7 +25,7 @@
                 <a class="nav-link active" aria-current="page" href="../login/log-in.php">Avail</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="home/about.php">About</a>
+                <a class="nav-link active" aria-current="page" href="../home/about.php">About</a>
                 </li>
                 
             </ul>
