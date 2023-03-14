@@ -16,20 +16,13 @@ INSERT into user_types VALUES
 (	
 	null,
     'normal'
-);
--- insert for user types
-INSERT into user_types VALUES
-(	
+),(	
 	null,
     'admin'
-);
-INSERT into user_types VALUES
-(	
+),(	
 	null,
     'sub-admin'
-);
-INSERT into user_types VALUES
-(	
+),(	
 	null,
     'super-admin'
 );
@@ -48,8 +41,7 @@ INSERT INTO user_status VALUES
 (
 	null,
     'active'
-),
-(
+),(
 	null,
 	'inactive'
 ),(
@@ -375,7 +367,7 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     (SELECT user_gender_id FROM user_genders WHERE user_gender_details = 'Male'),
     (SELECT user_phone_country_code_id FROM user_phone_country_code WHERE user_phone_contry_code_details ='+63'),
     '09265827344',
-    'hanz.dumapit55@gmail.com',
+    'hanz.dumapit56@gmail.com',
     'Drusha04',
     true,
     '$argon2i$v=19$m=65536,t=4,p=1$eTZlMnMuV051aWVqVFdwTg$BoJu46kCpm6cJOPAgmzBul3gR2/tlvf8HFROQVLAqaI',
@@ -416,8 +408,19 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-ORDER BY user_name
+ORDER BY user_status_details,user_name
 ;
+
+SELECT user_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,user_email_verified,
+user_name,user_firstname,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+-- LEFT JOIN admins ON users.user_id=admins.admin_user_id
+-- where admins.admin_user_id is null
+ORDER BY user_status_details,user_name
+LIMIT 10,20;
 
 -- select * users
 SELECT * FROM users
@@ -521,7 +524,7 @@ CREATE TABLE maintenance_controls(
 	control_id int primary key auto_increment,
     control_details varchar(50) unique
 );
-CREATE TABLE reports_controls(
+CREATE TABLE report_controls(
 	control_id int primary key auto_increment,
     control_details varchar(50) unique
 );
@@ -582,7 +585,7 @@ INSERT INTO maintenance_controls (control_id, control_details) VALUES
 	null,
     'None'
 );
-INSERT INTO reports_controls (control_id, control_details) VALUES 
+INSERT INTO report_controls (control_id, control_details) VALUES 
 (
 	null,
     'Modify'
@@ -600,13 +603,13 @@ SELECT control_id FROM offer_controls WHERE control_details="Read-Only";
 CREATE TABLE admins(
 	admin_id int primary key auto_increment,
     admin_type_id int NOT NULL ,
-	admin_user_id int unique,
+	admin_user_id int unique not null,
     admin_offer_restriction int not null,
     admin_avail_restriction int not null,
     admin_account_restriction int not null,
     admin_payment_restriction int not null,
     admin_maintenance_restriction int not null,
-    admin_reports_restriction int not null,
+    admin_report_restriction int not null,
     admin_date_created datetime,
     admin_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (admin_type_id) REFERENCES user_types(user_type_id),
@@ -616,9 +619,8 @@ CREATE TABLE admins(
     FOREIGN KEY (admin_account_restriction) REFERENCES account_controls(control_id),
     FOREIGN KEY (admin_payment_restriction) REFERENCES payment_controls(control_id),
     FOREIGN KEY (admin_maintenance_restriction) REFERENCES maintenance_controls(control_id),
-    FOREIGN KEY (admin_reports_restriction) REFERENCES reports_controls(control_id)
+    FOREIGN KEY (admin_report_restriction) REFERENCES report_controls(control_id)
 );
-
 -- INSERT admin
 INSERT INTO admins VALUES(
 	null,
@@ -629,7 +631,20 @@ INSERT INTO admins VALUES(
     (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
     (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
     (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM reports_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM report_controls WHERE control_details = "Modify"),
+    now(),
+    now()
+);
+INSERT INTO admins VALUES(
+	null,
+    (SELECT user_type_id FROM user_types WHERE user_type_details = 'sub-admin'),
+    (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha02') OR (user_email = 'hanz.dumapit54@gmail.com' AND user_email_verified = 1)) ,
+    (SELECT control_id FROM offer_controls WHERE control_details = "Read-Only"),
+    (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM report_controls WHERE control_details = "Modify"),
     now(),
     now()
 );
@@ -641,14 +656,27 @@ admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_de
 admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
 admin_payment_restriction= (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
 admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
-admin_reports_restriction= (SELECT control_id FROM reports_controls WHERE control_details = "Modify")
+admin_report_restriction= (SELECT control_id FROM report_controls WHERE control_details = "Modify")
 WHERE admin_user_id = (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1));
 
+
+UPDATE admins 
+SET
+admin_offer_restriction = (SELECT control_id FROM offer_controls WHERE control_details = "Read-Only"),
+admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
+admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Read-Only"),
+admin_payment_restriction= (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
+admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
+admin_report_restriction= (SELECT control_id FROM report_controls WHERE control_details = "Modify")
+WHERE admin_user_id = 2;
 
  SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1);
 -- SELECT * admins
 SELECT * FROM admins;
 
+
+DELETE FROM admins
+WHERE admin_id =3;
 -- check if we are admin
 SELECT * FROM admins
 WHERE admin_type_id =(SELECT user_type_id FROM user_types WHERE user_type_details = 'admin') AND admin_user_id =3;
@@ -681,7 +709,7 @@ SELECT admin_id, user_id, user_status_details, user_type_details, user_gender_de
  account_controls.control_details AS admin_account_restriction_details,
  payment_controls.control_details AS admin_payment_restriction_details,
  maintenance_controls.control_details AS admin_maintenance_restriction_details,
- reports_controls.control_details AS admin_reports_restriction_details
+ report_controls.control_details AS admin_report_restriction_details
  FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
@@ -693,9 +721,34 @@ LEFT OUTER JOIN avail_controls ON admins.admin_avail_restriction=avail_controls.
 LEFT OUTER JOIN account_controls ON admins.admin_account_restriction=account_controls.control_id
 LEFT OUTER JOIN payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
 LEFT OUTER JOIN maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
-LEFT OUTER JOIN reports_controls ON admins.admin_reports_restriction=reports_controls.control_id
+LEFT OUTER JOIN report_controls ON admins.admin_report_restriction=report_controls.control_id
+WHERE admin_id = 1
 ;
 
+-- select all sub admins
+SELECT admin_id, user_id,user_name, CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
+ user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
+ user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,CAST(admin_date_created AS DATE) admin_date_created,
+ offer_controls.control_details AS admin_offer_restriction_details,
+ avail_controls.control_details AS admin_avail_restriction_details,
+ account_controls.control_details AS admin_account_restriction_details,
+ payment_controls.control_details AS admin_payment_restriction_details,
+ maintenance_controls.control_details AS admin_maintenance_restriction_details,
+ report_controls.control_details AS admin_reports_restriction_details
+ FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
+LEFT OUTER JOIN offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
+LEFT OUTER JOIN avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
+LEFT OUTER JOIN account_controls ON admins.admin_account_restriction=account_controls.control_id
+LEFT OUTER JOIN payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
+LEFT OUTER JOIN maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
+LEFT OUTER JOIN report_controls ON admins.admin_report_restriction=report_controls.control_id
+WHERE admin_id != 1
+;
 
 -- select all non admins
 SELECT user_id,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_birthdate,user_gender_details  from users
@@ -970,6 +1023,9 @@ INSERT INTO trainer_availability VALUES
 
 SELECT * FROM trainer_availability;
 
+SELECT trainer_availability_id FROM trainer_availability
+WHERE trainer_availability_details = 'Available';
+
 -- table for trainers
 CREATE TABLE trainers(
 	trainer_id int primary key auto_increment,
@@ -1032,7 +1088,9 @@ LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
+WHERE trainer_availability_details = 'Available'
 ORDER BY user_fullname
+
 ;
 
 SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details,user_address,
@@ -1050,6 +1108,10 @@ LEFT JOIN trainers ON users.user_id=trainers.trainer_user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 where trainers.trainer_user_id is null
 ;
+
+update trainers 
+SET trainer_availability_id = (SELECT trainer_availability_id FROM trainer_availability WHERE trainer_availability_details = 'Unavailable')
+WHERE trainer_id = 4;
 
 -- table for email verification
 CREATE TABLE email_verify(
@@ -1185,28 +1247,132 @@ INSERT INTO subscription_status (subscription_status_id, subscription_status_det
     'Deleted'
 ),( 
 	null,
-    'Terminated '
+    'Terminated'
 );
+
+SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending';
+
+drop table subscriptions;
 
 SELECT * FROM subscription_status;
 -- table for subscriptions
 CREATE TABLE subscriptions(
 	subscription_id int primary key auto_increment ,
+    subscription_quantity int not null,
     subscription_subscriber_user_id int not null,
     subscription_offer_name VARCHAR(255) not null,	-- for persistence of data
-    subscription_type_of_subscription_details  varchar(50) not null ,	-- for persistence of data	
+    subscription_type_of_subscription_id  int not null ,	
     subscription_duration int not null , -- persistence of data
     subscription_price float not null,	-- persistence of data
     subscription_total_duration int not null , -- persistence of data
     subscription_status_id  int not null, 
-    subscription_start_date datetime,
+    subscription_start_date datetime not null,
     subscription_date_created datetime default NOW(),
     subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (subscription_subscriber_user_id) REFERENCES users(user_id),
-    FOREIGN KEY (subscription_status_id) REFERENCES subscription_status(subscription_status_id)
+    FOREIGN KEY (subscription_status_id) REFERENCES subscription_status(subscription_status_id),
+    FOREIGN KEY (subscription_type_of_subscription_id) REFERENCES type_of_subscriptions(type_of_subscription_id)
+    
     -- foreign keys
 );
 
+SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02';
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    1,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
+    30,
+    800,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
+    NOW()
+);
 
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    1,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
+    30,
+    800,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
+    NOW()
+);
+
+
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Locker-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
+    30,
+    100,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'),
+    NOW()
+);
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Trainer-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Trainer Subscription'),
+    30,
+    1500,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
+    (SELECT DATE_ADD(NOW(), INTERVAL -85 DAY)  ) 
+);
+
+INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_status_id, subscription_start_date)VALUES (
+	null,
+    2,
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Locker Subscription'),
+    30,
+    100,
+    90,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Terminated'),
+    (SELECT DATE_ADD(NOW(), INTERVAL -84 DAY)  ) 
+);
+
+(SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active' );
+
+SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
+WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
+ORDER BY user_fullname
+;
+(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
+SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE (subscription_subscriber_user_id =7 AND  subscription_status_details = 'Pending') OR (subscription_subscriber_user_id =7 AND  subscription_status_details = 'Active')
+;
+
+SELECT * FROM subscriptions;
+
+use gms;
+
+SELECT * FROM offers;
+
+DELETE FROM subscriptions WHERE subscription_id = 7;
+
+SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
 
 SELECT  CURDATE();

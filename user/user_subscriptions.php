@@ -1,3 +1,5 @@
+
+
 <div class="d-flex justify-content-end">
     <ul class="nav mb-1" id="pills-tab" role="tablist">
     <li class="nav-item px-1" role="presentation">
@@ -105,30 +107,45 @@
         <h5 class="col-12 fw-bold">Pending</h5>
         <div class="row g-2 mb-2 ">
                 <!-- ito kapag malapit na ung expiration -->
+
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-success" role="button">Renew</button>
             </div> -->
             <!-- ito kapag bago lng ang subscription -->
+
+            <!-- <div class="form-group col-12 col-sm-9 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                <button class="btn btn-secondary"role="button"  disabled>Renew</button>
+            </div> -->
+
             <!-- ito kapag kaka avail lng ng customer -->
             <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
                 <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
             </div> -->
-        </div>
-        <div class="table-responsive table-1">
+        <!-- </div> -->
+            <!-- ito kapag wla pa nakapagsubscibe -->
             <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+
                 <thead class="bg-dark text-light">
                     <tr>
                     <th class="d-lg-none"></th>
                     <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
                     <th class="col-3">NAME OF SUBSCRIPTION</th>
-                    <th class="text-center">TYPE OF SUBSCRIPTION</th>
+                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+
+
                     <th class="text-center">QUANTITY</th>
                     <th class="text-center">DAYS OF SUBSCRIPTION</th>
                     <th scope="col" class="text-center">ACTION</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+
+                        <!-- <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
+                    </tr>
+                </tbody>
+            </table>  -->
                     <th class="d-lg-none"></th>
                     <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
                     <td>1-Month Gym-Use (21 and above)</td>
@@ -166,6 +183,7 @@
                     </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
     </div>

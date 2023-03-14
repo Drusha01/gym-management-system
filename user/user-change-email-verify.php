@@ -10,6 +10,7 @@ require_once '../classes/email.class.php';
 require '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
+
 if(isset($_SESSION['admin_id'])){
   header('location:../admin/admin_control_log_in2.php');
 }
@@ -47,7 +48,7 @@ if(isset($_SESSION['user_id'])){
           $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
           $mail->addAddress($_POST['email'], $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
           $mail->Subject = 'Email Verification';
-          $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+          $mail->msgHTML('none');
           $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
           //$mail->addAttachment('attachment.txt');
           if (!$mail->send()) {

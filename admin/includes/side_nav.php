@@ -66,7 +66,7 @@
                     </li>
                     ';
                     }
-                    if((isset($_SESSION['admin_reports_restriction_details']) && $_SESSION['admin_reports_restriction_details'] == 'Modify') || (isset($_SESSION['admin_reports_restriction_details']) && $_SESSION['admin_reports_restriction_details'] == 'Read-Only')){
+                    if((isset($_SESSION['admin_report_restriction_details']) && $_SESSION['admin_report_restriction_details'] == 'Modify') || (isset($_SESSION['admin_report_restriction_details']) && $_SESSION['admin_report_restriction_details'] == 'Read-Only')){
                         echo'
                     <li class="nav-item">
                         <a href="../reports/reports.php" class="nav-link" title="Reports">
@@ -88,7 +88,7 @@
                     }?>
                     <hr class="line">
                     <li id="logout-link" class="nav-item">
-                        <a class="logout-link nav-link" href="../../login/log-out.php" title="Logout">
+                        <a class="logout-link nav-link" href="../log-out.php" title="Logout">
                             <i class='bx bx-log-out'></i>
                             <span class="links-name">Sign out</span>
                         </a>

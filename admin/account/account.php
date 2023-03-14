@@ -134,11 +134,11 @@ $(".nav-item").on("click", function(){
                 $('div#tab').html(result);
                 $.ajax({
                     type: "GET",
-                    url: 'usertable.php',
+                    url: 'usertable.php?page=1',
                     success: function(result)
                     {
                         $('div.table-responsive').html(result);
-                        dataTable = $("#table-1").DataTable({
+                        dataTable = $("div.table-responsive").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
                         });
@@ -185,18 +185,18 @@ $(".nav-item").on("click", function(){
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
                         });
-                        // $('input#keyword').on('input', function(e){
-                        //     var status = $(this).val();
-                        //     dataTable.columns([2]).search(status).draw();
-                        // })
-                        // $('select#categoryFilter').on('change', function(e){
-                        //     var status = $(this).val();
-                        //     dataTable.columns([4]).search(status).draw();
-                        // })
-                        // $('select#program').on('change', function(e){
-                        //     var status = $(this).val();
-                        //     dataTable.columns([4]).search(status).draw();
-                        // })
+                        $('input#keyword').on('input', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([2]).search(status).draw();
+                        })
+                        $('select#categoryFilter').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([4]).search(status).draw();
+                        })
+                        $('select#program').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([4]).search(status).draw();
+                        })
                         new $.fn.dataTable.FixedHeader(dataTable);
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -223,11 +223,11 @@ $.ajax({
         $('div#tab').html(result);
         $.ajax({
             type: "GET",
-            url: 'usertable.php',
+            url: 'usertable.php?page=1',
             success: function(result)
             {
                 $('div.table-responsive').html(result);
-                dataTable = $("#table-1").DataTable({
+                dataTable = $("div.table-responsive").DataTable({
                     "dom": '<"top"f>rt<"bottom"lp><"clear">',
                     responsive: true,
                 });

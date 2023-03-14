@@ -177,7 +177,7 @@ if(isset($_SESSION['admin_id']) ){
                                 <div class="col-2 mt-auto mb-auto">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="None"  name="age_qualification_details_checked"  id="age_qualification_details_checked" onchange="agequalification_check()" <?php if($offer_data['age_qualification_details'] == 'None'){echo 'checked';}?>>
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        <label class="form-check-label" for="age_qualification_details_checked">
                                             None
                                         </label>
                                     </div>
@@ -220,7 +220,7 @@ if(isset($_SESSION['admin_id']) ){
                                             echo '
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="type_of_subscription" value ="';echo_safe($value['type_of_subscription_details']); echo '" id="';echo_safe($value['type_of_subscription_details']); echo '"  >
-                                <label class="form-check-label" for="type_of_subscription">';
+                                <label class="form-check-label" for="'.htmlentities($value['type_of_subscription_details']).'">';
                                     echo_safe($value['type_of_subscription_details']);
                                 echo
                                 '</label>
@@ -298,12 +298,20 @@ if(isset($_SESSION['admin_id']) ){
 </html>
 <script>
 
-    function agequalification(){
+function agequalification(){
         $('#age_qualification_details_checked').prop('checked', false); 
         console.log('text input changed');
     }
     function agequalification_check(){
-        $('#age_qualification_details').val('') ;
+
+        
+        if (!$('#age_qualification_details_checked').is(":checked")){
+            console.log('not check');
+            alert('cannot uncheck if the qualification is not populated')
+            $('#age_qualification_details_checked').prop('checked', true); 
+        }else{
+            $('#age_qualification_details').val('') ;
+        }
         console.log('check box changed');
     }
 
@@ -312,7 +320,13 @@ if(isset($_SESSION['admin_id']) ){
         console.log('text input changed');
     }
     function offer_slotsfunction_checked(){
-        $('#offer_slots').val('') ;
+        if (!$('#offer_slots_checked').is(":checked")){
+            console.log('not check');
+            alert('cannot uncheck if the slots is not populated')
+            $('#offer_slots_checked').prop('checked', true); 
+        }else{
+            $('#offer_slots').val('') ;
+        }
         console.log('check box changed');
     }
 </script>
