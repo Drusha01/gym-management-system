@@ -29,11 +29,19 @@ if(isset($_SESSION['admin_id'])){
                 }else{
                     return 'error';
                 }
+                    
+                require_once '../../classes/subscriptions.class.php';
+    
+                $subscriptionsObj = new subscriptions();
+                $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id']);
+                if(!$subscription_data){
+                    header('location:avail.php');
+                }
             }else{
-                header('location:account.php');
+                header('location:avail.php');
             }
         }elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
-            header('location:account.php');
+            header('location:avail.php');
         }else{
             //do not load the page
             header('location:../dashboard/dashboard.php');
@@ -164,22 +172,21 @@ if(isset($_SESSION['admin_id'])){
                 </div>
             </div>
         </div>
-        <?php 
-                    
-            require_once '../../classes/subscriptions.class.php';
-
-            $subscriptionsObj = new subscriptions();
-            $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id']);
-        ?>
         <div class="d-flex flex-row-reverse bd-highlight">
-            <div class="p-2 bd-highlight"><button type="button" class="btn btn-danger">Delete </button></div>
-            <?php
+        <?php
+            if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Active'){
+                echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#deleteactive">Delete </button></div>';
+            }else if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Pending'){
+                echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#delete">Delete </button></div>';
+            }
+            
+            
             if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Active'){
                 echo '<div class="p-2 bd-highlight"><a href="#link" class="btn btn-outline-success" role="button">Pay</a></div>';
             }else{
-                echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark">Activate </button></div>';
+                echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark"  role="button" data-bs-toggle="modal" data-bs-target="#activate">Activate </button></div>';
             }
-            ?>
+        ?>
             
             
         </div>
@@ -242,8 +249,113 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </main>
 
+<div class="modal fade" id="activate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Activate subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Are you sure you want to activate the subscription?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="activateSubscription(<?php echo $_GET['user_id'];?>)">Yes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Are you sure you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="deleteSubscription(<?php echo $_GET['user_id'];?>)">Yes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteactive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Are you sure you want to delete the activated subscription?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="deleteActivatedSubscription(<?php echo $_GET['user_id'];?>)">Yes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <script>
+    function activateSubscription(user_id){
+        console.log('activating');
+        $.ajax({url: "activate_pendingSubs.php?user_id="+user_id, success: function(result){
+            console.log(result);
+            if(result ==1){
+                // update datatables
+                // $( "#offer_id_"+id ).remove();
+                // update selected
+                alert('activated successfully');
+                console.log(result)
+            }else{
+                alert('activation failed');
+                
+            }
+            location.reload();
+        }});
+    }
 
+    function deleteSubscription(user_id){
+        console.log('deleting');
+        $.ajax({url: "delete_pendingSubs.php?user_id="+user_id, success: function(result){
+            console.log(result);
+            if(result ==1){
+                // update datatables
+                // $( "#offer_id_"+id ).remove();
+                // update selected
+                alert('deleted successfully');
+                window.location.href = "avail.php";
+                console.log(result)
+            }else{
+                alert('deletion failed');
+                location.reload();
+            }
+            //location.reload();
+        }});
+    }
+    function deleteActivatedSubscription(user_id){
+        console.log('deleting');
+        $.ajax({url: "delete_activatedSubs.php?user_id="+user_id, success: function(result){
+            console.log(result);
+            if(result ==1){
+                // update datatables
+                // $( "#offer_id_"+id ).remove();
+                // update selected
+                alert('deleted successfully');
+                window.location.href = "avail.php";
+                console.log(result)
+            }else{
+                alert('deletion failed');
+                location.reload();
+            }
+            //location.reload();
+        }});
+    }
 </script>
 </html>

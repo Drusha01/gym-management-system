@@ -166,6 +166,6 @@ function validate_offer($POST){
 
 
 function validate_equipment($POST){
-    return  validate_string($POST,'equipment_name')&& validate_string($POST,'equipment_condition_details') &&  intval($POST['equipment_quantity'])>0;
+    return  validate_string($POST,'equipment_name') && validate_string($POST,'equipment_condition_details') &&  intval($POST['equipment_quantity'])>0;
 }
 ?>

@@ -111,6 +111,68 @@ class subscriptions
             return false;
         }
     }
+
+    function get_sub_id($subscription_subscriber_user_id,){
+        try{
+            $sql = 'SELECT * FROM subscriptions 
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE (subscription_subscriber_user_id = :subscription_subscriber_user_id AND  subscription_status_details = "Pending" AND type_of_subscription_details = "Trainer Subscription") ; ';
+            $query=$this->db->connect()->prepare($sql);
+            
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function activate_pending_subscription($subscription_subscriber_user_id){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Active")
+            WHERE  (subscription_subscriber_user_id = :subscription_subscriber_user_id AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"))
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
+            return$query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function delete_pending_subscription($subscription_subscriber_user_id){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Deleted")
+            WHERE  (subscription_subscriber_user_id = :subscription_subscriber_user_id AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"))
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
+            return$query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function delete_active_subscription($subscription_subscriber_user_id){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Deleted")
+            WHERE  (subscription_subscriber_user_id = :subscription_subscriber_user_id AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Active"))
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
+            return$query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
 }
 

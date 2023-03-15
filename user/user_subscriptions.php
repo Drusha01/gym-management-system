@@ -72,9 +72,7 @@
         }else{
             echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
             echo '<div class="row g-2 mb-2 ">';
-            echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
-            <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Put renew if needed</button>
-        </div>';
+            
             echo '</div>';
             echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
 
@@ -150,150 +148,7 @@
 ?>
 
 
-            
-            <!-- <div class="row g-2 mb-2 "> -->
-                <!-- ito kapag malapit na ung expiration -->
-                <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                    <button class="btn btn-success" role="button">Renew</button>
-                </div> -->
-                <!-- ito kapag bago lng ang subscription -->
-                <!-- ito kapag kaka avail lng ng customer -->
-                <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
-                </div> -->
-            <!-- </div> -->
-            
-<!--                         
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                        <td>1-Month Trainer</td>
-                        <td class="text-center ">Trainer Subscription</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">24</td>
-                        <td class="text-center">Active</td>
-                        <td class="text-center"><button class="btn btn-secondary btn-sm"role="button" data-bs-toggle="modal" data-bs-target="#addModal">Add More</button></td>
-                        </tr>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                        <td>1-Month Locker</td>
-                        <td class="text-center ">Locker Subscription</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">5</td>
-                        <td class="text-center">Active</td>
-                        <td class="text-center"><button class="btn btn-success btn-sm" role="button">Renew</button></td>
-                        </tr>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
-                        <td>Zumba</td>
-                        <td class="text-center ">Program Subscription</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">5</td>
-                        <td class="text-center">Active</td>
-                        <td class="text-center"><button class="btn btn-success btn-sm" role="button">Renew</button></td>
-                        </tr> -->
-                        
-                    <!-- </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div> -->
-    <!-- pending subs -->
-    <!-- <div class="container-sub">
-    <div class="row g-2 mb-2 ">
-        <h5 class="col-12 fw-bold">Pending</h5>
-        <div class="row g-2 mb-2 "> -->
-                <!-- ito kapag malapit na ung expiration -->
-
-            <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                <button class="btn btn-success" role="button">Renew</button>
-            </div> -->
-            <!-- ito kapag bago lng ang subscription -->
-
-            <!-- <div class="form-group col-12 col-sm-9 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                <button class="btn btn-secondary"role="button"  disabled>Renew</button>
-            </div> -->
-
-            <!-- ito kapag kaka avail lng ng customer -->
-            <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
-            </div> -->
-        <!-- </div> -->
-            <!-- ito kapag wla pa nakapagsubscibe -->
-            <!-- <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
-
-                <thead class="bg-dark text-light">
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                    <th class="col-3">NAME OF SUBSCRIPTION</th>
-                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-
-
-                    <th class="text-center">QUANTITY</th>
-                    <th class="text-center">DAYS OF SUBSCRIPTION</th>
-                    <th scope="col" class="text-center">ACTION</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr> -->
-
-                        <!-- <td colspan="7" class="text-center">Not Yet Subscribed Any Offers Yet</td>
-                    </tr>
-                </tbody>
-            </table>  -->
-                    <!-- <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                    <td>1-Month Gym-Use (21 and above)</td>
-                    <td class="text-center ">Gym-Use Subscription</td>
-                    <td class="text-center ">3</td>
-                    <td class="text-center ">90</td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                    <td>1-Month Trainer</td>
-                    <td class="text-center ">Trainer Subscription</td>
-                    <td class="text-center ">1</td>
-                    <td class="text-center ">30</td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                    <td>1-Month Locker</td>
-                    <td class="text-center ">Locker Subscription</td>
-                    <td class="text-center ">1</td>
-                    <td class="text-center ">30</td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
-                    <td>Zumba</td>
-                    <td class="text-center ">Program Subscription</td>
-                    <td class="text-center ">1</td>
-                    <td class="text-center ">30</td>
-                    <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-    </div>
-  </div> -->
+     
  <!-- end of subs -->
     <!-- history -->
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -388,12 +243,32 @@
         Are you sure you want to cancel?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="cancelPendingSubs(<?php echo $_SESSION['user_id']?>)">Yes</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+    function cancelPendingSubs(user_id){
+        console.log('cancel subs');
+        $.ajax({url: "delete_pendingSubs.php?user_id="+user_id, success: function(result){
+            console.log(result);
+            if(result ==1){
+                // update datatables
+                // $( "#offer_id_"+id ).remove();
+                // update selected
+                alert('canceled successfully');
+                console.log(result)
+            }else{
+                alert('deletion failed');
+            }
+            location.reload();
+        }});
+    }
+
+</script>
 
 <!-- modal add more-->
 <!-- <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

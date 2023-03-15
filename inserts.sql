@@ -1,4 +1,5 @@
 use gms;
+
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,
 user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES
 (
@@ -629,14 +630,14 @@ INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_
 subscription_status_id, subscription_start_date)VALUES (
 	null,
     2,
-    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02'),
-    '1-Month Trainer-Use(21 and Above)',
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Trainer Subscription'),
+    (SELECT user_id FROM users WHERE user_name = BINARY 'Drusha03'),
+    '1-Month Gym-Use(21 and Above)',
+    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details ='Gym Subscription'),
     30,
     1500,
-    90,
-    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'),
-    (SELECT DATE_ADD(NOW(), INTERVAL -85 DAY)  ) 
+    30,
+    (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Completed'),
+    (SELECT DATE_ADD(NOW(), INTERVAL -35 DAY)  ) 
 );
 
 INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, 
