@@ -17,7 +17,6 @@
                      <a href="#"><i class="bx bxl-facebook"></i></a>
                      <a href="#"><i class="bx bxl-twitter"></i></a>
                      <a href="#"><i class="bx bxl-instagram"></i></a>
-                     <a href="#"><i class="bx bxl-github"></i></a>
                   </div>
                </div>
                <div class="col-md-2">
