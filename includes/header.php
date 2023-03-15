@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A73535">
         <div class="container-fluid">
             <div class="d-flex flex-row">
-                <a class="navbar-brand navbar">
+                <a class="navbar-brand navbar" href="user-page.php">
                   <img src="../images/logo.png" alt="" width="55">
                   <div class="d-flex flex-column p-2 pt-0 pb-0">
                     <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
@@ -20,23 +20,14 @@
                 <a class="nav-link active" aria-current="page" href="user-page.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="../user/subscription.php">Subscriptions</a>
-              </li>
+                <a class="nav-link active" aria-current="page" href="offers.php">Offers</a>
+                </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="user-avail.php">Avail</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  About
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Gym</a></li>
-                  <li><a class="dropdown-item" href="#">Policies</a></li>
-                  <li><a class="dropdown-item" href="#">Owner</a></li>
-                  <li><a class="dropdown-item" href="#">Employee</a></li>
-                  <li><a class="dropdown-item" href="#">Items</a></li>
-                </ul>
-              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="user-about.php">About</a>
+                </li>
             </ul>
               <ul class="nav navbar-nav navbar-right d-none d-lg-block">
                 <li class="nav-item dropdown">

@@ -2,6 +2,17 @@
 box-sizing: border-box;}
 
 
+.page-header {
+  background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../images/home-1.jpg) center center no-repeat;
+  background-size: cover;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+  color: #999999;
+}
+.py-6 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
 .header .nav-link {
     color: white !important;
 }
@@ -52,6 +63,9 @@ box-sizing: border-box;}
 .bg-img-3 {
    background-image: url('../images/home-3.jpg');
 }
+.breadcrumb-item a {
+  border: none;
+  }
 
 .carousel-image {
    background-repeat: no-repeat;

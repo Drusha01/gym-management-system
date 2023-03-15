@@ -63,7 +63,22 @@ if(isset($_SESSION['user_id'])){
 <br>
 <br>
 <br>
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center">
+        <h1 class="fw-bolder text-white display-4 mb-4">Avail</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a class="text-decoration-none text-white" href="user-page.php">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item  active" aria-current="page" style="color:#A73535;">Offers</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
 <section id="avail" class="pb-5">
+
     <div class="container h-100">
         <div class="multisteps-form">
         <!--progress bar-->

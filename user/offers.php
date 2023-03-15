@@ -2,10 +2,10 @@
 // start session
 session_start();
 
+// includes
+require_once '../tools/functions.php';
+require_once '../classes/users.class.php';
 
-if(isset($_SESSION['admin_id'])){
-  header('location:admin/admin_control_log_in2.php');
-}
 
 // check if we are logged in
 if(isset($_SESSION['user_id'])){
@@ -15,8 +15,7 @@ if(isset($_SESSION['user_id'])){
     if($_SESSION['user_type_details'] =='admin'){
       // go to admin
     }else if($_SESSION['user_type_details'] == 'normal'){
-      // go to user-page
-      header('location:user/user-page.php');
+      // do nothing
     } 
   }else if($_SESSION['user_status_details'] =='inactive'){
     // handle inactive user details
@@ -25,7 +24,7 @@ if(isset($_SESSION['user_id'])){
   }
 } else {
   // go to login page
-  //header('location:../login/log-in.php');
+  header('location:../login/log-in.php');
 }
 
 ?>
@@ -36,21 +35,18 @@ if(isset($_SESSION['user_id'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keno Gym | About</title>
-    <link rel="icon" type="images/x-icon" href="images/favicon.png">
+    <title>Keno Gym</title>
+    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
     crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/aos.css">
     <link rel="stylesheet" href="../css/boxicons.min.css">
+
 </head>
 <body>
-<?php require_once '../includes/top-nav-home.php';?>
 
+<?php require_once '../includes/header.php';?>
 <section class="offers_home">
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn" data-wow-delay="0.1s">
@@ -58,7 +54,7 @@ if(isset($_SESSION['user_id'])){
         <h1 class="fw-bolder text-white display-4 mb-4">Offers</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a class="text-decoration-none text-white" href="../index.php">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-white" href="user-page.php">Home</a></li>
                 <li class="breadcrumb-item"><a class="text-decoration-none text-white" href="#">Pages</a></li>
                 <li class="breadcrumb-item  active" aria-current="page" style="color:#A73535;">Offers</li>
             </ol>
@@ -66,7 +62,7 @@ if(isset($_SESSION['user_id'])){
     </div>
 </div>
 <!-- Page Header End -->
-<!-- subs Start -->
+<!-- Courses Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
@@ -137,7 +133,7 @@ if(isset($_SESSION['user_id'])){
         </div>
     </div>
 </div>
-<!-- subs End -->
+<!-- Courses End -->
 
  <!-- Features Start -->
  <div class="container-xxl py-6">
@@ -182,21 +178,12 @@ if(isset($_SESSION['user_id'])){
 </section>
 
 
-<?php require_once '../includes/footer_home.php';?>
+
+
+<?php require_once '../includes/footer.php';?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/owl.carousel.min.js"></script>
-<script src="../js/jquery.animateNumber.min.js"></script>
-<script src="../js/jquery.waypoints.min.js"></script>
-<script src="../js/jquery.fancybox.min.js"></script>
-<script src="../js/aos.js"></script>
-<script src="../js/moment.min.js"></script>
-<script src="../js/daterangepicker.js"></script>
-<script src="../js/custom.js"></script>
-
 </body>
 </html>
