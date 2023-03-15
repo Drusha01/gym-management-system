@@ -244,12 +244,12 @@ if(isset($_SESSION['admin_id'])){
                     <div class="row pb-2">
                         <div class="col-sm-5">
                         <label for="exampleFormControlTextarea1">Description of Offer</label>
-                        <textarea class="form-control" id="offer_description" name="offer_description" rows="3" value=""></textarea>
+                        <textarea class="form-control" id="offer_description" name="offer_description" rows="3" value="" required></textarea>
                         </div>
                     </div>
                     <div class="row d-flex flex-row-reverse">
                         <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                            <button type="button" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Add Offer</button>
+                            <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" onclick="submit_validation()">Add Offer</button>
                         </div>
                     </div>
                 </form>
