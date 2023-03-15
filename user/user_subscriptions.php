@@ -26,8 +26,10 @@
         // check the subs if active
         if($subscription_data[0]['subscription_status_details'] == 'Pending'){
             echo '<h5 class="col-12 fw-bold">Pending</h5>';
-            echo '<div class="row g-2 mb-2 ">';
-            echo '<div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+            echo '<div class="row g-2 mb-2 ">
+                <h5>Wait for the Admin to activate your availed Subscriptions.</h5>    
+            ';
+            echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
                     <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
                 </div>';
             echo '</div>';
@@ -70,9 +72,9 @@
         }else{
             echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
             echo '<div class="row g-2 mb-2 ">';
-            echo '<div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">put renew if needed</button>
-                </div>';
+            echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
+            <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Put renew if needed</button>
+        </div>';
             echo '</div>';
             echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
 
@@ -138,8 +140,9 @@
     }else{
         echo '
             <div class="row g-2 mb-2 ">
-                <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                    <a class="btn btn-success" role="button" href="user-avail.php">Avail</a>
+                <h5>You still haven\'t availed any of our offers.</h5>
+                <div class="form-group col-12 ">
+                    <a class="btn btn-success" role="button" href="user-avail.php">Avail Now</a>
                 </div>
             </div>';
     }
