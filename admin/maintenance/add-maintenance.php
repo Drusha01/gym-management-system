@@ -20,15 +20,19 @@ if(isset($_SESSION['admin_id'])){
             require_once '../../tools/functions.php';
             $equipmentsObj = new equipments();
         
-            if(isset($_POST['edit_maintenance']) ){
+            if(isset($_POST['add_maintenance']) ){
                 // validate
+                print_r($_POST);
                 if(validate_equipment($_POST)){
                     // update
+                    
+                   
                     if($equipmentsObj->add($_POST['equipment_name'],$_POST['equipment_quantity'],$_POST['equipment_condition_details'])){
                         header('location:maintenance.php');
                     }
                 }else{
                     // handle error
+                    echo 'here';
                 }
             }
         }else if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Read-Only'){
@@ -75,13 +79,13 @@ if(isset($_SESSION['admin_id'])){
                 <div class="col-sm-5">
                     <label class="pb-1" for="equipment_condition_details">Condition</label>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="equipment_condition_detail" id="equipment_condition_details" checked  value="Good">
+                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_details" checked  value="Good">
                     <label class="form-check-label" for="equipment_condition_details">
                         Good
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="equipment_condition_detail" id="equipment_condition_detail"  value="In-Maintenance">
+                    <input class="form-check-input" type="radio" name="equipment_condition_details" id="equipment_condition_detail"  value="In-Maintenance">
                     <label class="form-check-label" for="equipment_condition_detail">
                         In-Maintenance
                     </label>
