@@ -637,8 +637,8 @@ function updateGymUseModal(){
         trainer_use_id =null;
         trainer_duration =0;
         trainer_multiplier=1;
-        var trainers_id = [];
-        var trainers_quantity=0;
+         trainers_id = [];
+         trainers_quantity=0;
         $('#trainer_use').val('None');
         $('.trainers').html('');
         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
@@ -684,8 +684,8 @@ function updateGymUseModal(){
         trainer_use_id =null;
         trainer_duration =0;
         trainer_multiplier=1;
-        var trainers_id = [];
-        var trainers_quantity=0;
+         trainers_id = [];
+         trainers_quantity=0;
         $('#trainer_use').val('None');
         $('.trainers').html('');
         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
@@ -740,8 +740,8 @@ function gym_use_total_durationChange(){
                     trainer_use_id =null;
                     trainer_duration =0;
                     trainer_multiplier=1;
-                    var trainers_id = [];
-                    var trainers_quantity=0;
+                     trainers_id = [];
+                     trainers_quantity=0;
                     $('#trainer_use').val('None');
                     $('.trainers').html('');
                     $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
@@ -787,8 +787,8 @@ function gym_use_total_durationChange(){
                         trainer_use_id =null;
                         trainer_duration =0;
                         trainer_multiplier=1;
-                        var trainers_id = [];
-                        var trainers_quantity=0;
+                        trainers_id = [];
+                        trainers_quantity=0;
                         $('#trainer_use').val('None');
                         $('.trainers').html('');
                         $('#trainer-total-duration').val(trainer_duration*trainer_multiplier);
