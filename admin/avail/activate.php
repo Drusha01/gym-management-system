@@ -182,7 +182,7 @@ if(isset($_SESSION['admin_id'])){
             
             
             if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Active'){
-                echo '<div class="p-2 bd-highlight"><a href="#link" class="btn btn-outline-success" role="button">Pay</a></div>';
+                echo '<div class="p-2 bd-highlight"><a href="../payment/viewpayment.php?user_id='.htmlentities($user_data['user_id']).'&name='.htmlentities($user_data['user_lastname'].', '.$user_data['user_firstname'].' '.$user_data['user_middlename']).'" class="btn btn-outline-success" role="button">Pay</a></div>';
             }else{
                 echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark"  role="button" data-bs-toggle="modal" data-bs-target="#activate">Activate </button></div>';
             }

@@ -74,10 +74,11 @@
                         <i class='bx bx-user-circle fs-1'></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="../user/user-profile.php">My Account</a></li>
-                      <li><a class="dropdown-item d-lg-none" href="#">Notifications</a></li>
+                      <li><a class="dropdown-item" href="../user/user-profile.php?active=account-tab">My Account</a></li>
+                      <li><a class="dropdown-item" href="../user/user-profile.php?active=notification-tab">Notifications</a></li>
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=Subscription-tab">My Subscriptions</a></li>
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=trainer-tab">My Trainer</a></li>
+                      <li><a class="dropdown-item" href="../user/user-profile.php?active=payment-tab">Payment</a></li>
                       <div class="dropdown-divider"></div>
                       <li><a class="dropdown-item" href="../login/log-out.php">Log-Out</a></li>
                     </ul>
