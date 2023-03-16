@@ -173,7 +173,30 @@ class subscriptions
             return false;
         }
     }
+
+    function fetch_active_subs_payment($subscription_subscriber_user_id){
+        try{
+            $sql = 'SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
+            subscription_date_created,subscription_date_updated,subscription_discount,subscription_penalty_due,subscription_paid_amount FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE  (subscription_subscriber_user_id = :subscription_subscriber_user_id AND  subscription_status_details = "Active")
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
+   
 }
 
 ?>

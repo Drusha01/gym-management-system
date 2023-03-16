@@ -12,14 +12,23 @@ if(isset($_SESSION['user_id'])){
 
 
 if(isset($_SESSION['admin_id'])){
-    // check admin user details
-    if($_SESSION['admin_user_status_details'] == 'active'){
-        // do nothing
-    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
-        // do this
-    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
-        // go to deleted user page
+  // check admin user details
+  if($_SESSION['admin_user_status_details'] == 'active'){
+    // do nothing
+    if(isset($_GET['user_id'])&& isset($_GET['name'])){
+      require_once('../../classes/subscriptions.class.php');
+      $subscriptionsObj = new subscriptions();
+      
+
+      if(!$payments_data = $subscriptionsObj->fetch_active_subs_payment($_GET['user_id'])){
+        header('location:payment.php');
+      }
     }
+  }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+      // do this
+  }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+      // go to deleted user page
+  }
 
 }else{
     // go to admin login
@@ -44,7 +53,7 @@ if(isset($_SESSION['admin_id'])){
             <div class="container-fluid">
                 <div class="row pb-2">
                     <div class="col-12 col-lg-10">
-                        <h5 class="fw-bold ">Trinidad, James Lorenz</h5>
+                        <h5 class="fw-bold "><?php echo $_GET['name'];?></h5>
                     </div>
                     <div class="col-lg-1 d-none d-lg-flex justify-content-end">
                         <div class="btn-group dropstart">
@@ -70,15 +79,54 @@ if(isset($_SESSION['admin_id'])){
                             <th class="d-lg-none"></th>
                             <th class="text-center">#</th>
                             <th class="ps-3">Payment Description</th>
-                            <th class="text-center">Discount</th>
                             <th class="text-center">Amount</th>
+                            <th class="text-center">Discount</th>
                             <th class="text-center">Penalties Due</th>
                             <th class="text-center">Paid Amount</th>
                             <th class="text-center">Balance</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                      <?php 
+                      $counter=1;
+                      $total_balance = 0;
+                      $total_amount=0;
+                      $total_penalty_due=0;
+                      $total_discount =0;
+                      $total_paid_amount=0;
+                      foreach ($payments_data as $key => $value) {
+                          $amount = ($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']))+$value['subscription_penalty_due'];
+                          $total_amount+=$amount;
+                          $total_paid_amount+=$value['subscription_paid_amount'];
+                          if($value['subscription_discount']<=0){
+                              $subscription_discount = '<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#add_discount">Add Discount</button>';
+                          }else{
+                            $total_discount+=$value['subscription_discount'];
+                            $subscription_discount = '<button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit_discount"><i class="bx bx-edit align-middle"></i></button>'.$value['subscription_discount'];
+                          }
+                          if($value['subscription_penalty_due']<=0){
+                              $subscription_penalty_due = 'None';
+                          }else{
+                            $subscription_penalty_due =htmlentities('₱'.$value['subscription_penalty_due']);
+                            $total_penalty_due+=$value['subscription_penalty_due'];
+                          }
+                          echo ' 
+                            <tr>
+                              <td class="d-lg-none"></td>
+                              <td class="text-center">'.$counter.'</td>
+                              <td class="ps-3">'.htmlentities($value['subscription_offer_name']).'</td>
+                              <td class="text-end">₱'.htmlentities(number_format($amount,2)).'</td>
+                              <td class="text-center">'.$subscription_discount.'</td>
+                              <td class="text-end">'.$subscription_penalty_due.'</td>
+                              <td class="text-end">₱800</td>
+                              <td class="text-end">₱'.htmlentities(number_format(($amount+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount']),2)).'</td>
+                            </tr>';
+
+                          $counter++;
+                        }
+                      
+                      ?>
+                        <!-- <tr>
                             <td class="d-lg-none"></td>
                             <td class="text-center">1</td>
                             <td class="ps-3">1-Month Gym-Use Subscription</td>
@@ -117,16 +165,17 @@ if(isset($_SESSION['admin_id'])){
                             <td class="text-end">None</td>
                             <td class="text-end">₱300</td>
                             <td class="text-end">₱100</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                     <tfoot class="table-success">
                         <tr>
                             <td class="d-lg-none"></td>
-                            <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
-                            <td class="text-end">₱2900</td>
-                            <td class="text-end">₱100</td>
-                            <td class="text-end">₱1500</td>
-                            <td class="text-end fw-bolder fs-5">₱1300</td>
+                            <td colspan="2" class="text-end fw-bolder fs-5 ">Total:</td>
+                            <td class="text-end">₱<?php echo htmlentities(number_format($total_amount,2));?></td>
+                            <td class="text-end">₱<?php echo htmlentities(number_format($total_discount,2));?></td>
+                            <td class="text-end">₱<?php echo htmlentities(number_format($total_penalty_due,2));?></td>
+                            <td class="text-end">₱<?php echo htmlentities(number_format($total_paid_amount,2));?></td>
+                            <td class="text-end fw-bolder fs-5">₱<?php echo htmlentities(number_format($total_amount-$total_discount+$total_penalty_due - $total_paid_amount,2));?></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -231,7 +280,7 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        User: Drusha01
+        User: <?php echo htmlentities($_SESSION['admin_user_name'])?>
         <br>
         <div class="form-group pt-1">
             <label for="pass">Password:</label>

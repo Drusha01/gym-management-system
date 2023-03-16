@@ -30,7 +30,7 @@
                         $subscriptionsObj = new subscriptions();
 
                         $counter =1;
-                        if($list_of_ActiveOrPeding_users = $subscriptionsObj->fetchAllActiveOrPendingSubscriptions('Active','Pending','Completed','','')){
+                        if($list_of_ActiveOrPeding_users = $subscriptionsObj->fetchAllActiveOrPendingSubscriptions('Active','Pending','','','')){
                             foreach ($list_of_ActiveOrPeding_users as $key => $value) {
                                 echo '<tr>';
                                 echo '<td class="d-lg-none d-sm-none"></td>';
@@ -42,7 +42,7 @@
                                 $locker_sub =false;
                                 $trainer_sub = false;
                                 $program_sub = false;
-                                if($user_subscription_data = $subscriptionsObj->fetchAllSubscriptionPerUser_id('Active','Pending','Completed','','',$value['subscription_subscriber_user_id'])){
+                                if($user_subscription_data = $subscriptionsObj->fetchAllSubscriptionPerUser_id('Active','Pending','','','',$value['subscription_subscriber_user_id'])){
                                     foreach ($user_subscription_data as $key => $user_subscription_data_value) {
                                         if($user_subscription_data_value['type_of_subscription_details'] =='Gym Subscription'){
                                             $gym_sub = $user_subscription_data_value['subscription_status_details'].'('.$user_subscription_data_value['subscription_quantity'].')';

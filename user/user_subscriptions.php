@@ -62,6 +62,7 @@
                     <td class="text-center ">'.htmlentities(number_format($value['subscription_price'],2,'.', ',')).'</td>
                     <td class="text-center ">'.htmlentities(number_format($value['subscription_price']*($value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration'])),2,'.', ',')).'</td>
                     </tr>';
+                    $counter++;
             }
             echo ' </tbody>
              </table>
@@ -92,38 +93,35 @@
                     <tbody>';
                     $counter=1;
             foreach ($subscription_data as $key => $value) {
+                    $end_date = date_create($value['subscription_start_date']);
+                    date_add($end_date, date_interval_create_from_date_string(strval($value['subscription_total_duration'])." days"));
+                    if(intval($value['subscription_days_to_end'])>0){
+                        echo '<tr>
+                        <th class="d-lg-none"></th>
+                            <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                            <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                            <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
+                            <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
+                            <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
+                            <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
+                            <td class="text-center ">'.htmlentities($value['subscription_days_to_end']).'</td>
+                            <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>
+                            </tr>';
+                    }else{
+                        echo '<tr>
+                        <th class="d-lg-none"></th>
+                            <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                            <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                            <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
+                            <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
+                            <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
+                            <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
+                            <td class="text-center ">'.htmlentities(0).'</td>
+                            <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>
+                            </tr>';
+                    }
                 
-                $end_date = date_create($value['subscription_start_date']);
-                date_add($end_date, date_interval_create_from_date_string(strval($value['subscription_total_duration'])." days"));
-                $date2=date_create(date("Y-m-d"));
-                $diff=date_diff($date2,date_create($value['subscription_start_date']),true);
-                if($value['subscription_total_duration']-$diff->format("%d")+1>0){
-                    echo '<tr>
-                    <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
-                        <td>'.htmlentities($value['subscription_offer_name']).'</td>
-                        <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
-                        <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
-                        <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
-                        <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
-                        <td class="text-center ">'.htmlentities($value['subscription_total_duration']-$diff->format("%d")+1).'</td>
-                        <td class="text-center ">ACTIVE</td>
-                        </tr>';
-                }else{
-                    // update the subscription make it complete
-
-                    echo '<tr>
-                    <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
-                        <td>'.htmlentities($value['subscription_offer_name']).'</td>
-                        <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
-                        <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
-                        <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
-                        <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
-                        <td class="text-center ">'.htmlentities($value['subscription_total_duration']-$diff->format("%d")+1).'</td>
-                        <td class="text-center ">COMPLETE</td>
-                        </tr>';
-                }
+                $counter++;
                 
             }
             echo ' </tbody>
