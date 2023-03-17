@@ -48,7 +48,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                 '
                 <tr>
                 <th class="d-lg-none"></th>';
-                echo '<th class="text-center d-none d-sm-table-cell">';echo  $counter; echo'</th>';
+                echo '<th class="text-center d-sm-table-cell">';echo  $counter; echo'</th>';
                 echo '<td class="">'; echo_safe($value['user_name']);'</td>';
                 echo '<td><a href="trainer-profile.php?trainer_id=';echo_safe($value['trainer_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_fullname']);echo'</a></td>';
                 echo '<td class="text-center ">';echo_safe(getAge($value['user_birthdate']));echo '</td>';

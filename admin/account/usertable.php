@@ -64,10 +64,10 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                 foreach ($users_data as $key => $value) {
                     echo '<tr>';
                     echo '<th class="d-lg-none"></th>';
-                    echo '<th class="text-center d-none d-sm-table-cell">';echo $counter;echo'</th>';
+                    echo '<th class="text-center d-sm-table-cell">'.$counter.'</th>';
                     echo '<td class="">'; echo_safe($value['user_name']);'</td>';
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
-                    echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
+                    echo '<td class="text-center">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';
                     echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('<i class="bx bxs-check-square fs-3 align-bottom" style="color:green;" >');}else{echo '';}'</td>';
                     echo '<td class="text-center">';
@@ -91,117 +91,14 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                     $counter++;
                     
                 }
-            }else{
-                $users_data = $userObj->fetch_all_users(0,10);
-                //print_r($users_data)  ;
-                $counter=1;
-                $output=true;
-                foreach ($users_data as $key => $value) {
-                    echo '<tr>';
-                    echo '<th class="d-lg-none"></th>';
-                    echo '<th class="text-center d-none d-sm-table-cell">';echo $counter;echo'</th>';
-                    echo '<td class="">'; echo_safe($value['user_lastname']);'</td>';
-                    echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
-                    echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
-                    echo '<td class="text-center">TO BE IMPLEMENTED</td>';
-                    echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('VERIFIED');}else{echo 'NOT VERIFIED';}'</td>';
-                    echo '<td class="text-center">';
-                    if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                        echo '<select class="form-select-sm" aria-label="Default select example" id="user_status';echo_safe($value['user_id']);echo'" onchange="changeUserStatus(';echo_safe($value['user_id']);echo')">';
-                            foreach ($user_status_data as $key => $user_status_value) {
-                                if($value['user_status_details'] == $user_status_value['user_status_details']){
-                                    echo '<option value="';echo_safe($user_status_value['user_status_details']);echo'" selected>';echo_safe($user_status_value['user_status_details']);echo'</option>';
-                                }else{
-                                    echo '<option value="';echo_safe($user_status_value['user_status_details']);echo'">';echo_safe($user_status_value['user_status_details']);echo'</option>';
-                                }
-                            }
-                    }else{
-                        echo_safe($value['user_status_details']);
-                    }
-                    echo'</td>';
-                    if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-                        echo '<td class="text-center"><a class="btn btn-primary btn-sm px-3" href="account-profile-edit.php?user_id=';echo_safe($value['user_id']);echo'&prev=account.php">Edit</a> <button class="btn btn-danger btn-sm" onclick="confirmfunction(';echo $value['user_id']; echo ',\'sdfsd\')">Delete</button></td>';
-                        }
-                        echo '</tr>';
-                    $counter++;
-                    
-                }
-                
             }
         }
     ?>
     </tbody>
 </table>
-<?php 
-// if(isset($num_of_users)){
-//     $val = $num_of_users['number_of_users'];
-//     echo 'showing results of '.(($page*$limit)+1).'-'.($page*$limit)+$limit.' of '.$val;
-//     $prev ='';
 
-    
-// }
-// if($output){
-//     if($page<=3){
-        
-//     echo '<div class="container d-flex justify-content-center justify-content-lg-end ">
-//                 <nav aria-label="...">
-//                         <ul class="pagination">';
-//     $counter=0;
-//     $current = $counter*$limit;
-//     while($current <=$val){
-//         if($counter == $page-1){
-//             echo ' <li class="page-item active ">
-//                         <a class="page-link" href="#"  onclick="get_page('.($counter+1).')">'.($counter+1).'</a>
-//                     </li>';
-//         }else{
-//             echo ' <li class="page-item  ">
-//                     <a class="page-link" href="#"  onclick="get_page('.($counter+1).')">'.($counter+1).'</a>
-//                 </li>';
-//         }
-        
-//         $counter++;
-//         $current = $counter*$limit;
-//     }
-  
-//     if($page-1 != intval($val/$limit) ){
-//         echo '<li class="page-item">
-//             <a class="page-link " href="#" onclick="get_page('.($page+1).')">Next</a>
-//             </li>';
-//     }
-    
-                            
 
-                           
 
-//             //                 <li class="page-item '.$page_2.'" >
-//             //                     <a class="page-link " href="#" onclick="get_page(2)">2</a>
-//             //                 </li>
-
-//             //                 <li class="page-item '.$page_3.'">
-//             //                     <a class="page-link " href="#" onclick="get_page(3)">3</a>
-//             //                 </li>
-//             //                 <li class="page-item">
-//             //                     <a class="page-link " href="#" onclick="get_page(4)">4</a>
-//             //                 </li>
-//             //                 <li class="page-item">
-//             //                     <a class="page-link " href="#" onclick="get_page(5)">5</a>
-//             //                 </li>
-
-//             //                 
-//             //             </ul>
-//             //         </nav>
-//             //     </div>
-//             // </div>';
-
-//     }else{
-//         $prev ='<li class="page-item disabled">
-//         <a class="page-link" href="#" tabindex="-1" aria-disabled="true" onclick="get_page('.($page-1).')">Previous</a>
-//         </li>';
-//     }
-// }
-?>
-            
-        </div>
 <script> 
 function confirmfunction(id,index,name){
     console.log(name)
