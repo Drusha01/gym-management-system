@@ -12,6 +12,7 @@
 <div class="tab-content" id="pills-tabContent">
     <!-- subs -->
   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
     <!-- current subs -->
     <div class="container-sub">
         <div class="row g-2 mb-2 ">
@@ -67,8 +68,179 @@
             echo ' </tbody>
              </table>
 
+        
+        <!-- current subs -->
+        <div class="container-sub pt-3 pt-lg-0">
+            <div class="row g-2 mb-2 ">
+                <h5 class="col-12 fw-bold">Current Subscription</h5>
+                <div class="row g-2 mb-2 ">
+                    <!-- ito kapag malapit na ung expiration -->
+                    <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                        <button class="btn btn-success" role="button">Renew</button>
+                    </div> -->
+                    <!-- ito kapag bago lng ang subscription -->
+                    <!-- ito kapag kaka avail lng ng customer data-bs-toggle="modal" data-bs-target="#cancelModal"-->
+                    <h5>Wait for the Admin to activate your availed Subscriptions.</h5>
+                </div>
+                <!-- <div class="table-responsive table-1">
+                    <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+                        <thead class="bg-dark text-light">
+                            <tr>
+                            <th class="d-lg-none"></th>
+                            <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                            <th class="col-3">NAME OF SUBSCRIPTION</th>
+                            <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                            <th scope="col" class="text-center">QTY</th>
+                            <th scope="col" class="text-center">DATE SUBSCRIBED</th>
+                            <th scope="col" class="text-center">END DATE</th>
+                            <th scope="col" class="text-center">DAYS LEFT</th>
+                            <th scope="col" class="text-center">STATUS</th>
+                            <th scope="col" class="text-center">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th class="d-lg-none"></th>
+                            <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
+                            <td>1-Month Gym-Use (21 and above)</td>
+                            <td class="text-center ">Gym-Use Subscription</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">October 16, 2022</td>
+                            <td class="text-center">November 15, 2022</td>
+                            <td class="text-center">24</td>
+                            <td class="text-center">Active</td>
+                            <td class="text-center"><button class="btn btn-secondary btn-sm"role="button" data-bs-toggle="modal" data-bs-target="#addModal">Add More</button></td>
+                            </tr>
+                            <tr>
+                            <th class="d-lg-none"></th>
+                            <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
+                            <td>1-Month Trainer</td>
+                            <td class="text-center ">Trainer Subscription</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">October 16, 2022</td>
+                            <td class="text-center">November 15, 2022</td>
+                            <td class="text-center">24</td>
+                            <td class="text-center">Active</td>
+                            <td class="text-center"><button class="btn btn-secondary btn-sm"role="button" data-bs-toggle="modal" data-bs-target="#addModal">Add More</button></td>
+                            </tr>
+                            <tr>
+                            <th class="d-lg-none"></th>
+                            <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
+                            <td>1-Month Locker</td>
+                            <td class="text-center ">Locker Subscription</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">October 16, 2022</td>
+                            <td class="text-center">November 15, 2022</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">Active</td>
+                            <td class="text-center"><button class="btn btn-success btn-sm" role="button">Renew</button></td>
+                            </tr>
+                            <tr>
+                            <th class="d-lg-none"></th>
+                            <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
+                            <td>Zumba</td>
+                            <td class="text-center ">Program Subscription</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">October 16, 2022</td>
+                            <td class="text-center">November 15, 2022</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">Active</td>
+                            <td class="text-center"><button class="btn btn-success btn-sm" role="button">Renew</button></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div> -->
             </div>
         </div>
+        <!-- pending subs -->
+        <div class="container-sub">
+            <div class="row g-2 mb-2 ">
+                <h5 class="col-12 fw-bold">Pending</h5>
+                <div class="row g-2 mb-2 ">
+                        <!-- ito kapag malapit na ung expiration -->
+
+
+                    <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                        <button class="btn btn-success" role="button">Renew</button>
+                    </div> -->
+                    <!-- ito kapag bago lng ang subscription -->
+
+                    <!-- <div class="form-group col-12 col-sm-9 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                        <button class="btn btn-secondary"role="button"  disabled>Renew</button>
+                    </div> -->
+
+                    <!-- ito kapag kaka avail lng ng customer -->
+                    <!-- <div class="form-group col-12 col-sm-5 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                        <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                    </div> -->
+                    <!-- </div> -->
+                    <!-- ito kapag naka avail na -->
+                        <!-- <div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                            <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                        </div>
+                        <div class="table-responsive table-1">
+                            <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+
+                                <thead class="bg-dark text-light">
+                                    <tr>
+                                    <th class="d-lg-none"></th>
+                                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                                    <th class="col-3">NAME OF SUBSCRIPTION</th>
+                                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                                    <th class="text-center">QUANTITY</th>
+                                    <th class="text-center">DAYS OF SUBSCRIPTION</th>
+                                    <th scope="col" class="text-center">ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="d-lg-none"></th>
+                                        <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
+                                        <td>1-Month Gym-Use (21 and above)</td>
+                                        <td class="text-center ">Gym-Use Subscription</td>
+                                        <td class="text-center ">3</td>
+                                        <td class="text-center ">90</td>
+                                        <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="d-lg-none"></th>
+                                        <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
+                                        <td>1-Month Trainer</td>
+                                        <td class="text-center ">Trainer Subscription</td>
+                                        <td class="text-center ">1</td>
+                                        <td class="text-center ">30</td>
+                                        <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="d-lg-none"></th>
+                                        <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
+                                        <td>1-Month Locker</td>
+                                        <td class="text-center ">Locker Subscription</td>
+                                        <td class="text-center ">1</td>
+                                        <td class="text-center ">30</td>
+                                        <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="d-lg-none"></th>
+                                        <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
+                                        <td>Zumba</td>
+                                        <td class="text-center ">Program Subscription</td>
+                                        <td class="text-center ">1</td>
+                                        <td class="text-center ">30</td>
+                                        <td class="text-center"><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    <h5>You still haven't availed any of our offers.</h5>
+                    <div class="form-group col-12 ">
+                        <button class="btn btn-success" role="button" >Avail Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>';
         }else{
             echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
@@ -147,6 +319,13 @@
 
 
      
+
+        <br>
+        <br>
+        <br>
+        <br>
+  </div>
+
  <!-- end of subs -->
     <!-- history -->
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -180,9 +359,13 @@
                         <th scope="col" class="text-center">STATUS</th>
                         </tr>
                     </thead>
-                    <tbody>
+                        <tbody>
                         <tr>
-                        <th class="d-lg-none"></th>
+                            <td colspan="6" class="text-center">No History Yet</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                        <!-- <th class="d-lg-none"></th>
                         <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
                         <td>1-Month Gym-Use (21 and above)</td>
                         <td class="text-center ">Gym-Use Subscription</td>
@@ -218,10 +401,16 @@
                         </tr>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <br>
     <br>
   </div>

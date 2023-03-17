@@ -76,7 +76,7 @@ if(isset($_SESSION['admin_id'])){
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
+                            <?php
                             require_once '../../classes/admins.class.php';
 
                             $adminObj = new admins();
@@ -100,13 +100,7 @@ if(isset($_SESSION['admin_id'])){
                                 echo '</tr>';
                                 $counter++;
                             }
-                            
-
-
                             ?>
-                            
-                            
-                           
                         </tbody>
                     </table>
                 </div>
@@ -151,6 +145,35 @@ if(isset($_SESSION['admin_id'])){
         </div>
         <!-- end of second aprt -->
 
+        <br>
+        <!-- 2nd part -->
+        <h5 class="col-12 fw-regular ">Contact Info for Footer</h5>
+        <hr>
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-lg-2 col-xl-auto">
+                <label for="address" class="col-form-label">Address</label>
+            </div>
+            <div class="col-12 col-lg-10 col-xl-3">
+                <input type="text" class="form-control" id="address" placeholder="San Jose, Zamboanga City">
+            </div>
+            <div class="col-12 col-lg-2 col-xl-auto">
+                <label for="cont_num" class="col-form-label">Contact Number</label>
+            </div>
+            <div class="col-12 col-lg-10 col-xl-3">
+                <input type="text" class="form-control" id="cont_num" placeholder="09123456789">
+            </div>
+            <div class="col-12 col-lg-2 col-xl-auto">
+                <label for="cont_em" class="col-form-label">Email</label>
+            </div>
+            <div class="col-12 col-lg-10 col-xl-3">
+                <input type="email" class="form-control" id="cont_em" placeholder="youremail@gmail.com">
+            </div>
+        </div>
+        <div class="d-grid d-lg-inline">
+            <button type="button" class="btn btn-success my-3">Save</button>
+        </div>
+        
+        <!-- end of second aprt -->
         <br>
 
         <h5 class="col-12 fw-regular">Overdue</h5>

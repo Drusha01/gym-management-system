@@ -7,6 +7,50 @@
                     require_once('../classes/subscriptions.class.php');
                     $subscriptionsObj = new subscriptions();
 
+        <h5 class="col-12 fw-bold">Payment</h5>
+        <div class="h-100 pt-2 ">
+            <h5>Once the Admin activated your Availed Subscription.</h5>
+            <h5>Total Balance to Pay will Apear Here.</h5>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+        <!-- <div class="table-responsive table-1">
+            <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th class="d-lg-none"></th>
+                        <th class="text-center">#</th>
+                        <th class="text-center text-uppercase">Payment Description</th>
+                        <th class="text-center text-uppercase">Discount</th>
+                        <th class="text-center text-uppercase">Amount</th>
+                        <th class="text-center text-uppercase">Penalties Due</th>
+                        <th class="text-center text-uppercase">Paid Amount</th>
+                        <th class="text-center text-uppercase">Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="d-lg-none"></td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">1-Month Gym-Use Subscription</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱800</td>
+                        <td class="text-center">None</td>
+                        <td class="text-center">₱800</td>
+                        <td class="text-center">₱0</td>
+                    </tr>
+
                     if($payments_data = $subscriptionsObj->fetch_active_subs_payment($_SESSION['user_id'])){
                         echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                         <thead class="bg-dark text-light">
@@ -103,3 +147,18 @@
                         <td class="text-center">₱100</td>
                     </tr> -->
            
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-end pe-4">
+            <p class="fw-bold fs-5">Total Balance: <span class="fw-normal">₱2100.00</span></p>
+        </div> 
+    </div>
+</div>
+<br>
+<br>
+<br>
+

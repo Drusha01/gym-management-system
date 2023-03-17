@@ -27,14 +27,13 @@
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="../home/about.php">About</a>
                 </li>
-                
             </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="login/sign-up.php"><span class='bx bx-user-plus align-middle fs-4'></span> Sign-Up</a>
+                    <a class="nav-link active" aria-current="page" href="../login/sign-up.php"><span class='bx bx-user-plus align-middle fs-4'></span> Sign-Up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="login/log-in.php"><span class='bx bx-log-in align-middle fs-4'></span> Log-In</a>
+                    <a class="nav-link active" aria-current="page" href="../login/log-in.php"><span class='bx bx-log-in align-middle fs-4'></span> Log-In</a>
                 </li>
                 </ul>
             </div>
