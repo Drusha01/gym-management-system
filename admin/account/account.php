@@ -59,10 +59,10 @@ if(isset($_SESSION['admin_id'])){
                         <div class="form-group col-12 col-sm-4 table-filter-option">
                             <label>User Status</label>
                             <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
+                                <option value="">Active</option>
                                 <option value="">All</option>
-                                <option value="active">Active</option>
-                                <option value="deleted">Deleted</option>
-                                <option value="inactive">Inactive</option>
+                                <option value="Subscribe">Deleted</option>
+                                <option value="Not Availed">Inactive</option>
                             </select>
                         </div>
                         <div class="form-group col-12 col-sm-4 table-filter-option">
@@ -80,7 +80,7 @@ if(isset($_SESSION['admin_id'])){
 
                     </div>
 
-                </div>
+                 </div>
                  <!-- end of acc table -->
 
                 <!-- <div class="tab-pane show fade" id="tab-trainer">
@@ -139,7 +139,7 @@ $(".nav-item").on("click", function(){
                     success: function(result)
                     {
                         $('div.table-responsive').html(result);
-                        dataTable = $("div.table-1").DataTable({
+                        dataTable = $("div.table-responsive").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
                         });
@@ -224,11 +224,11 @@ $.ajax({
         $('div#tab').html(result);
         $.ajax({
             type: "GET",
-            url: 'usertable.php?',
+            url: 'usertable.php?page=1',
             success: function(result)
             {
                 $('div.table-responsive').html(result);
-                dataTable = $("div.table-1").DataTable({
+                dataTable = $("div.table-responsive").DataTable({
                     "dom": '<"top"f>rt<"bottom"lp><"clear">',
                     responsive: true,
                 });
