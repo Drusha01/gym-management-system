@@ -1,6 +1,26 @@
 <div class="container-sub">
     <div class="row g-2 mb-2">
-    <h5 class="col-12 fw-bold">Availed Trainers</h5>
+        <div class="h-100 pt-2 ">
+            <h5>Availed Trainer Subscription Go Here.</h5>
+            <div class="form-group col-12 pt-3 ">
+                <button class="btn btn-success" role="button" >Avail Now</button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+        
+        <!-- <h5 class="col-12 fw-bold">Availed Trainers</h5>
         <div class="form-group col-12 col-sm-4 table-filter-option">
             <label for="keyword" class="ps-2 pb-2">Search</label>
             <input type="text" name="keyword" id="keyword" placeholder="Enter Trainer Name Here" class="form-control ms-md-2">
@@ -82,8 +102,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        
+        </div> -->
+       
     </div>
 </div>
 <br>

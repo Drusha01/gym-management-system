@@ -1,7 +1,24 @@
 <div class="container-sub">
     <div class="row g-2 mb-2 ">
-    <h5 class="col-12 fw-bold">Payment</h5>
-        <div class="table-responsive table-1">
+        <h5 class="col-12 fw-bold">Payment</h5>
+        <div class="h-100 pt-2 ">
+            <h5>Once the Admin activated your Availed Subscription.</h5>
+            <h5>Total Balance to Pay will Apear Here.</h5>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+        <!-- <div class="table-responsive table-1">
             <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                 <thead class="bg-dark text-light">
                     <tr>
@@ -65,7 +82,7 @@
 
         <div class="d-flex justify-content-end pe-4">
             <p class="fw-bold fs-5">Total Balance: <span class="fw-normal">₱2100.00</span></p>
-        </div>
+        </div> -->
     </div>
 </div>
 <br>
