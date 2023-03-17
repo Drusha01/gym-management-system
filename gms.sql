@@ -1356,7 +1356,7 @@ CREATE TABLE subscriptions(
     subscription_start_date datetime not null,
     subscription_discount float not null default 0,	-- discount
     subscription_penalty_due float not null default 0, -- penalty due
-    subscription_paid_amount float not null default 0, -- paid amout
+    subscription_paid_amount float not null default 0, -- paid amount
     
     subscription_date_created datetime default NOW(),
     subscription_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
