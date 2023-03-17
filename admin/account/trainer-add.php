@@ -258,7 +258,7 @@ if(isset($_SESSION['admin_id'])){
                         </div>
                         <div class="form-group col-12 col-sm-5 table-filter-option">
                             <label for="keyword">Search</label>
-                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Username" class="form-control ms-md-2">
                         </div>
                     </div>
                     <div class="table-responsive table-container">
