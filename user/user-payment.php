@@ -64,6 +64,8 @@
             <br>
             <br>
             <br>';
+                    }else{
+                        echo '<h5>No activated subscription/s yet</h5> ';
                     }
                     
                     ?>
