@@ -145,7 +145,7 @@ $(".nav-item").on("click", function(){
                         });
                         $('input#keyword').on('input', function(e){
                             var status = $(this).val();
-                            dataTable.columns([2]).search(status).draw();
+                            dataTable.columns([3]).search(status).draw();
                         })
                         $('select#categoryFilter').on('change', function(e){
                             var status = $(this).val();
@@ -229,7 +229,7 @@ $.ajax({
                 });
                 $('input#keyword').on('input', function(e){
                     var status = $(this).val();
-                    dataTable.columns([2]).search(status).draw();
+                    dataTable.columns([3]).search(status).draw();
                 })
                 $('select#categoryFilter').on('change', function(e){
                     var status = $(this).val();
