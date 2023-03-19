@@ -4,7 +4,7 @@ session_start();
 
 
 if(isset($_SESSION['admin_id'])){
-  header('location:admin/admin_control_log_in.php');
+  header('location:admin/admin_control_log_in2.php');
 }
 
 // check if we are logged in
@@ -84,7 +84,7 @@ if(isset($_SESSION['user_id'])){
                     <div class="position-relative mt-auto">
                         <img class="img-fluid" src="../images/img-2.png" alt="">
                         <div class="courses-overlay">
-                            <a class="btn btn-outline-danger border-2" href="../user/user-avail.php">Avail Now</a>
+                            <a class="btn btn-outline-danger border-2" href="">Avail Now</a>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ if(isset($_SESSION['user_id'])){
                     <div class="position-relative mt-auto">
                         <img class="img-fluid" src="../images/img-3.png" alt="">
                         <div class="courses-overlay">
-                            <a class="btn btn-outline-danger border-2" href="../user/user-avail.php">Avail Now</a>
+                            <a class="btn btn-outline-danger border-2" href="">Avail Now</a>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@ if(isset($_SESSION['user_id'])){
                     <div class="position-relative mt-auto">
                         <img class="img-fluid" src="../images/img-4.png" alt="">
                         <div class="courses-overlay">
-                            <a class="btn btn-outline-danger border-2" href="../user/user-avail.php">Avail Now</a>
+                            <a class="btn btn-outline-danger border-2" href="">Avail Now</a>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ if(isset($_SESSION['user_id'])){
                     <div class="position-relative mt-auto">
                         <img class="img-fluid" src="../images/img-5.png" alt="">
                         <div class="courses-overlay">
-                            <a class="btn btn-outline-danger border-2" href="../user/user-avail.php">Avail Now</a>
+                            <a class="btn btn-outline-danger border-2" href="">Avail Now</a>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@
 <div class="tab-content" id="pills-tabContent">
     <!-- subs -->
   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
     <!-- current subs -->
     <div class="container-sub">
         <div class="row g-2 mb-2 ">
@@ -24,53 +25,7 @@
 
     if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
         // check the subs if active
-        if($subscription_data[0]['subscription_status_details'] == 'Pending'){
-            echo '<h5 class="col-12 fw-bold">Pending</h5>';
-            echo '<div class="row g-2 mb-2 ">
-                <h5>Wait for the Admin to activate your availed Subscriptions.</h5>    
-            ';
-            echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
-                </div>';
-            echo '</div>';
-            echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
-
-                    <thead class="bg-dark text-light">
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                        <th class="col-3">NAME OF SUBSCRIPTION</th>
-                        <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-                        <th class="text-center">QUANTITY</th>
-                        <th class="text-center">SUBSCRIPTION DAYS</th>
-                        <th class="text-center">SUBSCRIPTION TOTAL DAYS</th>
-                        <th class="text-center">PRICE</th>
-                        <th class="text-center">SUB TOTAL PRICE</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-                $counter=1;
-            foreach ($subscription_data as $key => $value) {
-                echo '<tr>
-                <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
-                    <td>'.htmlentities($value['subscription_offer_name']).'</td>
-                    <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
-                    <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
-                    <td class="text-center ">'.htmlentities($value['subscription_duration']).'</td>
-                    <td class="text-center ">'.htmlentities($value['subscription_total_duration']).'</td>
-                    <td class="text-center ">'.htmlentities(number_format($value['subscription_price'],2,'.', ',')).'</td>
-                    <td class="text-center ">'.htmlentities(number_format($value['subscription_price']*($value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration'])),2,'.', ',')).'</td>
-                    </tr>';
-                    $counter++;
-            }
-            echo ' </tbody>
-             </table>
-
-            </div>
-        </div>
-    </div>';
-        }else{
+        if($subscription_data){
             echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
             echo '<div class="row g-2 mb-2 ">';
             
@@ -147,6 +102,13 @@
 
 
      
+
+        <br>
+        <br>
+        <br>
+        <br>
+  </div>
+
  <!-- end of subs -->
     <!-- history -->
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">

@@ -52,7 +52,8 @@
                             // trigger for updating the subscription !!! note that it must paid fully, and days left is negative or 0
                         }
 
-                        echo '     </tbody>
+                        echo '     
+                            </tbody>
                         </table>
                     </div>
             
@@ -106,3 +107,6 @@
                         <td class="text-center">₱100</td>
                     </tr> -->
            
+
+
+
