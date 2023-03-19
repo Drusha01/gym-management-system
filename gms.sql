@@ -1387,11 +1387,33 @@ insert into subscriber_trainers VALUES
     22
 );
 
+-- To Train For Today
+SELECT  CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname FROM subscriber_trainers 
+LEFT OUTER JOIN users ON subscriber_trainers.subscriber_trainers_subscriber_id=users.user_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE subscriber_trainers_trainer_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+
+-- To Train For Today full details
+SELECT  CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, user_gender_details, user_birthdate FROM subscriber_trainers 
+LEFT OUTER JOIN users ON subscriber_trainers.subscriber_trainers_subscriber_id=users.user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE subscriber_trainers_trainer_id = 4 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+
+-- Total Person Who Availed
+SELECT  user_gender_details FROM subscriber_trainers 
+LEFT OUTER JOIN users ON subscriber_trainers.subscriber_trainers_subscriber_id=users.user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE subscriber_trainers_trainer_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active') ;
+
 -- payment
 
 
 
-SELECT * FROM subscriber_trainers;
+SELECT * FROM subscriber_trainers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE  subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active') ;
 -- trainer info
 SELECT trainer_id,user_firstname,user_middlename,user_lastname,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_profile_picture,user_birthdate,user_gender_details,trainer_availability_details FROM subscriber_trainers
 LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
@@ -1399,7 +1421,7 @@ LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
 LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
-WHERE subscriber_trainers_subscriber_id = 7 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+WHERE subscriber_trainers_subscriber_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
 ;
 
 -- activation / making it active
@@ -1422,7 +1444,7 @@ LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.use
 WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
 ORDER BY user_fullname
 ;
-(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha04');
+(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha01');
 
 -- pending and active of customer
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
@@ -1460,23 +1482,6 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Program Subscription'
 ;
 
-    'Gym Subscription'
-),(
-	null,
-    'Trainer Subscription'
-),(
-	null,
-    'Locker Subscription'
-),(
-	null,
-    'Program Subscription'
-),(
-	null,
-    'Walk-In Gym Subscription'
-),(
-	null,
-    'Walk-In Trainer Subscription'
-);
 
 -- payment 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
@@ -1485,6 +1490,8 @@ LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_i
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
 WHERE  (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
 ;
+
+-- payment
 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration,subscription_status_details, 
 subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
@@ -1540,7 +1547,7 @@ WHERE  subscription_status_details = 'Active' AND subscription_type_of_subscript
 
 DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
 
-(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
+(SELECT user_id FROM users WHERE user_name = BINARY 'RobRoche');
 
 SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
 
