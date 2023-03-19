@@ -24,11 +24,11 @@
                 data: [12, 25, 45, 55, 65, 70],
                 backgroundColor: "rgba(234, 135, 236, 1)"
             }
-             
          ]
          },
      options: {
-         responsive: true
+         responsive: true,
+         maintainAspectRatio: false
      }
  });
 
@@ -57,3 +57,66 @@
          responsive: true
      }
  });
+  // Pie Chart
+  var ctx5 = $("#pie-chart").get(0).getContext("2d");
+  var myChart5 = new Chart(ctx5, {
+      type: "pie",
+      data: {
+          labels: ["Registered", "Verified"],
+          datasets: [{
+              backgroundColor: [
+                  "rgba(253, 208, 35, .7)",
+                  "rgba(0, 102, 0, .6)",
+                  
+              ],
+              data: [55, 49]
+          }]
+      },
+      options: {
+          responsive: true,
+          maintainAspectRatio: false
+      }
+  });
+
+
+  // doughnnut
+ var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
+    var myChart6 = new Chart(ctx6, {
+        type: "doughnut",
+        data: {
+            labels: ["Paid","Pending", "Partial", "Unpaid", "Overdue"],
+            datasets: [{
+                backgroundColor: [
+                    "rgba(0, 102, 0, .7)",
+                    "rgba(253, 208, 35, .7)",
+                    "rgba(0, 156, 255, .6)",
+                    "rgba(204, 0, 0, .5)",
+                    "rgba(153, 0, 0, .4)"
+                ],
+                data: [60, 30, 49, 44, 24]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // Single Bar Chart
+    var ctx4 = $("#bar-chart").get(0).getContext("2d");
+    var myChart4 = new Chart(ctx4, {
+        type: "bar",
+        data: {
+            labels: ["Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"],
+            datasets: [{
+                label: "Walk-In",
+                backgroundColor: [
+                    "rgba(153, 0, 0, .7)",
+                ],
+                data: [10, 5, 3, 2, 10, 4]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });

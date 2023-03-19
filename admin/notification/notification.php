@@ -39,8 +39,34 @@ if(isset($_SESSION['admin_id'])){
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
     <h5 class="col-12 fw-bold mb-3">Notification</h5>
-        
-        <!-- <div class="container py-4">
+    <table class="table table-bordered rounded shadowed">
+        <thead>
+            <tr>
+            <th colspan="4">#</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            </tr>
+            <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            </tr>
+            <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+            </tr>
+        </tbody>
+    </table>
+        <div class="container py-4">
             <div class="row">
                 <div class="col-lg-12 ">
                     <div class="box shadow rounded bg-white mb-3">
@@ -198,7 +224,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="container d-flex justify-content-center justify-content-lg-end pb-3">
             <nav aria-label="...">
                 <ul class="pagination">
