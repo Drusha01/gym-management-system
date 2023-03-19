@@ -1,4 +1,4 @@
-<h5 class="col-12 fw-bold mb-3">Subscription</h5>
+
     <div class="container">
         <div class="row">
             <!-- Start of card -->

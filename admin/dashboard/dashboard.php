@@ -37,42 +37,108 @@ if(isset($_SESSION['admin_id'])){
 <?php require_once '../includes/side_nav.php';?>
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
     <div class="w-100">
-    
     <section id="subscription" class="pt-3 ps-3 ps-lg-0">
         <?php require_once 'subscription.php';?>
     </section>
     <br>
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Total Subscriptions for the Week</h6>
-                    March 20-25, 2023
+        <!-- charts -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card rounded-4 border-0 shadow text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Total Subscriptions for the Week</h6>
+                        March 20-25, 2023
+                    </div>
+                    <div style="height: 300px">
+                        <canvas id="total-subs"></canvas>
+                    </div>
                 </div>
-                <canvas id="total-subs"></canvas>
             </div>
         </div>
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Sales & Revenue</h6>
-                    March 20-25, 2023
+        <br>
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-8">
+                <div class="card rounded-4 border-0 shadow text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Sales & Revenue</h6>
+                        March 20-25, 2023
+                    </div>
+                    <canvas id="salse-revenue"></canvas>
                 </div>
-                <canvas id="salse-revenue"></canvas>
+            </div>
+            <div class="col-sm-12 col-xl-4">
+                <div class="card rounded-4 border-0 shadow rounded h-100 p-4">
+                    <h6 class="mb-4">Accounts</h6>
+                    <div style="height: 300px">
+                        <canvas id="pie-chart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-               
+        <!-- charts    -->
+    <br>
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-5">
+                <div class="card rounded-4 border-0 shadow h-100 p-4">
+                    <h6 class="mb-4">Status of Subscriptions</h6>
+                    <canvas id="doughnut-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="col-sm-12 col-xl-auto pb-3">
+                    <div class="card rounded-4 border-0 shadow p-4 w-100">
+                        <h6 class="mb-4">Recent Customers Subscribed</h6>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col" class="text-center">Total Number of Availed Offers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Cruz, Juan Dela</td>
+                                    <td class="text-center">2</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Trinidad, James Lorenz</td>
+                                    <td class="text-center">3</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Nicholas, Shania Gabrielle</td>
+                                    <td class="text-center">3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-auto">
+                    <div class="card rounded-4 border-0 shadow p-4 w-100">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Total walk-In For this Week</h6>
+                            <span>March 20-25, 2023</span>
+                        </div>
+                        <div style="height: 200px">
+                        <canvas id="bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
-<script>
+<!-- <script>
 $(".nav-item").on("click", function(){
             $(".nav-item").removeClass("active");
             $(this).addClass("active");
 
         });
-</script>
+</script> -->
 <script src="../../lib/chart/chart.min.js"></script>
 <script src="../../js/customdash.js"></script>
 </body>
