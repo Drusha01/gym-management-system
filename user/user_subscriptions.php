@@ -27,9 +27,6 @@
         // check the subs if active
         if($subscription_data){
             echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
-            echo '<div class="row g-2 mb-2 ">';
-            
-            echo '</div>';
             echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
 
                     <thead class="bg-dark text-light">
@@ -99,14 +96,6 @@
     }
 
 ?>
-
-
-     
-
-        <br>
-        <br>
-        <br>
-        <br>
   </div>
 
  <!-- end of subs -->
