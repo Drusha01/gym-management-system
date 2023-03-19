@@ -55,7 +55,13 @@ if (toastTrigger) {
     toast.show()
   })
 }
+
 </script>
+<!-- <script>
+$(document).ready(function () {
+    $('table.display').DataTable();
+});
+</script> -->
 <!-- <script>
 // setting the default into subscription
 $.ajax({

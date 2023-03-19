@@ -422,7 +422,6 @@ if(isset($_SESSION['user_id'])){
                             </div>
                         </div>
                         </div>
-                        
                         <div class="row pt-3">
                             <div class="col d-flex justify-content-start">
                                 <button class="btn btn-outline-dark js-btn-prev" type="button" title="Prev">Back</button>
@@ -437,7 +436,7 @@ if(isset($_SESSION['user_id'])){
                     <div class="multisteps-form__panel shadow p-4 rounded bg-white" data-animation="scaleIn" >
                         <h3 class="multisteps-form__title">Confirmation</h3>
                         <hr class="hr" />
-                        <div class="multisteps-form__content">
+                        <div class="multisteps-form__content pb-5">
                             <div class="container fs-4">
                             To fully verify purchase, you must go directly to the gym to complete the checkout. Otherwise, the status of this subscription will be pending.
                             </div>
@@ -452,7 +451,6 @@ if(isset($_SESSION['user_id'])){
                         </div>
                     </div>
                     </div>
-                    
                 </form>
                     <br>
                     <br>

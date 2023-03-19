@@ -44,6 +44,7 @@ if(isset($_SESSION['admin_id'])){
                 <label for="keyword">Search</label>
                 <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
             </div>
+<<<<<<< HEAD
               <div class="table-responsive table-1">
                 <table id="table-1" class="table table-striped table-bordered nowrap" style="width:100%;border: 2px solid grey;">
                     <thead class="table-light">
@@ -94,10 +95,37 @@ if(isset($_SESSION['admin_id'])){
                     </tbody>
                 </table>
               </div>
+=======
+                <div class="table-responsive table-container">
+                
+                </div>
+>>>>>>> branch-a-rob
             </div>
         </div>
     </div>
 </main>
+<script>
+ $.ajax({
+    type: "GET",
+    url: 'paymenttable.php',
+    success: function(result)
+    {
+        $('div.table-responsive').html(result);
+        dataTable = $("#table-1").DataTable({
+            "dom": 'rtip',
+            responsive: true
+        });
+        $('input#keyword').on('input', function(e){
+            var status = $(this).val();
+            dataTable.columns([2]).search(status).draw();
+        })
+        new $.fn.dataTable.FixedHeader(dataTable);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    }  
+});
 
+</script>
 </body>
 </html>

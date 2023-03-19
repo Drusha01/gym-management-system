@@ -48,10 +48,14 @@ if(isset($_SESSION['admin_id'])){
     <h5 class="col-12 fw-bold mb-3">Maintenance</h5>
     <div class="row g-2 mb-2 mt-1">
         <div class="col-12 col-sm-4 col-xs-12 form-group table-filter-option">
-            <label>Condition</label>
+            <label for="categoryFilter"l>Condition</label>
             <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                 <option value="">All</option>
+<<<<<<< HEAD
                 <option value="Gym-Use Subscription">Good</option>
+=======
+                <option value="Good">Good</option>
+>>>>>>> branch-a-rob
                 <option value="In-Maintenance">In-Maintenance</option>
             </select>
         </div>
@@ -64,54 +68,12 @@ if(isset($_SESSION['admin_id'])){
             <a href="add-maintenance.php" class="btn btn-success" role="button">Add Equipment</a>
           </div>
         <?php }?>
-        
+
     </div>
         <div class="table-responsive table-container">
-          <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
-            <thead class="bg-dark text-light">
-                  <tr>
-                  <th class="d-lg-none"></th>
-                  <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                  <th>EQUIPMENT NAME</th>
-                  <th class="text-center ">CONDITION</th>
-                  <th scope="col" class="text-center">QUANTITY</th>
-                  <?php if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){ ?>
-                  <th scope="col" class="text-center">ACTION</th>
-                  <?php }?>
-                  </tr>
-              </thead>
-              <tbody>
-              <?php
-                require_once '../../classes/equipments.class.php';
-                require_once '../../tools/functions.php';
 
-
-                $equipmentsObj = new equipments();
-                $equipments_data = $equipmentsObj->fetchAll();
-                $counter=1;
-                foreach ($equipments_data as $key => $value) {
-                  echo '<tr>';
-                  echo'<th class="d-lg-none"></th>';
-                  echo'<th scope="row" class="text-center d-none d-sm-table-cell">'.htmlentities($counter).'</th>';
-                  echo'<td>'.htmlentities($value['equipment_name']).'</td>';
-                  echo'<td class="text-center ">'.htmlentities($value['equipment_condition_details']).'</td>';
-                  echo'<td class="text-center">'.htmlentities($value['equipment_quantity']).'</td>';
-                  if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
-                    echo'<td class="text-center"><a href="edit-maintenance.php?equipment_id='.htmlentities($value['equipment_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modalCreate('.htmlentities($counter).','.htmlentities($value['equipment_id']).')">Delete</button></td>';
-                  }
-                  echo'</tr>';
-                  $counter++;
-                }
-
-              ?>
-
-              
-              
-                  
-                  
-              </tbody>
-          </table>
         </div>
+
     </div>
   </div>
 </main>
@@ -165,6 +127,33 @@ if(isset($_SESSION['admin_id'])){
     }
 });
   }
+</script>
+
+<script>
+  $.ajax({
+      type: "GET",
+      url: 'maintenance-table.php',
+      success: function(result)
+      {
+          $('div.table-responsive').html(result);
+          dataTable = $("#table-1").DataTable({
+              "dom": 'rtip',
+              responsive: true
+          });
+          $('input#keyword').on('input', function(e){
+              var status = $(this).val();
+              dataTable.columns([2]).search(status).draw();
+          })
+          $('select#categoryFilter').on('change', function(e){
+              var status = $(this).val();
+              dataTable.columns([3]).search(status).draw();
+          })
+          new $.fn.dataTable.FixedHeader(dataTable);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+      }  
+  });
 </script>
 </body>
 </html>

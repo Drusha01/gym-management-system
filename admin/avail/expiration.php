@@ -4,9 +4,9 @@
             <label for="keyword">Search</label>
             <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
         </div>
-        <div class="table-responsive table-1">
-            <table id="table-1" class="table table-bordered table-striped " style="width:100%;border: 3px solid black;">
-                <thead class="table-dark ">
+        <div class="table-responsive table-container table-2">
+            <table id="table-2" class="table table-striped table-borderless" style="width:100%;border: 3px solid black;">
+                <thead class="bg-dark text-light">
                     <tr>
                     <th class="d-lg-none d-sm-none" rowspan="2"></th>
                     <th class="text-center align-middle d-none d-sm-table-cell" rowspan="2">#</th>
