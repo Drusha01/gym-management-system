@@ -5,7 +5,7 @@
             <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
         </div>
         <div class="table-responsive table-1">
-            <table id="table-1" class="table table-bordered table-striped " style="width:100%;border: 3px solid black;">
+            <table id="table-1" class="table table-bordered table-striped display" style="width:100%;border: 3px solid black;">
                 <thead class="table-dark ">
                     <tr>
                     <th class="d-lg-none d-sm-none" rowspan="2"></th>

@@ -77,7 +77,7 @@
             <a href="walk-in_more.php" class="btn btn-success" role="button">More Details</a>
         </div>
         <div class="table-responsive table-2">
-            <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
+            <table class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
                 <thead class="bg-dark text-light">
                     <tr>
                     <th class="d-lg-none"></th>

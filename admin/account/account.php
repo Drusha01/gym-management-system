@@ -67,14 +67,14 @@ if(isset($_SESSION['admin_id'])){
                         </div>
                         <div class="form-group col-12 col-sm-4 table-filter-option">
                             <label for="keyword">Search</label>
-                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Customer Here" class="form-control ms-md-2">
+                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
                         </div>
                         <?php  if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
                             <div class="col-12 col-sm-4 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
                             <a href="user-add.php" class="btn btn-success" role="button" id="add-button">Add Customer</a>
                         </div>
                         <?php }?>
-                        
+
                     </div>
                     <div class="table-responsive table-container">
 
@@ -138,7 +138,7 @@ $(".nav-item").on("click", function(){
                     success: function(result)
                     {
                         $('div.table-responsive').html(result);
-                        dataTable = $("div.table-responsive").DataTable({
+                        dataTable = $("#example").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
                         });
@@ -148,11 +148,7 @@ $(".nav-item").on("click", function(){
                         })
                         $('select#categoryFilter').on('change', function(e){
                             var status = $(this).val();
-                            dataTable.columns([4]).search(status).draw();
-                        })
-                        $('select#program').on('change', function(e){
-                            var status = $(this).val();
-                            dataTable.columns([4]).search(status).draw();
+                            dataTable.columns([7]).search(status).draw();
                         })
                         new $.fn.dataTable.FixedHeader(dataTable);
                     },
@@ -219,7 +215,6 @@ $.ajax({
     url: 'user-table-header.php',
     success: function(result)
     {
-        
         $('div#tab').html(result);
         $.ajax({
             type: "GET",
@@ -227,7 +222,7 @@ $.ajax({
             success: function(result)
             {
                 $('div.table-responsive').html(result);
-                dataTable = $("div.table-responsive").DataTable({
+                dataTable = $("#example").DataTable({
                     "dom": '<"top"f>rt<"bottom"lp><"clear">',
                     responsive: true,
                 });
@@ -237,11 +232,7 @@ $.ajax({
                 })
                 $('select#categoryFilter').on('change', function(e){
                     var status = $(this).val();
-                    dataTable.columns([4]).search(status).draw();
-                })
-                $('select#program').on('change', function(e){
-                    var status = $(this).val();
-                    dataTable.columns([4]).search(status).draw();
+                    dataTable.columns([7]).search(status).draw();
                 })
                 new $.fn.dataTable.FixedHeader(dataTable);
             },

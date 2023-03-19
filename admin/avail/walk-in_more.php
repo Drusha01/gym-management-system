@@ -28,8 +28,6 @@ if(isset($_SESSION['admin_id'])){
 
 ?>
 
-
-
 <?php require_once '../includes/header.php'; ?>
 
 <body>
@@ -85,7 +83,13 @@ if(isset($_SESSION['admin_id'])){
 
   </div>
 </main>
-
+<script>
+    $(document).ready(function() {
+    $('#table-2').DataTable( {
+        select: true
+    } );
+} );
+</script>
 </body>
 
 </html>

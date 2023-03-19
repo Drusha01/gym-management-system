@@ -22,8 +22,8 @@
             <label for="keyword">Search</label>
             <input type="text" name="keyword" id="keyword-2" placeholder="Enter Name Here" class="form-control ms-md-2">
         </div>
-        <div class="table-responsive table-2">
-            <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
+        <div class="table-responsive table-container table-2">
+            <table id="table-2" class="table table-striped table-borderless" style="width:100%;border: 3px solid black;">
                 <thead class="bg-dark text-light">
                     <tr>
                     <th class="d-lg-none"></th>

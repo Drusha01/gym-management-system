@@ -44,36 +44,35 @@ if(isset($_SESSION['admin_id'])){
                 <label for="keyword">Search</label>
                 <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
             </div>
-              <div class="table-responsive table-1">
-                <table id="table-1" class="table table-striped table-bordered nowrap" style="width:100%;border: 2px solid grey;">
-                    <thead class="table-light">
-                        <tr>
-                            <th class="d-lg-none"></th>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Total Amount</th>
-                            <th class="text-center">Total Paid</th>
-                            <th class="text-center">Total Balance</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="d-lg-none"></td>
-                            <td class="text-center">1</td>
-                            <td class="text-center">Trinidad, James Lorenz</td>
-                            <td class="text-center">₱800</td>
-                            <td class="text-center">₱500</td>
-                            <td class="text-center">₱300</td>
-                            <td class="text-center"><a href="viewpayment.php" class="btn btn-success btn-sm" role="button">View Payment</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-              </div>
+                <div class="table-responsive table-container">
+                
+                </div>
             </div>
         </div>
     </div>
 </main>
+<script>
+ $.ajax({
+    type: "GET",
+    url: 'paymenttable.php',
+    success: function(result)
+    {
+        $('div.table-responsive').html(result);
+        dataTable = $("#table-1").DataTable({
+            "dom": 'rtip',
+            responsive: true
+        });
+        $('input#keyword').on('input', function(e){
+            var status = $(this).val();
+            dataTable.columns([2]).search(status).draw();
+        })
+        new $.fn.dataTable.FixedHeader(dataTable);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    }  
+});
 
+</script>
 </body>
 </html>

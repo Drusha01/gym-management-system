@@ -49,7 +49,7 @@ if(isset($_SESSION['admin_id'])){
                     <label>Type</label>
                     <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                         <option value="">All</option>
-                        <option value="Gym-Use Subscription">Gym-Use Subscription</option>
+                        <option value="Gym Subscription">Gym Subscription</option>
                         <option value="Trainer Subscription">Trainer Subscription</option>
                         <option value="Locker Subscription">Locker Subscription</option>
                         <option value="Program Subscription">Program Subscription</option>

@@ -37,53 +37,32 @@ if(isset($_SESSION['admin_id'])){
 <?php require_once '../includes/side_nav.php';?>
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
     <div class="w-100">
-        <div class="container-fluid">
-            <ul class="nav nav-tabs application">
-                <li class="nav-item active ">
-                    <a class="nav-link" href="#tab-avail" data-bs-toggle="tab">Avail</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#tab-pay" data-bs-toggle="tab">Payment</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#tab-acc" data-bs-toggle="tab">Account</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active show fade" id="tab-avail">
-                    <section id="subscription" class="pt-3">
-                    <?php require_once 'subscription.php';?>
-                    </section>
-                    <br>
-                    <section id="expiration">
-                    <?php require_once 'expiration.php';?>
-                    </section>
-                    <br>
-                    <section id="walk-in">
-                    <?php require_once 'walk-in.php';?>
-                    </section>
+    
+    <section id="subscription" class="pt-3 ps-3 ps-lg-0">
+        <?php require_once 'subscription.php';?>
+    </section>
+    <br>
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Total Subscriptions for the Week</h6>
+                    March 20-25, 2023
                 </div>
-                <div class="tab-pane show fade" id="tab-pay">
-                    <section id="pending" class="pt-3">
-                    <?php require_once 'pending.php';?>
-                    </section>
-                    <section id="partial" class="pt-3">
-                    <?php require_once 'partial.php';?>
-                    </section>
-                    <section id="unpaid" class="pt-3">
-                    <?php require_once 'unpaid.php';?>
-                    </section>
-                    <section id="overdue" class="pt-3">
-                    <?php require_once 'overdue.php';?>
-                    </section>
-                </div>
-                <div class="tab-pane show fade" id="tab-acc">
-                    <section id="pending" class="pt-3">
-                    <?php require_once 'account.php';?>
-                    </section>
-                </div>
+                <canvas id="total-subs"></canvas>
             </div>
         </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Sales & Revenue</h6>
+                    March 20-25, 2023
+                </div>
+                <canvas id="salse-revenue"></canvas>
+            </div>
+        </div>
+    </div>
+               
     </div>
 </main>
 
@@ -94,6 +73,7 @@ $(".nav-item").on("click", function(){
 
         });
 </script>
-
+<script src="../../lib/chart/chart.min.js"></script>
+<script src="../../js/customdash.js"></script>
 </body>
 </html>

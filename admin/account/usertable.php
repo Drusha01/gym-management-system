@@ -11,7 +11,7 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
 }
 ?>
 
-<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%;border: 3px solid black;">
+<table id="example" class="table table-striped table-borderless table-custom table-hover" style="width:100%;border: 3px solid black;">
     <thead class="bg-dark text-light">
         <tr>
         <th class="d-lg-none"></th>
