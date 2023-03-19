@@ -8,7 +8,8 @@
         $subscriptionsObj = new subscriptions();
 
         if($payments_data = $subscriptionsObj->fetch_active_subs_payment($_SESSION['user_id'])){
-            echo '<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
+            echo '
+        <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
             <thead class="bg-dark text-light">
                 <tr>
                     <th class="d-lg-none"></th>
@@ -64,48 +65,16 @@
 </div>
 ';
         }else{
-            echo '<h5>No activated subscription/s yet</h5>
-            </div>
+            echo '
+            <h5>No activated subscription/s yet</h5>
         </div>
     </div>
+</div>
  ';
         }
         
         ?>
                     
-                    <!-- <tr>
-                        <td class="d-lg-none"></td>
-                        <td class="text-center">2</td>
-                        <td class="text-center">1-Month Trainer Subscription</td>
-                        <td class="text-center">None</td>
-                        <td class="text-center">₱1500</td>
-                        <td class="text-center">₱100</td>
-                        <td class="text-center">₱300</td>
-                        <td class="text-center">₱1200</td>
-                    </tr>
-
-                    <tr>
-                        <td class="d-lg-none"></td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">1-Month Locker Subscription</td>
-                        <td class="text-center">None</td>
-                        <td class="text-center">₱100</td>
-                        <td class="text-center">None</td>
-                        <td class="text-center">₱100</td>
-                        <td class="text-center">₱0</td>
-                    </tr>
-
-                    <tr>
-                        <td class="d-lg-none"></td>
-                        <td class="text-center">4</td>
-                        <td class="text-center">Zumba</td>
-                        <td class="text-center">%20</td>
-                        <td class="text-center">₱500</td>
-                        <td class="text-center">None</td>
-                        <td class="text-center">₱300</td>
-                        <td class="text-center">₱100</td>
-                    </tr> -->
-           
 
 
 

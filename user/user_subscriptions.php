@@ -15,7 +15,7 @@
 
     <!-- current subs -->
     <div class="container-sub">
-        <div class="row g-2 mb-2 ">
+        <div class="row g-2 mb-2">
 
 <?php 
 // query my active / pending subscription
@@ -24,6 +24,14 @@
     $subscriptionsObj = new subscriptions();
 
     if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
+        if($subscription_data[0]['subscription_status_details'] == 'Pending'){
+            echo '<div class="row g-2 mb-2 ">
+                <h5>Wait for the Admin to activate your availed Subscriptions.</h5>    
+            ';
+            echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
+                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                </div>';
+        }
         // check the subs if active
         if($subscription_data){
             echo '<h5 class="col-12 fw-bold">Current Subscription</h5>';
@@ -81,13 +89,13 @@
 
            </div>
        </div>
-   </div>';
+   ';
         }
         
 
     }else{
         echo '
-            <div class="row g-2 mb-2 ">
+            <div class="row g-2 mb-2">
                 <h5>You still haven\'t availed any of our offers.</h5>
                 <div class="form-group col-12 ">
                     <a class="btn btn-success" role="button" href="user-avail.php">Avail Now</a>
