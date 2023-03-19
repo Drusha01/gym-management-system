@@ -37,7 +37,6 @@ if(isset($_SESSION['admin_id'])){
 <?php require_once '../includes/side_nav.php';?>
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
     <div class="w-100">
-    
     <section id="subscription" class="pt-3 ps-3 ps-lg-0">
         <?php require_once 'subscription.php';?>
     </section>
