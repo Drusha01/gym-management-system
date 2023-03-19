@@ -69,7 +69,7 @@
             <div class="form-group col-12 pt-3 ">
                 <button class="btn btn-success" role="button" >Avail Now</button>
             </div>
-        </div>';
+        ';
         }
         
         

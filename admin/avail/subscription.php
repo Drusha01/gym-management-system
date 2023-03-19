@@ -43,35 +43,43 @@
                                 $trainer_sub = false;
                                 $program_sub = false;
                                 if($user_subscription_data = $subscriptionsObj->fetchAllSubscriptionPerUser_id('Active','Pending','','','',$value['subscription_subscriber_user_id'])){
+                                    $gym_sub_total = 0;
+                                    $locker_sub_total = 0;
+                                    $trainer_sub_total = 0;
+                                    $program_sub_total = 0;
                                     foreach ($user_subscription_data as $key => $user_subscription_data_value) {
                                         if($user_subscription_data_value['type_of_subscription_details'] =='Gym Subscription'){
-                                            $gym_sub = $user_subscription_data_value['subscription_status_details'].'('.$user_subscription_data_value['subscription_quantity'].')';
+                                            $gym_sub = true ;
+                                            $gym_sub_total += $user_subscription_data_value['subscription_quantity'];
                                         }elseif($user_subscription_data_value['type_of_subscription_details'] =='Locker Subscription'){
-                                            $locker_sub = $user_subscription_data_value['subscription_status_details'].'('.$user_subscription_data_value['subscription_quantity'].')';
+                                            $locker_sub = true ;
+                                            $locker_sub_total += $user_subscription_data_value['subscription_quantity'];
                                         }elseif($user_subscription_data_value['type_of_subscription_details'] =='Trainer Subscription'){
-                                            $trainer_sub = $user_subscription_data_value['subscription_status_details'].'('.$user_subscription_data_value['subscription_quantity'].')';
+                                            $trainer_sub = true ;
+                                            $trainer_sub_total += $user_subscription_data_value['subscription_quantity'];
                                         }elseif($user_subscription_data_value['type_of_subscription_details'] =='Program Subscription'){
-                                            $program_sub = $user_subscription_data_value['subscription_status_details'].'('.$user_subscription_data_value['subscription_quantity'].')';
+                                            $program_sub = true ;
+                                            $program_sub_total += $user_subscription_data_value['subscription_quantity'];
                                         }
                                     }
                                 }
                                 if(($gym_sub)){
-                                    echo '<td class="text-center">'.htmlentities($gym_sub).'</td>';
+                                    echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$gym_sub_total.')').'</td>';
                                 }else{
                                     echo '<td class="text-center">None</td>';
                                 }
                                 if(($trainer_sub)){
-                                    echo '<td class="text-center">'.htmlentities($trainer_sub).'</td>';
+                                    echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$trainer_sub_total.')').'</td>';
                                 }else{
                                     echo '<td class="text-center">None</td>';
                                 }
                                 if(($locker_sub)){
-                                    echo '<td class="text-center">'.htmlentities($locker_sub).'</td>';
+                                    echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$locker_sub_total.')').'</td>';
                                 }else{
                                     echo '<td class="text-center">None</td>';
                                 }
                                 if(($program_sub)){
-                                    echo '<td class="text-center">'.htmlentities($program_sub).'</td>';
+                                    echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$program_sub_total.')').'</td>';
                                 }else{
                                     echo '<td class="text-center">None</td>';
                                 }

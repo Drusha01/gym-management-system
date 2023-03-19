@@ -1432,6 +1432,52 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Pending') OR (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
 ;
 
+-- dashboard subscription TOTAL SUBSCRIPTIONS FOR GYM USE
+SELECT SUM(subscription_quantity) as number_of_gym_use FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Gym Subscription'
+;
+
+-- dashboard subscription Total Subscriptions for Trainer
+SELECT SUM(subscription_quantity) as number_of_trainer_use FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Trainer Subscription'
+;
+
+-- dashboard subscription Total Subscriptions for locker
+SELECT SUM(subscription_quantity) as number_of_locker_use FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Locker Subscription'
+;
+
+-- dashboard subscription Total Subscriptions for program
+SELECT  SUM(subscription_quantity) as number_of_program_use FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Program Subscription'
+;
+
+    'Gym Subscription'
+),(
+	null,
+    'Trainer Subscription'
+),(
+	null,
+    'Locker Subscription'
+),(
+	null,
+    'Program Subscription'
+),(
+	null,
+    'Walk-In Gym Subscription'
+),(
+	null,
+    'Walk-In Trainer Subscription'
+);
+
 -- payment 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
 subscription_date_created,subscription_date_updated,subscription_discount,subscription_penalty_due,subscription_paid_amount FROM subscriptions

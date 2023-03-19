@@ -196,6 +196,78 @@ class subscriptions
         }
     }
     
+    function get_number_of_gym_use(){
+        try{
+            $sql = 'SELECT SUM(subscription_quantity) as number_of_gym_use FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE subscription_status_details = "Active"  AND type_of_subscription_details = "Gym Subscription"
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function get_number_of_trainer_use(){
+        try{
+            $sql = 'SELECT SUM(subscription_quantity) as number_of_trainer_use FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE subscription_status_details = "Active"  AND type_of_subscription_details = "Trainer Subscription"
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function get_number_of_locker_use(){
+        try{
+            $sql = 'SELECT SUM(subscription_quantity) as number_of_locker_use FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE subscription_status_details = "Active"  AND type_of_subscription_details = "Locker Subscription"
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function get_number_of_program_use(){
+        try{
+            $sql = 'SELECT  SUM(subscription_quantity) as number_of_program_use FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE subscription_status_details = "Active"  AND type_of_subscription_details ="Program Subscription"
+            ; ';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
    
 }
 
