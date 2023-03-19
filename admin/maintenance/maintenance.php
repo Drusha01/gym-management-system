@@ -51,11 +51,7 @@ if(isset($_SESSION['admin_id'])){
             <label for="categoryFilter"l>Condition</label>
             <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                 <option value="">All</option>
-<<<<<<< HEAD
-                <option value="Gym-Use Subscription">Good</option>
-=======
                 <option value="Good">Good</option>
->>>>>>> branch-a-rob
                 <option value="In-Maintenance">In-Maintenance</option>
             </select>
         </div>

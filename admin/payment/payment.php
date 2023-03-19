@@ -44,7 +44,7 @@ if(isset($_SESSION['admin_id'])){
                 <label for="keyword">Search</label>
                 <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
             </div>
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
               <div class="table-responsive table-1">
                 <table id="table-1" class="table table-striped table-bordered nowrap" style="width:100%;border: 2px solid grey;">
                     <thead class="table-light">
@@ -60,34 +60,34 @@ if(isset($_SESSION['admin_id'])){
                     </thead>
                     <tbody>
                     <?php 
-                        require_once '../../classes/subscriptions.class.php';
+                        // require_once '../../classes/subscriptions.class.php';
 
-                        $subscriptionsObj = new subscriptions();
+                        // $subscriptionsObj = new subscriptions();
 
-                        $counter =1;
-                        if($list_of_ActiveOrPeding_users = $subscriptionsObj->fetchAllActiveOrPendingSubscriptions('Active','','','','')){
-                            $counter=1;
-                            foreach ($list_of_ActiveOrPeding_users as $key => $value) {
-                                // fetch subscription data
-                                if($payments_data = $subscriptionsObj->fetch_active_subs_payment($value['subscription_subscriber_user_id'])){
-                                    $amount =0;
-                                    $paid_amount = 0;
-                                    foreach ($payments_data as $key => $payments_value) {
-                                        $amount += ($payments_value['subscription_price']*$payments_value['subscription_quantity']*($payments_value['subscription_total_duration']/$payments_value['subscription_duration']))+$payments_value['subscription_penalty_due'];
-                                        $paid_amount +=$payments_value['subscription_paid_amount'];
-                                    }
-                                }
-                                echo'
-                                <td class="d-lg-none"></td>
-                                <td class="text-center">'.$counter.'</td>
-                                <td class="text-center">'.htmlentities($value['user_fullname']).'</td>
-                                <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
-                                <td class="text-center">₱'.htmlentities(number_format($paid_amount,2)).'</td>
-                                <td class="text-center">₱'.htmlentities(number_format($amount -$paid_amount,2)).'</td>
-                                <td class="text-center"><a href="viewpayment.php?user_id='.htmlentities($value['subscription_subscriber_user_id']).'&name='.htmlentities($value['user_fullname']).'" class="btn btn-success btn-sm" role="button">View Payment</a></td>';
-                                $counter++;
-                            }
-                        }
+                        // $counter =1;
+                        // if($list_of_ActiveOrPeding_users = $subscriptionsObj->fetchAllActiveOrPendingSubscriptions('Active','','','','')){
+                        //     $counter=1;
+                        //     foreach ($list_of_ActiveOrPeding_users as $key => $value) {
+                        //         // fetch subscription data
+                        //         if($payments_data = $subscriptionsObj->fetch_active_subs_payment($value['subscription_subscriber_user_id'])){
+                        //             $amount =0;
+                        //             $paid_amount = 0;
+                        //             foreach ($payments_data as $key => $payments_value) {
+                        //                 $amount += ($payments_value['subscription_price']*$payments_value['subscription_quantity']*($payments_value['subscription_total_duration']/$payments_value['subscription_duration']))+$payments_value['subscription_penalty_due'];
+                        //                 $paid_amount +=$payments_value['subscription_paid_amount'];
+                        //             }
+                        //         }
+                        //         echo'
+                        //         <td class="d-lg-none"></td>
+                        //         <td class="text-center">'.$counter.'</td>
+                        //         <td class="text-center">'.htmlentities($value['user_fullname']).'</td>
+                        //         <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
+                        //         <td class="text-center">₱'.htmlentities(number_format($paid_amount,2)).'</td>
+                        //         <td class="text-center">₱'.htmlentities(number_format($amount -$paid_amount,2)).'</td>
+                        //         <td class="text-center"><a href="viewpayment.php?user_id='.htmlentities($value['subscription_subscriber_user_id']).'&name='.htmlentities($value['user_fullname']).'" class="btn btn-success btn-sm" role="button">View Payment</a></td>';
+                        //         $counter++;
+                        //     }
+                        // }
                         ?>
                         <tr>
                             
@@ -95,11 +95,10 @@ if(isset($_SESSION['admin_id'])){
                     </tbody>
                 </table>
               </div>
-=======
+======= -->
                 <div class="table-responsive table-container">
                 
                 </div>
->>>>>>> branch-a-rob
             </div>
         </div>
     </div>

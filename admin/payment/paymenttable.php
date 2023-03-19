@@ -11,14 +11,37 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+    <?php 
+    require_once '../../classes/subscriptions.class.php';
+
+    $subscriptionsObj = new subscriptions();
+
+    $counter =1;
+    if($list_of_ActiveOrPeding_users = $subscriptionsObj->fetchAllActiveOrPendingSubscriptions('Active','','','','')){
+        $counter=1;
+        foreach ($list_of_ActiveOrPeding_users as $key => $value) {
+            // fetch subscription data
+            if($payments_data = $subscriptionsObj->fetch_active_subs_payment($value['subscription_subscriber_user_id'])){
+                $amount =0;
+                $paid_amount = 0;
+                foreach ($payments_data as $key => $payments_value) {
+                    $amount += ($payments_value['subscription_price']*$payments_value['subscription_quantity']*($payments_value['subscription_total_duration']/$payments_value['subscription_duration']))+$payments_value['subscription_penalty_due'];
+                    $paid_amount +=$payments_value['subscription_paid_amount'];
+                }
+            }
+            echo'
+            <tr>
             <td class="d-lg-none"></td>
-            <td class="text-center">1</td>
-            <td class="text-center">Trinidad, James Lorenz</td>
-            <td class="text-center">₱800</td>
-            <td class="text-center">₱500</td>
-            <td class="text-center">₱300</td>
-            <td class="text-center"><a href="viewpayment.php" class="btn btn-success btn-sm" role="button">View Payment</a></td>
-        </tr>
+            <td class="text-center">'.$counter.'</td>
+            <td class="text-center">'.htmlentities($value['user_fullname']).'</td>
+            <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
+            <td class="text-center">₱'.htmlentities(number_format($paid_amount,2)).'</td>
+            <td class="text-center">₱'.htmlentities(number_format($amount -$paid_amount,2)).'</td>
+            <td class="text-center"><a href="viewpayment.php?user_id='.htmlentities($value['subscription_subscriber_user_id']).'&name='.htmlentities($value['user_fullname']).'" class="btn btn-success btn-sm" role="button">View Payment</a></td>';
+            echo '</tr>';
+            $counter++;
+        }
+    }
+    ?>
     </tbody>
 </table>
