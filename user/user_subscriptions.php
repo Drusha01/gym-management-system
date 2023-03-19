@@ -173,8 +173,6 @@
             </div>
         </div>
     </div>
-    <br>
-    <br>
   </div>
   <!-- end of history -->
 </div>
