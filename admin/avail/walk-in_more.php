@@ -40,55 +40,52 @@ if(isset($_SESSION['admin_id'])){
         <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">More Details (Walk-In)</h5>
         <a class="col text-decoration-none text-black m-0" aria-current="page" href="avail.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
-    <div class="form-group col-12 col-sm-5 table-filter-option pb-3">
-        <label for="keyword">Search</label>
-        <input type="text" name="keyword" id="keyword-2" placeholder="Enter Name Here" class="form-control ms-md-2">
-    </div>
-    <div class="table-responsive table-2">
-            <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
-                <thead class="bg-dark text-light">
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                    <th>NAME</th>
-                    <th class="text-center ">AVAILED SERVICE</th>
-                    <th scope="col" class="text-center">DATE AVAILED</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                    <td>Trinidad, James Trinidad</td>
-                    <td class="text-center ">Gym-Use</td>
-                    <td class="text-center">October 16, 2022</td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                    <td>Nicholas, Shania Gabrielle</td>
-                    <td class="text-center ">Gym-Use</td>
-                    <td class="text-center">October 16, 2022</td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                    <td>Lim, Robbie John</td>
-                    <td class="text-center ">Gym-Use/Trainer</td>
-                    <td class="text-center">October 16, 2022</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="form-group col-12 col-sm-4 table-filter-option pb-3">
+            <label for="categoryFilter">Availed Service</label>
+            <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
+                <option value="">All</option>
+                <option value="Gym-Use">Gym-Use</option>
+                <option value="Gym-Use/Trainer">Gym-Use/Trainer</option>
+            </select>
         </div>
+        <div class="form-group col-12 col-sm-5 table-filter-option pb-3">
+            <label for="keyword">Search</label>
+            <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
+        </div>
+    </div>
+    
+    <div class="table-responsive table-container">
+            
+    </div>
 
   </div>
 </main>
 <script>
-    $(document).ready(function() {
-    $('#table-2').DataTable( {
-        select: true
-    } );
-} );
+  $.ajax({
+      type: "GET",
+      url: 'tables/walkintable.php',
+      success: function(result)
+      {
+          $('div.table-responsive').html(result);
+          dataTable = $("#table-1").DataTable({
+              "dom": '<"top"f>rt<"bottom"lp><"clear">',
+              responsive: true
+          });
+          $('input#keyword').on('input', function(e){
+              var status = $(this).val();
+              dataTable.columns([2]).search(status).draw();
+          })
+          $('select#categoryFilter').on('change', function(e){
+              var status = $(this).val();
+              dataTable.columns([3]).search(status).draw();
+          })
+          new $.fn.dataTable.FixedHeader(dataTable);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+      }  
+  });
 </script>
 </body>
 
