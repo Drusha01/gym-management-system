@@ -16,13 +16,13 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
     <thead class="bg-dark text-light">
         <tr>
         <th class="d-lg-none"></th>
-        <th class="text-center d-none d-sm-table-cell">#</th>
-        <th>USERNAME</th>
-        <th>NAME</th>
-        <th class="text-center ">AGE</th>
-        <th class="text-center">SUBSCRIPTION STATUS</th>
-        <th class="text-center">EMAIL VERIFIED</th>
-        <th class="text-center">USER STATUS</th>
+        <th class="text-center d-none d-lg-table-cell">#</th>
+        <th scope="col">USERNAME</th>
+        <th scope="col">NAME</th>
+        <th scope="col" class="text-center ">AGE</th>
+        <th scope="col" class="text-center">SUBSCRIPTION STATUS</th>
+        <th scope="col" class="text-center">EMAIL VERIFIED</th>
+        <th scope="col" class="text-center">USER STATUS</th>
         <?php
         if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
             <th class="text-center">ACTION</th>
@@ -63,9 +63,9 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                 $output=true;
                 foreach ($users_data as $key => $value) {
                     echo '<tr>';
-                    echo '<th class="d-lg-none"></th>';
-                    echo '<th class="text-center d-sm-table-cell">'.$counter.'</th>';
-                    echo '<td class="">'; echo_safe($value['user_name']);'</td>';
+                    echo '<td class="d-lg-none"></td>';
+                    echo '<td scope="row" class="text-center d-none d-lg-table-cell">'.$counter.'</td>';
+                    echo '<td>'; echo_safe($value['user_name']);'</td>';
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
                     echo '<td class="text-center">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                     echo '<td class="text-center">TO BE IMPLEMENTED</td>';

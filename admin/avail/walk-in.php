@@ -3,27 +3,27 @@
         <div class="row">
             <div class="col-12 col-lg-5">
                 <div class="form-group rounded">
-                <label for="search" class="pb-2 ms-1">Search</label>
-                <br>
-                <input type="search" id="form1" class="form-control" />
-                <select class="form-select" aria-label="Default select example" name='users' id="users" onchange="users_selected_change()">
-                        <option value="None" selected>Select User </option>
-                        <?php 
-                        require_once('../../classes/users.class.php');
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="users" class="pb-2">Search</label>
+                            <select class="select2" name='users' id="users" onchange="users_selected_change()" style="width:100%;">
+                                <option value="None" selected>Select Customer Name</option> 
+                                <?php 
+                                require_once('../../classes/users.class.php');
 
-                        $userObj = new users();
-                        
-                        if($users_data = $userObj->fetch_all_users(0,100000)){
-                            foreach ($users_data as $key => $value) {
-                                # code...
-                                echo '<option value="'.$value['user_id'].'" >'.$value['user_fullname'].' </option>';
-                            }
+                                $userObj = new users();
 
-                        }
-                        ?>
-                    </select>
-                    
-                
+                                if($users_data = $userObj->fetch_all_users(0,100000)){
+                                    foreach ($users_data as $key => $value) {
+                                        # code...
+                                        echo '<option value="'.$value['user_id'].'" >'.$value['user_fullname'].' </option>';
+                                    }
+
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-6 col-lg-1 d-flex align-items-end mb-1 pt-3">
@@ -97,54 +97,50 @@
 
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row g-2 mb-2 mt-1">
         <div class="col-12 col-lg-2 align-bottom ">
             <p class="fw-bold fs-5">Recent Walk-In </p>
         </div>
-        <div class="form-group col-12 col-sm-5 table-filter-option">
-            <label for="keyword">Search</label>
-            <input type="text" name="keyword" id="keyword-2" placeholder="Enter Name Here" class="form-control ms-md-2">
-        </div>
-        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+        <div class="col-12 col-lg-10 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
             <a href="walk-in_more.php" class="btn btn-success" role="button">More Details</a>
         </div>
-        <div class="table-responsive table-2">
-            <table class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
-                <thead class="bg-dark text-light">
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                    <th>NAME</th>
-                    <th class="text-center ">AVAILED SERVICE</th>
-                    <th scope="col" class="text-center">DATE AVAILED</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                    <td>Trinidad, James Trinidad</td>
-                    <td class="text-center ">Gym-Use</td>
-                    <td class="text-center">October 16, 2022</td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                    <td>Nicholas, Shania Gabrielle</td>
-                    <td class="text-center ">Gym-Use</td>
-                    <td class="text-center">October 16, 2022</td>
-                    </tr>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                    <td>Lim, Robbie John</td>
-                    <td class="text-center ">Gym-Use/Trainer</td>
-                    <td class="text-center">October 16, 2022</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
+            <thead class="bg-dark text-light">
+                <tr>
+                <th class="d-lg-none"></th>
+                <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                <th>NAME</th>
+                <th class="text-center ">AVAILED SERVICE</th>
+                <th scope="col" class="text-center">DATE AVAILED</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th class="d-lg-none"></th>
+                <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
+                <td>Trinidad, James Trinidad</td>
+                <td class="text-center ">Gym-Use</td>
+                <td class="text-center">October 16, 2022</td>
+                </tr>
+                <tr>
+                <th class="d-lg-none"></th>
+                <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
+                <td>Nicholas, Shania Gabrielle</td>
+                <td class="text-center ">Gym-Use</td>
+                <td class="text-center">October 16, 2022</td>
+                </tr>
+                <tr>
+                <th class="d-lg-none"></th>
+                <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
+                <td>Lim, Robbie John</td>
+                <td class="text-center ">Gym-Use/Trainer</td>
+                <td class="text-center">October 16, 2022</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -201,7 +197,9 @@
 
         // else if the ajax failed or it didnt proceed as usual, it
     }
-
-
 </script>
+<script>
+    $('.select2').select2();
+</script>
+
 
