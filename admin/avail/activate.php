@@ -179,22 +179,21 @@ if(isset($_SESSION['admin_id'])){
             }else if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Pending'){
                 echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#delete">Delete </button></div>';
             }
-            
-            
+
             if($subscription_data && $subscription_data[0]['subscription_status_details']  == 'Active'){
                 echo '<div class="p-2 bd-highlight"><a href="../payment/viewpayment.php?user_id='.htmlentities($user_data['user_id']).'&name='.htmlentities($user_data['user_lastname'].', '.$user_data['user_firstname'].' '.$user_data['user_middlename']).'" class="btn btn-outline-success" role="button">Pay</a></div>';
             }else{
                 echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark"  role="button" data-bs-toggle="modal" data-bs-target="#activate">Activate </button></div>';
             }
         ?>
-            
-            
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_subs">Add Subscription</button></div>
         </div>
         <div class="table-responsive table-container">
             <table id="example" class="table table-striped table-bordered" style="width:100%;border: 3px solid black;">
                 <thead class="bg-dark text-light">
                     <tr>
-                    <th scope="col">#</th>
+                    <th class="d-lg-none"></th>
+                    <th scope="col" class="text-center d-none d-lg-table-cell">#</th>
                     <th scope="col">Offer Name</th>
                     <th class="text-center" scope="col">Qty</th>
                     <th class="text-center" scope="col">Price</th>
@@ -211,7 +210,8 @@ if(isset($_SESSION['admin_id'])){
                     foreach ($subscription_data as $key => $value) {
                         echo '
                         <tr>
-                            <th scope="row">'.htmlentities($counter).'</th>
+                            <td class="d-lg-none"></td>
+                            <td scope="row" class="text-center d-none d-lg-table-cell">'.htmlentities($counter).'</td>
                             <td>'.htmlentities($value['subscription_offer_name']).'</td>
                             <td class="text-center " >'.htmlentities($value['subscription_quantity']).'</td>
                             <td class="text-center" >₱'.htmlentities(number_format($value['subscription_price'],2)).'</td>
@@ -223,25 +223,7 @@ if(isset($_SESSION['admin_id'])){
                         </tr>';
                         $counter++;
                     }
-                    
                     ?>
-                    
-                    <!-- <tr>
-                        <th scope="row">2</th>
-                        <td>Locker Gym</td>
-                        <td class="text-center " >1</td>
-                        <td class="text-center" >₱1000</td>
-                        <td class="text-center" >60</td>
-                        <td class="text-center" >60</td>
-                        <td class="text-center" >1 X (60/60) X ₱1000 =</td>
-                        <td class="text-center" >₱1000</td>
-                        <th class="text-center" scope="col">
-                        <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Deactivate</button>
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
-                        </th>
-                    </tr> -->
-                    
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -301,6 +283,134 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="add_subs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <p class="fs-5">Gym-Use Days Remaining: <span class="fs-5">60</span></p> 
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <label for="type_of_subs">Locker Subscription</label>
+                    <select class="form-select" aria-label="Default select example" name="type_of_subs" id="type_of_subs">
+                        <option selected>Open this select menu</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="col-6 col-lg-1">
+                    <label class="" for="gym_use_total_duration">Days</label>
+                    <input type="number" class="form-control" name="gym_use_total_duration" min="0" id="gym_use_total_duration">
+                </div>
+                <div class="col-6 col-lg-1">
+                    <label class="" for="gym_use_total_duration">Quantity</label>
+                    <input type="number" class="form-control" name="gym_use_total_duration" min="0" id="gym_use_total_duration">
+                </div>
+                <hr class="d-none d-lg-inline" style="border:none; border-right:1px solid hsla(200, 10%, 50%,100);height:62px;width:1px;">
+                <div class="col-6 col-lg-auto d-flex align-items-end pb-3 pb-lg-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        Exact Amount
+                        </label>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <label class="" for="priceperday">Price Per Day</label>
+                    <input type="number" class="form-control" name="priceperday" min="0" id="priceperday" placeholder="₱00.00">
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <label for="type_of_subs">Trainer Subscription</label>
+                    <select class="form-select" aria-label="Default select example" name="type_of_subs" id="type_of_subs">
+                        <option selected>Open this select menu</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-1">
+                    <label class="" for="gym_use_total_duration">Days</label>
+                    <input type="number" class="form-control" name="gym_use_total_duration" min="0" id="gym_use_total_duration">
+                </div>
+                <hr class="d-none d-lg-inline" style="border:none; border-right:1px solid hsla(200, 10%, 50%,100);height:62px;width:1px;">
+                <div class="col-6 col-lg-auto d-flex align-items-end pb-3 pb-lg-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        Exact Amount
+                        </label>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <label class="" for="priceperday">Price Per Day</label>
+                    <input type="number" class="form-control" name="priceperday" min="0" id="priceperday" placeholder="₱00.00">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <label for="type_of_subs">Search Trainer</label>
+                    <select class="form-select" aria-label="Default select example" name="type_of_subs" id="type_of_subs">
+                        <option selected>Open this select menu</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-1 btn-group align-self-end pb-1 py-2" >
+                    <button type="button" class="btn btn-sm btn-success"><i class='bx bx-plus-circle pt-1'></i></button>
+                    <button type="button" class="btn btn-sm btn-danger"><i class='bx bx-minus-circle pt-1'></i></button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <label for="type_of_subs">Program Subscription</label>
+                    <select class="form-select" aria-label="Default select example" name="type_of_subs" id="type_of_subs">
+                        <option selected>Open this select menu</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-1">
+                    <label class="" for="gym_use_total_duration">Days</label>
+                    <input type="number" class="form-control" name="gym_use_total_duration" min="0" id="gym_use_total_duration">
+                </div>
+                <div class="col-12 col-lg-1 btn-group align-self-end pb-3 py-2" >
+                    <button type="button" class="btn btn-sm btn-success"><i class='bx bx-plus-circle pt-1'></i></button>
+                    <button type="button" class="btn btn-sm btn-danger"><i class='bx bx-minus-circle pt-1'></i></button>
+                </div>
+                <hr class="d-none d-lg-inline" style="border:none; border-right:1px solid hsla(200, 10%, 50%,100);height:62px;width:1px;">
+                <div class="col-6 col-lg-auto d-flex align-items-end pb-3 pb-lg-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        Exact Amount
+                        </label>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <label class="" for="priceperday">Price Per Day</label>
+                    <input type="number" class="form-control" name="priceperday" min="0" id="priceperday" placeholder="₱00.00">
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Add Subscription</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 <script>
     function activateSubscription(user_id){
@@ -357,5 +467,15 @@ if(isset($_SESSION['admin_id'])){
             //location.reload();
         }});
     }
+</script>
+<script>
+    $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        "bPaginate": false,
+        responsive: true
+    } );
+ 
+    new $.fn.dataTable.FixedHeader( table );
+} );
 </script>
 </html>
