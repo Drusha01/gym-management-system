@@ -62,7 +62,7 @@ $(document).ready(function () {
     $('table.display').DataTable();
 });
 </script> -->
-<!-- <script>
+<script>
 // setting the default into subscription
 $.ajax({
     type: "GET",
@@ -76,13 +76,17 @@ $.ajax({
             url: 'availtable.php',
             success: function(result)
             {
-                
+
                 $('div.table-1').html(result);
                 dataTable = $("#table-1").DataTable({
                     "dom": '<"top"f>rt<"bottom"lp><"clear">',
                     responsive: true,
                 });
-                
+                $('input#keyword').on('input', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([3]).search(status).draw();
+                })
+
                 new $.fn.dataTable.FixedHeader(dataTable);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -104,30 +108,21 @@ $(".nav-item").on("click", function(){
             url: 'subscription.php',
             success: function(result)
             {
-                
+
                 $('div#tab').html(result);
                 $.ajax({
                     type: "GET",
                     url: 'availtable.php',
                     success: function(result)
                     {
-                        
                         $('div.table-1').html(result);
                         dataTable = $("#table-1").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                            responsive: true,
+                            responsive: true
                         });
                         $('input#keyword').on('input', function(e){
                             var status = $(this).val();
-                            dataTable.columns([2]).search(status).draw();
-                        })
-                        $('select#categoryFilter').on('change', function(e){
-                            var status = $(this).val();
                             dataTable.columns([3]).search(status).draw();
-                        })
-                        $('select#program').on('change', function(e){
-                            var status = $(this).val();
-                            dataTable.columns([4]).search(status).draw();
                         })
                         new $.fn.dataTable.FixedHeader(dataTable);
                     },
@@ -135,22 +130,19 @@ $(".nav-item").on("click", function(){
                         alert("Status: " + textStatus); alert("Error: " + errorThrown); 
                     }
                 });
-                
+
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             }
         });
-        
-        
-        
+
     }else if($(this).attr('id') =='exp'){
         $.ajax({
             type: "GET",
             url: 'expiration.php',
             success: function(result)
             {
-                
                 $('div#tab').html(result);
                 $.ajax({
                     type: "GET",
@@ -164,15 +156,7 @@ $(".nav-item").on("click", function(){
                         });
                         $('input#keyword').on('input', function(e){
                             var status = $(this).val();
-                            dataTable.columns([2]).search(status).draw();
-                        })
-                        $('select#categoryFilter').on('change', function(e){
-                            var status = $(this).val();
                             dataTable.columns([3]).search(status).draw();
-                        })
-                        $('select#program').on('change', function(e){
-                            var status = $(this).val();
-                            dataTable.columns([4]).search(status).draw();
                         })
                         new $.fn.dataTable.FixedHeader(dataTable);
                     },
@@ -188,11 +172,11 @@ $(".nav-item").on("click", function(){
     }else if($(this).attr('id') =='walk'){
 
     }
-           
+
 
 });
 
-</script> -->
+</script>
 <!-- Modal -->
 <div class="modal fade" id="ModalTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
     <div class="modal-dialog modal-dialog-centered modal-xl">

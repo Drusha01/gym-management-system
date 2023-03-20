@@ -68,7 +68,7 @@ if(isset($_SESSION['admin_id'])){
                         echo '<tr id="offer_id_';echo_safe($value['offer_id']); echo'">';
                         echo '<td class="d-lg-none"></td>';
                         echo '<td scope="row" class="text-center d-none d-sm-table-cell">'; echo_safe($counter); echo'</td>';
-                        echo ' <td>'; echo_safe($value['offer_name']); echo '</td>';
+                        echo '<td>'; echo_safe($value['offer_name']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['type_of_subscription_details']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['age_qualification_details']); echo '</td>';
                         echo '<td class="text-center ">';echo_safe($value['offer_duration']); echo '</td>';

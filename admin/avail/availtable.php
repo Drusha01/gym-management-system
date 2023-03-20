@@ -1,66 +1,82 @@
-<table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%">
-<thead class="bg-dark text-light">
-    <tr>
-    <th class="d-lg-none"></th>
-    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-    <th>NAME</th>
-    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-    <th scope="col" class="text-center">DATE SUBSCRIBED</th>
-    <th scope="col" class="text-center">STATUS</th>
-    <th scope="col" class="text-center">ACTION</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-    <th class="d-lg-none"></th>
-    <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-    <td>Trinidad, James Trinidad</td>
-    <td class="text-center ">Gym-Use Subscription</td>
-    <td class="text-center">October 16, 2022</td>
-    <td class="text-center">
-    <select class="form-select-sm" aria-label="Default select example">
-        <option value="1">Paid</option>
-        <option value="2">Pending</option>
-        <option value="3">Partial</option>
-        <option value="4">Unpaid</option>
-        <option value="5">Overdue</option>
-    </select>
-    </td>
-    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
-    </tr>
-    <tr>
-    <th class="d-lg-none"></th>
-    <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-    <td>Nicholas, Shania Gabrielle</td>
-    <td class="text-center ">Trainer Subscription</td>
-    <td class="text-center">October 16, 2022</td>
-    <td class="text-center">
-    <select class="form-select-sm" aria-label="Default select example">
-        <option value="1">Paid</option>
-        <option value="2">Pending</option>
-        <option value="3">Partial</option>
-        <option value="4">Unpaid</option>
-        <option value="5">Overdue</option>
-    </select>
-    </td>
-    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
-    </tr>
-    <tr>
-    <th class="d-lg-none"></th>
-    <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-    <td>Lim, Robbie John</td>
-    <td class="text-center ">Locker Subscription</td>
-    <td class="text-center">October 16, 2022</td>
-    <td class="text-center">
-    <select class="form-select-sm" aria-label="Default select example">
-        <option value="1">Paid</option>
-        <option value="2">Pending</option>
-        <option value="3">Partial</option>
-        <option value="4">Unpaid</option>
-        <option value="5">Overdue</option>
-    </select>
-    </td>
-    <td class="text-center"><button class="btn btn-primary btn-sm px-3">Edit</button> <button class="btn btn-danger btn-sm">Delete</button></td>
-    </tr>
-</tbody>
+<table id="table-1" class="table table-bordered table-striped display" style="width:100%;border: 3px solid black;">
+    <thead class="table-dark ">
+        <tr>
+        <th class="d-lg-none d-sm-none"></th>
+        <th class="text-center align-middle d-none d-sm-table-cell">#</th>
+        <th class="text-center align-middle">USERNAME</th>
+        <th class="text-center align-middle">FULL NAME</th>
+        <th class="text-center">Gym-Use</th>
+        <th class="text-center">Trainer</th>
+        <th class="text-center">Locker</th>
+        <th class="text-center">Program</th>
+        <th class="text-center align-middle">ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            require_once '../../classes/subscriptions.class.php';
+
+            $subscriptionsObj = new subscriptions();
+
+            $counter =1;
+            if($list_of_ActiveOrPeding_users = $subscriptionsObj->fetchAllActiveOrPendingSubscriptions('Active','Pending','','','')){
+                foreach ($list_of_ActiveOrPeding_users as $key => $value) {
+                    echo '<tr>';
+                    echo '<td class="d-lg-none d-sm-none"></td>';
+                    echo '<td class="text-center d-none d-sm-table-cell">'.$counter.'</td>';
+                    echo '<td class="text-center">'.htmlentities($value['user_name']).'</td>';
+                    echo '<td class="text-center">'.htmlentities($value['user_fullname']).'</td>';
+
+                    $gym_sub = false;
+                    $locker_sub =false;
+                    $trainer_sub = false;
+                    $program_sub = false;
+                    if($user_subscription_data = $subscriptionsObj->fetchAllSubscriptionPerUser_id('Active','Pending','','','',$value['subscription_subscriber_user_id'])){
+                        $gym_sub_total = 0;
+                        $locker_sub_total = 0;
+                        $trainer_sub_total = 0;
+                        $program_sub_total = 0;
+                        foreach ($user_subscription_data as $key => $user_subscription_data_value) {
+                            if($user_subscription_data_value['type_of_subscription_details'] =='Gym Subscription'){
+                                $gym_sub = true ;
+                                $gym_sub_total += $user_subscription_data_value['subscription_quantity'];
+                            }elseif($user_subscription_data_value['type_of_subscription_details'] =='Locker Subscription'){
+                                $locker_sub = true ;
+                                $locker_sub_total += $user_subscription_data_value['subscription_quantity'];
+                            }elseif($user_subscription_data_value['type_of_subscription_details'] =='Trainer Subscription'){
+                                $trainer_sub = true ;
+                                $trainer_sub_total += $user_subscription_data_value['subscription_quantity'];
+                            }elseif($user_subscription_data_value['type_of_subscription_details'] =='Program Subscription'){
+                                $program_sub = true ;
+                                $program_sub_total += $user_subscription_data_value['subscription_quantity'];
+                            }
+                        }
+                    }
+                    if(($gym_sub)){
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$gym_sub_total.')').'</td>';
+                    }else{
+                        echo '<td class="text-center">None</td>';
+                    }
+                    if(($trainer_sub)){
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$trainer_sub_total.')').'</td>';
+                    }else{
+                        echo '<td class="text-center">None</td>';
+                    }
+                    if(($locker_sub)){
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$locker_sub_total.')').'</td>';
+                    }else{
+                        echo '<td class="text-center">None</td>';
+                    }
+                    if(($program_sub)){
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$program_sub_total.')').'</td>';
+                    }else{
+                        echo '<td class="text-center">None</td>';
+                    }
+                    echo ' <td class="text-center"><a href="activate.php?user_id='.($value['subscription_subscriber_user_id']).'" class="btn btn-primary btn-sm" role="button">Manage</a>  </td>';
+                    echo '</tr>';
+                    $counter++;
+                }
+            }
+        ?>
+    </tbody>
 </table>
