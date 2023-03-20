@@ -107,7 +107,7 @@ if(isset($_SESSION['user_id'])){
                                     <label class="fw-bold pb-2 ps-1">Gym-Use Subscription</label>
                                     <select class="form-select" aria-label="Default select example" name="gym_subscription" id="gym_use" onchange="updateGymUseModal()">
                                     <option value="0" name=""selected >Select Gym subscription</option>
-                                        <?php 
+                                        <?php
                                             // requre
                                             require_once '../classes/offers.class.php';
                                             require_once '../tools/functions.php';
@@ -264,7 +264,7 @@ if(isset($_SESSION['user_id'])){
                                 <div class="trainers">
                                     
                                     <!-- <div class="row">
-                                        <div class="col-10 col-lg-6 ">
+                                        <div class="col-10 col-lg-6 pb-2">
                                             <label class="fw-bold pb-2 ps-1">Search Trainer</label>
                                             <select class="form-select" aria-label="Default select example" onchange="trainer_selected_changed()">
                                             <option value="None" selected>Open this select menu</option>
@@ -288,9 +288,9 @@ if(isset($_SESSION['user_id'])){
                                             <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button>
                                         </div>
 
-                                        <div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" >
-                                            <button type="button" class="btn btn-success" onclick="add_newTrainer()"><i class='bx bx-plus-circle'></i></button>
-                                            <button type="button" class="btn btn-danger"><i class='bx bx-minus-circle'></i></button>
+                                        <div class="col-12 col-lg-1 btn-group align-self-end pb-2 py-2" >
+                                            <button type="button" class="btn btn-sm btn-success" onclick="add_newTrainer()"><i class='bx bx-plus-circle'></i></button>
+                                            <button type="button" class="btn btn-sm btn-danger"><i class='bx bx-minus-circle'></i></button>
                                         </div>
                                     </div> -->
                                 </div>
@@ -334,7 +334,7 @@ if(isset($_SESSION['user_id'])){
                                             <label class="fw-bold pb-2 ps-1">Days</label>
                                             <input type="number" class="form-control" name="program-total-duration-0" id="program-total-duration-0" onchange="program_use_total_durationChange(0)">
                                         </div>
-                                        <div class="col-12 col-lg-1 btn-group h-25 align-self-end pt-3" id="button-div-0">
+                                        <div class="col-12 col-lg-1 btn-group h-25 align-self-end pb-2" id="button-div-0">
                                             
                                         </div>
                                     </div>
@@ -998,7 +998,7 @@ function trainer_selected_changed(selected_id){
     var selectedVal = $('#select-trainer-'+selected_id).val();
     
     if(selectedVal != 'None'){
-        $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button>');
+        $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-sm btn-success" onclick="add_newTrainer('+selected_id+')"><i class="bx bx-plus-circle"></i></button>');
     }
     
     console.log(trainers_id);
@@ -1025,7 +1025,7 @@ function add_newTrainer(selected_id){
     console.log('add new trainer');
     console.log(trainers_list);
     var selectedVal = $('#select-trainer-'+selected_id).val();
-    // $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
+    // $('#button-trainer-'+selected_id).html('<button type="button" class="btn btn-sm btn-danger" onclick="deleteTrainer('+selected_id+')"><i class="bx bx-minus-circle"></i></button>');
     $('#button-trainer-'+selected_id).html('');
 
     var valid =true;
@@ -1041,7 +1041,7 @@ function add_newTrainer(selected_id){
             console.log(element)
             trainers_id.push(element);
             // add to the list
-            $('#trainer_list_ul').append('<li id="trainer_id_'+element.trainer_id+'"><button type="button" class="btn btn-danger" onclick="deleteTrainer('+element.trainer_id+')"><i class="bx bx-minus-circle"></i></button> '+element.user_fullname+' </li>');
+            $('#trainer_list_ul').append('<li id="trainer_id_'+element.trainer_id+'"><button type="button" class="btn btn-sm btn-danger" onclick="deleteTrainer('+element.trainer_id+')"><i class="bx bx-minus-circle"></i></button> '+element.user_fullname+' </li>');
             $('#select-trainer-'+selected_id).val('None');
         }
     });
@@ -1050,7 +1050,7 @@ function add_newTrainer(selected_id){
     
     if(trainers_quantity <10){
         trainers_quantity = 100;;
-        $('.trainers').append('<div class="row" id=trainer><div class="col-10 col-lg-6 "><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_quantity)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_quantity)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end py-3 py-lg-0" id="button-trainer-'+(trainers_quantity)+'"></div></div> ');
+        $('.trainers').append('<div class="row" id=trainer><div class="col-10 col-lg-6 pb-2"><label class="fw-bold pb-2 ps-1">Search Trainer</label><select class="form-select" id="select-trainer-'+(trainers_quantity)+'" aria-label="Default select example" onchange="trainer_selected_changed('+(trainers_quantity)+')"><option value="None" selected>Open this select menu</option></select></div><div class="col-1 align-self-end mb-1 mb-lg-2"><button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button></div><div class="col-12 col-lg-1 btn-group align-self-end pb-2" id="button-trainer-'+(trainers_quantity)+'"></div></div> ');
         trainers_list2.forEach(element => {
             $('#select-trainer-'+(trainers_quantity)).append('<option value="'+element.trainer_id+'" >'+element.user_fullname+'</option>');
         });
@@ -1086,7 +1086,7 @@ function updateProgramUseModal(selected_id){
                     program_duration = element.offer_duration;
                     program_multiplier = 1;
                     $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier)
-                    $('#button-div-0').html('<button type="button" class="btn btn-success" onclick="addNewProgram('+element.offer_id+')"><i class="bx bx-plus-circle"></i></button>');
+                    $('#button-div-0').html('<button type="button" class="btn btn-sm btn-success" onclick="addNewProgram('+element.offer_id+')"><i class="bx bx-plus-circle"></i></button>');
                 }
             });
         }else{
@@ -1119,7 +1119,7 @@ function addNewProgram(selected_id){
             console.log(element);
             programs_use_id.push(element);
             programs_multiplier.push({duration:$('#program-total-duration-0').val()});
-            $('#program_list_ul').append('<li id="program_id_'+element.offer_id+'"><button type="button" class="btn btn-danger" onclick="deleteProgram('+element.offer_id+')"><i class="bx bx-minus-circle"></i></button> '+$('#program-use-'+selected_id).html()+' DURATION ('+$('#program-total-duration-0').val()+') </li>')
+            $('#program_list_ul').append('<li id="program_id_'+element.offer_id+'"><button type="button" class="btn btn-sm btn-danger" onclick="deleteProgram('+element.offer_id+')"><i class="bx bx-minus-circle"></i></button> '+$('#program-use-'+selected_id).html()+' DURATION ('+$('#program-total-duration-0').val()+') </li>')
 
         }
     });
