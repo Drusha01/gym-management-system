@@ -62,7 +62,7 @@
   var myChart5 = new Chart(ctx5, {
       type: "pie",
       data: {
-          labels: ["Registered", "Verified"],
+          labels: ["Not Verified", "Verified"],
           datasets: [{
               backgroundColor: [
                   "rgba(253, 208, 35, .7)",

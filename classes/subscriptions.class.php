@@ -268,6 +268,33 @@ class subscriptions
             return false;
         }
     }
+
+    function update_percentage_discount($subscription_id,$subscription_discount_percentage){
+        try{
+            $sql = 'UPDATE subscriptions
+            SET  subscription_discount= (subscription_quantity* subscription_price * (subscription_total_duration / subscription_duration )) *  :subscription_discount_percentage
+            WHERE subscription_id = :subscription_id ; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_discount_percentage', $subscription_discount_percentage);
+            $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function update_fixed_discount($subscription_id,$subscription_fixed_discount){
+        try{
+            $sql = 'UPDATE subscriptions
+            SET  subscription_discount= if(:subscription_fixed_discount>(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),:subscription_fixed_discount)
+            WHERE subscription_id = :subscription_id; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_fixed_discount', $subscription_fixed_discount);
+            $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
    
 }
 

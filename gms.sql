@@ -193,6 +193,10 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     
 );
 
+-- dashboard accounts count
+SELECT count(user_email_verified) as verified,count(*)-count(user_email_verified)  as not_verified FROM users;
+
+
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
 user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
@@ -1525,6 +1529,15 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE  subscription_status_details = 'Active'
 ;
 
+-- update percent discount
+UPDATE subscriptions
+SET  subscription_discount=(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration ))*.10
+WHERE subscription_id = 1;
+
+-- update fixed discount
+UPDATE subscriptions
+SET  subscription_discount= if(3000>(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),3000)
+WHERE subscription_id = 1;
 SELECT * FROM subscriptions;
 
 SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending';
