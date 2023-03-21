@@ -68,7 +68,7 @@ if(isset($_SESSION['admin_id'])){
                         </div>
                     </div>
                     <div class="col-12 col-lg-1 d-grid d-lg-flex justify-content-lg-end">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpayment">Confirm Payment</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpayment" id="confirm_payment_modal">Confirm Payment</button>
                     </div>
                 </div>
                 
@@ -244,11 +244,12 @@ if(isset($_SESSION['admin_id'])){
         <br>
         <div class="form-group pt-1">
             <label for="pass">Password:</label>
-            <input type="password" class="form-control" id="pass">
+            <input type="password" class="form-control" name ="admin_user_password"id="admin_user_password" value="">
+            <input type="number" class="form-control" name="customer_user_id" id="customer_user_id" value="<?php echo $_GET['user_id'];?>" style="visibility:hidden;">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-success" id="confirm_payment" data-bs-dismiss="modal" >Confirm</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -423,5 +424,26 @@ $('#editfixeddisc').change(function (){
 
 $('#editfixedpercent').change(function (){
   $('#editfixeddisc').val('')
+});
+
+$('#confirm_payment_modal').click(function (){
+  $('#admin_user_password').val('');
+  console.log('notnice');
+});
+
+$('#confirm_payment').click(function (){
+  console.log($('#admin_user_password').val());
+  $.post("full_payment.php",
+  {
+    password: $('#admin_user_password').val(),
+    user_id: $('#customer_user_id').val()
+  },
+  function(data, status){
+    if(data ==1){
+      location.reload();
+    }else{
+      alert('Wrong password / Error');
+    }
+  });
 });
 </script>

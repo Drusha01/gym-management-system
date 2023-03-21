@@ -24,9 +24,13 @@
             if($payments_data = $subscriptionsObj->fetch_active_subs_payment($value['subscription_subscriber_user_id'])){
                 $amount =0;
                 $paid_amount = 0;
+                $discount =0;
+                $payment_due=0;
                 foreach ($payments_data as $key => $payments_value) {
                     $amount += ($payments_value['subscription_price']*$payments_value['subscription_quantity']*($payments_value['subscription_total_duration']/$payments_value['subscription_duration']))+$payments_value['subscription_penalty_due'];
                     $paid_amount +=$payments_value['subscription_paid_amount'];
+                    $discount +=$payments_value['subscription_discount'];
+                    $payment_due +=$payments_value['subscription_penalty_due'];
                 }
             }
             echo'
@@ -36,7 +40,7 @@
             <td class="text-center">'.htmlentities($value['user_fullname']).'</td>
             <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
             <td class="text-center">₱'.htmlentities(number_format($paid_amount,2)).'</td>
-            <td class="text-center">₱'.htmlentities(number_format($amount -$paid_amount,2)).'</td>
+            <td class="text-center">₱'.htmlentities(number_format($amount -$paid_amount-$discount+$payment_due,2)).'</td>
             <td class="text-center"><a href="viewpayment.php?user_id='.htmlentities($value['subscription_subscriber_user_id']).'&name='.htmlentities($value['user_fullname']).'" class="btn btn-success btn-sm" role="button">View Payment</a></td>';
             echo '</tr>';
             $counter++;

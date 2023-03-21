@@ -1371,6 +1371,26 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
+-- number of lockers
+CREATE TABLE number_of_lockers(
+	locker_id int primary key auto_increment ,
+    locker_number int not null
+);
+
+INSERT INTO  number_of_lockers VALUES
+(
+	null,
+    45
+);
+
+UPDATE number_of_lockers
+SET locker_number = 3
+WHERE locker_id =1;
+
+
+SELECT locker_id,locker_number FROM number_of_lockers
+WHERE locker_id =1;
+
 
 CREATE TABLE subscriber_trainers(
 	subscriber_trainers_id int primary key auto_increment ,
@@ -1413,6 +1433,18 @@ WHERE subscriber_trainers_trainer_id = 3 AND subscription_status_id = (SELECT su
 
 -- payment
 
+-- dashboard Recent Customers Subscribed
+SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_start_date FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
+WHERE subscription_status_details = 'Active' 
+ORDER BY subscription_start_date DESC 
+LIMIT 5;
+
+-- dashboard Recent Customers Subscribed
+SELECT count(*) as total FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscription_status_details = 'Active' AND subscription_subscriber_user_id = 7;
 
 
 SELECT * FROM subscriber_trainers
@@ -1486,6 +1518,9 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Program Subscription'
 ;
 
+-- dashboard accounts
+SELECT count(*) - count(user_email_verified) as not_verified,count(user_email_verified) as verified FROM users;
+
 
 -- payment 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
@@ -1494,6 +1529,11 @@ LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_i
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
 WHERE  (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
 ;
+
+-- full payment
+UPDATE subscriptions 
+SET subscription_paid_amount =  ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due)
+WHERE subscription_id = 9;
 
 -- payment
 

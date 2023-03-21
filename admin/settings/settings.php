@@ -143,7 +143,30 @@ if(isset($_SESSION['admin_id'])){
                 <input type="number" class="form-control" value="" id="offer_name" name="offer_name"placeholder="30" required>
             </div>
         </div>
+        <br>
         <!-- end of second aprt -->
+        <h5 class="col-12 fw-regular ">Lockers</h5>
+        <hr>
+        <div class="row">
+            <div class="col-lg-2">
+                Enter Number of Lockers
+            </div>
+            <div class="col-lg-1 pt-2">
+                <?php 
+                    require_once('../../classes/number_of_lockers.class.php');
+                    $number_of_lockersObj = new number_of_lockers();
+
+                    $number_of_lockersObj->get_number_of_lockers();
+
+                    if($number_of_lockers_data = $number_of_lockersObj->get_number_of_lockers()){
+                        echo '<input type="number" class="form-control" value="" id="locker_number" name="locker_number"placeholder="'.$number_of_lockers_data['locker_number'].'" required>';
+                    }else{
+                        echo '<input type="number" class="form-control" value="" id="locker_number" name="locker_number"placeholder="0" required>';
+                    }
+                ?>
+                
+            </div>
+        </div>
 
         <br>
         <!-- 2nd part -->
@@ -231,6 +254,19 @@ if(isset($_SESSION['admin_id'])){
             location.reload();
         }});
     }
+
+    $('#locker_number').change(function(){
+        $.ajax({url: 'update_locker_number.php?number_of_locker='+$('#locker_number').val(), 
+            success: function(result){
+                console.log(result);
+                if(result ==1){
+                    alert('successfully change number of lockers');
+                }else{
+                    alert('error change')
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

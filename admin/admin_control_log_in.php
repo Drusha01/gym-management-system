@@ -23,7 +23,7 @@ if(isset($_SESSION['admin_id'])){
 
   if(isset($_POST['admin_login']) && isset($_POST['admin_password']) && strlen($_POST['admin_login']) >= 6 && strlen($_POST['admin_password']) >= 12){
     // admin class instance
-    $adminObj = new admins;
+    $adminObj = new admins();
     if($admin_data = $adminObj->login_admin($_POST['admin_login'],$_POST['admin_login'])){
       if (password_verify($_POST['admin_password'], $admin_data['user_password_hashed'])) {
         // get user details and set it as admin
