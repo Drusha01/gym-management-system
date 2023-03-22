@@ -193,6 +193,10 @@ user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename
     
 );
 
+-- dashboard accounts count
+SELECT count(user_email_verified) as verified,count(*)-count(user_email_verified)  as not_verified FROM users;
+
+
 INSERT INTO users (user_id,user_status_id,user_type_id,user_gender_id,user_phone_country_code_id,user_phone_number,user_email,user_email_verified,
 user_name,user_name_verified,user_password_hashed,user_firstname,user_middlename,user_lastname,user_address,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated) VALUES(
 	null,
@@ -823,12 +827,6 @@ INSERT INTO type_of_subscriptions VALUES
 ),(
 	null,
     'Program Subscription'
-),(
-	null,
-    'Walk-In Gym Subscription'
-),(
-	null,
-    'Walk-In Trainer Subscription'
 );
 
 SELECT * from type_of_subscriptions;
@@ -983,30 +981,30 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 );
 
-INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description)VALUES
-(
-	null,
-    'Walk-In Gym-Use',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details=  'Walk-In Gym Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
-    1,
-    'None',
-    100.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-),(
-	null,
-    'Walk-In Trainer-Use',
-    (SELECT status_id FROM statuses WHERE status_details= 'active'),
-    (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details=  'Walk-In Trainer Subscription'),
-    (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
-    1,
-    'None',
-    150.00,
-    'offer_default.jpg',
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-);
+-- INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description)VALUES
+-- (
+-- 	null,
+--     'Walk-In Gym-Use',
+--     (SELECT status_id FROM statuses WHERE status_details= 'active'),
+--     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details=  'Walk-In Gym Subscription'),
+--     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
+--     1,
+--     'None',
+--     100.00,
+--     'offer_default.jpg',
+--     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+-- ),(
+-- 	null,
+--     'Walk-In Trainer-Use',
+--     (SELECT status_id FROM statuses WHERE status_details= 'active'),
+--     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details=  'Walk-In Trainer Subscription'),
+--     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
+--     1,
+--     'None',
+--     150.00,
+--     'offer_default.jpg',
+--     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+-- );
 
 INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description)VALUES
 (
@@ -1078,7 +1076,7 @@ offer_age_qualification_id  = (SELECT age_qualification_id FROM age_qualificatio
 offer_duration ='60',
 offer_slots = 'None',
 offer_price = 1000
-WHERE offer_id =1;
+WHERE offer_id =0;
  -- count offers
 SELECT COUNT(*) FROM offers;
 
@@ -1367,6 +1365,26 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
+-- number of lockers
+CREATE TABLE number_of_lockers(
+	locker_id int primary key auto_increment ,
+    locker_number int not null
+);
+
+INSERT INTO  number_of_lockers VALUES
+(
+	null,
+    45
+);
+
+UPDATE number_of_lockers
+SET locker_number = 3
+WHERE locker_id =1;
+
+
+SELECT locker_id,locker_number FROM number_of_lockers
+WHERE locker_id =1;
+
 
 CREATE TABLE subscriber_trainers(
 	subscriber_trainers_id int primary key auto_increment ,
@@ -1379,19 +1397,173 @@ CREATE TABLE subscriber_trainers(
 );
 
 
-insert into subscriber_trainers VALUES
+
+
+
+CREATE TABLE walk_in_services(
+	walk_in_service_id int primary key auto_increment,
+    walk_in_service_details varchar(50) unique
+);
+
+
+INSERT INTO walk_in_services VALUES
 (
 	null,
-    7,
-    2,
-    22
+    'Gym-Use'
+),(
+	null,
+   'Gym-Use and Trainer'
 );
+
+
+INSERT INTO walk_in_services VALUES(
+	null,
+   'Walk-In Trainer'
+);
+
+CREATE TABLE walk_in_prices(
+	walk_in_price_id int primary key auto_increment,
+    walk_in_service_id int not null unique,
+    walk_in_service_price float not null,
+    FOREIGN KEY (walk_in_service_id) REFERENCES walk_in_services(walk_in_service_id)
+);
+
+
+INSERT INTO walk_in_prices VALUES
+(	
+	null,
+    (SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Gym-Use'),
+    '100'
+),(	
+	null,
+    (SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Gym-Use and Trainer'),
+    '150'
+);
+
+INSERT INTO walk_in_prices VALUES
+(	
+	null,
+    (SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Walk-In Trainer'),
+    '100'
+);
+
+UPDATE walk_in_prices
+SET walk_in_service_price = 150
+WHERE walk_in_service_id = (SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Walk-In Trainer');
+
+SELECT * FROM walk_in_prices;
+SELECT walk_in_price_id, walk_in_service_details, walk_in_service_price FROM walk_in_prices 
+LEFT OUTER JOIN walk_in_services ON walk_in_prices.walk_in_service_id=walk_in_services.walk_in_service_id
+WHERE walk_in_service_details = 'Gym-Use';
+
+SELECT walk_in_price_id, walk_in_service_details, walk_in_service_price FROM walk_in_prices 
+LEFT OUTER JOIN walk_in_services ON walk_in_prices.walk_in_service_id=walk_in_services.walk_in_service_id;
+
+
+CREATE TABLE walk_ins(
+	walk_in_id int primary key auto_increment ,
+    walk_in_user_id int not null,
+    walk_in_trainer_id int ,
+    walk_in_service_id int not null,
+    walk_in_price float not null,
+    walk_in_date datetime default now(),
+    FOREIGN KEY (walk_in_service_id) REFERENCES walk_in_services(walk_in_service_id),
+    FOREIGN KEY (walk_in_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (walk_in_trainer_id) REFERENCES trainers(trainer_id)
+);
+
+INSERT INTO walk_ins (walk_in_id, walk_in_user_id, walk_in_trainer_id, walk_in_service_id, walk_in_price)VALUES
+(
+	null,
+    8,
+    null,
+    (SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Gym-Use and Trainer'),
+    (SELECT walk_in_service_price FROM walk_in_prices WHERE walk_in_service_id =(SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Gym-Use'))+
+    (SELECT walk_in_service_price FROM walk_in_prices WHERE walk_in_service_id =(SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Walk-In Trainer'))
+);
+
+use gms;
+
+-- walkintable
+SELECT walk_in_id,CONCAT(u.user_lastname,", ",u.user_firstname," ",u.user_middlename) AS user_fullname, walk_in_service_details, walk_in_date,CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS trainer_fullname FROM walk_ins
+LEFT OUTER JOIN users as u ON walk_ins.walk_in_user_id=u.user_id
+LEFT OUTER JOIN walk_in_services ON walk_ins.walk_in_service_id=walk_in_services.walk_in_service_id
+LEFT OUTER JOIN trainers ON walk_ins.walk_in_trainer_id=trainers.trainer_id
+LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
+ORDER BY walk_in_date ASC
+;
+
+
+
+-- walk in table
+
+--  subscription insert
+-- INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, subscription_status_id, subscription_start_date)VALUES (
+-- 	null,
+-- 	:subscription_quantity,
+-- 	:subscription_subscriber_user_id,
+-- 	:subscription_offer_name,
+-- 	:type_of_subscription_id,
+-- 	:subscription_duration,
+-- 	:subscription_price,
+-- 	:subscription_total_duration,
+-- 	(SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"),
+-- 	NOW()
+-- );
+
+-- INSERT INTO subscriptions (subscription_id, subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id, subscription_duration, subscription_price, subscription_total_duration, subscription_status_id, subscription_start_date)VALUES (
+-- 	null,
+-- 	:subscription_quantity,
+-- 	:subscription_subscriber_user_id,
+-- 	:subscription_offer_name,
+-- 	:type_of_subscription_id,
+-- 	:subscription_duration,
+-- 	:subscription_price,
+-- 	:subscription_total_duration,
+-- 	(SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"),
+-- 	NOW()
+-- );
+            
+            
+-- To Train For Today
+SELECT  CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname FROM subscriber_trainers 
+LEFT OUTER JOIN users ON subscriber_trainers.subscriber_trainers_subscriber_id=users.user_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE subscriber_trainers_trainer_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+
+-- To Train For Today full details
+SELECT  CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, user_gender_details, user_birthdate FROM subscriber_trainers 
+LEFT OUTER JOIN users ON subscriber_trainers.subscriber_trainers_subscriber_id=users.user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE subscriber_trainers_trainer_id = 4 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+
+-- Total Person Who Availed
+SELECT  user_gender_details FROM subscriber_trainers 
+LEFT OUTER JOIN users ON subscriber_trainers.subscriber_trainers_subscriber_id=users.user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE subscriber_trainers_trainer_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active') ;
 
 -- payment
 
+-- dashboard Recent Customers Subscribed
+SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_start_date FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
+WHERE subscription_status_details = 'Active' 
+ORDER BY subscription_start_date DESC 
+LIMIT 5;
+
+-- dashboard Recent Customers Subscribed
+SELECT count(*) as total FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscription_status_details = 'Active' AND subscription_subscriber_user_id = 7;
 
 
-SELECT * FROM subscriber_trainers;
+SELECT * FROM subscriber_trainers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE  subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active') ;
 -- trainer info
 SELECT trainer_id,user_firstname,user_middlename,user_lastname,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_profile_picture,user_birthdate,user_gender_details,trainer_availability_details FROM subscriber_trainers
 LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
@@ -1399,7 +1571,7 @@ LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
 LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
-WHERE subscriber_trainers_subscriber_id = 7 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+WHERE subscriber_trainers_subscriber_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
 ;
 
 -- activation / making it active
@@ -1422,7 +1594,7 @@ LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.use
 WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
 ORDER BY user_fullname
 ;
-(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha04');
+(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha01');
 
 -- pending and active of customer
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
@@ -1460,23 +1632,9 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Program Subscription'
 ;
 
-    'Gym Subscription'
-),(
-	null,
-    'Trainer Subscription'
-),(
-	null,
-    'Locker Subscription'
-),(
-	null,
-    'Program Subscription'
-),(
-	null,
-    'Walk-In Gym Subscription'
-),(
-	null,
-    'Walk-In Trainer Subscription'
-);
+-- dashboard accounts
+SELECT count(*) - count(user_email_verified) as not_verified,count(user_email_verified) as verified FROM users;
+
 
 -- payment 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
@@ -1485,6 +1643,13 @@ LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_i
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
 WHERE  (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
 ;
+
+-- full payment
+UPDATE subscriptions 
+SET subscription_paid_amount =  ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due)
+WHERE subscription_id = 9;
+
+-- payment
 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration,subscription_status_details, 
 subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
@@ -1518,6 +1683,16 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE  subscription_status_details = 'Active'
 ;
 
+
+-- update percent discount
+UPDATE subscriptions
+SET  subscription_discount=(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration ))*.10
+WHERE subscription_id = 1;
+
+-- update fixed discount
+UPDATE subscriptions
+SET  subscription_discount= if(3000>(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),3000)
+WHERE subscription_id = 1;
 SELECT * FROM subscriptions;
 
 SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending';
@@ -1538,9 +1713,10 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE  subscription_status_details = 'Active' AND subscription_type_of_subscription_details = 'Gym Subscription'
 ;
 
+
 DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
 
-(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
+(SELECT user_id FROM users WHERE user_name = BINARY 'RobRoche');
 
 SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
 

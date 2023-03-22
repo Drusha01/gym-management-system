@@ -18,18 +18,22 @@ if(isset($_SESSION['admin_id'])){
         
         if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
             // query the user information with id
-            if(isset($_GET['user_id'])){
+            require_once('../../classes/walk_ins.class.php');
+            $walk_insObj = new walk_ins();
+            if(isset($_POST['user_id']) && isset($_POST['trainer_id'])){
                 // 
-                require_once '../../classes/subscriptions.class.php';
-
-                $subscriptionsObj = new subscriptions();
-
-                if($subscriptionsObj->delete_active_subscription($_GET['user_id'])){
+                
+                if($walk_insObj->insert_gym_and_trainer_walk_in($_POST['user_id'],$_POST['trainer_id'])){
                     echo '1';
                 }else{
                     echo '0';
                 }
-
+            }else if(isset($_POST['user_id'])){
+                if($walk_insObj->insert_gym_walk_in($_POST['user_id'])){
+                    echo '1';
+                }else{
+                    echo '0';
+                }
             }else{
                 header('location:account.php');
             }

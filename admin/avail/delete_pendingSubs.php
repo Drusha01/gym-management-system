@@ -34,7 +34,7 @@ if(isset($_SESSION['admin_id'])){
                 header('location:account.php');
             }
         }elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
-            header('location:account.php');
+            header('location:avail.php');
         }else{
             //do not load the page
             header('location:../dashboard/dashboard.php');
