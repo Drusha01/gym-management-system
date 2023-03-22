@@ -12,29 +12,23 @@ if(isset($_SESSION['user_id'])){
 
 
 if(isset($_SESSION['admin_id'])){
-    // check admin user details
-    if($_SESSION['admin_user_status_details'] == 'active'){
-        // do nothing
-        if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Modify'){
-            if(isset($_GET['user_id'])&& isset($_GET['name'])){
-                require_once('../../classes/subscriptions.class.php');
-                $subscriptionsObj = new subscriptions();
-                
+  // check admin user details
+  if($_SESSION['admin_user_status_details'] == 'active'){
+    // do nothing
+    if(isset($_GET['user_id'])&& isset($_GET['name'])){
+      require_once('../../classes/subscriptions.class.php');
+      $subscriptionsObj = new subscriptions();
+      
 
-                if(!$payments_data = $subscriptionsObj->fetch_active_subs_payment($_GET['user_id'])){
-                  header('location:payment.php');
-                }
-            }
-        }else if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Read-Only'){
-                  
-        }else{
-            header('location:../dashboard/dashboard.php');
-        }
-    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
-        // do this
-    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
-        // go to deleted user page
+      if(!$payments_data = $subscriptionsObj->fetch_active_subs_payment($_GET['user_id'])){
+        header('location:payment.php');
+      }
     }
+  }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+      // do this
+  }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+      // go to deleted user page
+  }
 
 }else{
     // go to admin login
@@ -155,17 +149,17 @@ if(isset($_SESSION['admin_id'])){
                         <label for="partialfixed" class="text-nowrap pe-3">Partial Fixed</label>
                     </div>
                     <div class="col-6 col-lg-3 d-flex align-items-center">
-                        <input type="number" class="form-control" id="partialfixed" placeholder="₱00.00">
+                        <input type="number" class="form-control" id="partial_payment_fixed" placeholder="₱00.00" min="0" >
                     </div>
                     <div class="col-6 col-lg-1 d-flex align-items-center pt-3 pt-lg-0">
                         <label for="partialpercent" class=" pe-3">Partial Percentage</label>
                     </div>
                     <div class="col-6 col-lg-3 d-flex align-items-center pt-3 pt-lg-0">
-                        <input type="number" class="form-control" id="partialpercent" placeholder="00%">
+                        <input type="number" class="form-control" id="partial_payment_percent" placeholder="00%" min="0" max="100.00">
                     </div>
                     
                     <div class="col-12 col-lg-2 d-grid d-lg-inline pt-3 pt-lg-1">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpartial">Confirm</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"  id="partial_confirm">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -187,7 +181,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     
                     <div class="col-12 col-lg-2 d-grid d-lg-inline pt-3 pt-lg-1">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmvoid">Confirm</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmvoid" >Confirm</button>
                     </div>
                 </div>
             </div>
@@ -202,15 +196,15 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        User: Drusha01
+        User: <?php echo htmlentities($_SESSION['admin_user_name']);?>
         <br>
         <div class="form-group pt-1">
             <label for="pass">Password:</label>
-            <input type="password" class="form-control" id="pass">
+            <input type="password" class="form-control" id="partial_pass">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="confirm_partial_payment">Confirm</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -280,7 +274,7 @@ if(isset($_SESSION['admin_id'])){
                     <label for="fixedpercent" class=" pe-3">Percent</label>
                 </div>
                 <div class="col-6 col-lg-3 d-flex align-items-center pt-3 pt-lg-0">
-                    <input type="number" class="form-control" id="fixedpercent" placeholder="00%" min="0">
+                    <input type="number" class="form-control" id="fixedpercent" placeholder="00%" min="0" max="100.00">
                 </div>
             </div>
       </div>
@@ -449,6 +443,68 @@ $('#confirm_payment').click(function (){
       location.reload();
     }else{
       alert('Wrong password / Error');
+    }
+  });
+});
+
+
+$('#partial_payment_fixed').change(function (){
+  $('#partial_payment_percent').val('');
+  if($('#partial_payment_fixed').val()>0){
+    $('#partial_confirm').attr('data-bs-target','#confirmpartial');
+  }else{
+    $('#partial_confirm').attr('data-bs-target','');
+  }
+ 
+});
+
+$('#partial_payment_percent').change(function (){
+  $('#partial_payment_fixed').val('');
+  if($('#partial_payment_percent').val()>0){
+    $('#partial_confirm').attr('data-bs-target','#confirmpartial');
+  }else{
+    $('#partial_confirm').attr('data-bs-target','');
+  }
+  if($('#partial_payment_percent').val()>100){
+    $('#partial_payment_percent').val(100);
+  }
+});
+
+$('#partial_confirm').click(function (){
+  $('#partial_confirm').attr('data-bs-target','');
+  if($('#partial_payment_percent').val()>0){
+    $('#partial_confirm').attr('data-bs-target','#confirmpartial');
+  }else if($('#partial_payment_fixed').val()>0){
+    $('#partial_confirm').attr('data-bs-target','#confirmpartial');
+  }else{
+    alert('please input partial payment');
+  }
+});
+
+$('#confirm_partial_payment').click(function (){
+  var type;
+  var partial_payment;
+  if($('#partial_payment_percent').val()>0){
+    type = 'partial_payment_percent';
+    partial_payment = $('#partial_payment_percent').val();
+  }else if($('#partial_payment_fixed').val()>0){
+    type = 'partial_payment_fixed';
+    partial_payment = $('#partial_payment_fixed').val();
+  }
+  $.post("partial_payment.php",
+  {
+    
+    password: $('#partial_pass').val(),
+    user_id: $('#customer_user_id').val(),
+    type:type,
+    partial_payment:partial_payment
+  },
+  function(data, status){
+    console.log(data);
+    if(data ==1){
+     // location.reload();
+    }else{
+      //alert('Wrong password / Error');
     }
   });
 });

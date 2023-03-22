@@ -14,7 +14,7 @@
                 <tr>
                     <th class="d-lg-none"></th>
                     <th class="text-center">#</th>
-                    <th class="text-uppercase">Payment Description</th>
+                    <th class="text-center text-uppercase">Payment Description</th>
                     <th class="text-center text-uppercase">Amount</th>
                     <th class="text-center text-uppercase">Discount</th>
                     <th class="text-center text-uppercase">Penalties Due</th>
@@ -40,12 +40,17 @@
                 echo '<tr>
                 <td class="d-lg-none"></td>
                 <td class="text-center">'.htmlentities($counter).'</td>
-                <td class="">'.htmlentities($value['subscription_offer_name']).'</td>
+                <td class="text-center">'.htmlentities($value['subscription_offer_name']).'</td>
                 <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
                 <td class="text-center">'.$subscription_discount.'</td>
                 <td class="text-center">'.$subscription_penalty_due.'</td>
-                <td class="text-center">₱'.htmlentities(number_format($value['subscription_paid_amount'],2)).'</td>
-                <td class="text-center">₱'.htmlentities(number_format(($amount+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount']),2)).'</td>
+                <td class="text-center">₱'.htmlentities(number_format($value['subscription_paid_amount'],2)).'</td>';
+                if(($amount+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount'])>0){
+                    echo ' <td class="text-center">₱'.htmlentities(number_format(($amount+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount']),2)).'</td>';
+                }else{
+                    echo ' <td class="text-center">PAID</td>';
+                }
+               echo'
                 </tr>';
                 $total_balance+=$amount+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount'];
                 $counter++;
@@ -59,7 +64,13 @@
         </div>
 
         <div class="d-flex justify-content-end pe-4">
-            <p class="fw-bold fs-5">Total Balance: <span class="fw-normal">₱'.number_format($total_balance,2).'</span></p>
+            <p class="fw-bold fs-5">Total Balance: <span class="fw-normal">';
+            if($total_balance>0){
+                echo '₱'.number_format($total_balance,2);
+            }else{
+                echo'PAID';
+            }
+            echo '</span></p>
         </div>
     </div>
 </div>
