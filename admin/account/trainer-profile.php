@@ -92,42 +92,35 @@ if(isset($_SESSION['admin_id'])){
                         <h5 class="fw-bold">To Train For Today</h5>
                     </div>
                     <div class="container">
-                        <?php 
-                            require_once('../../classes/subscriber_trainers.class.php');
-
-                            $subscriber_trainersObj = new subscriber_trainers();
-
-                            if($subscription_data = $subscriber_trainersObj->fetch_to_train_today($_GET['trainer_id'])){
-                                echo ' <table class="table table-responsive table-striped table-borderless" style="width:100%">
-                                <thead class="bg-dark text-light">
-                                    <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">NAME</th>
-                                    </tr>
-                                </thead>
-                                <tbody>';
-                                $counter=1;
-                                foreach ($subscription_data as $key => $subscription_data_value) {
-                                    echo '<tr>
-                                    <th scope="row">'.$counter.'</th>
-                                    <td>'.$subscription_data_value['user_fullname'].'</td>
-                                    </tr>
-                                    <tr>';
-                                }
-                                echo ' </tbody>
-                                </table>
-                                <hr>
-                                <div class="col pb-3">
-                                    <div class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#moredetailstrain">More Details</button> 
-                                    </div>
-                                </div>';
-                            }else{
-                                echo '<h6 class="fw-bold">Nothing to train Today</h6>';
-                            }
-                            
-                        ?>
+                        <table class="table table-responsive table-striped table-borderless" style="width:100%">
+                            <thead class="bg-dark text-light">
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">NAME</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <th scope="row">1</th>
+                                <td>Trinidad, James Lorenz</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">2</th>
+                                <td>Nicholas, Shania Grabrielle</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">3</th>
+                                <td>Lim, Robbie John</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <div class="col pb-3">
+                            <div class="list-group-item d-flex flex-row-reverse flex-wrap">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#moredetailstrain">More Details</button> 
+                            </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             <div class="col-md-8">
@@ -240,46 +233,21 @@ if(isset($_SESSION['admin_id'])){
                             <hr>
                         </div>
                     <div class="row mt-2">
-                    <?php 
-                            require_once('../../classes/subscriber_trainers.class.php');
-
-                            $subscriber_trainersObj = new subscriber_trainers();
-
-                            if($subscription_data = $subscriber_trainersObj->fetch_total_person_who_availed($_GET['trainer_id'])){
-                                $male =0;
-                                $female = 0;
-                                $others = 0;
-                                foreach ($subscription_data as $key => $subscription_data_value) {
-                                    if($subscription_data_value['user_gender_details'] == 'Male'){
-                                        $male++;
-                                    }else if($subscription_data_value['user_gender_details'] == 'Female'){
-                                        $female++;
-                                    }else{
-                                        $others++;
-                                    }
-                                }
-                                echo '
-                            <div class="col-4 text-center">
-                                <i class="bx bx-male" style="font-size: 75px;"></i>
-                                <h4 class="fw-bold">'.$male.'</h4>
-                                <h6 class="fw-bold">Male</h6>
-                            </div>
-                            <div class="col-4 text-center">
-                                <i class="bx bx-female" style="font-size: 75px;"></i>
-                                <h4 class="fw-bold">'.$female.'</h4>
-                                <h6 class="fw-bold">Female</h6>
-                            </div>
-                            <div class="col-4 text-center">
-                                <i class="bx bxs-group" style="font-size: 75px;"></i>
-                                <h4 class="fw-bold">'.$others.'</h4>
-                                <h6 class="fw-bold">Others</h6>
-                            </div>';
-                            }else{
-                                echo 'No data';
-                            }
-                            
-                        ?>
-                        
+                        <div class="col-4 text-center">
+                            <i class='bx bx-male' style="font-size: 75px;"></i>
+                            <h4 class="fw-bold">1</h4>
+                            <h6 class="fw-bold">Male</h6>
+                        </div>
+                        <div class="col-4 text-center">
+                            <i class='bx bx-female' style="font-size: 75px;"></i>
+                            <h4 class="fw-bold">4</h4>
+                            <h6 class="fw-bold">Female</h6>
+                        </div>
+                        <div class="col-4 text-center">
+                            <i class='bx bxs-group' style="font-size: 75px;"></i>
+                            <h4 class="fw-bold">5</h4>
+                            <h6 class="fw-bold">Others</h6>
+                        </div>
                     </div>
                     </div>
         </div>
@@ -307,40 +275,61 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <?php 
-        require_once('../../classes/subscriber_trainers.class.php');
-
-        $subscriber_trainersObj = new subscriber_trainers();
-
-        if($subscription_data = $subscriber_trainersObj->fetch_to_train_today_full_details($_GET['trainer_id'])){
-            echo ' <table class="table table-responsive table-striped table-borderless" style="width:100%">
-            <thead class="bg-dark text-light">
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">NAME</th>
-                <th scope="col">GENDER</th>
-                <th scope="col">AGE</th>
-                </tr>
-            </thead>
-            <tbody>';
-            $counter=1;
-            foreach ($subscription_data as $key => $subscription_data_value) {
-                echo '
-            <tr>
-                <th scope="row">'.$counter.'</th>
-                <td>'.$subscription_data_value['user_fullname'].'</td>
-                <td>'.$subscription_data_value['user_gender_details'].'</td>
-                <td>'.getAge($subscription_data_value['user_birthdate']).'</td>
-            </tr>';
-            }
-            echo ' </tbody>
+        <table class="table table-responsive table-striped table-borderless" style="width:100%">
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">GENDER</th>
+                    <th scope="col">AGE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>Trinidad, James Lorenz</td>
+                    <td>Male</td>
+                    <td>25</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2</th>
+                    <td>Nicholas, Shania Grabrielle</td>
+                    <td>Female</td>
+                    <td>30</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">3</th>
+                    <td>Lim, Robbie John</td>
+                    <td>Male</td>
+                    <td>21</td>
+                    </tr>
+                </tbody>
             </table>
-            ';
-        }else{
-            echo '<h6 class="fw-bold">Nothing to train Today</h6>';
-        }
-        
-        ?>
+            <div class="container d-flex justify-content-center justify-content-lg-end pb-3">
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+
+                        <li class="page-item" aria-current="page">
+                            <a class="page-link text-dark" href="#">2</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a class="page-link text-dark" href="#">3</a>
+                        </li>
+
+                        <li class="page-item">
+                        <a class="page-link text-dark" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
       </div>
     </div>
   </div>

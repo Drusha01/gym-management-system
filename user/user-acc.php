@@ -15,84 +15,28 @@
             </div>
             </div>
             <div class="card mt-3">
-                <div class="py-1 px-3">
-                    <h5 class="fw-bold">Status of Subscription</h5>
-                </div>
-            <?php 
-            // query my active / pending subscription
-
-                require_once('../classes/subscriptions.class.php');
-                $subscriptionsObj = new subscriptions();
-                $gym_use_str = 'Not Availed';
-                $trainer_use_str = 'Not Availed';
-                $locker_use_str = 'Not Availed';
-                $program_use_str = 'Not Availed';
-                if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
-                    
-                    foreach ($subscription_data as $key => $value) {
-                        if($value['type_of_subscription_details'] == 'Gym Subscription'){
-                            if($value['subscription_status_details'] == 'Active'){
-                                $gym_use_str = 'Subscribed';
-                            }elseif($value['subscription_status_details'] == 'Pending'){
-                                $gym_use_str = 'Inactive';
-                            }else{
-                                $gym_use_str = 'Not Availed';
-                            }
-                            
-                        }else if($value['type_of_subscription_details'] == 'Trainer Subscription' ){
-                            if($value['subscription_status_details'] == 'Active'){
-                                $trainer_use_str = 'Subscribed';
-                            }elseif($value['subscription_status_details'] == 'Pending'){
-                                $trainer_use_str = 'Inactive';
-                            }else{
-                                $trainer_use_str = 'Not Availed';
-                            }
-
-                        }else if($value['type_of_subscription_details'] == 'Locker Subscription' ){
-                            if($value['subscription_status_details'] == 'Active'){
-                                $locker_use_str = 'Subscribed';
-                            }elseif($value['subscription_status_details'] == 'Pending'){
-                                $locker_use_str = 'Inactive';
-                            }else{
-                                $locker_use_str = 'Not Availed';
-                            }
-
-                        }else if($value['type_of_subscription_details'] == 'Program Subscription' ){
-                            if($value['subscription_status_details'] == 'Active'){
-                                $program_use_str = 'Subscribed';
-                            }elseif($value['subscription_status_details'] == 'Pending'){
-                                $program_use_str = 'Inactive';
-                            }else{
-                                $program_use_str = 'Not Availed';
-                            }
-
-                        }
-                        
-                    }
-                }
-            ?>
+            <div class="py-1 px-3">
+                <h5 class="fw-bold">Status of Subscription</h5>
+            </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h6 class="mb-0">Gym-Use</h6>
-                <span class="text-secondary"><?php echo  $gym_use_str;?></span>
+                <span class="text-secondary">Subscribed</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h6 class="mb-0">Trainer</h6>
-                <span class="text-secondary"><?php echo  $trainer_use_str;?></span>
+                <span class="text-secondary">Subscribed</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h6 class="mb-0">Locker</h6>
-                <span class="text-secondary"><?php echo  $locker_use_str;?></span>
+                <span class="text-secondary">Subscribed</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                 <h6 class="mb-0">Programs</h6>
-                <span class="text-secondary"> <?php echo  $program_use_str;?></span>
+                <span class="text-secondary">Not Availed</span>
                 </li>
                 <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                    <a href="../user/user-profile.php?active=Subscription-tab"><button type="button" class="btn btn-success" >
-                            More Details
-                    </button>
-                    </a>
+                    <a class="btn btn-success float-right " href="#">More Details</a>
                 </li>
             </ul>
             </div>

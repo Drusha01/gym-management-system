@@ -73,6 +73,7 @@ if(isset($_SESSION['admin_id'])){
                             <img src="../../img/profile-resize/<?php echo_safe($user_data['user_profile_picture']);?>" alt="Admin" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4><?php echo_safe($user_data['user_name']);?></h4>
+                                <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
                                 <p class="text-muted font-size-sm"><?php echo_safe($user_data['user_name']);?></p>
                             </div>
                             </div>
@@ -82,69 +83,22 @@ if(isset($_SESSION['admin_id'])){
                         <div class="py-1 px-3">
                             <h5 class="fw-bold">Status of Subscription</h5>
                         </div>
-                        <?php 
-                        // query my active / pending subscription
-
-                            require_once('../../classes/subscriptions.class.php');
-                            $subscriptionsObj = new subscriptions();
-                            $gym_use_str = 'Not Availed';
-                            $trainer_use_str = 'Not Availed';
-                            $locker_use_str = 'Not Availed';
-                            $program_use_str = 'Not Availed';
-                            if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id'])){
-                                foreach ($subscription_data as $key => $value) {
-                                    if($value['type_of_subscription_details'] == 'Gym Subscription'){
-                                        if($value['subscription_status_details'] == 'Active'){
-                                            $gym_use_str = 'Subscribed';
-                                        }elseif($value['subscription_status_details'] == 'Pending'){
-                                            $gym_use_str = 'Inactive';
-                                        }else{
-                                            $gym_use_str = 'Not Availed';
-                                        }
-                                    }else if($value['type_of_subscription_details'] == 'Trainer Subscription' ){
-                                        if($value['subscription_status_details'] == 'Active'){
-                                            $trainer_use_str = 'Subscribed';
-                                        }elseif($value['subscription_status_details'] == 'Pending'){
-                                            $trainer_use_str = 'Inactive';
-                                        }else{
-                                            $trainer_use_str = 'Not Availed';
-                                        }
-                                    }else if($value['type_of_subscription_details'] == 'Locker Subscription' ){
-                                        if($value['subscription_status_details'] == 'Active'){
-                                            $locker_use_str = 'Subscribed';
-                                        }elseif($value['subscription_status_details'] == 'Pending'){
-                                            $locker_use_str = 'Inactive';
-                                        }else{
-                                            $locker_use_str = 'Not Availed';
-                                        }
-                                    }else if($value['type_of_subscription_details'] == 'Program Subscription' ){
-                                        if($value['subscription_status_details'] == 'Active'){
-                                            $program_use_str = 'Subscribed';
-                                        }elseif($value['subscription_status_details'] == 'Pending'){
-                                            $program_use_str = 'Inactive';
-                                        }else{
-                                            $program_use_str = 'Not Availed';
-                                        }
-                                    }
-                                }
-                            }
-                        ?>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">Gym-Use</h6>
-                            <span class="text-secondary"><?php echo  $gym_use_str;?></span>
+                            <span class="text-secondary">Subscribed</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">Trainer</h6>
-                            <span class="text-secondary"><?php echo  $trainer_use_str;?></span>
+                            <span class="text-secondary">Subscribed</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">Locker</h6>
-                            <span class="text-secondary"><?php echo  $locker_use_str;?></span>
+                            <span class="text-secondary">Subscribed</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">Programs</h6>
-                            <span class="text-secondary"> <?php echo  $program_use_str;?></span>
+                            <span class="text-secondary">Not Availed</span>
                             </li>
                             <li class="list-group-item d-flex flex-row-reverse flex-wrap">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#MoreDetailsSubs">
@@ -326,65 +280,61 @@ if(isset($_SESSION['admin_id'])){
       <div class="modal-body">
         <div class="table-responsive table-1">
                 <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
-                <?php 
-                if($subscription_data){
-                    echo '
-                <thead class="bg-dark text-light">
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                    <th class="col-3">NAME OF SUBSCRIPTION</th>
-                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-                    <th class="text-center">QUANTITY</th>
-                    <th class="text-center">START DATE</th>
-                    <th class="text-center">END DATE</th>
-                    <th class="text-center">DAYS LEFT</th>
-                    <th class="text-center">STATUS</th>
-                    </tr>
-                </thead>
-                <tbody>';
-                $counter=1;
-                    foreach ($subscription_data as $key => $value) {
-                        $end_date = date_create($value['subscription_start_date']);
-                        date_add($end_date, date_interval_create_from_date_string(strval($value['subscription_total_duration'])." days"));
-                        if(intval($value['subscription_days_to_end'])>0){
-                            echo '<tr>
-                            <th class="d-lg-none"></th>
-                                <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
-                                <td>'.htmlentities($value['subscription_offer_name']).'</td>
-                                <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
-                                <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
-                                <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
-                                <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
-                                <td class="text-center ">'.htmlentities($value['subscription_days_to_end']).'</td>
-                                <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>
-                                </tr>';
-                        }else{
-                            echo '<tr>
-                            <th class="d-lg-none"></th>
-                                <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
-                                <td>'.htmlentities($value['subscription_offer_name']).'</td>
-                                <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
-                                <td class="text-center ">'.htmlentities($value['subscription_quantity']).'</td>
-                                <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
-                                <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
-                                <td class="text-center ">'.htmlentities(0).'</td>
-                                <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>
-                                </tr>';
-                        }
-                    
-                    $counter++;
-                    
-                }
-                echo ' </tbody>
-                </table>';
-                }else{
-                    echo 'No data';
-                }
-                ?>
-                    
-                    
-                    
+                    <thead class="bg-dark text-light">
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                        <th class="col-3">NAME OF SUBSCRIPTION</th>
+                        <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                        <th scope="col" class="text-center">DATE SUBSCRIBED</th>
+                        <th scope="col" class="text-center">END DATE</th>
+                        <th scope="col" class="text-center">DAYS LEFT</th>
+                        <th scope="col" class="text-center">STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
+                        <td>1-Month Gym-Use (21 and above)</td>
+                        <td class="text-center ">Gym-Use Subscription</td>
+                        <td class="text-center">October 16, 2022</td>
+                        <td class="text-center">November 15, 2022</td>
+                        <td class="text-center">24</td>
+                        <td class="text-center">Paid</td>
+                        </tr>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
+                        <td>1-Month Trainer</td>
+                        <td class="text-center ">Trainer Subscription</td>
+                        <td class="text-center">October 16, 2022</td>
+                        <td class="text-center">November 15, 2022</td>
+                        <td class="text-center">24</td>
+                        <td class="text-center">Paid</td>
+                        </tr>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
+                        <td>1-Month Locker</td>
+                        <td class="text-center ">Locker Subscription</td>
+                        <td class="text-center">October 16, 2022</td>
+                        <td class="text-center">November 15, 2022</td>
+                        <td class="text-center">---</td>
+                        <td class="text-center">Pending</td>
+                        <tr>
+                        <th class="d-lg-none"></th>
+                        <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
+                        <td>----</td>
+                        <td class="text-center ">Program Subscription</td>
+                        <td class="text-center">----</td>
+                        <td class="text-center">----</td>
+                        <td class="text-center">----</td>
+                        <td class="text-center">----</td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
       </div>
