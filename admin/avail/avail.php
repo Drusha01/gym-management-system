@@ -1,8 +1,13 @@
-
 <?php 
 session_start();
+if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
 
-
+}elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
+    //d
+}else{
+    //do not load the page
+    header('location:../dashboard/dashboard.php');
+}
 ?>
 
 
@@ -16,13 +21,13 @@ session_start();
             <h5 class="col-12 fw-bold mb-3">Avail</h5>
             <ul class="nav nav-tabs application">
                         <li class="nav-item active " id="subs">
-                            <a class="nav-link" href="#tab-subs" data-bs-toggle="tab" >Subscription </a>
+                            <a class="nav-link" href="#tab-subs" id="a-subs" data-bs-toggle="tab" >Subscription </a>
                         </li>
                         <li class="nav-item" id="exp">
-                            <a class="nav-link" href="#tab-exp" data-bs-toggle="tab" >Expiration</a>
+                            <a class="nav-link" href="#tab-exp" id="a-exp"data-bs-toggle="tab" >Expiration</a>
                         </li>
                         <li class="nav-item" id="walk">
-                            <a class="nav-link" href="#tab-walk_in" data-bs-toggle="tab" >Walk-In</a>
+                            <a class="nav-link" href="#tab-walk" id="a-walk" data-bs-toggle="tab" >Walk-In</a>
                         </li>
                     </ul>
             <div class="tab-content" >
@@ -32,7 +37,7 @@ session_start();
                 <div class="tab-pane show fade" id="tab-exp">
                     <?php require_once 'expiration.php';?>
                 </div>
-                <div class="tab-pane show fade" id="tab-walk_in">
+                <div class="tab-pane show fade" id="tab-walk">
                     <?php require_once 'walk-in.php';?>
                 </div>
             </div>
@@ -176,6 +181,22 @@ $(".nav-item").on("click", function(){
 
 });
 
+
+window.onload = (event) =>{
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const active = urlParams.get('active')
+  console.log(active);
+  if(active != null){
+    $('#'+active).trigger('click');
+    $('#a-'+active).attr('class','nav-link active');
+    $('#tab-walk').attr('class','tab-pane show fade')
+    $('#tab-exp').attr('class','tab-pane show fade')
+    $('#tab-subs').attr('class','tab-pane show fade')
+    $('#tab-'+active).attr('class','tab-pane active show fade')
+  }
+
+};
 </script>
 <!-- Modal -->
 <div class="modal fade" id="ModalTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">

@@ -169,7 +169,7 @@ if(isset($_SESSION['admin_id']) ){
                             <label class="pb-1" for="Age_Qual">Age Qualification</label>
                             <div class="row">
                                 <div class="col-3 col-lg-3">
-                                    <input type="text" class="form-control"  id="age_qualification_details" name="age_qualification_details" placeholder="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" value="<?php if($offer_data['age_qualification_details'] != 'None'){echo 'checked';}?>" onchange="agequalification()">
+                                    <input type="text" class="form-control"  id="age_qualification_details" name="age_qualification_details" placeholder="<?php if($offer_data['age_qualification_details'] != 'None'){echo htmlentities($offer_data['age_qualification_details']);}?>" value="<?php if($offer_data['age_qualification_details'] != 'None'){echo htmlentities($offer_data['age_qualification_details']);}?>" onchange="agequalification()">
                                 </div>
                                 <div class="col-1 mt-2">
                                     <h6>or</h6>

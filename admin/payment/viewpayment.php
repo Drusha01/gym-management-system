@@ -12,23 +12,29 @@ if(isset($_SESSION['user_id'])){
 
 
 if(isset($_SESSION['admin_id'])){
-  // check admin user details
-  if($_SESSION['admin_user_status_details'] == 'active'){
-    // do nothing
-    if(isset($_GET['user_id'])&& isset($_GET['name'])){
-      require_once('../../classes/subscriptions.class.php');
-      $subscriptionsObj = new subscriptions();
-      
+    // check admin user details
+    if($_SESSION['admin_user_status_details'] == 'active'){
+        // do nothing
+        if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Modify'){
+            if(isset($_GET['user_id'])&& isset($_GET['name'])){
+                require_once('../../classes/subscriptions.class.php');
+                $subscriptionsObj = new subscriptions();
+                
 
-      if(!$payments_data = $subscriptionsObj->fetch_active_subs_payment($_GET['user_id'])){
-        header('location:payment.php');
-      }
+                if(!$payments_data = $subscriptionsObj->fetch_active_subs_payment($_GET['user_id'])){
+                  header('location:payment.php');
+                }
+            }
+        }else if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Read-Only'){
+                  
+        }else{
+            header('location:../dashboard/dashboard.php');
+        }
+    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+        // do this
+    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+        // go to deleted user page
     }
-  }else if($_SESSION['admin_user_status_details'] == 'inactive'){
-      // do this
-  }else if($_SESSION['admin_user_status_details'] == 'deleted'){
-      // go to deleted user page
-  }
 
 }else{
     // go to admin login

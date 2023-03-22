@@ -16,7 +16,12 @@
 
                                     $subscriptionsObj= new subscriptions();
                                     if($subscription_data = $subscriptionsObj->get_number_of_gym_use()){
-                                        echo htmlentities($subscription_data['number_of_gym_use']);
+                                        if(isset($subscription_data['number_of_gym_use'])){
+                                            echo htmlentities($subscription_data['number_of_gym_use']);
+                                        }else{
+                                            echo '0';
+                                        }
+                                        
                                     }else{
                                         echo '0';
                                     }
@@ -45,7 +50,11 @@
                                 <p class="card-text fs-5 fw-bold">
                                     <?php 
                                     if($subscription_data = $subscriptionsObj->get_number_of_trainer_use()){
-                                        echo htmlentities($subscription_data['number_of_trainer_use']);
+                                        if(isset($subscription_data['number_of_trainer_use'])){
+                                            echo htmlentities($subscription_data['number_of_trainer_use']);
+                                        }else{
+                                            echo '0';
+                                        }
                                     }else{
                                         echo '0';
                                     }
@@ -74,7 +83,11 @@
                                 <p class="card-text fs-5 fw-bold">
                                 <?php 
                                     if($subscription_data = $subscriptionsObj->get_number_of_locker_use()){
-                                        echo htmlentities($subscription_data['number_of_locker_use']);
+                                        if(isset($subscription_data['number_of_locker_use'])){
+                                            echo htmlentities($subscription_data['number_of_locker_use']);
+                                        }else{
+                                            echo '0';
+                                        }
                                     }else{
                                         echo '0';
                                     }
@@ -103,7 +116,11 @@
                                 <p class="card-text fs-5 fw-bold">
                                 <?php 
                                     if($subscription_data = $subscriptionsObj->get_number_of_program_use()){
-                                        echo htmlentities($subscription_data['number_of_program_use']);
+                                        if(isset($subscription_data['number_of_program_use'])){
+                                            echo htmlentities($subscription_data['number_of_program_use']);
+                                        }else{
+                                            echo '0';
+                                        }
                                     }else{
                                         echo '0';
                                     }

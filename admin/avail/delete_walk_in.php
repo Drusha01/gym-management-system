@@ -18,20 +18,16 @@ if(isset($_SESSION['admin_id'])){
         
         if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
             // query the user information with id
-            if(isset($_GET['user_id'])){
-                // 
-                require_once '../../classes/subscriptions.class.php';
-
-                $subscriptionsObj = new subscriptions();
-
-                if($subscriptionsObj->delete_active_subscription($_GET['user_id'])){
+            require_once('../../classes/walk_ins.class.php');
+            $walk_insObj = new walk_ins();
+            if(isset($_POST['walk_in_id'])){
+                if($walk_insObj->delete_walk_in($_POST['walk_in_id'])){
                     echo '1';
                 }else{
                     echo '0';
                 }
-
             }else{
-                header('location:account.php');
+                echo '0';
             }
         }elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
             header('location:avail.php');
