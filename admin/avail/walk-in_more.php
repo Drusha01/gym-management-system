@@ -15,15 +15,6 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
-        if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
-
-        
-        }elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
-
-        }else{
-            //do not load the page
-            header('location:../dashboard/dashboard.php');
-        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -47,7 +38,7 @@ if(isset($_SESSION['admin_id'])){
   <div class="w-100">
     <div class="row">
         <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">More Details (Walk-In)</h5>
-        <a class="col text-decoration-none text-black m-0" aria-current="page" href="avail.php?active=walk"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
+        <a class="col text-decoration-none text-black m-0" aria-current="page" href="avail.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
     <div class="row">
         <div class="form-group col-12 col-sm-4 table-filter-option pb-3">

@@ -169,59 +169,6 @@ if(isset($_SESSION['admin_id'])){
         </div>
 
         <br>
-        <!-- end of second aprt -->
-        <h5 class="col-12 fw-regular ">Walk-In</h5>
-        <hr>
-        <div class="row">
-            <div class="col-lg-2">
-                Price of Walk-In Gym-Use
-            </div>
-            <div class="col-lg-1 pt-2">
-                <?php 
-                    require_once('../../classes/walk_in_prices.class.php');
-                    $walk_in_pricesObj = new walk_in_prices();
-
-                    if($walk_in_price_data = $walk_in_pricesObj->get_walk_in_price('Gym-Use')){
-                        echo '<input type="number" class="form-control" value="" id="Gym-Use" name="Gym-Use"placeholder="₱'.$walk_in_price_data['walk_in_service_price'].'" required>';
-                    }else{
-                        echo '<input type="number" class="form-control" value="" id="Gym-Use" name="Gym-Use"placeholder="0" required>';
-                    }
-                ?>
-                
-            </div>
-            <div class="col-lg-2">
-                Price of Walk-In Trainer-Use
-            </div>
-            <div class="col-lg-1 pt-2">
-                <?php 
-                    require_once('../../classes/walk_in_prices.class.php');
-                    $walk_in_pricesObj = new walk_in_prices();
-
-                    if($walk_in_price_data = $walk_in_pricesObj->get_walk_in_price('Gym-Use and Trainer')){
-                        echo '<input type="number" class="form-control" value="" id="Walk-In-Trainer" name="Walk-In-Trainer"placeholder="₱'.$walk_in_price_data['walk_in_service_price'].'" required>';
-                    }else{
-                        echo '<input type="number" class="form-control" value="" id="Walk-In-Trainer" name="Walk-In-Trainer"placeholder="0" required>';
-                    }
-                ?>
-                
-            </div>
-            
-        </div>
-
-        <br>
-        
-        <h5 class="col-12 fw-regular">Overdue</h5>
-        <hr>
-        <div class="row">
-            <div class="col-lg-3 ">
-                Choose percentage of Penalty of Payment Per Day
-            </div>
-            <div class="col-lg-1 pt-2">
-                <input type="number" class="form-control" value="" id="offer_name" name="offer_name"placeholder="30" required>
-            </div>
-        </div>
-        <br>
-
         <!-- 2nd part -->
         <h5 class="col-12 fw-regular ">Contact Info for Footer</h5>
         <hr>
@@ -252,7 +199,18 @@ if(isset($_SESSION['admin_id'])){
         <!-- end of second aprt -->
         <br>
 
-        
+        <h5 class="col-12 fw-regular">Overdue</h5>
+        <hr>
+        <div class="row">
+            <div class="col-lg-3 ">
+                Choose percentage of Penalty of Payment Per Day
+            </div>
+            <div class="col-lg-1 pt-2">
+                <input type="number" class="form-control" value="" id="offer_name" name="offer_name"placeholder="30" required>
+            </div>
+        </div>
+        <br>
+
 
     </div>
 </main>
@@ -302,36 +260,7 @@ if(isset($_SESSION['admin_id'])){
             success: function(result){
                 console.log(result);
                 if(result ==1){
-                    alert('successfully changed number of lockers');
-                    location.reload();
-                }else{
-                    alert('error change')
-                }
-            }
-        });
-    });
-
-    $('#Gym-Use').change(function (){
-        $.ajax({url: 'update_walk_in_gym_price.php?gym_price='+$('#Gym-Use').val(), 
-            success: function(result){
-                console.log(result);
-                if(result ==1){
-                    alert('successfully changed price of walk-in gym use');
-                    location.reload();
-                }else{
-                    alert('error change')
-                }
-            }
-        });
-    });
-
-    $('#Walk-In-Trainer').change(function (){
-        $.ajax({url: 'update_walk_in_trainer_price.php?walk_in_trainer='+$('#Walk-In-Trainer').val(), 
-            success: function(result){
-                console.log(result);
-                if(result ==1){
-                    alert('successfully changed price of walk-in trainer');
-                    location.reload();
+                    alert('successfully change number of lockers');
                 }else{
                     alert('error change')
                 }

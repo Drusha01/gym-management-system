@@ -15,28 +15,24 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
-        if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Modify'){
-            if(isset($_POST['password']) && strlen($_POST['password'])>=12 && isset($_POST['user_id']) && intval($_POST['user_id'])>0){
-                require_once('../../classes/subscriptions.class.php');
-                require_once('../../classes/admins.class.php');
-                $subscriptionsObj = new subscriptions();
-                $adminObj = new admins();
-                if($admin_data = $adminObj->get_admin_password($_SESSION['admin_id'])){
-                    if (password_verify($_POST['password'], $admin_data['user_password_hashed'])) {
-                        if($payments_data = $subscriptionsObj->fetch_active_subs_payment($_POST['user_id'])){
-                            $error = false;
-                            foreach ($payments_data as $key => $value) {
-                                if(!$subscriptionsObj->full_payment($value['subscription_id'])){
-                                    $error = true;
-                                }
+        if(isset($_POST['password']) && strlen($_POST['password'])>=12 && isset($_POST['user_id']) && intval($_POST['user_id'])>0){
+            require_once('../../classes/subscriptions.class.php');
+            require_once('../../classes/admins.class.php');
+            $subscriptionsObj = new subscriptions();
+            $adminObj = new admins();
+            if($admin_data = $adminObj->get_admin_password($_SESSION['admin_id'])){
+                if (password_verify($_POST['password'], $admin_data['user_password_hashed'])) {
+                    if($payments_data = $subscriptionsObj->fetch_active_subs_payment($_POST['user_id'])){
+                        $error = false;
+                        foreach ($payments_data as $key => $value) {
+                            if(!$subscriptionsObj->full_payment($value['subscription_id'])){
+                                $error = true;
                             }
-                            if($error){
-                                echo '0';
-                            }else{
-                                echo '1';
-                            }
-                        }else{
+                        }
+                        if($error){
                             echo '0';
+                        }else{
+                            echo '1';
                         }
                     }else{
                         echo '0';

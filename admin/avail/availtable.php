@@ -1,15 +1,3 @@
-<?php 
-session_start();
-if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
-
-}elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
-    //d
-}else{
-    //do not load the page
-    header('location:../dashboard/dashboard.php');
-}
-?>
-
 <table id="table-1" class="table table-bordered table-striped display" style="width:100%;border: 3px solid black;">
     <thead class="table-dark ">
         <tr>
@@ -21,11 +9,7 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
         <th class="text-center">Trainer</th>
         <th class="text-center">Locker</th>
         <th class="text-center">Program</th>
-        <?php if($_SESSION['admin_avail_restriction_details'] =='Modify'){
-        echo '<th class="text-center align-middle">ACTION</th>';
-        }
-        ?>
-       
+        <th class="text-center align-middle">ACTION</th>
         </tr>
     </thead>
     <tbody>
@@ -88,10 +72,7 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
                     }else{
                         echo '<td class="text-center">None</td>';
                     }
-                    if($_SESSION['admin_avail_restriction_details'] =='Modify'){
-                        echo ' <td class="text-center"><a href="activate.php?user_id='.($value['subscription_subscriber_user_id']).'" class="btn btn-primary btn-sm" role="button">Manage</a>  </td>';
-                    }
-                    
+                    echo ' <td class="text-center"><a href="activate.php?user_id='.($value['subscription_subscriber_user_id']).'" class="btn btn-primary btn-sm" role="button">Manage</a>  </td>';
                     echo '</tr>';
                     $counter++;
                 }
