@@ -15,7 +15,7 @@ class subscriptions
             LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
             LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
             WHERE subscription_status_details = :active OR  subscription_status_details = :pending OR  subscription_status_details = :completed OR  subscription_status_details = :deleted OR  subscription_status_details = :terminated
-            ORDER BY user_fullname
+            ORDER BY subscription_start_date DESC
             ; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':active', $active);
@@ -258,6 +258,84 @@ class subscriptions
             WHERE subscription_status_details = "Active"  AND type_of_subscription_details ="Program Subscription"
             ; ';
             $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function update_percentage_discount($subscription_id,$subscription_discount_percentage){
+        try{
+            $sql = 'UPDATE subscriptions
+            SET  subscription_discount= (subscription_quantity* subscription_price * (subscription_total_duration / subscription_duration )) *  :subscription_discount_percentage
+            WHERE subscription_id = :subscription_id ; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_discount_percentage', $subscription_discount_percentage);
+            $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function update_fixed_discount($subscription_id,$subscription_fixed_discount){
+        try{
+            $sql = 'UPDATE subscriptions
+            SET  subscription_discount= if(:subscription_fixed_discount>(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),:subscription_fixed_discount)
+            WHERE subscription_id = :subscription_id; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_fixed_discount', $subscription_fixed_discount);
+            $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function full_payment($subscription_id){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_paid_amount =  ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due)
+            WHERE subscription_id = :subscription_id; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function recent_customers_subscribed(){
+        try{
+            $sql = 'SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id, subscription_start_date FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
+            WHERE subscription_status_details = "Active" 
+            ORDER BY subscription_start_date DESC 
+            LIMIT 5; ';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function total_number_of_availed_offers($subscription_subscriber_user_id){
+        try{
+            $sql = 'SELECT count(*) as total FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            WHERE subscription_status_details = "Active" AND subscription_subscriber_user_id = :subscription_subscriber_user_id; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_subscriber_user_id', $subscription_subscriber_user_id);
             if($query->execute()){
                 $data =  $query->fetch();
                 return $data;

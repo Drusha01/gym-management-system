@@ -14,7 +14,7 @@
                 <tr>
                     <th class="d-lg-none"></th>
                     <th class="text-center">#</th>
-                    <th class="text-center text-uppercase">Payment Description</th>
+                    <th class="text-uppercase">Payment Description</th>
                     <th class="text-center text-uppercase">Amount</th>
                     <th class="text-center text-uppercase">Discount</th>
                     <th class="text-center text-uppercase">Penalties Due</th>
@@ -40,7 +40,7 @@
                 echo '<tr>
                 <td class="d-lg-none"></td>
                 <td class="text-center">'.htmlentities($counter).'</td>
-                <td class="text-center">'.htmlentities($value['subscription_offer_name']).'</td>
+                <td class="">'.htmlentities($value['subscription_offer_name']).'</td>
                 <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
                 <td class="text-center">'.$subscription_discount.'</td>
                 <td class="text-center">'.$subscription_penalty_due.'</td>

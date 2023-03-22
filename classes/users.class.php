@@ -475,8 +475,24 @@ Class users{
             return false;
         }
     }
+    
+    function accounts_stats(){
+        try{
+            $sql = 'SELECT count(*) - count(user_email_verified) as not_verified,count(user_email_verified) as verified FROM users;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
    
 }
+
 
     // user_id int primary key auto_increment,
     // user_status_id int,

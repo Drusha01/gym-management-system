@@ -58,25 +58,38 @@
      }
  });
   // Pie Chart
+
   var ctx5 = $("#pie-chart").get(0).getContext("2d");
-  var myChart5 = new Chart(ctx5, {
-      type: "pie",
-      data: {
-          labels: ["Registered", "Verified"],
-          datasets: [{
-              backgroundColor: [
-                  "rgba(253, 208, 35, .7)",
-                  "rgba(0, 102, 0, .6)",
-                  
-              ],
-              data: [55, 49]
-          }]
-      },
-      options: {
-          responsive: true,
-          maintainAspectRatio: false
-      }
-  });
+  $.ajax({url: '../dashboard/accounts_stat.php', 
+    success: function(result){
+        var data_val=[];
+        var obj = JSON.parse(result);
+        data_val.push(obj.not_verified);
+        data_val.push(obj.verified);
+        // console.log(obj.not_verified);
+        console.log(data_val);
+        var myChart5 = new Chart(ctx5, {
+            type: "pie",
+            data: {
+                labels: ["Not Verified", "Verified"],
+                datasets: [{
+                    backgroundColor: [
+                        "rgba(253, 208, 35, .7)",
+                        "rgba(0, 102, 0, .6)",
+                        
+                    ],
+                    data: data_val
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+});
+
+  
 
 
   // doughnnut
