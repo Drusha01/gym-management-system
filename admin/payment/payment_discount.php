@@ -50,12 +50,11 @@ if(isset($_SESSION['admin_id'])){
                 }else{
                     echo '0 ';
                 }
-
             }else{
                 echo '0';
             }
         }else if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Read-Only'){
-                
+            header('location:../payment/payment.php'); 
         }else{
             header('location:../dashboard/dashboard.php');
         }

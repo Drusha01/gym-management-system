@@ -176,7 +176,7 @@ class subscriptions
 
     function fetch_active_subs_payment($subscription_subscriber_user_id){
         try{
-            $sql = 'SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
+            $sql = 'SELECT subscription_id,subscription_status_details,type_of_subscription_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
             subscription_date_created,subscription_date_updated,subscription_discount,subscription_penalty_due,subscription_paid_amount FROM subscriptions
             LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
             LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
@@ -303,6 +303,19 @@ class subscriptions
             WHERE subscription_id = :subscription_id; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function partial_payment($subscription_id,$subscription_paid_amount){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_paid_amount = :subscription_paid_amount
+            WHERE subscription_id = :subscription_id; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_id', $subscription_id);
+            $query->bindParam(':subscription_paid_amount', $subscription_paid_amount);
             return $query->execute();
         }catch (PDOException $e){
             return false;
