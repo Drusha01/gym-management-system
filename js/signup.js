@@ -132,7 +132,7 @@ xhttp.onreadystatechange = function() {
       if(xhttp.responseText==1){
         // make the username green if valid
         $("#username").css("color","green");
-        $('#submit').html('Sign-up');
+        // $('#submit').html('Sign-up');
         console.log('username valid');
         let email = $('#email').val();
         if(ValidateEmail(email)){
@@ -161,7 +161,7 @@ xhttp.onreadystatechange = function() {
         // make the username red if not valid
         $("#username").css("color","red");
         // change the sign up
-        $('#submit').html('Username taken');
+        // $('#submit').html('Username taken');
         $("#submit").attr("disabled", true);
         return;
       }
@@ -171,7 +171,9 @@ xhttp.onreadystatechange = function() {
 };
 
 var xhttpEmail = new XMLHttpRequest();
-
+var email_val;
+var username_val;
+var phone_val;
 
 xhttpEmail.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -180,7 +182,7 @@ xhttpEmail.onreadystatechange = function() {
     if(xhttpEmail.responseText==1){
       // make the signup green if valid
       $("#email").css("color","green");
-      $('#submit').html('Sign-up');
+      // $('#submit').html('Sign-up');
       console.log('email valid');
       let phone = $('#phone').val();
       if(phone.length== 11){
@@ -200,7 +202,7 @@ xhttpEmail.onreadystatechange = function() {
       // make the username red if not valid
       
       // change the sign up
-      $('#submit').html('Email taken');
+      //$('#submit').html('Email taken');
       $("#email").css("color","red");
       $("#submit").attr("disabled", true);
       if(phone.length== 11){
@@ -228,14 +230,14 @@ xhttpPhone.onreadystatechange = function() {
         //console.log('tick');
         // console.log('nice');
         $("#phone").css("color","green");
-        $('#submit').html('Sign-up');
+        // $('#submit').html('Sign-up');
         console.log('phone valid');
         
       }else{
         // make the username red if not valid
         
         // change the sign up
-        $('#submit').html('Phone taken');
+        // $('#submit').html('Phone taken');
         $("#phone").css("color","red");
         $("#submit").attr("disabled", true);
         return;
@@ -263,7 +265,7 @@ xhttpPhone.onreadystatechange = function() {
         // console.log(confirmpassword);
 
         if( username.length<6 ||(firstname) == 0 || lastname == 0 || phone.length < 11 || phone.length > 11 || !ValidateEmail(email)|| !ValidatePasswordLength(password) || !ValidatePasswordUppercase(password) || !ValidatePasswordLowercase(password)
-        || !ValidatePasswordIsnum(password) || !validatedPassowrdConfirmPassword(password,confirmpassword) || (gender == 'None' && gender_other.length == 0)){
+        || !ValidatePasswordIsnum(password) || !validatedPassowrdConfirmPassword(password,confirmpassword) || ((gender == 'None' || gender == 'Other') && gender_other.length == 0)){
             // submit.disabled = true;
              $("#submit").attr("disabled", true);
             if(username.length < 6){
@@ -323,7 +325,8 @@ xhttpPhone.onreadystatechange = function() {
             }
         }else{
           $("#submit").removeAttr("disabled");
-          $("#submit").attr("value",'Sign-Up');
+          $('#submit').html('Sign-up');
+          // $("#submit").attr("value",'Sign-Up');
           //document.getElementById("submit").disabled = false; 
         }
       

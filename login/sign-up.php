@@ -250,44 +250,44 @@ require_once '../classes/genders.class.php';
           </div>
           <a class="text-decoration-none text-black m-0" aria-current="page" href="../index.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
           <div class="container-fluid w-100">
-            <form class="form-signup px-3" method="post" enctype="multipart/form-data">
+            <form autocomplete="off" class="form-signup px-3" method="post" enctype="multipart/form-data" >
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
               <label for="exampleFormControlFile1">Profile Picture</label>
               <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
             </div>
             <div class="form-floating py-1">
-              <input type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required>
+              <input autocomplete="off" type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required >
               <label for="floatingInput">Username</label>
             </div>
             <div class="form-group py-1">
                 <div class="row">
                     <div class="form-floating col-md-6 py-1">
-                        <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required>
+                        <input autocomplete="off" type="text" class="form-control" name="fname" id="fname" placeholder="First Name" oninput="functiononkeyup()" required >
                         <label for="floatingInput" class="ps-4">First Name</label>
                     </div>
                     <div class="form-floating col-md-6 py-1">
-                        <input type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  >
+                        <input autocomplete="off" type="text" class="form-control" name="mname" id="mname" placeholder="Middle Name"  oninput="functiononkeyup()"  >
                         <label for="floatingInput" class="ps-4">Middle Name</label>
                     </div>
                 </div>
             </div>
             <div class="form-floating py-1">
-                <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" oninput="functiononkeyup()">
+                <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" oninput="functiononkeyup()" autocomplete="off">
                 <label for="floatingInput">Last Name</label>
             </div>
             <div class="form-floating py-1">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Email" oninput="functiononkeyup()" required>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Email" oninput="functiononkeyup()" required autocomplete="off">
                 <label for="floatingInput">Email</label>
             </div>
             <div class="form-floating py-1">
-              <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" minlength="11" maxlength="11" required>
+              <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number" oninput="functiononkeyup()" minlength="11" maxlength="11" required autocomplete="off">
               <label for="floatingInput">Phone Number</label>
             </div>
             <div class="form-group py-1">
               <div class="row">
                   <div class="form-floating col-md-6 py-1">
-                    <select class="form-select" id="gender" name="gender" onchange="genders()">
+                    <select class="form-select" id="gender" name="gender" onchange="genders()" autocomplete="off">
                       <option value="None" >Select Gender </option>
                       <?php
                       $genderObj = new genders();
@@ -306,7 +306,7 @@ require_once '../classes/genders.class.php';
                     <label for="floatingSelect" class="ps-4">Gender</label>
                   </div>
                   <div class="form-floating col-md-6 py-1">
-                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"  oninput="functiononkeyup()" onchange="other_genders()"  >
+                        <input type="text" class="form-control" name="gender_other" id="gender_other" placeholder="Enter your gender"  oninput="functiononkeyup()" onchange="other_genders()" autocomplete="off" >
                         <label for="floatingInput" class="ps-4">Not in the list?</label>
                   </div>
               </div>
@@ -326,11 +326,11 @@ require_once '../classes/genders.class.php';
               <input type="file" class="form-control-file" id="valid_id" name="valid_id" accept="image/*"  >
             </div>
             <div class="form-floating py-1">
-              <input type="password" class="form-control" name="password" placeholder="Password" oninput="functiononkeyup()" id="password" required>
+              <input type="password" class="form-control" name="password" placeholder="Password" oninput="functiononkeyup()" id="password" required autocomplete="off">
               <label for="floatingInput">Password</label>
             </div>
             <div class="form-floating py-1">
-                <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" oninput="functiononkeyup()" id="cpassword"required>
+                <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" oninput="functiononkeyup()" id="cpassword"required autocomplete="off">
                 <label for="floatingInput">Confirm Password</label>
             </div>
             <br>
