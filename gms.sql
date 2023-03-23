@@ -1588,7 +1588,7 @@ WHERE  (subscription_subscriber_user_id =8 AND subscription_status_id = (SELECT 
 (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active' );
 
 -- selecting all
-SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id FROM subscriptions
+SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id,subscription_start_date FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
 WHERE subscription_status_details = 'Active' OR  subscription_status_details = 'Pending' OR  subscription_status_details = '' OR  subscription_status_details = '' OR  subscription_status_details = ''
@@ -1618,6 +1618,38 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Gym Subscription'
 ;
 
+-- --------------------------- test ---------------------------------------
+-- dashboard Sales & Revenue
+SELECT DISTINCT YEAR(subscription_start_date )AS YEAR FROM subscriptions
+;
+
+SELECT SUM(subscription_paid_amount)as Sales_Revenue FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE YEAR(subscription_start_date ) = '2023';
+
+-- dashboard Status of Subscriptions
+
+SELECT user_id FROM users WHERE user_name = 'Hanrickson11';
+
+SELECT DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions;
+
+SELECT  subscription_id,((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due)as balance,subscription_paid_amount FROM subscriptions
+WHERE ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due) -subscription_paid_amount <=0 AND subscription_subscriber_user_id =11
+;
+
+
+UPDATE subscriptions 
+SET subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active')
+WHERE  (subscription_subscriber_user_id =11 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Completed'));
+
+UPDATE subscriptions 
+SET subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Completed')
+WHERE  subscription_id = 24 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
+
+UPDATE subscriptions 
+SET subscription_start_date=  (SELECT DATE_ADD(NOW(), INTERVAL -84 DAY)  ) 
+WHERE  (subscription_subscriber_user_id =11 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'));
+-- --------------------------- test ---------------------------------------
 -- dashboard subscription Total Subscriptions for Trainer
 SELECT SUM(subscription_quantity) as number_of_trainer_use FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
@@ -1679,7 +1711,7 @@ SELECT subscription_id,subscription_status_details ,subscription_quantity, subsc
 subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_status_details = 'Completed'
+WHERE subscription_status_details = 'Completed' AND subscription_subscriber_user_id = 11
 ;
 
 -- cancel pending subscription

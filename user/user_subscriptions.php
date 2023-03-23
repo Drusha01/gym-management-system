@@ -25,7 +25,8 @@
 
     if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
         if($subscription_data[0]['subscription_status_details'] == 'Pending'){
-            echo '<div class="row g-2 mb-2 ">
+            echo '
+            <div class="row g-2 mb-2 ">
                 <h5>Wait for the Admin to activate your availed Subscriptions.</h5>    
             ';
             echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
@@ -100,7 +101,9 @@
                 <div class="form-group col-12 ">
                     <a class="btn btn-success" role="button" href="user-avail.php">Avail Now</a>
                 </div>
-            </div>';
+            </div>
+        </div>
+    </div>';
     }
 
 ?>
@@ -108,7 +111,7 @@
 
  <!-- end of subs -->
     <!-- history -->
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     <div class="container-sub">
         <div class="row g-2 mb-2 ">
             <div class="form-group col-12 col-lg-3 table-filter-option">
@@ -140,42 +143,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">1</th>
-                        <td>1-Month Gym-Use (21 and above)</td>
-                        <td class="text-center ">Gym-Use Subscription</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">Paid</td>
-                        </tr>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">2</th>
-                        <td>1-Month Trainer</td>
-                        <td class="text-center ">Trainer Subscription</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">Paid</td>
-                        </tr>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">3</th>
-                        <td>1-Month Locker</td>
-                        <td class="text-center ">Locker Subscription</td>
-                        <td class="text-center">October 16, 2022</td>
-                        <td class="text-center">November 15, 2022</td>
-                        <td class="text-center">Paid</td>
-                        <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">4</th>
-                        <td>----</td>
-                        <td class="text-center ">Program Subscription</td>
-                        <td class="text-center">----</td>
-                        <td class="text-center">----</td>
-                        <td class="text-center">----</td>
-                        </tr>
-                        </tr>
+                        <?php 
+                            if($subscription_data = $subscriptionsObj->fetch_history($_SESSION['user_id'])){
+                                $counter=1;
+                                foreach ($subscription_data as $key => $value) {
+                                    $end_date = date_create($value['subscription_start_date']);
+                                    date_add($end_date, date_interval_create_from_date_string(strval($value['subscription_total_duration'])." days"));
+                                    $end_date;
+                                    echo '
+                                    <tr>
+                                    <th class="d-lg-none"></th>
+                                    <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                                    <td>'.htmlentities($value['subscription_offer_name']).'</td>
+                                    <td class="text-center ">'.htmlentities($value['type_of_subscription_details']).'</td>
+                                    <td class="text-center">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
+                                    <td class="text-center">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
+                                    <td class="text-center">Paid</td>
+                                    </tr>';
+                                }
+
+
+                            }
+                        ?>
+                        
+                        
+                       
                     </tbody>
                 </table>
             </div>

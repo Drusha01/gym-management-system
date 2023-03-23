@@ -6,7 +6,7 @@
     if($stats = $userObj->accounts_stats()){
         echo json_encode($stats);
     }else{
-        echo 'sdfasdf';
+        echo 'No Data';
     }
 
 ?>

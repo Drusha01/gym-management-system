@@ -35,28 +35,46 @@
 
  // Salse & Revenue Chart
  var ctx2 = $("#salse-revenue").get(0).getContext("2d");
- var myChart2 = new Chart(ctx2, {
-     type: "line",
-     data: {
-         labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
-         datasets: [{
-                 label: "Income",
-                 data: [15, 30, 55, 45, 70, 65, 85],
-                 backgroundColor: "rgba(0, 156, 255, .5)",
-                 fill: true
-             },
-             {
-                 label: "Revenue",
-                 data: [99, 135, 170, 130, 190, 180, 270],
-                 backgroundColor: "rgba(0, 156, 255, .3)",
-                 fill: true
-             }
-         ]
-         },
-     options: {
-         responsive: true
-     }
- });
+  $.ajax({url: '../dashboard/sales_and_revenue.php', 
+    success: function(result){
+        console.log(result);
+        var sales_and_rev = JSON.parse(result);
+        console.log(sales_and_rev);
+        var data_val=[];
+        var data_years=[];
+        for (let index = 0; index < sales_and_rev.length; index++) {
+            data_years.push(sales_and_rev[index].YEAR);
+           data_val.push(sales_and_rev[index].Sales_Revenue)
+        }
+        
+        
+        
+        var myChart2 = new Chart(ctx2, {
+            type: "line",
+            data: {
+                labels: data_years,
+                datasets: [{
+                        data_labels: "Income",
+                        data: [15, 30, 55, 45, 70, 65, 85],
+                        backgroundColor: "rgba(0, 156, 255, .5)",
+                        fill: true
+                    },
+                    {
+                        label: "Revenue",
+                        data: data_val,
+                        backgroundColor: "rgba(0, 156, 255, .3)",
+                        fill: true
+                    }
+                ]
+                },
+            options: {
+                responsive: true
+            }
+        });
+    }
+});
+ 
+ 
   // Pie Chart
 
   var ctx5 = $("#pie-chart").get(0).getContext("2d");
