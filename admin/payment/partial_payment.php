@@ -35,7 +35,6 @@ if(isset($_SESSION['admin_id'])){
                                     if($partial_payment>0){
                                         $balance = (($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']))+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount']);
                                         if($partial_payment-$balance>=0){
-                                            echo $partial_payment-$balance.' ';
                                             $partial_payment -=$balance;
                                             if(!$subscriptionsObj->full_payment($value['subscription_id'])){
                                                 $error = true;
@@ -52,8 +51,6 @@ if(isset($_SESSION['admin_id'])){
                                 }
                                 if($partial_payment>0){
                                     echo $partial_payment;
-                                }else{
-                                    echo '1';
                                 }
                             }else{
                                 // percentage
