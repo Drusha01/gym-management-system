@@ -11,7 +11,7 @@ class subscriptions
 
     function fetchAllActiveOrPendingSubscriptions($active, $pending, $completed, $deleted, $terminated){
         try{
-            $sql = 'SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id FROM subscriptions
+            $sql = 'SELECT distinct subscription_subscriber_user_id, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name, subscription_subscriber_user_id,subscription_start_date FROM subscriptions
             LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
             LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
             WHERE subscription_status_details = :active OR  subscription_status_details = :pending OR  subscription_status_details = :completed OR  subscription_status_details = :deleted OR  subscription_status_details = :terminated
