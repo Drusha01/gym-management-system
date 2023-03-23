@@ -311,7 +311,7 @@ class subscriptions
     function partial_payment($subscription_id,$subscription_paid_amount){
         try{
             $sql = 'UPDATE subscriptions 
-            SET subscription_paid_amount = :subscription_paid_amount
+            SET subscription_paid_amount = :subscription_paid_amount +subscription_paid_amount
             WHERE subscription_id = :subscription_id; ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':subscription_id', $subscription_id);
