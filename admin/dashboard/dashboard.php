@@ -88,13 +88,7 @@ if(isset($_SESSION['admin_id'])){
                 <div class="col-sm-12 col-xl-auto pb-3">
                     <div class="card rounded-4 border-0 shadow p-4 w-100">
                         <h6 class="mb-4">Recent Customers Subscribed</h6>
-                        <?php 
-                        require_once('../../classes/subscriptions.class.php');
-                        $subscriptionsObj = new subscriptions();
-
-                        if($subscription_data = $subscriptionsObj->recent_customers_subscribed()){
-                            echo'
-                            <table class="table">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -102,32 +96,24 @@ if(isset($_SESSION['admin_id'])){
                                     <th scope="col" class="text-center">Total Number of Availed Offers</th>
                                 </tr>
                             </thead>
-                            <tbody>';
-                            $counter=1;
-                            foreach ($subscription_data as $key => $subscription_data_value) {
-                                $total = 0;
-                                if($subscription_data_total = $subscriptionsObj->total_number_of_availed_offers($subscription_data_value['subscription_subscriber_user_id'])){
-                                    $total = $subscription_data_total['total'];
-                                } else{
-                                    $total=0;
-                                }
-                                echo '
+                            <tbody>
                                 <tr>
-                                    <th scope="row">'.$counter.'</th>
-                                    <td>'.htmlentities($subscription_data_value['user_fullname']).'</td>
-                                    <td class="text-center">'.htmlentities($total).'</td>
-                                </tr>';
-                                $counter++;
-                            }
-                            echo '
-                                </tbody>
-                            </table>';
-                        }else{
-                            echo '<h6 class="mb-4">No Data</h6>';
-                        }
-                        
-                        ?>
-                        
+                                    <th scope="row">1</th>
+                                    <td>Cruz, Juan Dela</td>
+                                    <td class="text-center">2</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Trinidad, James Lorenz</td>
+                                    <td class="text-center">3</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Nicholas, Shania Gabrielle</td>
+                                    <td class="text-center">3</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-sm-12 col-xl-auto">

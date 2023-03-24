@@ -36,92 +36,31 @@ if(isset($_SESSION['admin_id'])){
 <?php require_once '../includes/top_nav_admin.php';?>
 <?php require_once '../includes/side_nav.php';?>
 
-<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
+<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-md-4 pt-3">
   <div class="w-100">
-    <h5 class="col-12 fw-bold mb-3">Notification</h5>
+    <h5 class="col-12 fw-bold mb-3 ps-2">Notification</h5>
+    <!-- wag mo to problemahin for reference lng tanggalin lng ito if tapos na -->
+    <div class="col-12 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50 pb-3 px-3">
+        <a href="referencenotif.php" class="btn btn-success" role="button">Show Reference</a>
+    </div>
+
     <div class="card border-0 shadow rounded-3">
-        <table class="table">
+        <table id="example"class="table">
             <thead>
                 <tr>
-                <th colspan="2">
-                    <div class="box-title py-2 d-flex justify-content-end">
-                        <button type="button" class="btn bg-transparent">Mark as All Read</button>
-                    </div>
-                </th>
+                    <th colspan="2">
+                        <div class="box-title py-2 d-flex justify-content-end">
+                            <button type="button" class="btn bg-transparent">Mark as All Read</button>
+                        </div>
+                    </th>
                 </tr>
             </thead>
-            <!-- No Notifcations -->
-            <!-- <tbody>
-                <tr>
-                    <td colspan="2" class="text-center fw-bold">No Notifications</td>
-                </tr>
-            </tbody> -->
             <tbody>
-                <tr class="bg-danger bg-opacity-10">
-                    <td class="col-11 ps-3 ps-lg-4">
-                    <div class="d-flex align-items-center">
-                        <img
-                            src="https://cdn-icons-png.flaticon.com/512/814/814647.png"
-                            alt=""
-                            style="width: 45px; height: 45px"
-                            />
-                            <div class="fw-bold ms-4">
-                                <div class="text-truncate">Locker</div>
-                                <div class="fw-light">Your Locker is nearing Expiration.</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="col-1">
-                        <span class="ms-auto mb-auto">
-                            <div class="btn-group rounded ms-5">
-                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
-                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
-                                </ul>
-                            </div>
-                            <br/>
-                            <div class="text-end text-muted pt-1">3d</div>
-                        </span>
-                    </td>
-                </tr>
                 <tr class="">
                     <td class="col-11 ps-3 ps-lg-4">
-                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center mt-1">
                         <img
-                            src="https://cdn-icons-png.flaticon.com/512/9775/9775707.png"
-                            alt=""
-                            style="width: 45px; height: 45px"
-                            />
-                            <div class="fw-bold ms-4">
-                                <div class="text-truncate">Account</div>
-                                <div class="fw-light">Your Account has been verified.</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="col-1">
-                        <span class="ms-auto mb-auto">
-                            <div class="btn-group rounded ms-5">
-                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
-                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
-                                </ul>
-                            </div>
-                            <br/>
-                            <div class="text-end text-muted pt-1">3d</div>
-                        </span>
-                    </td>
-                </tr>
-                <tr class="bg-danger bg-opacity-10">
-                    <td class="col-11 ps-3 ps-lg-4">
-                    <div class="d-flex align-items-center">
-                        <img
-                            src="https://cdn-icons-png.flaticon.com/512/8920/8920580.png"
+                            src="../../images/icons_notif/partial.png"
                             alt=""
                             style="width: 45px; height: 45px"
                             />
@@ -132,7 +71,7 @@ if(isset($_SESSION['admin_id'])){
                         </div>
                     </td>
                     <td class="col-1">
-                        <span class="ms-auto mb-auto">
+                        <span class="d-flex justify-content-end">
                             <div class="btn-group rounded ms-5">
                                 <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bx-dots-vertical-rounded'></i>
@@ -143,26 +82,86 @@ if(isset($_SESSION['admin_id'])){
                                 </ul>
                             </div>
                             <br/>
-                            <div class="text-end text-muted pt-1">3d</div>
                         </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
                     </td>
                 </tr>
-                <tr class="bg-danger bg-opacity-10">
+                <tr class="">
                     <td class="col-11 ps-3 ps-lg-4">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center mt-1">
                         <img
-                            src="https://cdn-icons-png.flaticon.com/512/1019/1019709.png"
+                            src="../../images/icons_notif/trainer_not.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Trainer</div>
+                                <div class="fw-light">Your Trainer (name) is not available for today.</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">1 hr Ago</div>
+                    </td>
+                </tr>
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/partial.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Partial</div>
+                                <div class="fw-light">You have only paid an amount of ₱500.00, you still have an outstanding balance of ₱2500.00.</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/payment.png"
                             alt=""
                             style="width: 45px; height: 45px"
                             />
                             <div class="fw-bold ms-4">
                                 <div class="text-truncate">Payment</div>
-                                <div class="fw-light">Your Payment for Gym-Use is now verified. This offer is now Paid.</div>
+                                <div class="fw-light">Your Payment for Gym-Use is now verified. This offer is now Paid. (Ganito Kapag Separate).</div>
                             </div>
                         </div>
                     </td>
                     <td class="col-1">
-                        <span class="ms-auto mb-auto">
+                        <span class="d-flex justify-content-end">
                             <div class="btn-group rounded ms-5">
                                 <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bx-dots-vertical-rounded'></i>
@@ -173,26 +172,26 @@ if(isset($_SESSION['admin_id'])){
                                 </ul>
                             </div>
                             <br/>
-                            <div class="text-end text-muted pt-1">3d</div>
                         </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
                     </td>
                 </tr>
                 <tr class="">
                     <td class="col-11 ps-3 ps-lg-4">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center mt-1">
                         <img
-                            src="https://cdn-icons-png.flaticon.com/512/4334/4334479.png"
+                            src="../../images/icons_notif/payment.png"
                             alt=""
                             style="width: 45px; height: 45px"
                             />
                             <div class="fw-bold ms-4">
-                                <div class="text-truncate">Overdue</div>
-                                <div class="fw-light">You have an overdue amount of ₱4200.00.</div>
+                                <div class="text-truncate">Payment</div>
+                                <div class="fw-light">Your Payment is now verified. The Status of this is now Paid.(ganito kapag as one pili ka na lng)</div>
                             </div>
                         </div>
                     </td>
                     <td class="col-1">
-                        <span class="ms-auto mb-auto">
+                        <span class="d-flex justify-content-end">
                             <div class="btn-group rounded ms-5">
                                 <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bx-dots-vertical-rounded'></i>
@@ -203,26 +202,26 @@ if(isset($_SESSION['admin_id'])){
                                 </ul>
                             </div>
                             <br/>
-                            <div class="text-end text-muted pt-1">3d</div>
                         </span>
+                        <div class="text-end text-muted pt-1">1 hr Ago</div>
                     </td>
                 </tr>
                 <tr class="">
                     <td class="col-11 ps-3 ps-lg-4">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center mt-1">
                         <img
-                            src="https://cdn-icons-png.flaticon.com/512/4091/4091120.png"
+                            src="../../images/icons_notif/activated.png"
                             alt=""
                             style="width: 45px; height: 45px"
                             />
                             <div class="fw-bold ms-4">
-                                <div class="text-truncate">Activated</div>
-                                <div class="fw-light">Your Availed Subscriptions is now active.</div>
+                                <div class="text-truncate">Activate</div>
+                                <div class="fw-light">Your Availed Subscriptions is now Active.</div>
                             </div>
                         </div>
                     </td>
                     <td class="col-1">
-                        <span class="ms-auto mb-auto">
+                        <span class="d-flex justify-content-end">
                             <div class="btn-group rounded ms-5">
                                 <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class='bx bx-dots-vertical-rounded'></i>
@@ -233,8 +232,39 @@ if(isset($_SESSION['admin_id'])){
                                 </ul>
                             </div>
                             <br/>
-                            <div class="text-end text-muted pt-1">3d</div>
                         </span>
+                        <div class="text-end text-muted pt-1">1 hr Ago</div>
+                    </td>
+                </tr>
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/trainer.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Trainer</div>
+                                <div class="fw-light">Your Trainer (name), is available for today.</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                            
+                        </span>
+                        <div class="text-end text-muted pt-1">1 hr Ago</div>
                     </td>
                 </tr>
             </tbody>
@@ -270,10 +300,15 @@ if(isset($_SESSION['admin_id'])){
 
   </div>
 </main>
-
+            <!-- No Notifcations -->
+            <!-- <tbody>
+                <tr>
+                    <td colspan="2"class="text-center fw-bold">Notifications will Appear Here</td>
+                </tr>
+            </tbody> -->
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <script>
-      
+
 </script>
 </html>

@@ -51,6 +51,8 @@ if(isset($_SESSION['admin_id'])){
                                 }
                                 if($partial_payment>0){
                                     echo $partial_payment;
+                                }else{
+                                    echo '1';
                                 }
                             }else{
                                 // percentage

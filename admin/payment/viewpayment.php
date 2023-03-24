@@ -503,6 +503,7 @@ $('#confirm_partial_payment').click(function (){
     console.log(data);
     if(data ==1){
       location.reload();
+     // location.reload();
     }else{
       //alert('Wrong password / Error');
     }

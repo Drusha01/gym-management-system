@@ -51,7 +51,8 @@ if(isset($_SESSION['user_id'])){
 <body>
   <?php require_once '../includes/header.php';?>
     <section class="my_acc">
-        <div class="container-fluid mt-6 custom-nav">
+        <div class="mt-6 custom-nav">
+          <div class="container-fluid pb-2">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true"  onclick="changeActiveTab('account-tab')">My Account</button>
@@ -69,6 +70,7 @@ if(isset($_SESSION['user_id'])){
                     <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('payment-tab')">Payment</button>
                   </li>
               </ul>
+          </div>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                   <?php require_once 'user-acc.php'; ?>
