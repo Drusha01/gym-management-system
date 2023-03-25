@@ -30,7 +30,7 @@
                 <h5>Wait for the Admin to activate your availed Subscriptions.</h5>    
             ';
             echo '<div class="form-group col-12 d-grid justify-content-lg-end align-items-end table-filter-option ">
-                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                    <button class="btn btn-danger" role="button" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel All</button>
                 </div>';
         }
         // check the subs if active
@@ -49,6 +49,7 @@
                         <th class="text-center">END DATE</th>
                         <th class="text-center">DAYS LEFT</th>
                         <th class="text-center">STATUS</th>
+                        <th class="text-center">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -67,6 +68,7 @@
                             <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
                             <td class="text-center ">'.htmlentities($value['subscription_days_to_end']).'</td>
                             <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>
+                            <td class="text-center "><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelspecificModal">Cancel</button></td>
                             </tr>';
                     }else{
                         echo '<tr>
@@ -176,7 +178,24 @@
   </div>
   <!-- end of history -->
 </div>
-
+<!-- modal cancel specific-->
+<div class="modal fade" id="cancelspecificModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cancel Availed Offer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to cancel this (offer_name)?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- modal cancel-->
 <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
