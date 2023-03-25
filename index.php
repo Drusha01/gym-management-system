@@ -38,11 +38,16 @@ if(isset($_SESSION['user_id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym</title>
     <link rel="icon" type="images/x-icon" href="images/favicon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/boxicons.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/boxicons.min.css">
+</head>
 
 </head>
 <body>
@@ -175,55 +180,52 @@ if(isset($_SESSION['user_id'])){
     </div>
   </section>
 
-  <section id="sell">
-  <div class="col-12 section-intro text-white">
-    <h1>What We Sell</h1>
-    <div class="hline"></div>
- </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow">
-          <img src="images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="col-12 ">
-              <h1 class="text-center">Supplements</h1>
-              <div class="about-border"></div>
-           </div>
-            <p class="card-text">We sell Protein Powder, Creatine, Pre-Workout and Much More.</p>
+  <section id="sell" class="pb-5 pt-3">
+  <!-- weights room -->
+        <div class="container">
+          <div class="col-12 text-white section-intro pb-3">
+            <h1>Weights Room</h1>
+            <div class="hline"></div>
           </div>
-        </div>
-      </div>
+            <div class="owl-carousel owl-3-slider owl-carousel2">
 
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow">
-          <img src="images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="col-12 ">
-              <h1 class="text-center">Clothing</h1>
-              <div class="about-border"></div>
-           </div>
-            <p class="card-text">You can buy our signature clothing with our Official Logo on it.</p>
-          </div>
-        </div>
-      </div>
+                <div class="item">
+                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Dumbells</h3>
+                        </div>
+                        <img src="images/weight_room/slider/hero-slider-1.jpg" alt="Image" class="img-fluid">
+                    </a> 
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Machines</h3>
+                        </div>
+                        <img src="images/weight_room/slider/hero-slider-2.jpg" alt="Image" class="img-fluid">
+                    </a> 
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Warm-Up Area</h3>
+                        </div>
+                        <img src="images/weight_room/slider/hero-slider-3.jpg" alt="Image" class="img-fluid">
+                    </a> 
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Chest Area</h3>
+                        </div>
+                        <img src="images/weight_room/slider/hero-slider-4.jpg" alt="Image" class="img-fluid">
+                    </a> 
+                </div>
 
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow">
-          <img src="images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="col-12 ">
-              <h1 class="text-center">Refreshments</h1>
-              <div class="about-border"></div>
-           </div>
-            <p class="card-text">Our Gym offers Water bottles, Energy Drinks and Water Dispenser which you drop your coin.</p>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    <!-- end of weights room -->
 </section>
-    <br>
 
 <footer>
     <div class="footer-top">
@@ -275,8 +277,39 @@ if(isset($_SESSION['user_id'])){
     </div>
 </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-     crossorigin="anonymous"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/moment.min.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/custom.js"></script>
+  
+  <script>
+  $( '.owl-carousel2' ).owlCarousel({
+
+  loop: false,
+  rewind: true,
+  margin: 10,
+  dots: true,
+  navText: [ '<span class="fa fa-chevron-left"></span>', '<span class="fa fa-chevron-right"></span>' ],
+  responsive:{
+
+    0: {
+        items: 1,
+        nav: false
+    },
+
+    1000: {
+        items: 3,
+        nav: true
+    }
+  }
+  })
+  </script>
 </body>
 </html>

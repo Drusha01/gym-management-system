@@ -78,7 +78,7 @@ if(isset($_SESSION['user_id'])){
                 <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
                     <div class="text-center p-4 pt-0">
                         <div class="d-inline-block bg-danger text-white fs-5 py-1 px-4 mb-4"><i class='bx bx-dumbbell fs-3 mt-2'></i></div>
-                        <h5 class="mb-3">Gym-Use</h5>
+                        <h5 class="mb-3">Gym</h5>
                         <p>With this subscription, you can use our gym freely and enjoy a variety of exercise options to help you achieve your fitness goals.</p>
                     </div>
                     <div class="position-relative mt-auto">
@@ -140,7 +140,7 @@ if(isset($_SESSION['user_id'])){
 <!-- subs End -->
 
  <!-- Features Start -->
- <div class="container-xxl py-6">
+    <div class="container-xxl py-6">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6">

@@ -31,23 +31,7 @@ if(isset($_SESSION['user_id'])){
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keno Gym</title>
-    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/boxicons.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-    <script src="magnific-popup/jquery.magnific-popup.js"></script>
-
-</head>
+<?php require_once '../includes/header-user.php';?>
 <body>
   <?php require_once '../includes/header.php';?>
     <section class="my_acc">
@@ -120,9 +104,6 @@ if(isset($_SESSION['user_id'])){
     <?php require_once '../includes/footer.php';?>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-     crossorigin="anonymous"></script>
 </body>
 </html>
 

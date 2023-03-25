@@ -229,12 +229,13 @@ require_once '../classes/genders.class.php';
     <title>Keno Gym | Sign-Up</title>
     <link rel="icon" type="images/x-icon" href="../images/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous">
+  rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+  crossorigin="anonymous">
     <link rel="stylesheet" href="../css/log-in.css">
     <link rel="stylesheet" href="../css/boxicons.min.css">
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
     <html itemscope itemtype="http://schema.org/Article">
+
 </head>
 <body>
   <section class="container pt-4 pb-4">
