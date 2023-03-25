@@ -41,33 +41,72 @@ if(isset($_SESSION['admin_id'])){
     <h5 class="col-12 fw-bold mb-3">Reports</h5>
         <ul class="nav nav-tabs application" id="myTab" role="tablist">
             <li class="nav-item active" role="presentation">
-                <button class="nav-link active text-dark" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Sales & Revenue</button>
+                <button class="nav-link active text-dark" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">Sales & Revenue</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Most Availed Offer</button>
+                <button class="nav-link text-dark" id="subs-tab" data-bs-toggle="tab" data-bs-target="#subs" type="button" role="tab" aria-controls="subs" aria-selected="false">Subscriptions</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Most Frequent Customer</button>
+                <button class="nav-link text-dark" id="most_availed-tab" data-bs-toggle="tab" data-bs-target="#most_availed" type="button" role="tab" aria-controls="most_availed" aria-selected="false">Most Availed Offer</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-dark" id="frequent-tab" data-bs-toggle="tab" data-bs-target="#frequent" type="button" role="tab" aria-controls="frequent" aria-selected="false">Most Frequent Customer</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-dark" id="availed_trainer-tab" data-bs-toggle="tab" data-bs-target="#availed_trainer" type="button" role="tab" aria-controls="availed_trainer" aria-selected="false">Most Availed Trainer</button>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">1</div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">2</div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">3</div>
-        </div>
-        <div class="row pb-3">
+        <div class="row">
             <div class="col-lg-6"></div>
-            <div class="col-12 col-lg-6 pb-2 d-flex justify-content-end">
-                <div id="reportrange" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width:100%;">
+            <div class="col-12 col-lg-6 pb-2 d-flex justify-content-end pt-4">
+                <div id="reportrange_1" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width:100%;">
                     <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
                     <span></span> <b class="caret"></b>
                 </div>
             </div>
         </div>
+        
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+                <div class="bg-light rounded h-100 p-4">
+                    <canvas id="salse-revenue"></canvas>
+                </div>
+            </div>
 
-        <div class="bg-light rounded h-100 p-4">
-            <canvas id="salse-revenue"></canvas>
+            <div class="tab-pane fade" id="subs" role="tabpanel" aria-labelledby="subs-tab">
+                <div class="bg-light rounded h-100 p-4">
+                    <canvas id="subscriptions"></canvas>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="most_availed" role="tabpanel" aria-labelledby="most_availed-tab">
+                <div class="bg-light rounded h-100 p-4">
+                    <select class="form-select-sm" aria-label="Default select example">
+                        <option selected>All</option>
+                        <option value="1">Gym Subscription</option>
+                        <option value="2">Trainer Subscription</option>
+                        <option value="3">Locker Subscription</option>
+                        <option value="4">Program Subscription</option>
+                        <option value="5">Walk-In</option>
+                    </select>
+                    <canvas id="most-availed"></canvas>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="frequent" role="tabpanel" aria-labelledby="frequent-tab">
+                <div class="bg-light rounded h-100 p-4">
+                    <canvas id="most-frequent"></canvas>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="availed_trainer" role="tabpanel" aria-labelledby="availed_trainer-tab">
+                trainer
+                <div class="bg-light rounded h-100 p-4">
+                    <canvas id="trainer_most"></canvas>
+                </div>
+            </div>
         </div>
+        
 
   </div>
 </main>

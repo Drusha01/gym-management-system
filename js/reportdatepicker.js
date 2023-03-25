@@ -1,13 +1,14 @@
+//date picker for sales & revenue
 $(function() {
 
     var start = moment().subtract(29, 'days');
     var end = moment();
 
     function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        $('#reportrange_1 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
 
-    $('#reportrange').daterangepicker({
+    $('#reportrange_1').daterangepicker({
         startDate: start,
         endDate: end,
         ranges: {
@@ -23,3 +24,4 @@ $(function() {
     cb(start, end);
     
 });
+
