@@ -254,8 +254,12 @@ require_once '../classes/genders.class.php';
             <form autocomplete="off" class="form-signup px-3" method="post" enctype="multipart/form-data" >
             <h2 class="text-center">Create Account</h2>
             <div class="form-group py-1">
-              <label for="exampleFormControlFile1">Profile Picture</label>
-              <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
+              <div class="row">
+                <div class="col-lg-12">
+                  <label for="profilepic" class="form-label">Profile Picture<img src="../images/acc_img.png" class="rounded-circle ms-5 d-none" alt="Cinque Terre" style="width: 100px;"></label>
+                  <input type="file" class="form-control" id="profilepic" name="profilepic" accept="image/*" >
+                </div>
+              </div>
             </div>
             <div class="form-floating py-1">
               <input autocomplete="off" type="text" class="form-control" name="username" id="username" placeholder="Username" oninput="functiononkeyup()" required >
@@ -324,7 +328,7 @@ require_once '../classes/genders.class.php';
                   <div class="col-2"><a tabindex="0" class="btn btn-dark btn-sm d-lg-none btn-circle fw-bolder" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Info about Valid ID" data-bs-content="Valid ID must have a Birth Date on it.">?</a></div>
                 </div>
               </label>
-              <input type="file" class="form-control-file" id="valid_id" name="valid_id" accept="image/*"  >
+              <input type="file" class="form-control" id="valid_id" name="valid_id" accept="image/*"  >
             </div>
             <div class="form-floating py-1">
               <input type="password" class="form-control" name="password" placeholder="Password" oninput="functiononkeyup()" id="password" required autocomplete="off">

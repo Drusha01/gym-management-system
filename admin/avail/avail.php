@@ -20,16 +20,16 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
         <div class="w-100">
             <h5 class="col-12 fw-bold mb-3">Avail</h5>
             <ul class="nav nav-tabs application">
-                        <li class="nav-item active " id="subs">
-                            <a class="nav-link" href="#tab-subs" id="a-subs" data-bs-toggle="tab" >Subscription </a>
-                        </li>
-                        <li class="nav-item" id="exp">
-                            <a class="nav-link" href="#tab-exp" id="a-exp"data-bs-toggle="tab" >Expiration</a>
-                        </li>
-                        <li class="nav-item" id="walk">
-                            <a class="nav-link" href="#tab-walk" id="a-walk" data-bs-toggle="tab" >Walk-In</a>
-                        </li>
-                    </ul>
+                <li class="nav-item active " id="subs">
+                    <a class="nav-link" href="#tab-subs" id="a-subs" data-bs-toggle="tab" >Subscription </a>
+                </li>
+                <li class="nav-item" id="exp">
+                    <a class="nav-link" href="#tab-exp" id="a-exp"data-bs-toggle="tab" >Expiration</a>
+                </li>
+                <li class="nav-item" id="walk">
+                    <a class="nav-link" href="#tab-walk" id="a-walk" data-bs-toggle="tab" >Walk-In</a>
+                </li>
+            </ul>
             <div class="tab-content" >
                 <div class="tab-pane active show fade" id="tab-subs">
                     <?php require_once 'subscription.php';?>

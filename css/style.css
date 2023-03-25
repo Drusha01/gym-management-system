@@ -158,6 +158,13 @@ box-sizing: border-box;}
    height:500px;
 }
 
+.center-cropped {
+  width: 1000px;
+  height: 425px;
+  object-fit: cover;
+  
+}
+
  .user-circle :hover{
    color: black;
    cursor: pointer;

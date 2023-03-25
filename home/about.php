@@ -30,24 +30,7 @@ if(isset($_SESSION['user_id'])){
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keno Gym | About</title>
-    <link rel="icon" type="images/x-icon" href="images/favicon.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-    rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-    crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/aos.css">
-    <link rel="stylesheet" href="../css/boxicons.min.css">
-</head>
+<?php require_once 'header.php';?>
 <body>
 <?php require_once '../includes/top-nav-home.php';?>
 <section style="margin-top: 4%;">
@@ -91,109 +74,6 @@ if(isset($_SESSION['user_id'])){
         </div>
     </div>
     <!-- end of about gym -->
-
-    <!-- weights room -->
-    <div class="untree_co-section">
-        <div class="container">
-            <div class="row text-center justify-content-center">
-                <div class="col-lg-7"><h2 class="section-title text-center">Weights Room</h2></div>
-            </div>
-            <div class="d-flex justify-content-center py-4">
-                <div class="bg-dark w-75" style="padding: 1px;"></div>
-            </div>
-
-            <div class="owl-carousel owl-3-slider owl-carousel2">
-
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Dumbells</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-1.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Machines</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-2.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Warm-Up Area</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-3.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Chest Area</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-4.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    <!-- end of weights room -->
-
-
-    <!-- function room -->
-    <div class="untree_co-section">
-        <div class="container">
-            <div class="row text-center justify-content-center">
-                <div class="col-lg-7"><h2 class="section-title text-center">Function Room</h2></div>
-            </div>
-            <div class="d-flex justify-content-center py-4">
-                <div class="bg-dark w-75" style="padding: 1px;"></div>
-            </div>
-
-            <div class="owl-carousel owl-3-slider owl-carousel2">
-
-                <div class="item">
-                    <a class="media-thumb" href="../images/function_room/orig_size/1.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Front View</h3>
-                        </div>
-                        <img src="../images/function_room/slider/slider-1.jpg" alt="Image" class="img-fluid">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/function_room/orig_size/2.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Boxing Area</h3>
-                        </div>
-                        <img src="../images/function_room/slider/slider-2.jpg" alt="Image" class="img-fluid">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/function_room/orig_size/3.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Threadmill</h3>
-                        </div>
-                        <img src="../images/function_room/slider/slider-3.jpg" alt="Image" class="img-fluid">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/function_room/orig_size/4.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Bike Area</h3>
-                        </div>
-                        <img src="../images/function_room/slider/slider-4.jpg" alt="Image" class="img-fluid">
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    <!-- end of function room -->
 
     <!-- team -->
     <div class="testimonial-section">
