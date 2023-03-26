@@ -57,7 +57,7 @@ if(isset($_SESSION['admin_id'])){
                 <a href="add-admin.php" class="btn btn-success" role="button">Add User</a>
             </div>
                 <div class="table-responsive table-container">
-                    <table id="table-2" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
+                    <table id="user_settings" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
                         <thead class="bg-dark text-light">
                             <tr>
                             <th class="d-lg-none"></th>
@@ -338,6 +338,16 @@ if(isset($_SESSION['admin_id'])){
             }
         });
     });
+</script>
+<script>
+    $(document).ready(function() {
+    var table = $('#user_settings').DataTable( {
+        "bPaginate": false,
+        responsive: true
+    } );
+ 
+    new $.fn.dataTable.FixedHeader( table );
+} );
 </script>
 </body>
 </html>

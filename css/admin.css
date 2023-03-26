@@ -3,6 +3,16 @@
     font-size: 16px;
 }
 
+#sidebarMenu {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+  }
+
+#sidebarMenu::-webkit-scrollbar {
+display: none; /* for Chrome, Safari, and Opera */
+}
+
 .logo-name{
     font-weight: 600;
     padding-bottom: 2px;

@@ -120,9 +120,17 @@ if(isset($_SESSION['admin_id'])){
               <label class="form-check-label">Remember Me</label>
             </div>
             <div class="d-grid gap-2 mb-3">
-              <button type="submit" class="btn btn-dark btn-lg border-0 rounded" > Log In</button>
+              <button type="submit" class="btn btn-dark btn-lg border-0 rounded" >Log In</button>
             </div>
           </form>
+          <div class="d-flex px-3">
+              <hr class="my-auto flex-grow-1">
+              <div class="px-4">OR</div>
+              <hr class="my-auto flex-grow-1">
+          </div>
+          <div class="d-grid gap-2 mb-3 px-4 pt-3">
+              <a href="#" type="submit" class="btn btn-dark btn-lg border-0 rounded">Attendance Mode</a>
+          </div>
         </div>
       </div>
     </div>
