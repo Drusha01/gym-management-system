@@ -10,19 +10,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link " title="Announcement">
+                        <a href="../announcement/announcement.php" class="nav-link " title="Announcement">
                             <i class='bx bxs-megaphone'></i>
                             <span class="links-name ">Announcement</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link " title="Attendance">
+                        <a href="../attendance/attendance.php" class="nav-link " title="Attendance">
                             <i class='bx bx-calendar-check'></i>
                             <span class="links-name">Attendance</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link " title="Locker">
+                        <a href="../locker/locker.php" class="nav-link " title="Locker">
                             <i class='bx bx-cabinet' ></i>
                             <span class="links-name">Locker</span>
                         </a>

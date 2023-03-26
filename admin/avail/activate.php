@@ -186,7 +186,7 @@ if(isset($_SESSION['admin_id'])){
                 echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark"  role="button" data-bs-toggle="modal" data-bs-target="#activate">Activate </button></div>';
             }
         ?>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_subs">Add Subscription</button></div>
+        <div class="p-2"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_subs">Add Subscription</button></div>
         </div>
         <div class="table-responsive table-container">
             <table id="example" class="table table-striped table-bordered" style="width:100%;border: 3px solid black;">
@@ -239,11 +239,29 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      Are you sure you want to activate the subscription?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="activateSubscription(<?php echo $_GET['user_id'];?>)">Yes</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+        <div class="row ms-2 ms-lg-5">
+            <div class="col-6">
+                <label class="pb-1 ms-1" for="end">Choose Date</label>
+                <input type="date" class="form-control" value="" id="end" name="birthdate" placeholder="Enter End Date"  required>
+            </div>
+            <div class="col-6 d-flex align-items-end ">
+                <button class="btn btn-success">Confirm Date</button>
+            </div>
+        </div>
+        <div class="d-flex px-3 pt-3">
+            <hr class="my-auto flex-grow-1">
+            <div class="px-4">OR</div>
+            <hr class="my-auto flex-grow-1">
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-auto d-flex align-items-end">
+                Activate the Subscription Now?
+            </div>
+            <div class="col-auto">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="activateSubscription(<?php echo $_GET['user_id'];?>)">Yes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
       </div>
     </div>
   </div>

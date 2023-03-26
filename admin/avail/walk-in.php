@@ -67,7 +67,7 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
                 </tr>';
                 $counter++;
             }
-            echo '  
+            echo '
                 </tbody>';
         }else{
             echo 'No Data';

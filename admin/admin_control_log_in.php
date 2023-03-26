@@ -129,7 +129,7 @@ if(isset($_SESSION['admin_id'])){
               <hr class="my-auto flex-grow-1">
           </div>
           <div class="d-grid gap-2 mb-3 px-4 pt-3">
-              <a href="attendance/attendance.php" type="submit" class="btn btn-dark btn-lg border-0 rounded">Attendance Mode</a>
+              <a href="attendance_mode/attendance.php" type="submit" class="btn btn-dark btn-lg border-0 rounded">Attendance Mode</a>
           </div>
         </div>
       </div>
