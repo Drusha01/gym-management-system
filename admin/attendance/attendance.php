@@ -1,36 +1,60 @@
 <?php require_once '../includes/header.php'; ?>
 
 <body>
-<section class="header">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A73535">
-        <div class="container-fluid">
-            <div class="d-flex flex-row">
-                <a class="navbar-brand navbar" href="#">
-                    <img src="../../images/logo.png" alt="" width="55">
-                    <div class="d-flex flex-column p-2 pt-0 pb-0">
-                    <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
-                    <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
-                    </div>
-                </a>
-                </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item">
-                        <button class="nav-link active text-white" aria-current="page"  data-bs-toggle="modal" data-bs-target="#exampleModal"><span class='bx bx-exit align-middle fs-4 pe-2'></span>Exit</button>
-                    </li>
-                </ul>
+<?php require_once '../includes/top_nav_attendance.php'; ?>
+<div class="container-fluid px-4" style="margin-top: 7%;">
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <img src="../../images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
+            <strong class="me-auto">KE-NO Fitness Center</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            Succesfully Recorded.✅
             </div>
         </div>
-    </nav>
-</section>
-attendance
+    </div>
 
-<!-- Modal -->
+    <div class="row gx-3">
+        <div class="col-12 col-lg-6">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Attendance</h3>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <span class="fw-bolder fs-5">Date: <span id="dateDiv" class="fw-light fs-5"></span></span>
+                </div>
+            </div>
+             <!-- Actual search box -->
+             <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="search" id="keyword" class="form-control" placeholder="Search" data-lpignore="true">
+            </div>
+
+            <div class="table-responsive table-container px-2 mt-2 ">
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <h3 class="ms-1">Announcements</h3>
+                        <div class="owl-single dots-absolute owl-carousel">
+                            <img src="../../images/home-0.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                            <img src="../../images/home-1.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                            <img src="../../images/home-2.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                            <img src="../../images/home-3.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for exit -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -40,12 +64,12 @@ attendance
       </div>
       <div class="modal-body">
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter Username" data-lpignore="true">
+        <label for="username">Enter Username</label>
         </div>
         <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
+        <input type="password" class="form-control" id="pass" placeholder="Enter Password" data-lpignore="true">
+        <label for="pass">Password</label>
         </div>
       </div>
       <div class="modal-footer">
@@ -56,7 +80,106 @@ attendance
   </div>
 </div>
 
+<!-- Modal for confirm attendance -->
+<div class="modal fade" id="modalattendance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Attendance</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="form-floating mb-3">
+        <div><h5 class="fw-bolder fs-5">Customer Name: <span class="fw-light fs-4">Dela, Juan Cruz</span></h5></div>
+        <div class="form-floating">
+        <input type="password" class="form-control" id="pass" placeholder="Enter Password" data-lpignore="true">
+        <label for="pass">Password</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="toastbtn">Confirm Attendance</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+
+
+
+
+<!-- toast script -->
+<script>
+document.getElementById("toastbtn").onclick = function() {
+  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastList = toastElList.map(function(toastEl) {
+    return new bootstrap.Toast(toastEl)
+  })
+  toastList.forEach(toast => toast.show())
+}
+</script>
+
+
+
+
+
+
+
+<!-- data table script -->
+<script>
+    $.ajax({
+        type: "GET",
+        url: 'attendance_tbl.php',
+        success: function(result)
+        {
+            $('div.table-responsive').html(result);
+            dataTable = $("#attendance").DataTable({
+                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                responsive: true,
+                order: [[0, 'asc']]
+            });
+            $('input#keyword').on('input', function(e){
+                var status = $(this).val();
+                dataTable.columns([0]).search(status).draw();
+            })
+            new $.fn.dataTable.FixedHeader(dataTable);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+    });
+</script>
+
+<!-- time script -->
+<script>
+    function showDate()
+    {
+    var now = new Date();
+    var days = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+    var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+    var date = ((now.getDate()<10) ? "0" : "")+ now.getDate();
+    function fourdigits(number)
+    {
+    return (number < 1000) ? number + 1900 : number;
+    }
+    tnow=new Date();
+    thour=now.getHours();
+    tmin=now.getMinutes();
+    tsec=now.getSeconds();
+    if (tmin<=9) { tmin="0"+tmin; }
+    if (tsec<=9) { tsec="0"+tsec; }
+    if (thour<10) { thour="0"+thour; }
+    today = days[now.getDay()] + ", " + date + " " + months[now.getMonth()] + ", " + (fourdigits(now.getYear())) ;
+    document.getElementById("dateDiv").innerHTML = today;
+    }
+    setInterval("showDate()", 1000);
+</script>
+
+
+
+<script src="../../js/owl.carousel.min.js"></script>
+<script src="../../js/aos.js"></script>
+<script src="../../js/custom.js"></script>
 </body>
 </html>
