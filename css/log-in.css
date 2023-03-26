@@ -7,7 +7,9 @@ body {
     background-size: cover;
     background-attachment: scroll;
 }
-
+.form-floating:not(.form-control:disabled)::before {
+    background-color:transparent;
+  }
 .bx {
     padding: 11px;
     width: 38px;

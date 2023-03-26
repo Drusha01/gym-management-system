@@ -1,6 +1,9 @@
 *{margin: 0; padding:0;
 box-sizing: border-box;}
 
+.form-floating:not(.form-control:disabled)::before {
+  background-color:transparent;
+}
 
 .page-header {
   background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../images/home-1.jpg) center center no-repeat;

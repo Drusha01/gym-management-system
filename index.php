@@ -80,7 +80,6 @@ if(isset($_SESSION['user_id'])){
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="home/about.php">About</a>
                   </li>
-                  
                 </ul>
                   <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
