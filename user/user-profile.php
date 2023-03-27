@@ -63,12 +63,12 @@ if(isset($_SESSION['user_id'])){
                       <?php require_once 'user-notif.php'; ?>
                 </div>
                 <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription')">
-                    <div class="container-fluid p-3 ">
+                    <div class="container-fluid p-3 " style="min-height: 450px;">
                         <?php require_once 'user_subscriptions.php'; ?>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer')">
-                    <div class="container-fluid p-3">
+                    <div class="container-fluid p-3" style="min-height: 450px;">
                       <?php require_once 'user-trainer.php'; ?>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ if(isset($_SESSION['user_id'])){
 
     
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

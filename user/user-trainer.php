@@ -61,11 +61,10 @@
                 </div>
             </div>
         </div>
-    </div>        
-            
+    </div>
             ';
         }else{
-            echo '<div class="h-100 pt-2 ">
+            echo '<div class="pt-2 ">
             <h5>Availed Trainer Subscription Go Here.</h5>
             <div class="form-group col-12 pt-3 ">
                 <a class="btn btn-success" role="button" href="user-avail.php">Avail Now</a>
@@ -164,5 +163,5 @@
         </div> -->
     </div>
 </div>
-       
+
 

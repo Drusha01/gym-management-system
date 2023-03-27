@@ -99,110 +99,113 @@
         </div>
         <div class="col-md-8">
             <div class="card mb-3">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <div class="col-lg-3">
-                            <h6 class="mb-0">Full Name</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <?php echo_safe($_SESSION['user_lastname']. ', '.$_SESSION['user_firstname'].' '.$_SESSION['user_middlename']) ?>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="col-lg-3">
-                            <h6 class="mb-0">Gender</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <?php echo_safe($_SESSION['user_gender_details']) ?>
-                        </div>
-                    </div>
-                </div>
-                    <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="col-lg-3">
-                            <h6 class="mb-0">Address</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <?php if (strlen($_SESSION['user_address']) > 0) {
-                                echo_safe($_SESSION['user_address']);
-                                
-                            } else {
-                                echo 'No address';
-                            } ?>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="col-lg-3">
-                            <h6 class="mb-0">Phone Number</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <?php echo_safe($_SESSION['user_phone_number']) ?>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="col-lg-3">
-                            <h6 class="mb-0">Age</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <?php echo_safe(getAge($_SESSION['user_birthdate'])) ?>
-                        </div>
-                    </div>
-                    <div class="col-6">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col">
-                            <h6 class="mb-0">Email</h6>
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?php echo_safe($_SESSION['user_lastname']. ', '.$_SESSION['user_firstname'].' '.$_SESSION['user_middlename']) ?>
+                            </div>
                         </div>
-                        <div class="col-9 text-secondary">
-                            <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="user-change-email-address.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} ?>
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Gender</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?php echo_safe($_SESSION['user_gender_details']) ?>
+                            </div>
+                        </div>
+                    </div>
+                        <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?php if (strlen($_SESSION['user_address']) > 0) {
+                                    echo_safe($_SESSION['user_address']);
+                                    
+                                } else {
+                                    echo 'No address';
+                                } ?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Phone Number</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?php echo_safe($_SESSION['user_phone_number']) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Age</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?php echo_safe(getAge($_SESSION['user_birthdate'])) ?>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-9 text-secondary">
+                                <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="user-change-email-address.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} ?>
+                                
+                            </div>
                             
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col-lg-3">
+                                <h6 class="mb-0">Birth Date</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <h6 class="mb-0">Account Created</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+
+                                <?php echo_safe(date_format(date_create($_SESSION['user_date_created']), "F d, Y"));?>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row px-3 ">
+                    <div class="col-7">
+                        <li class="list-group-item d-flex">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            View Valid ID
+                        </button>
+                        </li>
+                    </div>
+                        <div class="col">
+                        <li class="list-group-item d-flex flex-row-reverse flex-wrap">
+                                <a class="btn btn-primary float-right " href="user-edit.php">MODIFY</a>
+                        </li>
+
                         </div>
                         
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="col-lg-3">
-                            <h6 class="mb-0">Birth Date</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <?php echo_safe(date_format(date_create($_SESSION['user_birthdate']), "F d,Y"));?>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="col">
-                            <h6 class="mb-0">Account Created</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-
-                            <?php echo_safe(date_format(date_create($_SESSION['user_date_created']), "F d, Y"));?>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row px-3 ">
-                <div class="col-7">
-                    <li class="list-group-item d-flex">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        View Valid ID
-                    </button>
-                    </li>
-                </div>
-                    <div class="col">
-                    <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                            <a class="btn btn-primary float-right " href="user-edit.php">MODIFY</a>
-                    </li>
-
-                    </div>
-                    
-                </div>
             </div>
+            
         </div>
         
-        </div>
     </div>
+
+    
 </div>
