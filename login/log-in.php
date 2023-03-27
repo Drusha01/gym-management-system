@@ -135,7 +135,7 @@ if(isset($_SESSION['user_id'])){
               <button type="submit" class="btn btn-dark btn-lg border-0 rounded"> <a class="text-decoration-none text-white" >Log In</a></button>
             </div>
             <div class="forgot-password-link mb-3 text-end">
-              <a href="#" title="Forgot Password" class="text-decoration-none"> Forgot Password?</a>
+              <a href="forgot-pass.php" title="Forgot Password" class="text-decoration-none"> Forgot Password?</a>
             </div>
             <p class="text-center">Don't Have an Account? <a class="text-decoration-none"href="sign-up.php">Sign-Up</a></p>
             <div class="d-flex">

@@ -368,18 +368,49 @@ require_once '../classes/genders.class.php';
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Terms and Conditions</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="overflow-auto bg-white shadow p-3" style="max-height:300px;"> 
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut al
+        iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu
+        r sint occaecat cupidatat non proident, sunt in culpa qui officia deserun
+        t mollit anim id est laborum."
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut al
+        iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu
+        r sint occaecat cupidatat non proident, sunt in culpa qui officia deserun
+        t mollit anim id est laborum."
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut al
+        iquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteu
+        r sint occaecat cupidatat non proident, sunt in culpa qui officia deserun
+        t mollit anim id est laborum."
+        </div>
+      <hr>
+        <div class="row ms-1">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              I agree with the Terms and Conditions
+            </label>
+          </div>
+        </div>
+
+        <div class="row d-flex justify-content-center mt-3">
+          <button type="button" class="btn btn-success w-50" disabled>Sign-Up</button>
+        </div>
       </div>
     </div>
   </div>
