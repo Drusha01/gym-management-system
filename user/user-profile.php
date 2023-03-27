@@ -48,6 +48,9 @@ if(isset($_SESSION['user_id'])){
                   <button class="nav-link" id="Subscription-tab" data-bs-toggle="tab" data-bs-target="#Subscription" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('Subscription-tab')">My Subscriptions</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="lockers-tab" data-bs-toggle="tab" data-bs-target="#lockers" type="button" role="tab" aria-controls="contact" aria-selected="false" ">My Lockers</button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="trainer-tab" data-bs-toggle="tab" data-bs-target="#trainer" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('trainer-tab')">My Trainers</button>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -65,6 +68,11 @@ if(isset($_SESSION['user_id'])){
                 <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription')">
                     <div class="container-fluid p-3 " style="min-height: 450px;">
                         <?php require_once 'user_subscriptions.php'; ?>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab">
+                    <div class="container-fluid p-3 " style="min-height: 450px;">
+                      <?php require_once 'user-locker.php'; ?>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer')">

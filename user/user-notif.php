@@ -1,4 +1,4 @@
-<div class="w-100 py-4 px-1 px-lg-2">
+<div class="w-100 py-4 px-1 px-lg-2" style="min-height: 450px;">
 <div class="card border-0 shadow-lg rounded-3">
     <table class="table">
         <thead>
@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <!-- No Notifcations -->
-       <!--  <tbody>
+        <!-- <tbody>
             <tr>
                 <td colspan="2" class="text-center fw-bold">Notifications will appear here</td>
             </tr>
@@ -257,12 +257,7 @@
         </ul>
     </nav>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 
 
 
