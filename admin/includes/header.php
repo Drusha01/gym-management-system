@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../../css/admin.css">
     <link rel="stylesheet" href="../../css/avail.css">
     <link rel="stylesheet" href="../../css/boxicons.min.css">
+
     <!-- Include Required Prerequisites -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
