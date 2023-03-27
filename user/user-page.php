@@ -35,39 +35,70 @@ if(isset($_SESSION['user_id'])){
 <body>
 
   <?php require_once '../includes/header.php';?>
-
-     <section id="home">
-      <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
-        <div class="carousel-indicators">
-          <button aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="popAnnounce" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="position-absolute top-0 start-100 translate-middle">
+          <button type="button" class="btn btn-dark btn-circle btn-sm fw-bolder" data-bs-dismiss="modal" aria-label="Close">X</button>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item carousel-image bg-img-1 active">
-            <div class="carousel-caption">
-              <h1 class="fw-bolder fst-italic text-white display-4" ><strong>QUALITY YET <br> AFFORDABLE GYM</strong></h1>
-              <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
-            </div>
-          </div>
-          <div class="carousel-item carousel-image bg-img-2">
-            <div class="carousel-caption">
-              <h1 class="fw-bolder fst-italic text-white display-4" ><strong>NUMEROUS <br> GYM EQUIPMENTS</strong></h1>
-              <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
-            </div>
-          </div>
-          <div class="carousel-item carousel-image bg-img-3">
-
-            <div class="carousel-caption">
-              <h1 class="fw-bolder fst-italic text-white display-4" ><strong>A GOOD PLACE <br> TO WORKOUT</strong></h1>
-              <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
-            </div>
-          </div>
-        </div><button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleIndicators" type="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span></button> <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleIndicators" type="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="visually-hidden">Next</span></button>
+        <div class="modal-body">
+              <div class=" w-100">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="owl-single dots-absolute owl-carousel">
+                              <img src="../images/home-0.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
+                              <img src="../images/home-1.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
+                              <div class="card mh-50" style="width: 100%; min-height:100%;">
+                                <div class="card-body">
+                                  <h5 class="card-title">No Gym Between these Dates</h5>
+                                  <hr>
+                                  <p class="card-text"><li>March 23, 2022</li></p>
+                                  <p class="card-text"><li>March 25, 2022</li></p>
+                                </div>
+                              </div>
+                              <img src="../images/home-3.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        </div>
       </div>
-     </section>
+    </div>
+  </div>
+
+  <section id="home">
+  <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
+    <div class="carousel-indicators">
+      <button aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item carousel-image bg-img-1 active">
+        <div class="carousel-caption">
+          <h1 class="fw-bolder fst-italic text-white display-4" ><strong>QUALITY YET <br> AFFORDABLE GYM</strong></h1>
+          <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
+        </div>
+      </div>
+      <div class="carousel-item carousel-image bg-img-2">
+        <div class="carousel-caption">
+          <h1 class="fw-bolder fst-italic text-white display-4" ><strong>NUMEROUS <br> GYM EQUIPMENTS</strong></h1>
+          <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
+        </div>
+      </div>
+      <div class="carousel-item carousel-image bg-img-3">
+
+        <div class="carousel-caption">
+          <h1 class="fw-bolder fst-italic text-white display-4" ><strong>A GOOD PLACE <br> TO WORKOUT</strong></h1>
+          <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
+        </div>
+      </div>
+    </div><button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleIndicators" type="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span></button> <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleIndicators" type="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="visually-hidden">Next</span></button>
+  </div>
+  </section>
 
 
      <br> <br>
-   <section id="services">
+  <section id="services">
     <div class="container">
        <div class="row">
           <div class="col-12 section-intro">
@@ -122,57 +153,125 @@ if(isset($_SESSION['user_id'])){
     </div>
   </section>
 
-  <section id="sell">
-  <div class="col-12 section-intro text-white">
-    <h1>What We Sell</h1>
-    <div class="hline"></div>
- </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow">
-          <img src="../images/pexels-samer-daboul-1212845 (1).jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="col-12 ">
-              <h1 class="text-center">Supplements</h1>
-              <div class="about-border"></div>
-           </div>
-            <p class="card-text">We sell Protein Powder, Creatine, Pre-Workout and Much More.</p>
+<section id="sell" class="pb-5 pt-3">
+  <!-- weights room -->
+        <div class="container">
+          <div class="col-12 text-white section-intro pb-3">
+            <h1>Weights Room</h1>
+            <div class="hline"></div>
           </div>
+            <div class="owl-carousel owl-3-slider owl-carousel2">
+                <div class="item">
+                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Dumbells</h3>
+                        </div>
+                        <img src="../images/weight_room/orig_size/orig_size_1.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a> 
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Machines</h3>
+                        </div>
+                        <img src="../images/weight_room/orig_size/orig_size_2.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a> 
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Warm-Up Area</h3>
+                        </div>
+                        <img src="../images/weight_room/orig_size/orig_size_3.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a>
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Warm-Up Area</h3>
+                        </div>
+                        <img src="../images/weight_room/orig_size/orig_size_4.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow">
-          <img src="../images/pexels-kai-pilger-996329 (1).jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="col-12 ">
-              <h1 class="text-center">Clothing</h1>
-              <div class="about-border"></div>
-           </div>
-            <p class="card-text">You can buy our signature clothing with our Official Logo on it.</p>
-          </div>
+  <!-- end of weights room -->
+        <br>
+        <br>
+  <!-- start of func room -->
+        <div class="container mt-4">
+            <div class="col-12 text-white section-intro pb-3">
+              <h1>Function Room</h1>
+              <div class="hline"></div>
+            </div>
+            <div class="owl-carousel owl-3-slider owl-carousel2">
+                <div class="item">
+                    <a class="media-thumb" href="../images/function_room/orig_size/1.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Front View</h3>
+                        </div>
+                        <img src="../images/function_room/orig_size/1.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a>
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/function_room/orig_size/2.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Boxing Area</h3>
+                        </div>
+                        <img src="../images/function_room/orig_size/2.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a>
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/function_room/orig_size/3.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Threadmill</h3>
+                        </div>
+                        <img src="../images/function_room/orig_size/3.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a>
+                </div>
+                <div class="item">
+                    <a class="media-thumb" href="../images/function_room/orig_size/4.jpg" data-fancybox="gallery">
+                        <div class="media-text">
+                            <h3 class="text-light">Bike Area</h3>
+                        </div>
+                        <img src="../images/function_room/orig_size/4.jpg" alt="Image" class="img-fluid center-cropped">
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card border-0 shadow">
-          <img src="../images/pexels-steve-johnson-1000084 (1).jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <div class="col-12 ">
-              <h1 class="text-center">Refreshments</h1>
-              <div class="about-border"></div>
-           </div>
-            <p class="card-text">Our Gym offers Water bottles, Energy Drinks and Water Dispenser which you drop your coin.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <!-- end of func room -->
+        <br>
+        <br>
 </section>
 
-<br>
 
 <?php require_once '../includes/footer.php';?>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/owl.carousel.min.js"></script>
+<script src="../js/aos.js"></script>
+<script src="../js/custom.js"></script>
+  
+<script>
+$( '.owl-carousel2' ).owlCarousel({
+
+loop: false,
+rewind: true,
+margin: 10,
+dots: true,
+navText: [ '<span class="fa fa-chevron-left"></span>', '<span class="fa fa-chevron-right"></span>' ],
+responsive:{
+
+  0: {
+      items: 1,
+      nav: false
+  },
+
+  1000: {
+      items: 3,
+      nav: true
+  }
+}
+})
+</script>
 </body>
 </html>

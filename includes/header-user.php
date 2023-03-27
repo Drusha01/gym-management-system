@@ -15,4 +15,5 @@
     <link rel="stylesheet" href="../css/boxicons.min.css">
 
     <script defer src="../js/bootstrap.bundle.min.js"></script>
+    <script defer src="../js/modalpop.js"></script>
 </head>

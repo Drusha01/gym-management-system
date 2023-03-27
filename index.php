@@ -47,10 +47,47 @@ if(isset($_SESSION['user_id'])){
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/boxicons.min.css">
+
+    <script defer src="js/bootstrap.bundle.min.js"></script>
+
+    <script defer src="js/modalpop.js"></script>
 </head>
 
-</head>
+
 <body>
+<!-- Modal -->
+<div class="modal fade" id="popAnnounce" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="position-absolute top-0 start-100 translate-middle">
+        <button type="button" class="btn btn-dark btn-circle btn-sm fw-bolder" data-bs-dismiss="modal" aria-label="Close">X</button>
+      </div>
+        
+      <div class="modal-body">
+            <div class=" w-100">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="owl-single dots-absolute owl-carousel">
+                            <img src="images/home-0.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
+                            <img src="images/home-1.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
+                            <div class="card mh-50" style="width: 100%; min-height:100%;">
+                              <div class="card-body">
+                                <h5 class="card-title">No Gym Between these Dates</h5>
+                                <hr>
+                                <p class="card-text"><li>March 23, 2022</li></p>
+                                <p class="card-text"><li>March 25, 2022</li></p>
+                              </div>
+                            </div>
+                            <img src="images/home-3.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   <section class="header">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #A73535">
             <div class="container-fluid">
@@ -102,7 +139,7 @@ if(isset($_SESSION['user_id'])){
           <div class="carousel-item carousel-image bg-img-1 active">
             <div class="carousel-caption">
               <h1 class="fw-bolder fst-italic text-white display-4" ><strong>QUALITY YET <br> AFFORDABLE GYM</strong></h1>
-              <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
+              <p><button class="btn btn-brand fs-6" data-bs-toggle="modal" data-bs-target="#popAnnounce">Learn More</button></p>
             </div>
           </div>
           <div class="carousel-item carousel-image bg-img-2">
@@ -179,7 +216,7 @@ if(isset($_SESSION['user_id'])){
     </div>
   </section>
 
-  <section id="sell" class="pb-5 pt-3">
+<section id="sell" class="pb-5 pt-3">
   <!-- weights room -->
         <div class="container">
           <div class="col-12 text-white section-intro pb-3">
