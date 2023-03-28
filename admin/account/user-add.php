@@ -238,8 +238,10 @@ if(isset($_SESSION['admin_id'])){
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="row form-group pb-2">
-                    <label for="exampleFormControlFile1">Profile Picture</label>
-                    <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
+                        <div class="col-12">
+                            <label for="exampleFormControlFile1">Profile Picture</label>
+                            <input type="file" class="form-control" id="profilepic" name="profilepic" accept="image/*" >
+                        </div>
                     </div>
                     <div class="row form-group pb-2">
                         <div class="col">
@@ -298,7 +300,7 @@ if(isset($_SESSION['admin_id'])){
                             </select>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <label class="pb-1 ms-1" for="name_offer">Not in the list?</label>
+                            <label class=" ms-1" for="name_offer">Not in the list?</label>
                             <input type="text" class="form-control" value="" id="gender_other" name="gender_other"placeholder="Enter gender" onchange="other_genders()">
                         </div>
                     </div>
@@ -311,8 +313,10 @@ if(isset($_SESSION['admin_id'])){
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="row form-group pb-2">
-                        <label for="exampleFormControlFile1">ID or Birth Certificate</label>
-                        <input type="file" class="form-control-file" id="valid_id" accept="image/*" >
+                        <div class="col">
+                            <label for="exampleFormControlFile1">ID or Birth Certificate</label>
+                            <input type="file" class="form-control" id="valid_id" accept="image/*" >
+                        </div>
                     </div>
                     <!-- <div class="row form-group pb-2">
                         <div class="col">
@@ -320,23 +324,23 @@ if(isset($_SESSION['admin_id'])){
                             <input type="text" class="form-control" value="" id="address" name="address"placeholder="Enter Address" tabindex="100" >
                         </div>
                     </div> -->
-                    
+
                     <div class="row form-group pb-2">
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12">
                             <label class="pb-1 ms-1" for="name_offer">Password</label>
                             <input type="password" class="form-control" value="" id="password" name="password"placeholder="Enter Password" required onkeyup="function_password_validation('password','password_err')">
                         </div>
-                        <div class="col-sm-4 text-secondary pb-1" id='password_err'>
-                                                    
+                        <div class="col-12 text-secondary pb-1" id='password_err'>
                         </div>
+                    </div>
                     <div class="row form-group pb-2">
-                        
-                        <div class="col-12 col-lg-6">
+
+                        <div class="col-12">
                             <label class="pb-1 ms-1" for="name_offer">Confirm Password</label>
                             <input type="password" class="form-control" value="" id="confirm_password" name="cpassword"placeholder="Confirm Password" required onkeyup="function_password_validation('confirm_password','confirm_password_error')">
                         </div>
-                        <div class="col-sm-4 text-secondary pb-1" id='confirm_password_error'>
-                                                    
+                        <div class="col-12 text-secondary pb-1" id='confirm_password_error'>
+
                         </div>
                     </div>
                     
@@ -344,7 +348,7 @@ if(isset($_SESSION['admin_id'])){
             </div>
                 <div class="row d-flex">
                     <div class="col-12 col-lg-1 d-grid d-lg-flex pt-3 pt-lg-1">
-                        <button type="button" class="btn btn-success btn-lg border-0 rounded" name="add_account" value="add_account" id="submit" onclick="">Submit</button>
+                        <button type="button" class="btn btn-success border-0 rounded" name="add_account" value="add_account" id="submit" onclick="">Submit</button>
                     </div>
                 </div>
         </form>

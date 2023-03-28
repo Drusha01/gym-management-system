@@ -317,12 +317,32 @@ if(isset($_SESSION['admin_id'])){
 
 </body>
 
-</script>
 <script>
 $(".nav-item").on("click", function(){
             $(".nav-item").removeClass("active");
             $(this).addClass("active");
 
         });
+</script>
+<script>
+    $.ajax({
+        type: "GET",
+        url: 'exist_tbl.php',
+        success: function(result)
+        {
+            $('div.table-exist-1').html(result);
+            dataTable = $("#table-exist").DataTable({
+                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                responsive: true,
+            });
+            $('input#keyword').on('input', function(e){
+                var status = $(this).val();
+                dataTable.columns([3]).search(status).draw();
+            })
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+    });
 </script>
 </html>
