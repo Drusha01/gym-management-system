@@ -91,7 +91,7 @@ if(isset($_SESSION['admin_id'])){
                 <td class="text-center">March 23, 2023 (3:30 PM)</td>
                 <td class="text-center">Trinidad, James Lorenz</td>
                 <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm"><i class='bx bx-trash' ></i></button></td>
+                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
                 </tr>
                 <tr>
                 <th class="d-lg-none"></th>
@@ -102,7 +102,7 @@ if(isset($_SESSION['admin_id'])){
                 <td class="text-center">March 26, 2023 (3:30 PM)</td>
                 <td class="text-center">Trinidad, James Lorenz</td>
                 <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm"><i class='bx bx-trash' ></i></button></td>
+                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
                 </tr>
                 <tr>
                 <th class="d-lg-none"></th>
@@ -113,7 +113,7 @@ if(isset($_SESSION['admin_id'])){
                 <td class="text-center">March 24, 2023 (3:30 PM)</td>
                 <td class="text-center">Lim, Robbie John</td>
                 <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm"><i class='bx bx-trash' ></i></button></td>
+                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
                 </tr>
                 <tr>
                 <th class="d-lg-none"></th>
@@ -124,7 +124,7 @@ if(isset($_SESSION['admin_id'])){
                 <td class="text-center">March 24, 2023 (3:30 PM)</td>
                 <td class="text-center">Lim, Robbie John</td>
                 <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm"><i class='bx bx-trash' ></i></button></td>
+                <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -147,6 +147,10 @@ if(isset($_SESSION['admin_id'])){
             <label for="exampleFormControlTextarea1" class="form-label">Remarks for: Equipment Name</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Max of 20 characters"></textarea>
         </div>
+        <div class="mb-3">
+            <label for="formFileSm" class="form-label">Add photo (Not Required)</label>
+            <input class="form-control form-control-sm" id="formFileSm" type="file">
+        </div>
         Condition
         <br>
         <div class="form-check form-check-inline">
@@ -165,7 +169,24 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Are you sure you want to delete this (Equipment Name)?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 

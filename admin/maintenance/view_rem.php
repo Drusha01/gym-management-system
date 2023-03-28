@@ -39,14 +39,14 @@ if(isset($_SESSION['admin_id'])){
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
         <div class="row">
-            <h5 class="col-8 col-lg-4 fw-bold mb-3">View Remarks</h5>
+            <h5 class="col-8 col-lg-4 fw-bold mb-3">View Remarks:<span class="fw-normal fs-5">Threadmill A</span></h5>
             <a class="col text-decoration-none text-black m-0" aria-current="page" href="maintenance.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
             </div>
         </div>
         <div class="row pb-2">
             <div class="form-group col-12 col-sm-5 table-filter-option">
                 <label for="keyword">Search</label>
-                <input type="text" name="keyword" id="keyword" placeholder="Enter Equipment Here" class="form-control ms-md-2">
+                <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
             </div>
             <div class="col-12 col-sm-4 col-xs-12 form-group table-filter-option">
                 <label for="categoryFilter"l>Condition</label>
@@ -79,7 +79,7 @@ if(isset($_SESSION['admin_id'])){
                     <td class="text-center">Good</td>
                     <td class="text-center">March 23, 2023 (3:30 PM)</td>
                     <td class="text-center">Trinidad, James Lorenz</td>
-                    <td class="text-center "><button href="#" class="btn btn-primary btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button> <button class="btn btn-danger btn-sm"">Delete</button></td>
+                    <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#view"><i class='bx bx-show-alt'></i></button><button class="btn btn-outline-primary btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#edit"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -87,7 +87,7 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </main>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -97,6 +97,10 @@ if(isset($_SESSION['admin_id'])){
       <div class="modal-body">
         <div class="mb-3">
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Max of 20 characters"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="formFileSm" class="form-label">Add photo (Not Required)</label>
+            <input class="form-control form-control-sm" id="formFileSm" type="file">
         </div>
         Condition
         <br>
@@ -112,6 +116,49 @@ if(isset($_SESSION['admin_id'])){
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Remarks by: <span class="fw-light fs-5">Trinidad, James Lorenz</span></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Description</p>
+        <div class="mb-3 container card">
+            <p class="mt-2">Still in Good Condition</p>
+        </div>
+        <div class="mb-3">
+            <img src="../../images/function_room/orig_size/3.jpg" class="img-fluid">
+        </div>
+        <p class="fw-bold">Condition: <span class="fw-light">Good</span></p> 
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Are you sure you want to delete this?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary">No</button>
       </div>
     </div>
   </div>

@@ -132,6 +132,16 @@ if(isset($_SESSION['admin_id'])){
             </div>
         </div>
         <!-- end of first part -->
+        <div class="pb-3">
+            <h5 class="col-12 fw-regular ">Website</h5>
+            <hr>
+            <a href="manage-website.php" class="btn btn-outline-dark" role="button">Manage Website</a>
+        </div>
+        
+
+
+
+
         <!-- 2nd part -->
         <h5 class="col-12 fw-regular ">Notifications</h5>
         <hr>
