@@ -39,7 +39,15 @@
         <td class="ps-lg-5">Villanueva, Rob Roche S.</td>
         <td class="text-center">Subscribed</td>
         <td class="text-center">Last Time In: 2:30 PM</td>
-        <td class="text-center">Last Time In: 4:30 PM</td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" style="border: none;" data-bs-toggle="modal" data-bs-target="#attendance_time_out"><i class='bx bx-calendar-x align-center'></i></button></td>
+        </tr>
+
+        <tr>
+        <td class="d-lg-none"></td>
+        <td class="ps-lg-5">Cruz, Juan Dela</td>
+        <td class="text-center">Expired</td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" style="border: none;" data-bs-toggle="modal" data-bs-target="#attendance_time_in" disabled><i class='bx bx-calendar-check align-center'></i></td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" style="border: none;" data-bs-toggle="modal" data-bs-target="#attendance_time_out" disabled><i class='bx bx-calendar-x align-center'></i></button></td>
         </tr>
     </tbody>
 </table>

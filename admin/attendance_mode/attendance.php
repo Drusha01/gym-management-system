@@ -189,7 +189,7 @@ document.getElementById("toastbtn_2").onclick = function() {
             dataTable = $("#attendance").DataTable({
                 "dom": '<"top"f>rt<"bottom"lp><"clear">',
                 responsive: true,
-                order: [[0, 'asc']]
+                order: [[1, 'asc']]
             });
             $('input#keyword').on('input', function(e){
                 var status = $(this).val();
