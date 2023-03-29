@@ -22,7 +22,7 @@
         <td class="text-center">March 23, 2023 (3:30 PM)</td>
         <td class="text-center">Trinidad, James Lorenz</td>
         <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><a href="edit-maintenance.php" class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -33,7 +33,7 @@
         <td class="text-center">March 26, 2023 (3:30 PM)</td>
         <td class="text-center">Trinidad, James Lorenz</td>
         <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><a href="edit-maintenance.php" class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -44,7 +44,7 @@
         <td class="text-center">March 24, 2023 (3:30 PM)</td>
         <td class="text-center">Lim, Robbie John</td>
         <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><a href="edit-maintenance.php" class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -55,7 +55,7 @@
         <td class="text-center">March 24, 2023 (3:30 PM)</td>
         <td class="text-center">Lim, Robbie John</td>
         <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><button class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><a href="edit-maintenance.php" class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
         </tr>
     </tbody>
 </table>
