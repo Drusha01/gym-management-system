@@ -644,6 +644,215 @@ if(isset($_SESSION['admin_id'])){
     <br>
 
     <h5 class="col-12 fw-normal mb-3 mt-3">Notifications (Staff -> Admin)</h5>
+    <h6 class="col-12 fw-light mb-3 mt-3">Notifications (Staff -> Admin):Announcement</h6>
+    <div class="card border-0 shadow-lg rounded-3">
+        <table class="table">
+            <tbody>
+                <!-- Staff add announce -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), added a new Announcement.</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+                <!-- Staff modified announcement -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), modified an Announcement.</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+                <!-- Staff delete announcement -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), deleted an Announcement.</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h6 class="col-12 fw-light mb-3 mt-3">Notifications (Staff -> Admin):Attendance</h6>
+    <div class="card border-0 shadow-lg rounded-3">
+        <table class="table">
+            <tbody>
+                <!-- Staff force time-out -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), Forced Time-Out Customer (Name).</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+                <!-- Staff delete attendance -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), deleted the attendance of Customer (Name).</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h6 class="col-12 fw-light mb-3 mt-3">Notifications (Staff -> Admin):Locker</h6>
+    <div class="card border-0 shadow-lg rounded-3">
+        <table class="table">
+            <tbody>
+                <!-- Staff modify -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), modified the locker of (Customer Name).</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <h6 class="col-12 fw-light mb-3 mt-3">Notifications (Staff -> Admin):Offers</h6>
     <div class="card border-0 shadow-lg rounded-3">
         <table class="table">
@@ -1342,7 +1551,7 @@ if(isset($_SESSION['admin_id'])){
         </table>
     </div>
     <br>
-
+    <h5 class="col-12 fw-normal mb-3 mt-3">Example of Di pa na mark as read</h5>
     <div class="card border-0 shadow-lg rounded-3">
         <table class="table">
             <!-- No Notifcations -->
