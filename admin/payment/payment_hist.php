@@ -159,65 +159,69 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </main>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="hist-view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Availed Subscription (March 26,2023)</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="table-responsive ">
-                <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
-                    <thead class="table-secondary">
-                        <tr>
-                            <th class="d-lg-none"></th>
-                            <th class="text-center">#</th>
-                            <th class="ps-3">Payment Description</th>
-                            <th class="text-center">Amount</th>
-                            <th class="text-center">Discount</th>
-                            <th class="text-center">Penalties Due</th>
-                            <th class="text-center">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="d-lg-none"></td>
-                            <td class="text-center">1</td>
-                            <td class="ps-3">1-Month Gym-Use</td>
-                            <td class="text-end">₱800.00</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">None</td>
-                            <td class="text-end">₱800.00</td>
-                        </tr>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Availed Subscription (March 26,2023)</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive ">
+                    <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="d-lg-none"></th>
+                                <th class="text-center">#</th>
+                                <th class="ps-3">Payment Description</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Discount</th>
+                                <th class="text-center">Penalties Due</th>
+                                <th class="text-center">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">1</td>
+                                <td class="ps-3">1-Month Gym-Use</td>
+                                <td class="text-end">₱800.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-end">₱800.00</td>
+                            </tr>
 
-                        <tr>
-                            <td class="d-lg-none"></td>
-                            <td class="text-center">2</td>
-                            <td class="ps-3">1-Month Locker</td>
-                            <td class="text-end">₱100.00</td>
-                            <td class="text-center">None</td>
-                            <td class="text-center">None</td>
-                            <td class="text-end">₱100.00</td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="table-success">
-                        <tr>
-                            <td class="d-lg-none"></td>
-                            <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
-                            <td class="text-end">₱</td>
-                            <td class="text-end">₱</td>
-                            <td class="text-end fw-bolder fs-5">₱900</td>
-                        </tr>
-                    </tfoot>
-                </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">2</td>
+                                <td class="ps-3">1-Month Locker</td>
+                                <td class="text-end">₱100.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-end">₱100.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="table-success">
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
+                                <td class="text-end">₱</td>
+                                <td class="text-end">₱</td>
+                                <td class="text-end fw-bolder fs-5">₱900</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success">Show</button>
+                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
 </body>
 <script>
     $.ajax({

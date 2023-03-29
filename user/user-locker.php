@@ -1,7 +1,7 @@
-<div class="ms-5">
+<div class="ms-lg-5">
     <h5>Owned Lockers: <span class="fw-light">3</span></h5>
 
-    <div class="table-responsive table-container col-6">
+    <div class="table-responsive table-container col-12 col-lg-6">
         <table id="announce" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
             <thead class="table-dark" >
                 <tr>

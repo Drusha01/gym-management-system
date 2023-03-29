@@ -1,4 +1,4 @@
-<div class="container-sub" style="min-height: 700px;">
+<div class="container-sub">
     <div class="row g-2 mb-2">
 
 
@@ -53,7 +53,6 @@
                             <td class="text-center"><span class="badge bg-success rounded-pill">'.htmlentities($value['trainer_availability_details']).'</span></td>
                             </tr>';
                         }
-                           
 
                         echo '
                         </tbody>
@@ -64,10 +63,11 @@
     </div>
             ';
         }else{
-            echo '<div class="pt-2 ">
+            echo '<div class="pt-2">
             <h5>Availed Trainer Subscription Go Here.</h5>
             <div class="form-group col-12 pt-3 ">
                 <a class="btn btn-success" role="button" href="user-avail.php">Avail Now</a>
+            </div>
             </div>
         ';
         }
