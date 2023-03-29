@@ -58,9 +58,51 @@ if(isset($_SESSION['admin_id'])){
 
   </div>
 </main>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Force Time-Out</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <input type="time" class="form-control">
+        <div class="d-flex py-2">
+            <hr class="my-auto flex-grow-1">
+            <div class="px-4">OR</div>
+            <hr class="my-auto flex-grow-1">
+        </div>
+      </div>
+      <div class="container ms-3 pb-3 text-center">
+        Force Time-Out Now: <button class="btn btn-outline-dark btn-sm">Force Time-Out</button>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
+<!-- Modal del -->
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Attendance</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the Attendance of <span>Customer Name?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <script>
     $('input[name="dates"]').daterangepicker();
@@ -80,12 +122,17 @@ if(isset($_SESSION['admin_id'])){
                 var status = $(this).val();
                 dataTable.columns([2]).search(status).draw();
             })
-            
             new $.fn.dataTable.FixedHeader(dataTable);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) { 
             alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-        } 
+        }
     });
 </script>
+<script>
+    $(document).ready(function() {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
+</script>
+
 </html>

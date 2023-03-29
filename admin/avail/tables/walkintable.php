@@ -35,7 +35,7 @@
                     <td class="text-center ">'.htmlentities($value['walk_in_service_details']).'</td>
                     <td class="text-center">'.htmlentities(date_format(date_create($value['walk_in_date']), "F d, Y")).'</td>';
                     if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
-                        echo '<td class="text-center"><button  onclick="delete_func('.$value['walk_in_id'].')"class="btn btn-danger" role="button">Delete</button></td>';
+                        echo '<td class="text-center"><button  onclick="delete_func('.$value['walk_in_id'].')"class="btn btn-danger btn-sm" role="button">Delete</button></td>';
                     }
                     echo'
                 </tr>';

@@ -55,7 +55,7 @@ if(isset($_SESSION['admin_id'])){
             <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                 <option value="">All</option>
                 <option value="Gym-Use">Gym-Use</option>
-                <option value="Gym-Use/Trainer">Gym-Use/Trainer</option>
+                <option value="Gym-Use and Trainer">Gym-Use and Trainer</option>
             </select>
         </div>
         <div class="form-group col-12 col-sm-5 table-filter-option pb-3">
@@ -87,7 +87,7 @@ if(isset($_SESSION['admin_id'])){
           })
           $('select#categoryFilter').on('change', function(e){
               var status = $(this).val();
-              dataTable.columns([3]).search(status).draw();
+              dataTable.columns([4]).search(status).draw();
           })
           new $.fn.dataTable.FixedHeader(dataTable);
       },

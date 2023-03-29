@@ -14,13 +14,14 @@
     <link rel="stylesheet" href="../../css/admin.css">
     <link rel="stylesheet" href="../../css/avail.css">
     <link rel="stylesheet" href="../../css/boxicons.min.css">
-
+    
+    <script defer src="../../js/bootstrap.bundle.min.js"></script>
     <!-- Include Required Prerequisites -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
 
-    <script defer src="../../js/bootstrap.bundle.min.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://kit.fontawesome.com/30ff5f2a0c.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>

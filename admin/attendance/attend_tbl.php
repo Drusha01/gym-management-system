@@ -18,16 +18,16 @@
         <td class="text-center">2:30 PM</td>
         <td class="text-center">3:30 PM</td>
         <td class="text-center">March 23, 2023</td>
-        <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
         <td class="text-center d-none d-sm-table-cell">2</td>
         <td>Nicholas, Shania Gabrielle</td>
         <td class="text-center">2:30 PM</td>
-        <td class="text-center">3:30 PM</td>
+        <td class="text-center"><button class="btn btn-outline-dark btn-sm" href="#" data-toggle="tooltip" title="Force Time Out" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-alarm-off' style="vertical-align: middle;"></i></button></td>
         <td class="text-center">March 24, 2023</td>
-        <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -36,7 +36,7 @@
         <td class="text-center">2:30 PM</td>
         <td class="text-center">3:30 PM</td>
         <td class="text-center">March 26, 2023</td>
-        <td class="text-center"><button class="btn btn-danger btn-sm">Delete</button></td>
+        <td class="text-center"><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
         </tr>
     </tbody>
 </table>

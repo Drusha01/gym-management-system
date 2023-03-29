@@ -324,10 +324,10 @@ require_once '../classes/genders.class.php';
               </div>
               <div class="form-group py-2">
                 <label for="exampleFormControlFile1" class="pb-1">
-                  <a class="d-none d-lg-block text-decoration-none text-dark"data-bs-toggle="tooltip" data-bs-placement="right" title="Valid ID must have a birthdate.">Valid ID or Birth Certificate</a> 
+                  <a class="d-none d-lg-block text-decoration-none text-dark" data-toggle="tooltip" title="Any form of ID must have a Birthdate.">Valid ID or Birth Certificate</a> 
                   <div class="row d-lg-none">
                     <div class="col-10"><p class="d-lg-none">Valid ID or Birth Certificate</p> </div>
-                    <div class="col-2"><a tabindex="0" class="btn btn-dark btn-sm d-lg-none btn-circle fw-bolder" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Info about Valid ID" data-bs-content="Valid ID must have a Birth Date on it.">?</a></div>
+                    <div class="col-2"><a tabindex="0" class="btn btn-dark btn-sm d-lg-none btn-circle fw-bolder" role="button" data-bs-toggle="popover" title="Valid ID" data-bs-content="It must have a birthdate to it.">?</a></div>
                   </div>
                 </label>
                 <input type="file" class="form-control" id="valid_id" name="valid_id" accept="image/*"  >
@@ -430,13 +430,13 @@ function other_genders(){
   $('#gender option[value=Other]').attr('selected','selected'); 
   console.log('gender others chandged');
 }
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
-})
 
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
-})
+$(document).ready(function() {
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
+
+$(document).ready(function() {
+    $("body").popover({ selector: '[data-bs-toggle=popover]' });
+});
+
 </script>

@@ -65,7 +65,7 @@ if(isset($_SESSION['admin_id'])){
                 </div>
             </div>
         </div>
-        
+
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
                 <div class="bg-light rounded h-100 p-4">
@@ -95,18 +95,21 @@ if(isset($_SESSION['admin_id'])){
 
             <div class="tab-pane fade" id="frequent" role="tabpanel" aria-labelledby="frequent-tab">
                 <div class="bg-light rounded h-100 p-4">
+                    <select class="form-select-sm" aria-label="Default select example">
+                        <option selected>Per Hour Per Day</option>
+                        <option value="1">Presence per Month</option>
+                    </select>
                     <canvas id="most-frequent"></canvas>
                 </div>
             </div>
 
             <div class="tab-pane fade" id="availed_trainer" role="tabpanel" aria-labelledby="availed_trainer-tab">
-                trainer
                 <div class="bg-light rounded h-100 p-4">
                     <canvas id="trainer_most"></canvas>
                 </div>
             </div>
         </div>
-        
+
 
   </div>
 </main>

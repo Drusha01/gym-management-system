@@ -39,101 +39,118 @@ if(isset($_SESSION['admin_id'])){
 
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
-    <h5 class="col-12 fw-bold mb-3">Maintenance</h5>
+    <div class="row">
+        <h5 class="col-8 col-lg-4 fw-bold mb-3">Manage Maintenance</h5>
+        <a class="col text-decoration-none text-black m-0" aria-current="page" href="settings.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
+    </div>
     <div class="row pb-3">
         <div class="form-group col-12 col-sm-4 table-filter-option">
             <label for="keyword">Search</label>
             <input type="text" name="keyword" id="keyword" placeholder="Enter Equipment Here" class="form-control ms-md-2">
         </div>
         <div class="col-12 col-sm-3 form-group table-filter-option">
-            <label for="categoryFilter_1">Type</label>
+            <label for="categoryFilter_1">Category</label>
             <select name="categoryFilter_1" id="categoryFilter_1" class="form-select ms-md-2">
                 <option value="">All</option>
-                <option value="Weights">Weights</option>
-                <option value="Machine">Machine</option>
-                <option value="Tool">Tool</option>
+                <option value="Condition">Condition</option>
+                <option value="Type of Equipment">Type of Equipment</option>
             </select>
         </div>
-        <div class="col-12 col-sm-3 form-group table-filter-option">
-            <label for="categoryFilter_2">Condition</label>
-            <select name="categoryFilter_2" id="categoryFilter_2" class="form-select ms-md-2">
-                <option value="">All</option>
-                <option value="Good">Good</option>
-                <option value="In-Maintenance">In-Maintenance</option>
-            </select>
-        </div>
-        <div class="col-12 col-sm-2 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-            <a href="add-maintenance.php" class="btn btn-success" role="button">Add Equipment</a>
+        <div class="col-12 col-sm-5 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+            <a href="add-maintenance.php" class="btn btn-success" role="button" data-bs-toggle="modal" data-bs-target="#add">Add Radio Button Option</a>
         </div>
     </div>
     <div class="table-responsive table-container">
-        
+
     </div>
-    
-
-
   </div>
 </main>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal add -->
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Remarks</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Radio Button Option</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Remarks for: Equipment Name</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Max of 20 characters"></textarea>
+            <label for="radio_add" class="form-label">Name of Radio Button Option</label>
+            <input type="text" class="form-control" id="radio_add" placeholder="Max 10 Characters">
         </div>
-        <div class="mb-3">
-            <label for="formFileSm" class="form-label">Add photo (Not Required)</label>
-            <input class="form-control form-control-sm" id="formFileSm" type="file">
-        </div>
-        Condition
-        <br>
+        <P>Category</P>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Good</label>
-            </div>
-            <div class="form-check form-check-inline">
+            <label class="form-check-label" for="inlineRadio1">Condition</label>
+        </div>
+        <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">In-Maintenance</label>
+            <label class="form-check-label" for="inlineRadio2">Type Of Equipment</label>
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Submit</button>
       </div>
     </div>
   </div>
 </div>
-<!-- Modal -->
+
+<!-- Modal edit -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Radio Button Option</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+            <label for="radio_add" class="form-label">Name of Radio Button Option</label>
+            <input type="text" class="form-control" id="radio_add" placeholder="In-Maintenance">
+        </div>
+        <P>Category</P>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+            <label class="form-check-label" for="inlineRadio1">Condition</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Type Of Equipment</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save Changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal del -->
 <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Radio Button Option</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       Are you sure you want to delete this (Equipment Name)?
+        Are you sure you want to delete this radio button option?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
-        <button type="button" class="btn btn-secondary">No</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
-
 </body>
 
 <script>
   $.ajax({
       type: "GET",
-      url: 'tbl/maintenance-tbl.php',
+      url: 'mng-tbl.php',
       success: function(result)
       {
           $('div.table-responsive').html(result);
@@ -148,10 +165,6 @@ if(isset($_SESSION['admin_id'])){
           $('select#categoryFilter_1').on('change', function(e){
           var status = $(this).val();
           dataTable.columns([3]).search(status).draw();
-          })
-          $('select#categoryFilter_2').on('change', function(e){
-          var status = $(this).val();
-          dataTable.columns([4]).search(status).draw();
           })
           new $.fn.dataTable.FixedHeader(dataTable);
       },

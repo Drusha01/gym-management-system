@@ -18,7 +18,7 @@
         <td class="text-center">Text</td>
         <td class="text-center">March 25, 2023 - March 28, 2023</td>
         <td class="text-center">Active</td>
-        <td class="text-center "><a href="#" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm"">Delete</button></td>
+        <td class="text-center "><a href="edit_announce.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -27,7 +27,7 @@
         <td class="text-center">Image</td>
         <td class="text-center">March 25, 2023 - March 28, 2023</td>
         <td class="text-center">Disabled</td>
-        <td class="text-center "><a href="#" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm"">Delete</button></td>
+        <td class="text-center "><a href="edit_announce.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
         </tr>
     </tbody>
 </table>

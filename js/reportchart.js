@@ -117,6 +117,7 @@ var myChart4 = new Chart(ctx4, {
         datasets: [{
             label: "Trinidad, James Lorenz",
             borderColor:getRandomColor(),
+            data: [5,1,2,3,4,5,6],
             tension: 0.1
         },
         {

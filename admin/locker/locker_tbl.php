@@ -18,7 +18,7 @@
         <td class="text-center">3</td>
         <td class="text-center">March 25, 2023 - March 28, 2023</td>
         <td class="text-center"><button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Show All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></button></td>
-        <td class="text-center "><a href="edit_locker.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm"">Delete</button></td>
+        <td class="text-center "><a href="edit_locker.php" class="btn btn-primary btn-sm" role="button">Edit</a></td>
         </tr>
         <tr>
         <th class="d-lg-none"></th>
@@ -27,7 +27,7 @@
         <td class="text-center">1</td>
         <td class="text-center">March 25, 2023 - March 28, 2023</td>
         <td class="text-center">Locker_1</td>
-        <td class="text-center "><a href="edit_locker.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm"">Delete</button></td>
+        <td class="text-center "><a href="edit_locker.php" class="btn btn-primary btn-sm" role="button">Edit</a></td>
         </tr>
     </tbody>
 </table>

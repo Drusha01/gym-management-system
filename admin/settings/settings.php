@@ -137,13 +137,22 @@ if(isset($_SESSION['admin_id'])){
             <hr>
             <a href="manage-website.php" class="btn btn-outline-dark" role="button">Manage Website</a>
         </div>
-        
 
-
-
-
+        <!-- end of first part -->
+        <div class="pb-3">
+            <h5 class="col-12 fw-regular ">Attendance</h5>
+            <hr>
+            <div class="row">
+            <div class="col-lg-2">
+                Set Time when to Force Time-Out
+            </div>
+            <div class="col-lg-3 pt-2">
+                <input type="time" class="form-control"  id="offer_name"  placeholder="30">
+            </div>
+        </div>
+        </div>
         <!-- 2nd part -->
-        <h5 class="col-12 fw-regular ">Notifications</h5>
+        <h5 class="col-12 fw-regular mt-2 ">Notifications</h5>
         <hr>
         <div class="row">
             <div class="col-lg-2">
@@ -197,7 +206,6 @@ if(isset($_SESSION['admin_id'])){
                         echo '<input type="number" class="form-control" value="" id="Gym-Use" name="Gym-Use"placeholder="0" required>';
                     }
                 ?>
-                
             </div>
             <div class="col-lg-2">
                 Price of Walk-In Trainer-Use
@@ -213,13 +221,13 @@ if(isset($_SESSION['admin_id'])){
                         echo '<input type="number" class="form-control" value="" id="Walk-In-Trainer" name="Walk-In-Trainer"placeholder="0" required>';
                     }
                 ?>
-                
+
             </div>
-            
+
         </div>
 
         <br>
-        
+
         <h5 class="col-12 fw-regular">Overdue</h5>
         <hr>
         <div class="row">
@@ -231,6 +239,11 @@ if(isset($_SESSION['admin_id'])){
             </div>
         </div>
         <br>
+        <div class="pb-3">
+            <h5 class="col-12 fw-regular ">Maintenance </h5>
+            <hr>
+            <a href="mng_maintenance.php" class="btn btn-outline-dark" role="button">Manage Maintenance</a>
+        </div>
 
         <!-- 2nd part -->
         <h5 class="col-12 fw-regular ">Contact Info for Footer</h5>
