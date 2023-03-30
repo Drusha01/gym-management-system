@@ -48,8 +48,13 @@
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
-                <div class="d-flex flex-row-reverse">
-                    <div class=""><button type="button" class="btn btn-dark" data-bs-dismiss="modal" id="toastbtn">Submit</button></div>
+                <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1">
+                  <div class="py-2 ms-3">
+                    Insert Text Here
+                  </div>
+                </div>
+                <div class="text-center mt-2">
+                    <div class=""><button type="button" class="btn btn-dark" ">Change</button></div>
                 </div>
             </form>
             <br> <br>
@@ -59,13 +64,5 @@
     </div>
   </section>
 </body>
-<script>
-document.getElementById("toastbtn").onclick = function() {
-  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-  var toastList = toastElList.map(function(toastEl) {
-    return new bootstrap.Toast(toastEl)
-  })
-  toastList.forEach(toast => toast.show())
-}
-</script>
+
 </html>
