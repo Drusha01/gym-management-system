@@ -31,7 +31,7 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
                 </li>
             </ul>
             <div class="tab-content" >
-                <div class="tab-pane active show fade" id="tab-subs">
+                <div class="tab-pane show fade active" id="tab-subs">
                     <?php require_once 'subscription.php';?>
                 </div>
                 <div class="tab-pane show fade" id="tab-exp">
@@ -46,10 +46,10 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
     </main>
 <script>
 $(".nav-item").on("click", function(){
-            $(".nav-item").removeClass("active");
-            $(this).addClass("active");
+    $(".nav-item").removeClass("active");
+    $(this).addClass("active");
 
-        });
+});
         
 const toastTrigger = document.getElementById('liveToastBtn')
 const toastLiveExample = document.getElementById('liveToast')
@@ -74,31 +74,29 @@ $.ajax({
     url: 'subscription.php',
     success: function(result)
     {
-        
+
         $('div#tab').html(result);
         $.ajax({
             type: "GET",
             url: 'availtable.php',
             success: function(result)
             {
-
                 $('div.table-1').html(result);
                 dataTable = $("#table-1").DataTable({
                     "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                    responsive: true,
+                    responsive: true
                 });
                 $('input#keyword').on('input', function(e){
                     var status = $(this).val();
                     dataTable.columns([3]).search(status).draw();
                 })
-
                 new $.fn.dataTable.FixedHeader(dataTable);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             }
         });
-        
+
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 
         alert("Status: " + textStatus); alert("Error: " + errorThrown); 
