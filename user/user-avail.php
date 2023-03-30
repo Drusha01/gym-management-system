@@ -276,7 +276,7 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div> -->
                                 </div>
-                                <ul id="trainer_list_ul">
+                                <ul id="trainer_list_ul" style="list-style-type: none;">
                                 </ul>
 
                                 <hr class="hr" />
