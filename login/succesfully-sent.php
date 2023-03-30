@@ -15,8 +15,21 @@
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+
 </head>
 <body>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <img src="../images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
+            <strong class="me-auto">KE-NO Fitness Center</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            Succesfully sent to E-mail.✅
+            </div>
+        </div>
+    </div>
   <section class="container">
     <div class="row content d-flex justify-content-center align-items-center">
       <div class="col-md-5">
@@ -30,21 +43,17 @@
           </div>
           <a class="text-decoration-none text-black m-0" aria-current="page" href="log-in.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
           <div class="container px-4">
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1">
-                  <div class="py-2 ms-3">
-                    Insert Text Here
-                  </div>
-                </div>
+            <div class="text-center">
+              <p class="fw-bold fs-4">Email Has Been Sent To</p>
+              <p class="fw-light fs-5">youremail@gmail.com</p>
+            </div>
+            <div class="text-center">
+              <img src="../images/email.png" class="img-fluid w-25">
+            </div>
                 <div class="text-center mt-2">
-                  <a href="succesfully-sent.php" class="btn btn-dark">Change</a>
+                    <a href="log-in.php" type="button" class="btn btn-dark" ">Proceed</a>
                 </div>
-            </form>
-            <br>
+            <br> <br>
           </div>
         </div>
       </div>
