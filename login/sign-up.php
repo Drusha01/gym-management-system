@@ -320,7 +320,8 @@ require_once '../classes/genders.class.php';
               </div>
               <div class="form-group py-1">
                 <label>Birth Date</label>
-                <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate(this)" id="birthdate" value="<?php echo date('Y-m-d', time()-(60*60*24*365*18)); ?>" required>
+                <input type="date" class="form-control" id="birthdate" name="birthdate" onchange="functionOnchangeBirthdate()"  value="<?php echo date('Y-m-d', time()-(60*60*24*380*18)); ?>" required>
+
               </div>
               <div class="form-group py-2">
                 <label for="exampleFormControlFile1" class="pb-1">
@@ -358,6 +359,7 @@ require_once '../classes/genders.class.php';
                 <a href="#" title="Facebook"><i class='bx bxl-google'></i></a>
               </div>
             </div>
+            <input type="date" class="form-control" id="birthdatehidden" name="birthdatehidden" onchange="functionOnchangebirthdatehidden()" style="visibility:hidden;" value="<?php echo date('Y-m-d', time()-(60*60*24*380*5)); ?>" >
 
         </div>
       </div>

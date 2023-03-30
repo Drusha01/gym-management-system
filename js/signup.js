@@ -16,6 +16,14 @@ function functionOnchangeGender(gender){
 }
 function functionOnchangeBirthdate(birthdate){
   // do some error handling here
+  var dateOne = new Date($('#birthdate').val()); //Year, Month, Date
+  var dateTwo = new Date($('#birthdatehidden').val()); //Year, Month, Date
+  if (dateOne > dateTwo) {
+    $('#birthdate').val($('#birthdatehidden').val())
+      alert("Age must be 5 years old higher");
+  }else {
+    
+  }
   functiononkeyup();
 }
 var validateallvar=true;
