@@ -104,11 +104,14 @@ if(isset($_SESSION['user_id'])){
     </div>
   </div>
 </div>
-<div class="modal fade" id="tbl-hist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+<!-- Modal full payment -->
+<div class="modal fade" id="hist-view-full" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Availed Subscription (March 26,2023)</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Full Payment (March 26,2023)</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -122,7 +125,8 @@ if(isset($_SESSION['user_id'])){
                                 <th class="text-center">Amount</th>
                                 <th class="text-center">Discount</th>
                                 <th class="text-center">Penalties Due</th>
-                                <th class="text-center">Total</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th class="text-center">Balance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,7 +137,8 @@ if(isset($_SESSION['user_id'])){
                                 <td class="text-end">₱800.00</td>
                                 <td class="text-center">None</td>
                                 <td class="text-center">None</td>
-                                <td class="text-end">₱800.00</td>
+                                <td class="text-center">₱800.00</td>
+                                <td class="text-end">₱0.00</td>
                             </tr>
 
                             <tr>
@@ -143,6 +148,75 @@ if(isset($_SESSION['user_id'])){
                                 <td class="text-end">₱100.00</td>
                                 <td class="text-center">None</td>
                                 <td class="text-center">None</td>
+                                <td class="text-center">₱100.00</td>
+                                <td class="text-end">₱0.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="table-success">
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱900.00</td>
+                                <td class="text-end fw-bolder fs-5">₱0.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success">Show</button>
+                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal full partial -->
+<div class="modal fade" id="hist-view-partial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Partial Payment (March 26,2023)</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive ">
+                    <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="d-lg-none"></th>
+                                <th class="text-center">#</th>
+                                <th class="ps-3">Payment Description</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Discount</th>
+                                <th class="text-center">Penalties Due</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th class="text-center">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">1</td>
+                                <td class="ps-3">1-Month Gym-Use</td>
+                                <td class="text-end">₱800.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱500.00</td>
+                                <td class="text-end">₱300.00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">2</td>
+                                <td class="ps-3">1-Month Locker</td>
+                                <td class="text-end">₱100.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱0.00</td>
                                 <td class="text-end">₱100.00</td>
                             </tr>
                         </tbody>
@@ -150,9 +224,211 @@ if(isset($_SESSION['user_id'])){
                             <tr>
                                 <td class="d-lg-none"></td>
                                 <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
-                                <td class="text-end">₱</td>
-                                <td class="text-end">₱</td>
-                                <td class="text-end fw-bolder fs-5">₱900</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱500.00</td>
+                                <td class="text-end fw-bolder fs-5">₱400.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success">Show</button>
+                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal full void -->
+<div class="modal fade" id="hist-view-void" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Void Payment (March 26,2023)</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive ">
+                    <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="d-lg-none"></th>
+                                <th class="text-center">#</th>
+                                <th class="ps-3">Payment Description</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Discount</th>
+                                <th class="text-center">Penalties Due</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th class="text-center">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">1</td>
+                                <td class="ps-3">1-Month Gym-Use</td>
+                                <td class="text-end">₱800.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱500.00</td>
+                                <td class="text-end">₱300.00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">2</td>
+                                <td class="ps-3">1-Month Locker</td>
+                                <td class="text-end">₱100.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱0.00</td>
+                                <td class="text-end">₱100.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="table-success">
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱400.00</td>
+                                <td class="text-end fw-bolder fs-5">₱500.00</td>
+                            </tr>
+                        </tfoot>
+                        <tfoot class="table-danger">
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td colspan="3" class="text-end fw-bolder fs-5 ">Total Void Amount:</td>
+                                <td class="text-end">---</td>
+                                <td class="text-end">---</td>
+                                <td class="text-end fw-bolder fs-5">₱100.00</td>
+                                <td class="text-end fw-bolder fs-5">---</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success">Show</button>
+                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal full walk -->
+<div class="modal fade" id="hist-view-walk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Void Payment (March 26,2023)</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive ">
+                    <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="d-lg-none"></th>
+                                <th class="text-center">#</th>
+                                <th class="ps-3">Payment Description</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Discount</th>
+                                <th class="text-center">Penalties Due</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th class="text-center">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">1</td>
+                                <td class="ps-3">Walk-In Gym-Use</td>
+                                <td class="text-end">₱100.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱100.00</td>
+                                <td class="text-end">₱0.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="table-success">
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱100.00</td>
+                                <td class="text-end fw-bolder fs-5">0.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success">Show</button>
+                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal full walk with trainer-->
+<div class="modal fade" id="hist-view-walk-trainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Void Payment (March 26,2023)</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive ">
+                    <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="d-lg-none"></th>
+                                <th class="text-center">#</th>
+                                <th class="ps-3">Payment Description</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Discount</th>
+                                <th class="text-center">Penalties Due</th>
+                                <th class="text-center">Paid Amount</th>
+                                <th class="text-center">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">1</td>
+                                <td class="ps-3">Walk-In Gym-Use</td>
+                                <td class="text-end">₱100.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱100.00</td>
+                                <td class="text-end">₱0.00</td>
+                            </tr>
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td class="text-center">2</td>
+                                <td class="ps-3">Walk-In Trainer</td>
+                                <td class="text-end">₱250.00</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">None</td>
+                                <td class="text-center">₱250.00</td>
+                                <td class="text-end">₱0.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="table-success">
+                            <tr>
+                                <td class="d-lg-none"></td>
+                                <td colspan="3" class="text-end fw-bolder fs-5 ">Total:</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱0.00</td>
+                                <td class="text-end">₱250.00</td>
+                                <td class="text-end fw-bolder fs-5">₱0.00</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -191,6 +467,10 @@ if(isset($_SESSION['user_id'])){
             $('select#categoryFilter').on('change', function(e){
             var status = $(this).val();
             dataTable.columns([2]).search(status).draw();
+            });
+            $('select#categoryFilter_2').on('change', function(e){
+            var status = $(this).val();
+            dataTable.columns([4]).search(status).draw();
             })
             new $.fn.dataTable.FixedHeader(dataTable);
         },
