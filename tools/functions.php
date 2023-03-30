@@ -30,7 +30,7 @@ function validate_gender($POST,$gender){
 
 function validate_birthdate($POST,$birthdate){
     //  do this
-    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < 0) ;
+    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < (60*60*24*370*5)) ;
 }
 
 function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')
