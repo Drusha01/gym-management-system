@@ -12,10 +12,8 @@
   <link rel="stylesheet" href="../css/boxicons.min.css">
   <script defer src="../js/bootstrap.bundle.min.js"></script>
   <html itemscope itemtype="http://schema.org/Article">
-  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-
 
 </head>
 <body>
@@ -30,13 +28,25 @@
               <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
             </div>
           </div>
-            <div class="container text-center mt-3">
-                <p class="fw-bold fs-3">Your E-Mail is now Verified</p>
-                <img src="../images/email-ver.png" class="w-50">
-                <p class="fs-3 fw-light mt-3">Welcome to Ke-No Fitness Center!</p>
-                <a href="../index.php" class="btn btn-dark">Proceed to Website</a>
-            </div>
-            <br> <br>
+          <a class="text-decoration-none text-black m-0" aria-current="page" href="log-in.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
+          <div class="container px-4">
+            <form>
+                <p class="fw-bold fs-5">E-mail Verification</p>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">E-mail address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1">
+                  <div class="py-2 ms-3">
+                    Insert Text Here
+                  </div>
+                </div>
+                <div class="text-center mt-2">
+                  <a href="succesfully-sent.php" class="btn btn-dark">Confirm E-Mail</a>
+                  <a href="email-6-digit.php" class="btn btn-dark">Confirm E-Mail</a>
+                </div>
+            </form>
+            <br>
           </div>
         </div>
       </div>
