@@ -82,23 +82,25 @@ if(isset($_SESSION['admin_id'])){
                             $adminObj = new admins();
                             $admin_datas = $adminObj->fetchAll_exceptMe($_SESSION['admin_id']);
                             $counter=1;
-                            foreach ($admin_datas as $key => $value) {
-                                echo '<tr>';
-                                echo '<th class="d-lg-none"></th>';
-                                echo '<th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>';
-                                echo '<td class="text-center ">'.htmlentities($value['user_name']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['user_fullname']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['user_type_details']).'</td>';
-                                // echo '<td class="text-center ">'.htmlentities($value['admin_offer_restriction_details']).'</td>';
-                                // echo '<td class="text-center ">'.htmlentities($value['admin_avail_restriction_details']).'</td>';
-                                // echo '<td class="text-center ">'.htmlentities($value['admin_account_restriction_details']).'</td>';
-                                // echo '<td class="text-center ">'.htmlentities($value['admin_payment_restriction_details']).'</td>';
-                                // echo '<td class="text-center ">'.htmlentities($value['admin_maintenance_restriction_details']).'</td>';
-                                // echo '<td class="text-center ">'.htmlentities($value['admin_report_restriction_details']).'</td>';
-                                echo '<td class="text-center ">'.htmlentities($value['admin_date_created']).'</td>';
-                                echo '<td class="text-center"><a href="edit-admin.php?admin_id='.htmlentities($value['admin_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="UpdateModal('.htmlentities($counter).','.htmlentities($value['admin_id']).',\''.htmlentities($value['user_name']).'\')">Delete</button></td>';
-                                echo '</tr>';
-                                $counter++;
+                            if($admin_datas){
+                                foreach ($admin_datas as $key => $value) {
+                                    echo '<tr>';
+                                    echo '<th class="d-lg-none"></th>';
+                                    echo '<th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>';
+                                    echo '<td class="text-center ">'.htmlentities($value['user_name']).'</td>';
+                                    echo '<td class="text-center ">'.htmlentities($value['user_fullname']).'</td>';
+                                    echo '<td class="text-center ">'.htmlentities($value['user_type_details']).'</td>';
+                                    // echo '<td class="text-center ">'.htmlentities($value['admin_offer_restriction_details']).'</td>';
+                                    // echo '<td class="text-center ">'.htmlentities($value['admin_avail_restriction_details']).'</td>';
+                                    // echo '<td class="text-center ">'.htmlentities($value['admin_account_restriction_details']).'</td>';
+                                    // echo '<td class="text-center ">'.htmlentities($value['admin_payment_restriction_details']).'</td>';
+                                    // echo '<td class="text-center ">'.htmlentities($value['admin_maintenance_restriction_details']).'</td>';
+                                    // echo '<td class="text-center ">'.htmlentities($value['admin_report_restriction_details']).'</td>';
+                                    echo '<td class="text-center ">'.htmlentities($value['admin_date_created']).'</td>';
+                                    echo '<td class="text-center"><a href="edit-admin.php?admin_id='.htmlentities($value['admin_id']).'" class="btn btn-primary btn-sm" role="button">Edit</a>  <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="UpdateModal('.htmlentities($counter).','.htmlentities($value['admin_id']).',\''.htmlentities($value['user_name']).'\')">Delete</button></td>';
+                                    echo '</tr>';
+                                    $counter++;
+                                }                                   
                             }
                             ?>
                         </tbody>

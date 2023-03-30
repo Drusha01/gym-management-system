@@ -49,7 +49,12 @@ if(isset($_SESSION['admin_id'])){
         $_SESSION['admin_user_valid_id_photo'] = $admin_data['user_valid_id_photo'];
         $_SESSION['admin_user_profile_picture'] = $admin_data['user_profile_picture'];
 
+        $_SESSION['admin_announcement_restriction_details'] = $admin_data['admin_announcement_restriction_details'];
+        $_SESSION['admin_attendance_restriction_details'] = $admin_data['admin_attendance_restriction_details'];
+        $_SESSION['admin_locker_restriction_details'] = $admin_data['admin_locker_restriction_details'];
+        $_SESSION['admin_notification_restriction_details'] = $admin_data['admin_notification_restriction_details'];
         $_SESSION['admin_offer_restriction_details'] = $admin_data['admin_offer_restriction_details'];
+
         $_SESSION['admin_avail_restriction_details'] = $admin_data['admin_avail_restriction_details'];
         $_SESSION['admin_account_restriction_details'] = $admin_data['admin_account_restriction_details'];
         $_SESSION['admin_payment_restriction_details'] = $admin_data['admin_payment_restriction_details'];
@@ -58,9 +63,9 @@ if(isset($_SESSION['admin_id'])){
 
         $_SESSION['admin_user_date_created'] = $admin_data['user_date_created'];
         $_SESSION['admin_user_date_updated'] = $admin_data['user_date_updated'];
-        $_SESSION['admin_user_name_verified'] = $user_details['user_name_verified'];
-        $_SESSION['admin_user_email_verified'] = $user_details['user_email_verified'];
-        $_SESSION['admin_user_phone_verified'] = $user_details['user_phone_verified'];
+        $_SESSION['admin_user_name_verified'] = $admin_data['user_name_verified'];
+        $_SESSION['admin_user_email_verified'] = $admin_data['user_email_verified'];
+        $_SESSION['admin_user_phone_verified'] = $admin_data['user_phone_verified'];
 
 
         header('location:dashboard/dashboard.php');
