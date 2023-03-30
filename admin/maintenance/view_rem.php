@@ -59,30 +59,7 @@ if(isset($_SESSION['admin_id'])){
         </div>
 
         <div class="table-responsive table-container">
-            <table id="attendance" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
-                <thead class="table-dark" >
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <th class="text-center d-none d-sm-table-cell">#</th>
-                    <th class="text-center">REMARKS</th>
-                    <th class="text-center">CONDITION</th>
-                    <th class="text-center">DATE AND TIME</th>
-                    <th class="text-center">CHECKED BY</th>
-                    <th class="text-center">ACTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th class="d-lg-none"></th>
-                    <td class="text-center d-none d-sm-table-cell">1</td>
-                    <td class="text-center">Still in Good Condition</td>
-                    <td class="text-center">Good</td>
-                    <td class="text-center">March 23, 2023 (3:30 PM)</td>
-                    <td class="text-center">Trinidad, James Lorenz</td>
-                    <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#view"><i class='bx bx-show-alt'></i></button><button class="btn btn-outline-primary btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#edit"><i class='bx bx-edit-alt'></i></button><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
-                    </tr>
-                </tbody>
-            </table>
+            
         </div>
   </div>
 </main>
@@ -121,17 +98,19 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </div>
 <div class="modal fade" id="view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Remarks by: <span class="fw-light fs-5">Trinidad, James Lorenz</span></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <p class="fw-bold">Date and Time: <span class="fw-light">March 23, 2023 (3:00 PM)</span></p>
         <p class="fw-bold">Description</p>
         <div class="mb-3 container card">
             <p class="mt-2">Still in Good Condition</p>
         </div>
+        
         <div class="mb-3">
             <img src="../../images/function_room/orig_size/3.jpg" class="img-fluid">
         </div>
@@ -164,6 +143,32 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </div>
 </body>
+<script>
+  $.ajax({
+      type: "GET",
+      url: 'tbl/view-rem-tbl.php',
+      success: function(result)
+      {
+          $('div.table-responsive').html(result);
+          dataTable = $("#view-rem").DataTable({
+              "dom": '<"top"f>rt<"bottom"lp><"clear">',
+              responsive: true,
+          });
+          $('input#keyword').on('input', function(e){
+              var status = $(this).val();
+              dataTable.columns([2]).search(status).draw();
+          })
+          $('select#categoryFilter').on('change', function(e){
+          var status = $(this).val();
+          dataTable.columns([3]).search(status).draw();
+          })
+          new $.fn.dataTable.FixedHeader(dataTable);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+      } 
+  });
+</script>
 
 
 </html>

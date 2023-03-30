@@ -99,17 +99,26 @@
         </div>
         <div class="tab-pane fade show" id="pills-hist" role="tabpanel" aria-labelledby="pills-hist-tab">
             <div class="row pb-3">
+                <div class="form-group col-12 col-lg-4 table-filter-option">
+                    <label for="keyword" class="ps-2 pb-2">Search</label>
+                    <input type="text" name="keyword" id="keyword" placeholder="Enter Order ID Here" class="form-control ms-md-2">
+                </div>
                 <div class="form-group col-12 col-lg-3 table-filter-option">
-                    <label class="ps-2 pb-2">Type</label>
+                    <label class="ps-2 pb-2">Offer</label>
                     <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                         <option value="">All</option>
                         <option value="Subscription">Subscription</option>
                         <option value="Walk-In">Walk-In</option>
                     </select>
                 </div>
-                <div class="form-group col-12 col-lg-4 table-filter-option">
-                    <label for="keyword" class="ps-2 pb-2">Search</label>
-                    <input type="text" name="keyword" id="keyword" placeholder="Enter Order ID Here" class="form-control ms-md-2">
+                <div class="form-group col-12 col-lg-3 table-filter-option">
+                    <label class="ps-2 pb-2">Payment</label>
+                    <select name="categoryFilter_2" id="categoryFilter_2" class="form-select ms-md-2">
+                        <option value="">All</option>
+                        <option value="Full Payment">Full Payment</option>
+                        <option value="Partial Payment">Partial Payment</option>
+                        <option value="Void Payment">Void Payment</option>
+                    </select>
                 </div>
             </div>
 

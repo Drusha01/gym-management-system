@@ -4,7 +4,7 @@
             <th class="d-lg-none"></th>
             <th class="text-center d-none d-sm-table-cell">#</th>
             <th class="text-center">Name</th>
-            <th class="text-center">Number of Last Subscriptions Availed</th>
+            <th class="text-center">Number of Last Offer/s Availed</th>
             <th class="text-center">Last Payment</th>
             <th class="text-center">Action</th>
         </tr>
