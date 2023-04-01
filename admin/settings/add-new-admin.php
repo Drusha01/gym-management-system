@@ -34,7 +34,7 @@ if(isset($_SESSION['admin_id'])){
             }
             if(isset($_POST['add_admin_from_existing_user'])&& isset($_POST['user_id']) && intval($_POST['user_id'])>0){
                 
-                print_r($_POST);
+                // print_r($_POST);
                 if(isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
                     if($adminObj->add($_POST['user_id'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
                         header('location:settings.php');
