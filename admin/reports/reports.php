@@ -56,11 +56,11 @@ if(isset($_SESSION['admin_id'])){
                 <button class="nav-link text-dark" id="availed_trainer-tab" data-bs-toggle="tab" data-bs-target="#availed_trainer" type="button" role="tab" aria-controls="availed_trainer" aria-selected="false">Most Availed Trainer</button>
             </li>
         </ul>
-        <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-12 col-lg-6 pb-2 d-flex justify-content-end pt-4">
-                <div id="reportrange_1" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width:100%;">
-                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+        <div class="row my-2">
+            <div class="col-lg-6 d-grid d-lg-inline"><button class="btn btn-outline-dark  me-1 py-1 ">Print</button><button class="btn btn-outline-dark me-1 py-1">PDF</button><button class="btn btn-outline-dark me-1 py-1">Excel</button></div>
+            <div class="col-12 col-lg-6 pb-2 d-flex justify-content-end">
+                <div id="reportrange_1" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc; width:100%;">
+                    <i class='bx bxs-calendar'></i>&nbsp;
                     <span></span> <b class="caret"></b>
                 </div>
             </div>
