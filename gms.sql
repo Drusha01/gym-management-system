@@ -1313,11 +1313,13 @@ INSERT INTO Settings (setting_id, setting_attendance_force_timeout,setting_perce
     'kenogymofficial@kenogym.online'
 );
 
+-- annoucement_status
 CREATE TABLE announcement_statuses(
 	announcement_status_id int primary key auto_increment,
     announcement_status_details varchar(50) unique
 );
 
+-- insert for announcement_status
 INSERT INTO announcement_statuses (announcement_status_id, announcement_status_details ) VALUES
 (
 	null,
@@ -1327,21 +1329,47 @@ INSERT INTO announcement_statuses (announcement_status_id, announcement_status_d
     'Disabled'
 );
 
+-- table for announcement_type
+CREATE TABLE announcement_types(
+	announcement_type_id int primary key auto_increment,
+    announcement_type_details varchar(50) unique
+);
+
+INSERT INTO announcement_types (announcement_type_id, announcement_type_details ) VALUES
+(
+	null,
+    'Text'
+),(
+	null,
+    'Image'
+);
+
 -- announcement
 CREATE TABLE announcements(
 	announcement_id int primary key auto_increment,
     announcement_status_id INT NOT NULL,
-    announcement_type INT NOT NULL,
+    announcement_type_id INT NOT NULL,
     announcement_title VARCHAR(50) NOT NULL,
-    announcement_content VARCHAR(1024),
+    announcement_content VARCHAR(1024) NOT NULL,
     announcement_file_image VARCHAR(100) DEFAULT 'default.png',
 	announcement_order INT NOT NULL DEFAULT 0,
     announcement_start_date DATETIME NOT NULL,
 	announcement_end_date DATETIME NOT NULL,
 	announcement_date_created datetime default NOW(),
-    announcement_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    announcement_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (announcement_status_id) REFERENCES announcement_statuses(announcement_status_id),
+    FOREIGN KEY (announcement_type_id) REFERENCES announcement_types(announcement_type_id)
 );
 
+
+-- attendance
+CREATE TABLE attendances(
+	attendance_id int primary key auto_increment,
+    attendance_user_id INT NOT NULL,
+    attendance_time_in DATETIME NOT NULL DEFAULT NOW(),
+    attendance_time_out DATETIME NOT NULL,
+	FOREIGN KEY (attendance_user_id) REFERENCES users(user_id)
+);
 	
 
 
