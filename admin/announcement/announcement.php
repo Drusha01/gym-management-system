@@ -99,7 +99,6 @@ if(isset($_SESSION['admin_id'])){
             dataTable = $("#announce").DataTable({
                 "dom": '<"top"f>rt<"bottom"lp><"clear">',
                 responsive: true,
-                rowReorder: true
             });
             $('input#keyword').on('input', function(e){
                 var status = $(this).val();
