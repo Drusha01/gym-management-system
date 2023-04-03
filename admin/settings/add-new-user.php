@@ -156,33 +156,6 @@ if($_SESSION['admin_user_type_details'] != 'admin'){
                         <tr>
                             <td class="ps-lg-5 pt-3 align-middle">
                                 <div class="form-check form-switch">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Locker</label>
-                                </div>
-                            </td>
-                            <td >
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Modify">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Modify
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Read-Only" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Read-Only
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="None" >
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        None
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-lg-5 pt-3 align-middle">
-                                <div class="form-check form-switch">
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Attendance</label>
                                 </div>
                             </td>
@@ -201,6 +174,33 @@ if($_SESSION['admin_user_type_details'] != 'admin'){
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="None" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Locker</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Modify">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Read-Only" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="None" >
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         None
                                     </label>

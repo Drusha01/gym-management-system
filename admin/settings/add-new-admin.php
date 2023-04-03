@@ -16,12 +16,6 @@ if(isset($_SESSION['admin_id'])){
         // do nothing
         if($_SESSION['admin_user_type_details'] == 'admin'){
             // get the admin details
-
-            if($_SESSION['admin_user_type_details'] != 'admin'){
-                header('location:../dashboard/dashboard.php');
-            }
-
-
             require_once '../../classes/users.class.php';
             require_once '../../classes/admins.class.php';
             $userObj = new users();
@@ -35,8 +29,8 @@ if(isset($_SESSION['admin_id'])){
             if(isset($_POST['add_admin_from_existing_user'])&& isset($_POST['user_id']) && intval($_POST['user_id'])>0){
                 
                 // print_r($_POST);
-                if(isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
-                    if($adminObj->add($_POST['user_id'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
+                if(isset($_POST['Announcement']) && isset($_POST['Attendance']) && isset($_POST['Locker']) && isset($_POST['Notification']) && isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
+                    if($adminObj->add($_POST['user_id'],$_POST['Announcement'],$_POST['Attendance'],$_POST['Locker'],$_POST['Notification'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
                         header('location:settings.php');
                     }else{
                         echo 'error';
@@ -44,8 +38,6 @@ if(isset($_SESSION['admin_id'])){
                 }else{
                     header('location:settings.php');
                 }
-
-
             }
         }else{
             // go to dashboard
@@ -76,7 +68,7 @@ if(isset($_SESSION['admin_id'])){
   <div class="w-100">
     <div class="row">
         <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">Add Admin</h5>
-        <a class="col text-decoration-none text-black m-0" aria-current="page" href="settings.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
+        <a class="col text-decoration-none text-black m-0" aria-current="page" href="add-admin.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
     <div class="container-fluid">
         <div class="row g-2 mb-2 mt-1">
@@ -126,6 +118,114 @@ if(isset($_SESSION['admin_id'])){
                         </tr>
                     </thead>
                     <tbody>
+                    <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Announcement</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="Modify">
+                                    <label class="form-check-label" for="Announcement">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="Read-Only" checked>
+                                    <label class="form-check-label" for="Announcement">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="None" >
+                                    <label class="form-check-label" for="Announcement">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Attendance</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="Modify">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="Read-Only" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="None" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Locker</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Modify">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Read-Only" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="None" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Notification</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Notification" id="Notification" value="Modify">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Notification" id="Notification" value="Read-Only" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Notification" id="Notification" value="None" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td class="ps-lg-5 pt-3 align-middle">
                                 <div class="form-check form-switch">

@@ -29,6 +29,7 @@
                 echo '<td class="text-center">'.htmlentities($value['user_gender_details']).'</td>';
                 echo '<td class="text-center"><a  class="btn btn-primary btn-sm" role="button" href="add-new-admin.php?user_id='.htmlentities($value['user_id']).'">Add</a></td>';
                 echo '</tr>';
+                $counter++;
                 }
             }
         ?>

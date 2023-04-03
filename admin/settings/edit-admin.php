@@ -30,9 +30,9 @@ if(isset($_SESSION['admin_id'])){
             if(isset($_POST['edit_admin'])&& isset($_POST['admin_id']) && intval($_POST['admin_id'])>0){
                 
 
-                if(isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
-                    if($adminObj->update($_POST['admin_id'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
-                        header('location:settings.php');
+                if(isset($_POST['Announcement']) && isset($_POST['Attendance']) && isset($_POST['Locker']) && isset($_POST['Notification']) && isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
+                    if($adminObj->update($_POST['admin_id'],$_POST['Announcement'],$_POST['Attendance'],$_POST['Locker'],$_POST['Notification'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
+                        // header('location:settings.php');
                     }else{
                         echo 'error';
                     }
@@ -121,7 +121,7 @@ if(isset($_SESSION['admin_id'])){
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                    <tr>
                             <td class="ps-lg-5 pt-3 align-middle">
                                 <div class="form-check form-switch">
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Announcement</label>
@@ -129,46 +129,19 @@ if(isset($_SESSION['admin_id'])){
                             </td>
                             <td >
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="Modify">
+                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="Modify"<?php if($admin_data['admin_announcement_restriction_details'] == 'Modify'){echo 'checked';}?>>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Modify
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="Read-Only" checked>
+                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="Read-Only" <?php if($admin_data['admin_announcement_restriction_details'] == 'Read-Only'){echo 'checked';}?>>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Read-Only
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="None" >
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        None
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="ps-lg-5 pt-3 align-middle">
-                                <div class="form-check form-switch">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Locker</label>
-                                </div>
-                            </td>
-                            <td >
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Modify">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Modify
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Read-Only" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Read-Only
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="None" >
+                                    <input class="form-check-input" type="radio" name="Announcement" id="Announcement" value="None" <?php if($admin_data['admin_announcement_restriction_details'] == 'None'){echo 'checked';}?>>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         None
                                     </label>
@@ -183,19 +156,73 @@ if(isset($_SESSION['admin_id'])){
                             </td>
                             <td >
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="Modify">
+                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="Modify"<?php if($admin_data['admin_attendance_restriction_details'] == 'Modify'){echo 'checked';}?>>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Modify
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="Read-Only" checked>
+                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="Read-Only" <?php if($admin_data['admin_attendance_restriction_details'] == 'Read-Only'){echo 'checked';}?>>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Read-Only
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="None" >
+                                    <input class="form-check-input" type="radio" name="Attendance" id="Attendance" value="None" <?php if($admin_data['admin_attendance_restriction_details'] == 'None'){echo 'checked';}?>>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Locker</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Modify"<?php if($admin_data['admin_locker_restriction_details'] == 'Modify'){echo 'checked';}?>>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="Read-Only" <?php if($admin_data['admin_locker_restriction_details'] == 'Read-Only'){echo 'checked';}?>>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Locker" id="Locker" value="None" <?php if($admin_data['admin_locker_restriction_details'] == 'None'){echo 'checked';}?>>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        None
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-lg-5 pt-3 align-middle">
+                                <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Notification</label>
+                                </div>
+                            </td>
+                            <td >
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Notification" id="Notification" value="Modify"<?php if($admin_data['admin_notification_restriction_details'] == 'Modify'){echo 'checked';}?>>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Modify
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Notification" id="Notification" value="Read-Only" <?php if($admin_data['admin_notification_restriction_details'] == 'Read-Only'){echo 'checked';}?>>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Read-Only
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Notification" id="Notification" value="None" <?php if($admin_data['admin_notification_restriction_details'] == 'None'){echo 'checked';}?>>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         None
                                     </label>
