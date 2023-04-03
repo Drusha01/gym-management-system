@@ -1291,6 +1291,60 @@ INSERT INTO discounts (discount_id, discount_name, discount_details, discount_ra
     0
 );
 
+-- settings
+CREATE TABLE Settings(
+	setting_id int primary key auto_increment,
+	setting_attendance_force_timeout time not null,
+    setting_percentage_of_payment_per_day float not null,
+    setting_gym_address varchar(255) not null,
+    setting_gym_contact_number varchar(20) not null,
+    setting_gym_email_address varchar(255) not null,
+	setting_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- default settings
+INSERT INTO Settings (setting_id, setting_attendance_force_timeout,setting_percentage_of_payment_per_day,setting_gym_address,setting_gym_contact_number,setting_gym_email_address) VALUES
+(
+	null,
+    '5:30:00',
+    .05,
+    'San Jose, Zamboanga City',
+    '8(800)316-06-42',
+    'kenogymofficial@kenogym.online'
+);
+
+CREATE TABLE announcement_statuses(
+	announcement_status_id int primary key auto_increment,
+    announcement_status_details varchar(50) unique
+);
+
+INSERT INTO announcement_statuses (announcement_status_id, announcement_status_details ) VALUES
+(
+	null,
+    'Active'
+),(
+	null,
+    'Disabled'
+);
+
+-- announcement
+CREATE TABLE announcements(
+	announcement_id int primary key auto_increment,
+    announcement_status_id INT NOT NULL,
+    announcement_type INT NOT NULL,
+    announcement_title VARCHAR(50) NOT NULL,
+    announcement_content VARCHAR(1024),
+    announcement_file_image VARCHAR(100) DEFAULT 'default.png',
+	announcement_order INT NOT NULL DEFAULT 0,
+    announcement_start_date DATETIME NOT NULL,
+	announcement_end_date DATETIME NOT NULL,
+	announcement_date_created datetime default NOW(),
+    announcement_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+	
+
+
 -- table for subscription status
 CREATE TABLE subscription_status(
 	subscription_status_id int primary key auto_increment,
@@ -1345,25 +1399,6 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
--- number of lockers
-CREATE TABLE number_of_lockers(
-	locker_id int primary key auto_increment ,
-    locker_number int not null
-);
-
-INSERT INTO  number_of_lockers VALUES
-(
-	null,
-    45
-);
-
-UPDATE number_of_lockers
-SET locker_number = 3
-WHERE locker_id =1;
-
-
-SELECT locker_id,locker_number FROM number_of_lockers
-WHERE locker_id =1;
 
 
 CREATE TABLE subscriber_trainers(

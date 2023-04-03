@@ -15,6 +15,8 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        print_r($_POST);
+        print_r($_FILES);
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -43,63 +45,71 @@ if(isset($_SESSION['admin_id'])){
             <a class="col text-decoration-none text-black m-0" aria-current="page" href="announcement.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
         </div>
         <div class="container">
-        <div class="row pb-2">
-            <div class="col-sm-5">
-                <label class="pb-1" for="name_announce">Title of Announcement</label>
-                <input type="text" class="form-control" value="" id="name_announce" name="" placeholder="Enter Title of Announcement" required>
-            </div>
-        </div>
-        <div class="row pt-2">
-            <label>Type of Announcement</label>
-        </div>
-
-            <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Text</label>
-            </div>
-            <div class="form-check form-check-inline pb-2">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">Image</label>
-            </div>
+        <form action="" method="post" enctype="">
             <div class="row pb-2">
                 <div class="col-sm-5">
-                <label for="exampleFormControlTextarea1" class="form-label">Enter Content of Announcement</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label class="pb-1" for="announcement_title">Title of Announcement</label>
+                    <input type="text" class="form-control" value="" id="announcement_title" name="announcement_title" placeholder="Enter Title of Announcement" required>
                 </div>
             </div>
             <div class="row">
-            <div class="col-sm-5">
-                <label for="formFile" class="form-label">Enter Image</label>
-                <input class="form-control" type="file" id="formFile">
-            </div>
-            </div>
-            <div class="row form-group py-2">
-                <label for="daterange" class="pb-2">Start Date to End Date</label>
-                <div class="col-12 col-lg-5 pb-2 d-flex justify-content-end">
-                    <div id="daterange" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc; width:100%;">
-                        <i class='bx bxs-calendar'></i>&nbsp;
-                        <span></span> <b class="caret"></b>
-                    </div>
+                <div class="col-sm-5">
+                    <label for="formFile" class="form-label">Enter Image</label>
+                    <input class="form-control" type="file" id="formFile">
                 </div>
             </div>
             <div class="row pt-2">
-            <label>Set Status</label>
+                <label>Type of Announcement</label>
             </div>
 
-            <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Active</label>
-            </div>
-            <div class="form-check form-check-inline pb-2">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">Disabled</label>
-            </div>
-            <div class="row d-flex flex-row-reverse">
-                <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                    <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" >Add Announcement</button>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="announcement_type" id="announcement_type" value="Text" required>
+                <label class="form-check-label" for="announcement_type">Text</label>
+                </div>
+                <div class="form-check form-check-inline pb-2">
+                <input class="form-check-input" type="radio" name="announcement_type" id="announcement_type" value="Image" required>
+                <label class="form-check-label" for="announcement_type">Image</label>
+                </div>
+                <div class="row pb-2">
+                    <div class="col-sm-5">
+                    <label for="exampleFormControlTextarea1" class="form-label">Enter Content of Announcement</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-5">
+                    <label for="formFile" class="form-label">Enter Image</label>
+                    <input class="form-control" type="file" id="announcement_image" name="announcement_image" accept="image/*" required>
+                </div>
+                </div>
+                <div class="row form-group py-2">
+                    <label for="daterange" class="pb-2">Start Date to End Date</label>
+                    <div class="col-12 col-lg-5 pb-2 d-flex justify-content-end">
+                        <div id="daterange" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc; width:100%;">
+                            <i class='bx bxs-calendar'></i>&nbsp;
+                            <span></span> <b class="caret"></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                <label>Set Status</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="status" id="status" value="Active" required>
+                <label class="form-check-label" for="inlineRadio1">Active</label>
+                </div>
+                <div class="form-check form-check-inline pb-2">
+                <input class="form-check-input" type="radio" name="status" id="status" value="Disabled" required>
+                <label class="form-check-label" for="status">Disabled</label>
+                </div>
+                <div class="row d-flex flex-row-reverse">
+                    <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
+                        <input type="submit" class="btn btn-success  border-0 rounded" name="add_announcement" value="Add Announcement" id="add_announcement" >
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 
 
   </div>
@@ -108,23 +118,26 @@ if(isset($_SESSION['admin_id'])){
 <script>
 $(function() {
 
-var start = moment().subtract(29, 'days');
-var end = moment();
+var start = moment().add(0, 'days');
+var end = moment().add(0, 'days');
 
 function cb(start, end) {
     $('#daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+    console.log(start.format('MMMM D, YYYY'));
+    console.log(end.format('MMMM D, YYYY'));
 }
 
 $('#daterange').daterangepicker({
-    startDate: start,
-    endDate: end,
+    startDate: moment().add(0, 'days'),
+    endDate: moment().add(0, 'days'),
+    minDate:  moment().add(0, 'days'),
     ranges: {
        'Today': [moment(), moment()],
-       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-       'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-       'This Month': [moment().startOf('month'), moment().endOf('month')],
-       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+       'One Day': [moment().add(0, 'days'), moment().add(1, 'days')],
+       'One Week': [moment().add(0, 'days'), moment().add(7, 'days')],
+       'One Month': [moment().add(0, 'days'), moment().add(1, 'month')],
+       'Two Month': [moment().add(0, 'days'), moment().add(2, 'month')]
     }
 }, cb);
 

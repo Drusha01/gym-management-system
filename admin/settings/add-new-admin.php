@@ -68,7 +68,7 @@ if(isset($_SESSION['admin_id'])){
   <div class="w-100">
     <div class="row">
         <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">Add Admin</h5>
-        <a class="col text-decoration-none text-black m-0" aria-current="page" href="add-admin.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
+        <a class="col text-decoration-none text-black m-0" aria-current="page" href="add-admin.php?active=existing_user"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
     <div class="container-fluid">
         <div class="row g-2 mb-2 mt-1">
