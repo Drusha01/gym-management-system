@@ -3,7 +3,7 @@
         <tr>
         <th class="d-lg-none"></th>
         <th class="text-center d-none d-sm-table-cell">#</th>
-        <th>ANNOUNCEMENT NAME</th>
+        <th>ANNOUNCEMENT TITLE</th>
         <th class="text-center">TYPE</th>
         <th class="text-center">START TO END DATE</th>
         <th class="text-center">STATUS</th>

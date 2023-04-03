@@ -54,7 +54,7 @@ if(isset($_SESSION['admin_id'])){
             <h5 class="col-12 fw-regular ">Add Account</h5>
             <hr>
             <div class="col-12 col-sm-12 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                <a href="add-admin.php" class="btn btn-success" role="button">Add User</a>
+                <a href="add-admin.php?active=existing_user" class="btn btn-success" role="button">Add User</a>
             </div>
                 <div class="table-responsive table-container">
                     <table id="user_settings" class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
@@ -373,6 +373,24 @@ if(isset($_SESSION['admin_id'])){
  
     new $.fn.dataTable.FixedHeader( table );
 } );
+
+
+
+// window.onload = (event) =>{
+//   const queryString = window.location.search;
+//   const urlParams = new URLSearchParams(queryString);
+//   const active = urlParams.get('active')
+//   console.log(active);
+//   if(active != null){
+//     $('#'+active).trigger('click');
+//     $('#a-'+active).attr('class','nav-link active');
+//     $('#tab-walk').attr('class','tab-pane show fade')
+//     $('#tab-exp').attr('class','tab-pane show fade')
+//     $('#tab-subs').attr('class','tab-pane show fade')
+//     $('#tab-'+active).attr('class','tab-pane active show fade')
+//   }
+
+// };
 </script>
 </body>
 </html>
