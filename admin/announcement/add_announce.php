@@ -74,15 +74,12 @@ if(isset($_SESSION['admin_id'])){
             </div>
             </div>
             <div class="row form-group py-2">
-                <div class="col-sm-5">
-                    <label class="pb-1 ms-1" for="start">Start Date</label>
-                    <input type="date" class="form-control" value="" id="start" name="birthdate" placeholder="Enter Start Date"  required>
-                </div>
-            </div>
-            <div class="row form-group py-2">
-                <div class="col-sm-5">
-                    <label class="pb-1 ms-1" for="end">End Date</label>
-                    <input type="date" class="form-control" value="" id="end" name="birthdate" placeholder="Enter End Date"  required>
+                <label for="daterange" class="pb-2">Start Date to End Date</label>
+                <div class="col-12 col-lg-5 pb-2 d-flex justify-content-end">
+                    <div id="daterange" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc; width:100%;">
+                        <i class='bx bxs-calendar'></i>&nbsp;
+                        <span></span> <b class="caret"></b>
+                    </div>
                 </div>
             </div>
             <div class="row pt-2">
@@ -108,6 +105,33 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </main>
 </body>
+<script>
+$(function() {
 
+var start = moment().subtract(29, 'days');
+var end = moment();
+
+function cb(start, end) {
+    $('#daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+}
+
+$('#daterange').daterangepicker({
+    startDate: start,
+    endDate: end,
+    ranges: {
+       'Today': [moment(), moment()],
+       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+       'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+       'This Month': [moment().startOf('month'), moment().endOf('month')],
+       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    }
+}, cb);
+
+cb(start, end);
+
+});
+
+</script>
 
 </html>
