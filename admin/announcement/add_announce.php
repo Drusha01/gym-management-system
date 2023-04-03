@@ -52,6 +52,12 @@ if(isset($_SESSION['admin_id'])){
                     <input type="text" class="form-control" value="" id="announcement_title" name="announcement_title" placeholder="Enter Title of Announcement" required>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="formFile" class="form-label">Enter Image</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
             <div class="row pt-2">
                 <label>Type of Announcement</label>
             </div>
@@ -77,15 +83,12 @@ if(isset($_SESSION['admin_id'])){
                 </div>
                 </div>
                 <div class="row form-group py-2">
-                    <div class="col-sm-5">
-                        <label class="pb-1 ms-1" for="start">Start Date</label>
-                        <input type="date" class="form-control" value="" id="start" name="announcement_start_date" placeholder="Enter Start Date"  required>
-                    </div>
-                </div>
-                <div class="row form-group py-2">
-                    <div class="col-sm-5">
-                        <label class="pb-1 ms-1" for="end">End Date</label>
-                        <input type="date" class="form-control" value="" id="end" name="birthdate" placeholder="Enter End Date"  required>
+                    <label for="daterange" class="pb-2">Start Date to End Date</label>
+                    <div class="col-12 col-lg-5 pb-2 d-flex justify-content-end">
+                        <div id="daterange" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc; width:100%;">
+                            <i class='bx bxs-calendar'></i>&nbsp;
+                            <span></span> <b class="caret"></b>
+                        </div>
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -112,6 +115,36 @@ if(isset($_SESSION['admin_id'])){
   </div>
 </main>
 </body>
+<script>
+$(function() {
 
+var start = moment().add(0, 'days');
+var end = moment().add(0, 'days');
+
+function cb(start, end) {
+    $('#daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+    console.log(start.format('MMMM D, YYYY'));
+    console.log(end.format('MMMM D, YYYY'));
+}
+
+$('#daterange').daterangepicker({
+    startDate: moment().add(0, 'days'),
+    endDate: moment().add(0, 'days'),
+    minDate:  moment().add(0, 'days'),
+    ranges: {
+       'Today': [moment(), moment()],
+       'One Day': [moment().add(0, 'days'), moment().add(1, 'days')],
+       'One Week': [moment().add(0, 'days'), moment().add(7, 'days')],
+       'One Month': [moment().add(0, 'days'), moment().add(1, 'month')],
+       'Two Month': [moment().add(0, 'days'), moment().add(2, 'month')]
+    }
+}, cb);
+
+cb(start, end);
+
+});
+
+</script>
 
 </html>
