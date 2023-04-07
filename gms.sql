@@ -1227,52 +1227,36 @@ INSERT INTO equipments_conditions (equipment_condition_id, equipment_condition_d
 
 SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good';
 
+CREATE TABLE equipment_types(
+	equipment_type_id int primary key auto_increment,
+    equipment_type_details varchar(50) unique
+);
+
 -- table for maintenance
 CREATE TABLE equipments(
 	equipment_id int primary key auto_increment,
     equipment_name VARCHAR(100) not null,
-    equipment_quantity int not null,
-    equipment_condition_id int not null,
-    FOREIGN KEY (equipment_condition_id) REFERENCES equipments_conditions(equipment_condition_id)
+    equipment_type_id int not null,
+    equipment_status_id int not null,
+    FOREIGN KEY (equipment_status_id) REFERENCES statuses(status_id),
+    FOREIGN KEY (equipment_type_id) REFERENCES equipment_types(equipment_type_id)
 );
 
-INSERT INTO equipments (equipment_id,equipment_name,equipment_quantity,equipment_condition_id) VALUES
-(
-	null,
-    'Treadmill',
-    4,
-    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
-),(
-	null,
-    '	Leg Press Machine',
-    4,
-    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'In-Maintenance')
-),(
-	null,
-    'Bench Press',
-    4,
-    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
+CREATE table remarks(
+	remark_id int primary key auto_increment,
+    remark_equipment_id int not null,
+    remark_equipment_condition_id int not null,
+    remark_admin_id int not null,
+    remark_time datetime not null,
+    remark_remark varchar(50) not null,
+    remark_file varchar(50) default null,
+	FOREIGN KEY (remark_equipment_condition_id) REFERENCES equipments_conditions(equipment_condition_id),
+	FOREIGN KEY (remark_equipment_id) REFERENCES equipments(equipment_id),
+	FOREIGN KEY (remark_admin_id) REFERENCES admins(admin_id)
 );
 
--- fetch all
-SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
-LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
-;
 
-DELETE FROM equipments 
-WHERE equipment_id = 4;
 
--- fetch with id
-SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
-LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
-WHERE equipment_id = 1
-;
-
-UPDATE equipments 
-SET equipment_name= 'Treadmill',
-equipment_quantity = '6',
-equipment_condition_id = (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
-WHERE equipment_id = 1;
 
 -- table for discounts
 CREATE TABLE discounts(
@@ -1405,12 +1389,7 @@ CREATE TABLE teams(
 	team_file varchar(255) not null ,
     FOREIGN KEY (team_position_id) REFERENCES team_positions(team_position_id)
 );
-INSERT INTO teams  (team_position_id,team_name,team_file) VALUES
-(
-	(SELECT team_position_id FROM team_positions WHERE team_position_details = 'Gym-Owner'),
-	'hanricksondfsa',
-	'dfasdfsdaf.jpg'
-);
+
 -- UPDATE teams
 -- SET team_position_id =( SELECT team_position_id FROM team_positions WHERE team_position_details = :team_position_details),
 -- team_name =:team_name ,
@@ -1420,6 +1399,9 @@ INSERT INTO teams  (team_position_id,team_name,team_file) VALUES
 SELECT * FROM teams
 LEFT OUTER JOIN team_positions ON teams.team_position_id=team_positions.team_position_id
  ;
+
+
+
 
 
 
