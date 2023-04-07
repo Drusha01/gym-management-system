@@ -1398,12 +1398,11 @@ INSERT INTO team_positions(team_position_details) VALUES
 
 SELECT team_position_id FROM team_positions WHERE team_position_details = "Gym-Owner";
 
-
 CREATE TABLE teams(
 	team_id int primary key auto_increment,
 	team_position_id int not null,
-    team_name varchar(255) not null unique,
-    team_file varchar(255) not null unique,
+    team_name varchar(255) not null ,
+	team_file varchar(255) not null ,
     FOREIGN KEY (team_position_id) REFERENCES team_positions(team_position_id)
 );
 INSERT INTO teams  (team_position_id,team_name,team_file) VALUES
@@ -1412,9 +1411,14 @@ INSERT INTO teams  (team_position_id,team_name,team_file) VALUES
 	'hanricksondfsa',
 	'dfasdfsdaf.jpg'
 );
+-- UPDATE teams
+-- SET team_position_id =( SELECT team_position_id FROM team_positions WHERE team_position_details = :team_position_details),
+-- team_name =:team_name ,
+-- team_file =:team_file,
+-- WHERE team_id=:team_id;
 
 SELECT * FROM teams
-LEFT OUTER JOIN landing_page_types ON teams.team_position_id=team_positions.team_position_id
+LEFT OUTER JOIN team_positions ON teams.team_position_id=team_positions.team_position_id
  ;
 
 

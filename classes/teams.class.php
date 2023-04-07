@@ -45,6 +45,33 @@ class teams
             return false;
         }
     }
+    function fetch_with_id($team_id){
+        try{
+            $sql = 'SELECT * FROM teams 
+            LEFT OUTER JOIN team_positions ON teams.team_position_id=team_positions.team_position_id
+            WHERE team_id =:team_id ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':team_id', $team_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function delete($team_id){
+        try{
+            $sql = 'DELETE FROM teams WHERE team_id = :team_id ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':team_id', $team_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     function fetch_all(){
         try{
             $sql = 'SELECT * FROM teams
@@ -60,6 +87,26 @@ class teams
             return false;
         }
     }
+
+    function update($team_id,$team_position_details,$team_name,$team_file){
+        try{
+            $sql = ' UPDATE teams
+            SET team_position_id =( SELECT team_position_id FROM team_positions WHERE team_position_details = :team_position_details),
+            team_name =:team_name ,
+            team_file =:team_file
+            WHERE team_id=:team_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':team_position_details', $team_position_details);
+            $query->bindParam(':team_name', $team_name);
+            $query->bindParam(':team_file', $team_file);
+            $query->bindParam(':team_id', $team_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+   
 }
 
 

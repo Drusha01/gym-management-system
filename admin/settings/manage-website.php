@@ -148,7 +148,7 @@ if(isset($_SESSION['admin_id'])){
                         $.ajax({
                             type: "POST",
                             enctype: 'multipart/form-data',
-                            url: "edit_landing_page.php",
+                            url: "update_landing_page.php",
                             data: carousel,
                             processData: false,
                             contentType: false,
@@ -293,7 +293,7 @@ if(isset($_SESSION['admin_id'])){
                     if($teams_data = $teamsObj->fetch_all()){
                         foreach ($teams_data as $key => $value) {
                             echo '
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-4" id="team_'.htmlentities($value['team_id']).'">
                                 <div class="card container-fluid py-2 shadow-sm">
                                     <label for="input_1">Name</label>
                                     <input type="text" class="form-control" value="'.htmlentities($value['team_name']).'" id="team_name_'.htmlentities($value['team_id']).'">
@@ -304,7 +304,7 @@ if(isset($_SESSION['admin_id'])){
                                     </div>
                                     <div class="mb-3">
                                         <label for="formFileSm" class="form-label">Change Image</label>
-                                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                                        <input class="form-control form-control-sm" type="file" accept="image/*" id="team_image_2_'.htmlentities($value['team_id']).'">
                                     </div>
                                     <div class="d-flex justify-content-lg-end">
                                         <button class="btn btn-success btn-sm me-1" onclick="save_team('.htmlentities($value['team_id']).')">Save</button>
@@ -321,6 +321,81 @@ if(isset($_SESSION['admin_id'])){
         </div>
     </div>
 </main>
+
+<script>
+    function delete_team(id){
+        var team = new FormData();  
+        team.append( 'team_id', id); 
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "delete_team_member.php",
+            data: team,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                console.log( result );
+                if(result ==1 ){
+                    $("#team_"+id).remove();
+                    alert('Deleted successfully');
+                }else{
+                    alert('Deletion failed');
+                }
+            }
+        });
+    }
+
+    function save_team(id){
+        var team = new FormData();  
+        team.append( 'team_id', id); 
+        if($('#team_name_'+id).val().length>0){
+            if($('#team_detail_'+id).val().length>0){
+                // check image
+                team.append('team_name',$('#team_name_'+id).val());
+                team.append('position',$('#team_detail_'+id).val());
+                if($('#team_image_2_'+id).val().length>0 ){
+                    if(($('#team_image_2_'+id)[0].files[0].size/1024)>20 && ($('#team_image_2_'+id)[0].files[0].size/1024)<5000){ 
+                        team.append( 'file', $('#team_image_2_'+id)[0].files[0] );
+                    }else{
+                        alert('invalid image size');
+                        $('#function_modal_image').val('');
+                    }
+                }
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "update_team_member.php",
+                    data: team,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    success: function ( result ) {
+                        // console.log( result );
+                        var obj =JSON.parse(result)
+                        
+                        alert('Team successfully updated');
+                        $('#team_name_'+id).val(obj.team_name);
+                        $('#team_detail_'+id).val(obj.team_position_details);
+                        $('#team_image_'+id).attr('src','../../img/team/team-resized/'+obj.team_file);
+                        $('#team_image_2_'+id).val('');
+                        // parse result
+
+                        
+                    }
+                });
+            }else{
+                alert('please input team position');
+            }
+        }else{
+            alert('please input team name');
+        }
+
+        
+    }
+</script>
 
 
 
@@ -683,7 +758,7 @@ if(isset($_SESSION['admin_id'])){
                                 // parse result
 
                                 // if success get the file name and append new child in the list
-                                $('#team_container').append('<div class="col-12 col-lg-4"><div class="card container-fluid py-2 shadow-sm"><label for="input_1">Name</label><input type="text" class="form-control" value="'+obj.team_name+'" id="team_name_'+obj.team_id+'"><label for="input_1">Position</label><input type="text" class="form-control" value="'+obj.team_position_details+'" id="team_detail_'+obj.team_id+'"><div class="py-1 text-center"><img src="../../img/team/team-resized/'+obj.team_file+'" class="img-fluid img-thumbnail" style="max-height: 207px;" id="team_image_'+obj.team_id+'"></div><div class="mb-3"><label for="formFileSm" class="form-label">Change Image</label><input class="form-control form-control-sm" id="formFileSm" type="file"></div><div class="d-flex justify-content-lg-end"><button class="btn btn-success btn-sm me-1" onclick="save_team('+obj.team_id+')">Save</button><button class="btn btn-danger btn-sm" onclick="delete_team('+obj.team_id+')">Delete</button></div></div></div>');
+                                $('#team_container').append('<div class="col-12 col-lg-4" id="team_'+obj.team_id+'"><div class="card container-fluid py-2 shadow-sm"><label for="input_1">Name</label><input type="text" class="form-control" value="'+obj.team_name+'" id="team_name_'+obj.team_id+'"><label for="input_1">Position</label><input type="text" class="form-control" value="'+obj.team_position_details+'" id="team_detail_'+obj.team_id+'"><div class="py-1 text-center"><img src="../../img/team/team-resized/'+obj.team_file+'" class="img-fluid img-thumbnail" style="max-height: 207px;" id="team_image_'+obj.team_id+'"></div><div class="mb-3"><label for="formFileSm" class="form-label">Change Image</label><input class="form-control form-control-sm" type="file" accept="image/*" id="team_image_2_'+obj.team_id+'"></div><div class="d-flex justify-content-lg-end"><button class="btn btn-success btn-sm me-1" onclick="save_team('+obj.team_id+')">Save</button><button class="btn btn-danger btn-sm" onclick="delete_team('+obj.team_id+')">Delete</button></div></div></div>');
                                 $('#team_modal_close').trigger('click');
                             }
                         });
@@ -691,9 +766,6 @@ if(isset($_SESSION['admin_id'])){
                         alert('invalid image size');
                         $('#function_modal_image').val('');
                     }
-                    
-
-                    
                 }else{
                     alert('Please attach an image');
                 }
