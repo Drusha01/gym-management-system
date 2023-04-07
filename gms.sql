@@ -1291,27 +1291,133 @@ INSERT INTO discounts (discount_id, discount_name, discount_details, discount_ra
     0
 );
 
+
+
 -- settings
-CREATE TABLE Settings(
+CREATE TABLE admin_settings(
 	setting_id int primary key auto_increment,
 	setting_attendance_force_timeout time not null,
     setting_percentage_of_payment_per_day float not null,
     setting_gym_address varchar(255) not null,
     setting_gym_contact_number varchar(20) not null,
+    setting_num_of_dates_to_notify int not null,
     setting_gym_email_address varchar(255) not null,
+    setting_num_of_lockers int not null,
 	setting_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+
 -- default settings
-INSERT INTO Settings (setting_id, setting_attendance_force_timeout,setting_percentage_of_payment_per_day,setting_gym_address,setting_gym_contact_number,setting_gym_email_address) VALUES
+INSERT INTO admin_settings (setting_id, setting_attendance_force_timeout,setting_percentage_of_payment_per_day,setting_gym_address,setting_gym_contact_number,setting_num_of_dates_to_notify,setting_gym_email_address,setting_num_of_lockers) VALUES
 (
 	null,
-    '5:30:00',
+    '18:00:00',
     .05,
     'San Jose, Zamboanga City',
     '8(800)316-06-42',
-    'kenogymofficial@kenogym.online'
+    10,
+    'kenogymofficial@kenogym.online',
+    40
 );
+
+SELECT * FROM admin_settings
+WHERE setting_id =1;
+;
+
+UPDATE admin_settings
+set setting_attendance_force_timeout = '18:00'
+WHERE setting_id = 1;
+
+
+
+
+CREATE TABLE landing_page_types(
+	landing_page_type_id int primary key auto_increment,
+    landing_page_type_details VARCHAR(50) unique
+);
+
+INSERT INTO landing_page_types (landing_page_type_details) VALUES
+(
+	'Carousel'
+),(
+	'Weights Room'
+),(
+	'Function Room'
+);
+
+SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel';
+
+CREATE TABLE landing_page(
+	landing_page_id int primary key auto_increment,
+    landing_page_title varchar(50),
+    landing_page_file varchar(50),
+    landing_page_type_id int not null,
+	FOREIGN KEY (landing_page_type_id) REFERENCES landing_page_types(landing_page_type_id)
+    
+);
+
+-- UPDATE landing_page
+-- SET landing_page_title = '',
+-- landing_page_file = ''
+-- WHERE landing_page_id =;
+
+
+-- SELECT * FROM landing_page
+-- WHERE landing_page_type_id = (SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel')
+-- ;
+
+-- SELECT * FROM landing_page
+-- LEFT OUTER JOIN landing_page_types ON landing_page.landing_page_type_id=landing_page_types.landing_page_type_id
+-- ;
+
+-- DELETE FROM landing_page WHERE landing_page_id = 17;
+
+
+
+-- sample
+-- INSERT INTO landing_page  (landing_page_id,landing_page_title,landing_page_file,landing_page_type_id) VALUES
+-- (
+-- 	null,
+--     'something title',
+--     'landing_page_file.jpg',
+--     (SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel')
+-- );
+
+CREATE TABLE team_positions(
+	team_position_id int primary key auto_increment,
+    team_position_details VARCHAR(50) unique
+);
+
+INSERT INTO team_positions(team_position_details) VALUES
+(
+	'Gym-Owner'
+),(
+	'Employee'
+);
+
+
+SELECT team_position_id FROM team_positions WHERE team_position_details = "Gym-Owner";
+
+
+CREATE TABLE teams(
+	team_id int primary key auto_increment,
+	team_position_id int not null,
+    team_name varchar(255) not null unique,
+    team_file varchar(255) not null unique,
+    FOREIGN KEY (team_position_id) REFERENCES team_positions(team_position_id)
+);
+INSERT INTO teams  (team_position_id,team_name,team_file) VALUES
+(
+	(SELECT team_position_id FROM team_positions WHERE team_position_details = 'Gym-Owner'),
+	'hanricksondfsa',
+	'dfasdfsdaf.jpg'
+);
+
+SELECT * FROM teams
+LEFT OUTER JOIN landing_page_types ON teams.team_position_id=team_positions.team_position_id
+ ;
+
+
 
 -- annoucement_status
 CREATE TABLE announcement_statuses(

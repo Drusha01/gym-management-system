@@ -26,21 +26,6 @@ class user_status
             return false;
         }
     }
-    // function insert_new_gender($new_gender){
-    //     try{
-    //         $sql = 'INSERT INTO user_genders VALUES(
-    //             null,
-    //             :new_gender
-    //         );';
-    //         $query=$this->db->connect()->prepare($sql);
-    //         $query->bindParam(':new_gender', $new_gender);
-    //         return $query->execute();
-               
-           
-    //     }catch (PDOException $e){
-    //         return false;
-    //     }
-    // }
 }
 
 

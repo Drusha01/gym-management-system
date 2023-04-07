@@ -13,11 +13,10 @@ if(isset($_SESSION['admin_id'])){
         }
         if($_SESSION['admin_user_type_details'] == 'admin'){
             // get the admin details
-            if(isset($_GET['number_of_locker']) && intval($_GET['number_of_locker'])>0){
-                require_once('../../classes/number_of_lockers.class.php');
-                $number_of_lockersObj = new number_of_lockers();
-    
-                if($number_of_lockersObj->update_number_of_lockers($_GET['number_of_locker'])){
+            if(isset($_GET['setting_attendance_force_timeout']) ){
+                require_once('../../classes/admin_settings.class.php');
+                $settingObj = new admin_settings();
+                if($settingObj->update_setting_attendance_force_timeout($_GET['setting_attendance_force_timeout'])){
                     echo '1';
                 }else{
                     echo '0';

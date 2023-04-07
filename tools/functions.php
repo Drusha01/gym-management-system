@@ -119,6 +119,39 @@ function resizeImage($sourceFilename,$destination,$filename,$newFilename,$qualit
         return false;
     }
 }
+function resizeImage_2($sourceFilename,$destination,$filename,$newFilename,$quality,$newwidth,$newheight){
+    list($width, $height) = getimagesize($sourceFilename.$filename);
+    // check if lower than newwidth and height
+    if($newwidth>$width || $newheight>$height){
+        // just resize it to 80 percent
+        $newwidth = $width;
+        $newheight = $height;
+    }else{
+        // check aspect ratio
+        if($height/$width>1){
+            $newwidth = 1920;
+            $newheight = $height/$width *$newwidth;
+        }else{
+            // $newwidth = $height/$width *$newwidth;
+            $newwidth = 1920;
+            $newheight = $height/$width *$newwidth;
+        }
+    }
+        $img = imagecreatefromjpeg($sourceFilename.$filename);
+        $thumb = imagecreatetruecolor($newwidth, $newheight);
+        if(imagecopyresized($thumb, $img, 0, 0, 0, 0,$newwidth, $newheight, $width, $height)){
+            if(imagejpeg($thumb,$destination.$filename,$quality)){
+                return true;
+            }else{
+                return false;
+            }
+        }else {
+            return false;
+        }
+
+    // creating jpeg 
+    
+}
 
 function getFileExtensionfromFilename($filename){
     $length=(strlen($filename));

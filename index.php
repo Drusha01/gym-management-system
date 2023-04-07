@@ -347,9 +347,14 @@ if(isset($_SESSION['user_id'])){
             <div class="col-md-2">
                 <h5 class="title-sm">Contact</h5>
                 <div class="footer-links">
-                    <p class="mb text-white">San Jose, Zamboanga City</p>
-                    <p class="mb text-white">8(800)316-06-42</p>
-                    <p class="mb text-white">hello@yourdomain.com</p>
+                  <?php 
+                    require_once('classes/admin_settings.class.php');
+                    $settingObj = new admin_settings();
+                    $setting_data = $settingObj->fetch_one();
+                  ?>
+                  <p class="mb text-white"><?php if($setting_data){echo htmlentities($setting_data['setting_gym_address']);}?></p>
+                  <p class="mb text-white"><?php if($setting_data){echo htmlentities($setting_data['setting_gym_contact_number']);}?></p>
+                  <p class="mb text-white"><?php if($setting_data){echo htmlentities($setting_data['setting_gym_email_address']);}?></p>
                 </div>
             </div>
         </div>

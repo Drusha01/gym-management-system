@@ -148,13 +148,14 @@
                             <div class="col-6">
                                 <p class="card-text fs-5 fw-bold">
                                 <?php 
-                                    require_once('../../classes/number_of_lockers.class.php');
-                                    $number_of_lockersObj = new number_of_lockers();
+                                    require_once('../../classes/admin_settings.class.php');
+                                    $settingObj = new admin_settings();
+                                    $setting_data = $settingObj->fetch_one();
 
                                     
                                     if($subscription_data = $subscriptionsObj->get_number_of_locker_use()){
-                                        if($number_of_lockers_data = $number_of_lockersObj->get_number_of_lockers()){
-                                            echo htmlentities($number_of_lockers_data['locker_number'] - $subscription_data['number_of_locker_use']);
+                                        if($setting_data){
+                                            echo htmlentities($setting_data['setting_num_of_lockers'] - $subscription_data['number_of_locker_use']);
                                         }else{
                                             echo 'error';
                                         }
