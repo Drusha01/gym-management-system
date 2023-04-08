@@ -63,6 +63,7 @@
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=account-tab">My Account</a></li>
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=notification-tab">Notifications</a></li>
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=Subscription-tab">My Subscriptions</a></li>
+                      <li><a class="dropdown-item" href="../user/user-profile.php?active=lockers-tab">My Lockers</a></li>
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=trainer-tab">My Trainer</a></li>
                       <li><a class="dropdown-item" href="../user/user-profile.php?active=payment-tab">Payment</a></li>
                       <div class="dropdown-divider"></div>
