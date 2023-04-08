@@ -48,25 +48,25 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                    <td class="d-lg-none"></td>
-                                    <td>1</td>
-                                    <td>2023-03-25</td>
-                                    <td>3:00 PM</td>
-                                    <td>4:30 PM</td>
+                                        <td class="d-lg-none"></td>
+                                        <td>1</td>
+                                        <td>2023-03-25</td>
+                                        <td>3:00 PM</td>
+                                        <td>4:30 PM</td>
                                     </tr>
                                     <tr>
-                                    <td class="d-lg-none"></td>
-                                    <td>2</td>
-                                    <td>2023-03-29</td>
-                                    <td>3:00 PM</td>
-                                    <td>4:30 PM</td>
+                                        <td class="d-lg-none"></td>
+                                        <td>2</td>
+                                        <td>2023-03-29</td>
+                                        <td>3:00 PM</td>
+                                        <td>4:30 PM</td>
                                     </tr>
                                     <tr>
-                                    <td class="d-lg-none"></td>
-                                    <td>3</td>
-                                    <td>2023-03-30</td>
-                                    <td>3:00 PM</td>
-                                    <td>4:30 PM</td>
+                                        <td class="d-lg-none"></td>
+                                        <td>3</td>
+                                        <td>2023-03-30</td>
+                                        <td>3:00 PM</td>
+                                        <td>4:30 PM</td>
                                     </tr>
                                 </tbody>
                             </table>
