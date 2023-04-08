@@ -53,7 +53,7 @@
                             <tr>
                                 <td class="d-lg-none"></td>
                                 <td class="text-center">'.htmlentities($counter).'</td>
-                                <td class="text-center">'.htmlentities($value['subscription_offer_name']).'</td>
+                                <td class="">'.htmlentities($value['subscription_offer_name']).'</td>
                                 <td class="text-center">₱'.htmlentities(number_format($amount,2)).'</td>
                                 <td class="text-center">'.$subscription_discount.'</td>
                                 <td class="text-center">'.$subscription_penalty_due.'</td>

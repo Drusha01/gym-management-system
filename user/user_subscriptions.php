@@ -40,20 +40,23 @@
                     <h5 class="col-12 fw-bold">Current Subscription</h5>';
             echo '
                     <div class="table-responsive table-container table-1">';
-                echo '
+            echo '
                         <table id="table-1" class="table table-striped table-borderless table-custom table-hover" style="width:100%; border: 3px solid black;">
                             <thead class="bg-dark text-light">
                                 <tr>
-                                <th class="d-lg-none"></th>
-                                <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                                <th class="col-3">NAME OF SUBSCRIPTION</th>
-                                <th class="text-center ">TYPE OF SUBSCRIPTION</th>
-                                <th class="text-center">QUANTITY</th>
-                                <th class="text-center">START DATE</th>
-                                <th class="text-center">END DATE</th>
-                                <th class="text-center">DAYS LEFT</th>
-                                <th class="text-center">STATUS</th>
-                                <th class="text-center">ACTION</th>
+                                    <th class="d-lg-none"></th>
+                                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                                    <th class="col-3">NAME OF SUBSCRIPTION</th>
+                                    <th class="text-center ">TYPE OF SUBSCRIPTION</th>
+                                    <th class="text-center">QUANTITY</th>
+                                    <th class="text-center">START DATE</th>
+                                    <th class="text-center">END DATE</th>
+                                    <th class="text-center">DAYS LEFT</th>
+                                    <th class="text-center">STATUS</th>';
+            if($subscription_data[0]['subscription_status_details'] != 'Active'){
+                echo '              <th class="text-center">ACTION</th>';
+            }
+            echo '
                                 </tr>
                             </thead>
                             <tbody>';
@@ -72,8 +75,11 @@
                                     <td class="text-center ">'.htmlentities(date_format(date_create($value['subscription_start_date']), "F d, Y")).'</td>
                                     <td class="text-center ">'.htmlentities(date_format($end_date, "F d, Y")).'</td>
                                     <td class="text-center ">'.htmlentities($value['subscription_days_to_end']).'</td>
-                                    <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>
-                                    <td class="text-center "><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelspecificModal">Cancel</button></td>
+                                    <td class="text-center ">'.htmlentities($value['subscription_status_details']).'</td>';
+                                if($value['subscription_status_details'] != 'Active'){
+                                    echo '<td class="text-center "><button class="btn btn-danger btn-sm" role="button" data-bs-toggle="modal" data-bs-target="#cancelspecificModal">Cancel</button></td>';
+                                }
+                                    echo'
                                 </tr>';
                     }else{
                         echo '
