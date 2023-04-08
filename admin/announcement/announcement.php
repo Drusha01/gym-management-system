@@ -14,7 +14,15 @@ if(isset($_SESSION['user_id'])){
 if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
-        // do nothing
+        // 
+        if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify'){
+
+        }elseif(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only'){
+            //
+        }else{
+            //do not load the page
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -82,7 +90,7 @@ if(isset($_SESSION['admin_id'])){
         Are you sure you want to delete this Announcement?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="delete_announcement_confirm">Yes</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -118,6 +126,41 @@ if(isset($_SESSION['admin_id'])){
             alert("Status: " + textStatus); alert("Error: " + errorThrown); 
         } 
     });
+
+    function delete_announcement(id){
+        $('#delete_announcement_confirm').attr('onclick','confirm_delete('+id+')');
+    }
+
+    function confirm_delete(id){
+        // ajax here
+        console.log('deleted?'+id)
+       
+        var announcement = new FormData();  
+        announcement.append( 'announcement_id', id);  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "delete_announcement.php",
+            data: announcement,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                var obj =JSON.parse(result)
+                if(obj.announcement_id == id){
+                    alert('announcement successfully deleted');
+                    $('#announcement_'+id).remove();
+                }else{
+                    alert('deletion failed');
+                }
+                
+
+                
+            }
+        });
+    }
 </script>
 
 </html>

@@ -1420,7 +1420,7 @@ INSERT INTO announcement_statuses (announcement_status_id, announcement_status_d
 	null,
     'Disabled'
 );
-
+SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Active'; 
 -- table for announcement_type
 CREATE TABLE announcement_types(
 	announcement_type_id int primary key auto_increment,
@@ -1436,6 +1436,8 @@ INSERT INTO announcement_types (announcement_type_id, announcement_type_details 
     'Image'
 );
 
+SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = 'Image'; 
+
 -- announcement
 CREATE TABLE announcements(
 	announcement_id int primary key auto_increment,
@@ -1443,7 +1445,7 @@ CREATE TABLE announcements(
     announcement_type_id INT NOT NULL,
     announcement_title VARCHAR(50) NOT NULL,
     announcement_content VARCHAR(1024) NOT NULL,
-    announcement_file_image VARCHAR(100) DEFAULT 'default.png',
+    announcement_file_image VARCHAR(50) DEFAULT 'default.png',
 	announcement_order INT NOT NULL DEFAULT 0,
     announcement_start_date DATETIME NOT NULL,
 	announcement_end_date DATETIME NOT NULL,
@@ -1452,6 +1454,23 @@ CREATE TABLE announcements(
     FOREIGN KEY (announcement_status_id) REFERENCES announcement_statuses(announcement_status_id),
     FOREIGN KEY (announcement_type_id) REFERENCES announcement_types(announcement_type_id)
 );
+-- UPDATE announcements
+-- SET announcement_order = :announcement_order
+-- WHERE announcement_id = 1;
+-- DELETE FROM announcements
+-- WHERE announcement_id = 1;
+
+-- INSERT into announcements (announcement_id, announcement_status_id, announcement_type_id, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_end_date) VALUES
+-- ();
+
+SELECT count(*)AS number_of_announcements FROM announcements;
+
+SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
+	announcement_date_created, announcement_date_updated
+FROM announcements
+LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
+LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
+ORDER BY announcement_order DESC;
 
 
 -- attendance

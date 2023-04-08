@@ -1,3 +1,15 @@
+<?php 
+session_start();
+if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify'){
+
+}elseif(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only'){
+    //
+}else{
+    //do not load the page
+    header('location:../dashboard/dashboard.php');
+}
+?>
+
 <table id="announce" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
     <thead class="table-dark" >
         <tr>
@@ -12,34 +24,51 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-        <th class="d-lg-none align-middle"></th>
-        <td class="text-center d-none d-sm-table-cell align-middle">1</td>
-        <td class="align-middle">Will Be Closed</td>
-        <td class="text-center align-middle">Text</td>
-        <td class="text-center align-middle">March 25, 2023 - March 28, 2023</td>
-        <td class="text-center align-middle">
-            <div class="row">
-                <div class="col-auto ms-3">
-                    <div class="btn-group-vertical btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-dark"><i class='bx bx-up-arrow-alt' style="font-size:20px; vertical-align: middle;"></i></button>
-                        <button type="button" class="btn btn-outline-dark"><i class='bx bx-down-arrow-alt' style="font-size:20px; vertical-align: middle;"></i></button>
+        <?php   
+            require_once('../../classes/annoucements.class.php');
+            $annoucementObj = new annoucements();
+            $number_of_announcement = $annoucementObj->get_number_of_annoucements()['number_of_announcements'];
+
+            // fetch all announcements ordering by announcement order
+            if($annoucement_data = $annoucementObj->fetch_all()){
+                $counter=1;
+                $index =0;
+                foreach ($annoucement_data as $key => $annoucement_item) {
+                    echo '
+        <tr id="announcement_'.$annoucement_item['announcement_id'].'">
+            <th class="d-lg-none align-middle"></th>
+            <td class="text-center d-none d-sm-table-cell align-middle">'.$counter.'</td>
+            <td class="align-middle">'.htmlentities($annoucement_item['announcement_title']).'</td>
+            <td class="text-center align-middle">'.htmlentities($annoucement_item['announcement_type_details']).'</td>
+            <td class="text-center align-middle">'.date_format(date_create($annoucement_item['announcement_start_date']), "F d, Y").' - '.date_format(date_create($annoucement_item['announcement_end_date']), "F d, Y").'</td>
+            <td class="text-center align-middle">
+                <div class="row" >
+                    <div class="col-auto ms-3 ">
+                        <div class="btn-group-vertical btn-group-sm " role="group" aria-label="Basic example">';
+                        if($index !=0){
+                            echo'
+                            <button type="button" class="btn btn-outline-dark"><i class="bx bx-up-arrow-alt" style="font-size:20px; vertical-align: middle;"></i></button>';
+                        }
+                        if($index+1 < $number_of_announcement){
+                        echo'
+                            <button type="button" class="btn btn-outline-dark"><i class="bx bx-down-arrow-alt" style="font-size:20px; vertical-align: middle;"></i></button>';
+                        }
+                        echo'
+                        </div>
                     </div>
                 </div>
-                <div class="col-auto mt-auto mb-auto">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-        </td>
-        <td class="text-center align-middle">Active</td>
-        <td class="text-center align-middle "><a href="edit_announce.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
-        </tr>
-        <tr>
+            </td>
+            <td class="text-center align-middle">'.htmlentities($annoucement_item['announcement_status_details']).'</td>
+            <td class="text-center align-middle "><a href="edit_announcement.php?announcement_id='.$annoucement_item['announcement_id'].'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="delete_announcement('.$annoucement_item['announcement_id'].')">Delete</button></td>
+        </tr>';
+        $index++;
+        $counter++;
+                }
+            }
+            
+            ?>
+        
+        <!-- <tr>
         <th class="d-lg-none align-middle"></th>
         <td class="text-center d-none d-sm-table-cell align-middle">2</td>
         <td class="align-middle">Promo for Couples</td>
@@ -65,6 +94,7 @@
         </td>
         <td class="text-center align-middle">Disabled</td>
         <td class="text-center align-middle "><a href="edit_announce.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
-        </tr>
+        </tr> -->
     </tbody>
 </table>
+
