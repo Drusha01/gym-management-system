@@ -71,6 +71,8 @@ if(isset($_SESSION['admin_id'])){
                             Tool
                         </label>
                         </div>
+                        <label for="not_list" class="form-label">Not in the List?</label>
+                        <input class="form-control" type="text" placeholder="Max 20 Characters" id="not_list">
                     </div>
                 </div>
                 <div class="row d-flex flex-row-reverse">

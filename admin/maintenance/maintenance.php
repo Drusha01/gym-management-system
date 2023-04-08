@@ -100,6 +100,12 @@ if(isset($_SESSION['admin_id'])){
             <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
             <label class="form-check-label" for="inlineRadio2">In-Maintenance</label>
+            
+        </div>
+        <br>
+        <div class="py-1">
+          <label for="not_list" class="form-label">Not in the List?</label>
+          <input class="form-control" type="text" placeholder="Max 20 Characters" id="not_list">
         </div>
       </div>
       <div class="modal-footer">
