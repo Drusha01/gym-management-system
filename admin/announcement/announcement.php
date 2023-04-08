@@ -133,7 +133,6 @@ if(isset($_SESSION['admin_id'])){
 
     function confirm_delete(id){
         // ajax here
-        console.log('deleted?'+id)
        
         var announcement = new FormData();  
         announcement.append( 'announcement_id', id);  
@@ -151,13 +150,146 @@ if(isset($_SESSION['admin_id'])){
                 var obj =JSON.parse(result)
                 if(obj.announcement_id == id){
                     alert('announcement successfully deleted');
-                    $('#announcement_'+id).remove();
+                    $.ajax({
+                        type: "GET",
+                        url: 'announce_tbl.php',
+                        success: function(result)
+                        {
+                            $('div.table-responsive').html(result);
+                            dataTable = $("#announce").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([2]).search(status).draw();
+                            })
+                            $('select#categoryFilter_1').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter_2').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([5]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        } 
+                    });
                 }else{
                     alert('deletion failed');
                 }
                 
 
                 
+            }
+        });
+    }
+
+    function move_order_up(id){
+        var announcement = new FormData();  
+        announcement.append( 'announcement_id', id);  
+        announcement.append( 'order', 'up');  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "update_announcement_order.php",
+            data: announcement,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                console.log(result)
+                if(result == 1){
+                    $.ajax({
+                        type: "GET",
+                        url: 'announce_tbl.php',
+                        success: function(result)
+                        {
+                            $('div.table-responsive').html(result);
+                            dataTable = $("#announce").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([2]).search(status).draw();
+                            })
+                            $('select#categoryFilter_1').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter_2').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([5]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        } 
+                    });
+                }else{
+                    alert('order change failed');
+                }
+                
+
+                
+            }
+        });
+    }
+    function move_order_down(id){
+        var announcement = new FormData();  
+        announcement.append( 'announcement_id', id);  
+        announcement.append( 'order', 'down');  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "update_announcement_order.php",
+            data: announcement,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                console.log(result)
+                if(result == 1){
+                    $.ajax({
+                        type: "GET",
+                        url: 'announce_tbl.php',
+                        success: function(result)
+                        {
+                            $('div.table-responsive').html(result);
+                            dataTable = $("#announce").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([2]).search(status).draw();
+                            })
+                            $('select#categoryFilter_1').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter_2').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([5]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        } 
+                    });
+                }else{
+                    alert('order change failed');
+                }
             }
         });
     }

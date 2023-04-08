@@ -28,7 +28,7 @@ if(isset($_SESSION['admin_id'])){
                 $announcement_end_date = $_POST['end_date'];
                 $announcement_file_image = '';
                 
-                $announcement_order = $annoucementObj->get_number_of_annoucements()['number_of_announcements'];
+                $announcement_order = $annoucementObj->get_number_of_annoucements()['number_of_announcements']+1;
 
                 if(isset($_FILES['announcement_image'])){
                     require_once '../../tools/functions.php';

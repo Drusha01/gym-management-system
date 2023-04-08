@@ -1454,9 +1454,10 @@ CREATE TABLE announcements(
     FOREIGN KEY (announcement_status_id) REFERENCES announcement_statuses(announcement_status_id),
     FOREIGN KEY (announcement_type_id) REFERENCES announcement_types(announcement_type_id)
 );
--- UPDATE announcements
--- SET announcement_order = :announcement_order
--- WHERE announcement_id = 1;
+UPDATE announcements
+SET announcement_order = 3,
+announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Disabled')
+WHERE announcement_id = 15;
 -- DELETE FROM announcements
 -- WHERE announcement_id = 1;
 
@@ -1472,6 +1473,21 @@ LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=an
 LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
 ORDER BY announcement_order DESC;
 
+-- down
+SELECT announcement_id, announcement_order 
+FROM announcements
+WHERE announcement_order <= 2
+ORDER BY announcement_order DESC;
+
+UPDATE announcements
+SET announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = :announcement_status_details),
+announcement_type_id = (SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = :announcement_type_details),
+annoucement_title =:annoucement_title,
+announcement_content=:announcement_content,
+announcement_file_image=:announcement_file_image,
+announcement_start_date =:announcement_start_date,
+announcement_end_date=:announcement_end_date
+WHERE announcement_id =:announcement_id;
 
 -- attendance
 CREATE TABLE attendances(

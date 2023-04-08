@@ -119,6 +119,73 @@ class annoucements
         }
     }
 
+    function update($announcement_id,$announcement_status_details,$announcement_type_details,$announcement_title,$announcement_content,$announcement_file_image,$announcement_start_date,$announcement_end_date){
+        try{
+            $sql = 'UPDATE announcements
+            SET announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = :announcement_status_details),
+            announcement_type_id = (SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = :announcement_type_details),
+            announcement_title = :announcement_title,
+            announcement_content=:announcement_content,
+            announcement_file_image=:announcement_file_image,
+            announcement_start_date =:announcement_start_date,
+            announcement_end_date=:announcement_end_date
+            WHERE announcement_id =:announcement_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':announcement_status_details', $announcement_status_details);
+            $query->bindParam(':announcement_type_details', $announcement_type_details);
+            $query->bindParam(':announcement_title', $announcement_title);
+            $query->bindParam(':announcement_content', $announcement_content);
+            $query->bindParam(':announcement_file_image', $announcement_file_image);
+            $query->bindParam(':announcement_start_date', $announcement_start_date);
+            $query->bindParam(':announcement_end_date', $announcement_end_date);
+            $query->bindParam(':announcement_id', $announcement_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function fetch_down($announcement_order){
+        try{
+            $sql = 'SELECT announcement_id, announcement_order 
+            FROM announcements
+            WHERE announcement_order <= :announcement_order
+            ORDER BY announcement_order DESC
+            LIMIT 2;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':announcement_order', $announcement_order);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function fetch_up($announcement_order){
+        try{
+            $sql = 'SELECT announcement_id, announcement_order 
+            FROM announcements
+            WHERE announcement_order >= :announcement_order
+            ORDER BY announcement_order ASC
+            LIMIT 2;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':announcement_order', $announcement_order);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+
+ 
     
 }
 

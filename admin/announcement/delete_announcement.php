@@ -30,7 +30,7 @@ if(isset($_SESSION['admin_id'])){
                         if($annoucementObj->delete_with_id($annoucement_id)){
                             // update the order of all rows in table
                             if($annoucement_data = $annoucementObj->fetch_all()){
-                                $index= $number_of_announcement;
+                                $index= $number_of_announcement-1;
                                 foreach ($annoucement_data as $key => $value) {
                                     // update
                                     $annoucementObj->update_announcement_order($value['announcement_id'],$index);

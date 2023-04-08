@@ -45,13 +45,15 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
                 <div class="row" >
                     <div class="col-auto ms-3 ">
                         <div class="btn-group-vertical btn-group-sm " role="group" aria-label="Basic example">';
-                        if($index !=0){
+                        if($number_of_announcement>1){
+                             if($index !=0){
+                                echo'
+                                <button type="button" class="btn btn-outline-dark"><i class="bx bx-up-arrow-alt" style="font-size:20px; vertical-align: middle;" onclick="move_order_up('.$annoucement_item['announcement_id'].')"></i></button>';
+                            }
+                            if($index+1 < $number_of_announcement){
                             echo'
-                            <button type="button" class="btn btn-outline-dark"><i class="bx bx-up-arrow-alt" style="font-size:20px; vertical-align: middle;"></i></button>';
-                        }
-                        if($index+1 < $number_of_announcement){
-                        echo'
-                            <button type="button" class="btn btn-outline-dark"><i class="bx bx-down-arrow-alt" style="font-size:20px; vertical-align: middle;"></i></button>';
+                                <button type="button" class="btn btn-outline-dark"><i class="bx bx-down-arrow-alt" style="font-size:20px; vertical-align: middle;" onclick="move_order_down('.$annoucement_item['announcement_id'].')"></i></button>';
+                            }
                         }
                         echo'
                         </div>

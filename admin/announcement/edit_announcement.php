@@ -20,15 +20,94 @@ if(isset($_SESSION['admin_id'])){
             if(isset($_GET['announcement_id'])){
                 require_once('../../classes/annoucements.class.php');
                 $annoucementObj = new annoucements();
-                $annoucement_id = $_GET['announcement_id'];
+                $announcement_id = $_GET['announcement_id'];
                 // get number of announcements
                 $number_of_announcement = $annoucementObj->get_number_of_annoucements()['number_of_announcements'];
                 // get announcement details
-                if($annoucement_details = $annoucementObj->fetch_details($annoucement_id)){
+                if($annoucement_details = $annoucementObj->fetch_details($announcement_id)){
                     // 
-
-                    // update here
+                if(isset($_POST['edit_announcement'])){
+                    $annoucement_title = trim($_POST['announcement_title']);
+                    $announcement_type_details = trim($_POST['announcement_type']);
+                    $announcement_status_details = trim($_POST['status']);
+                    $announcement_content = trim($_POST['content']);
+                    $announcement_start_date = $_POST['start_date'];
+                    $announcement_end_date = $_POST['end_date'];
+                    $announcement_file_image = $annoucement_details['announcement_file_image'];
                     
+
+                    if(isset($_FILES['announcement_image'])){
+                        require_once '../../tools/functions.php';
+                        $type = array('png', 'bmp', 'jpg');
+
+                        $size = (1024 * 1024) * 5; // 2 mb
+                        if (validate_file($_FILES, 'announcement_image', $type, $size)) {
+                            
+                            $announcement_file_dir = dirname(__DIR__,2) . '/img/announcement/';
+                            $announcement_file_dir_original =$announcement_file_dir. 'original/';
+                            $announcement_file_resized = $announcement_file_dir.'announcement-resized/';
+                            
+                            
+                            if(!is_dir($announcement_file_dir)){
+                                // create directory
+                                mkdir($announcement_file_dir);
+                            }
+                            
+                            // check if the folder exist  
+                            if(!is_dir($announcement_file_dir_original)){
+                                // create directory
+                                mkdir($announcement_file_dir_original);
+                            }
+                            $extension = getFileExtensionfromFilename($_FILES['announcement_image']['name']);
+                            $filename = md5($_FILES['announcement_image']['name']).'.'.$extension;
+                            $counter = 0;
+                            // only move if the filename is unique
+                            while(file_exists($announcement_file_dir_original.$filename)){
+                                $counter++;
+                                $filename = md5($_FILES['announcement_image']['name'].$counter).'.'.$extension;
+                            }
+                            switch($extension){
+                                case 'png':
+                                    $img = imagecreatefrompng($_FILES['announcement_image']['tmp_name']);
+                                    // convert jpeg
+                                    imagejpeg($img,$announcement_file_dir_original.$filename,100);
+                                    break;
+                                case 'bmp':
+                                    $img = imagecreatefrompng($_FILES['announcement_image']['tmp_name']);
+                                    // convert jpeg
+                                    imagejpeg($img,$announcement_file_dir_original.$filename,100);
+                                    break;
+                                case 'jpg':
+                                    move_uploaded_file($_FILES['announcement_image']['tmp_name'], $announcement_file_dir_original.$filename);
+                                    break;
+                            }
+                            // check if the profile-resize folder exist
+                            if(!is_dir($announcement_file_resized)){
+                                // create directory
+                                mkdir($announcement_file_resized);
+                            }
+                            // resize file
+                        
+                            // 
+                            $result = resizeImage_2($announcement_file_dir_original,$announcement_file_resized,$filename,$filename,80,1920,1080);
+                            if($result){
+                                if(unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
+                                    $announcement_file_image = $filename;
+                                }
+                                // unlink here / delete the old file
+                                
+                            }else{
+                                echo '0';
+                                return;
+                            }                        
+                        }
+                    }
+                    // insert db here
+                    print_r($_POST);
+                    if($annoucementObj->update($announcement_id,$announcement_status_details,$announcement_type_details,$annoucement_title,$announcement_content,$announcement_file_image,$announcement_start_date,$announcement_end_date)){
+                        header('location:announcement.php');
+                    }
+                }  
                 }else{
                     header('location:announcement.php');
                 }
@@ -69,10 +148,11 @@ if(isset($_SESSION['admin_id'])){
         </div>
         <div class="container">
         <form action="" method="post" enctype="multipart/form-data">
+            <input type="number" name="announcement_id" value="<?php echo htmlentities($_GET['announcement_id']);?>" style="visibility:hidden;">
             <div class="row pb-2">
                 <div class="col-sm-5">
                     <label class="pb-1" for="announcement_title">Title of Announcement</label>
-                    <input type="text" class="form-control" value="" id="announcement_title" placeholder="<?php echo htmlentities($annoucement_details['announcement_title'])?>"  name="announcement_title" placeholder="Enter Title of Announcement" required>
+                    <input type="text" class="form-control" value="<?php echo htmlentities($annoucement_details['announcement_title'])?>" id="announcement_title" placeholder="<?php echo htmlentities($annoucement_details['announcement_title'])?>"  name="announcement_title"  required>
                 </div>
             </div>
             <div class="row pt-2">
@@ -90,13 +170,13 @@ if(isset($_SESSION['admin_id'])){
                 <div class="row pb-2">
                     <div class="col-sm-5">
                     <label for="exampleFormControlTextarea1" class="form-label">Enter Content of Announcement</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"  placeholder="<?php echo htmlentities($annoucement_details['announcement_content'])?>" required></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"  placeholder="<?php echo htmlentities($annoucement_details['announcement_content'])?>" required><?php echo htmlentities($annoucement_details['announcement_content'])?></textarea>
                     </div>
                 </div>
                 <div class="row">
                 <div class="col-sm-5">
                     <label for="formFile" class="form-label">Enter Image</label>
-                    <input class="form-control" type="file" id="announcement_image" name="announcement_image" accept="image/*" required>
+                    <input class="form-control" type="file" id="announcement_image" name="announcement_image" accept="image/*" >
                 </div>
                 </div>
                 <div class="row form-group py-2">
