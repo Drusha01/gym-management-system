@@ -1420,7 +1420,7 @@ INSERT INTO announcement_statuses (announcement_status_id, announcement_status_d
 	null,
     'Disabled'
 );
-SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Active'; 
+-- SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Active'; 
 -- table for announcement_type
 CREATE TABLE announcement_types(
 	announcement_type_id int primary key auto_increment,
@@ -1436,7 +1436,7 @@ INSERT INTO announcement_types (announcement_type_id, announcement_type_details 
     'Image'
 );
 
-SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = 'Image'; 
+-- SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = 'Image'; 
 
 -- announcement
 CREATE TABLE announcements(
@@ -1454,40 +1454,49 @@ CREATE TABLE announcements(
     FOREIGN KEY (announcement_status_id) REFERENCES announcement_statuses(announcement_status_id),
     FOREIGN KEY (announcement_type_id) REFERENCES announcement_types(announcement_type_id)
 );
-UPDATE announcements
-SET announcement_order = 3,
-announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Disabled')
-WHERE announcement_id = 15;
+-- UPDATE announcements
+-- SET announcement_order = 3,
+-- announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Disabled')
+-- WHERE announcement_id = 15;
 -- DELETE FROM announcements
 -- WHERE announcement_id = 1;
 
 -- INSERT into announcements (announcement_id, announcement_status_id, announcement_type_id, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_end_date) VALUES
 -- ();
 
-SELECT count(*)AS number_of_announcements FROM announcements;
+-- SELECT count(*)AS number_of_announcements FROM announcements;
 
-SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
-	announcement_date_created, announcement_date_updated
-FROM announcements
-LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
-LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
-ORDER BY announcement_order DESC;
+-- SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
+-- 	announcement_date_created, announcement_date_updated
+-- FROM announcements
+-- LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
+-- LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
+-- ORDER BY announcement_order DESC;
 
 -- down
-SELECT announcement_id, announcement_order 
-FROM announcements
-WHERE announcement_order <= 2
-ORDER BY announcement_order DESC;
+-- SELECT announcement_id, announcement_order 
+-- FROM announcements
+-- WHERE announcement_order <= 3
+-- ORDER BY announcement_order DESC
+-- LIMIT 2;
 
-UPDATE announcements
-SET announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = :announcement_status_details),
-announcement_type_id = (SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = :announcement_type_details),
-annoucement_title =:annoucement_title,
-announcement_content=:announcement_content,
-announcement_file_image=:announcement_file_image,
-announcement_start_date =:announcement_start_date,
-announcement_end_date=:announcement_end_date
-WHERE announcement_id =:announcement_id;
+-- up
+-- SELECT announcement_id, announcement_order 
+-- FROM announcements
+-- WHERE announcement_order >= 1
+-- ORDER BY announcement_order ASC
+-- LIMIT 2;
+
+-- UPDATE announcements
+-- SET announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = :announcement_status_details),
+-- announcement_type_id = (SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = :announcement_type_details),
+-- annoucement_title =:annoucement_title,
+-- announcement_content=:announcement_content,
+-- announcement_file_image=:announcement_file_image,
+-- announcement_start_date =:announcement_start_date,
+-- announcement_end_date=:announcement_end_date
+-- WHERE announcement_id =:announcement_id;
+
 
 -- attendance
 CREATE TABLE attendances(
