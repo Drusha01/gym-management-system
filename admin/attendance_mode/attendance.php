@@ -169,7 +169,7 @@ document.getElementById("toastbtn_2").onclick = function() {
             });
             $('input#keyword').on('input', function(e){
                 var status = $(this).val();
-                dataTable.columns([0]).search(status).draw();
+                dataTable.columns([1]).search(status).draw();
             })
             new $.fn.dataTable.FixedHeader(dataTable);
         },
