@@ -35,13 +35,13 @@
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
-                <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1">
+                <!-- <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1">
                   <div class="py-2 ms-3">
                     Insert Text Here
                   </div>
-                </div>
+                </div> -->
                 <div class="text-center mt-2">
-                  <a href="succesfully-sent.php" class="btn btn-dark">Change</a>
+                  <a href="succesfully-sent.php" class="btn btn-dark">Next</a>
                 </div>
             </form>
             <br>

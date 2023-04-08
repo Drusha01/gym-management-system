@@ -1592,13 +1592,12 @@ INSERT INTO walk_in_services VALUES
 ),(
 	null,
    'Gym-Use and Trainer'
-);
-
-
-INSERT INTO walk_in_services VALUES(
+),(
 	null,
    'Walk-In Trainer'
 );
+
+
 
 CREATE TABLE walk_in_prices(
 	walk_in_price_id int primary key auto_increment,

@@ -66,7 +66,7 @@
                     Didn't Get the Code?<a href="#" class="ms-2">Resend?</a>
                 </div>
                 <div class="col-lg-6 text-center text-lg-end mt-2 mt-lg-0">
-                    <a href="#">Change Email<a/>
+                    <a href="#">Change Email</a>
                 </div>
             </div>
             <br> <br>
