@@ -25,25 +25,27 @@ if(isset($_SESSION['admin_id'])){
                 // get announcement details
                 if($annoucement_details = $annoucementObj->fetch_details($annoucement_id)){
                     // unlink / delete file
-                    if(unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
-                        // delete announcement in db
-                        if($annoucementObj->delete_with_id($annoucement_id)){
-                            // update the order of all rows in table
-                            if($annoucement_data = $annoucementObj->fetch_all()){
-                                $index= $number_of_announcement-1;
-                                foreach ($annoucement_data as $key => $value) {
-                                    // update
-                                    $annoucementObj->update_announcement_order($value['announcement_id'],$index);
-                                    $index--;
+                    if(file_exists(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && file_exists(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
+                        if(unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
+                            // delete announcement in db
+                            if($annoucementObj->delete_with_id($annoucement_id)){
+                                // update the order of all rows in table
+                                if($annoucement_data = $annoucementObj->fetch_all()){
+                                    $index= $number_of_announcement-1;
+                                    foreach ($annoucement_data as $key => $value) {
+                                        // update
+                                        $annoucementObj->update_announcement_order($value['announcement_id'],$index);
+                                        $index--;
+                                    }
                                 }
+                                echo json_encode($annoucement_details);
+                            }else{
+                                echo '0';
                             }
-                            echo json_encode($annoucement_details);
+                            
                         }else{
                             echo '0';
                         }
-                        
-                    }else{
-                        echo '0';
                     }
                 }else{
                     echo '0';

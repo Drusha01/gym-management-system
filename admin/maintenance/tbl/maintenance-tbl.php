@@ -43,8 +43,8 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             <td class="text-center">'.htmlentities($equipments_item['equipment_name']).'</td>
             <td class="text-center">'.htmlentities($equipments_item['equipment_type_details']).'</td>
             <td class="text-center">'.htmlentities($remark_data['equipment_condition_details']).'</td>
-            <td class="text-center">March 23, 2023 (3:30 PM)</td>
-            <td class="text-center">Trinidad, James Lorenz</td>
+            <td class="text-center">'.htmlentities($remark_data['remark_time']).'</td>
+            <td class="text-center">'.htmlentities($remark_data['user_fullname']).'</td>
             <td class="text-center"><a href="view_rem.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-dark btn-sm">View All <i class="bx bx-show-alt" style="font-size:20px; vertical-align: middle;"></i></a></td>
             <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle"></i></button><a href="edit-maintenance.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-primary btn-circle btn-sm"><i class="bx bx-edit-alt"></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class="bx bx-trash" onclick="delete_equipment('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"></i></button></td>
         </tr>';

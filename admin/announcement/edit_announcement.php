@@ -26,88 +26,90 @@ if(isset($_SESSION['admin_id'])){
                 // get announcement details
                 if($annoucement_details = $annoucementObj->fetch_details($announcement_id)){
                     // 
-                if(isset($_POST['edit_announcement'])){
-                    $annoucement_title = trim($_POST['announcement_title']);
-                    $announcement_type_details = trim($_POST['announcement_type']);
-                    $announcement_status_details = trim($_POST['status']);
-                    $announcement_content = trim($_POST['content']);
-                    $announcement_start_date = $_POST['start_date'];
-                    $announcement_end_date = $_POST['end_date'];
-                    $announcement_file_image = $annoucement_details['announcement_file_image'];
-                    
-
-                    if(isset($_FILES['announcement_image'])){
-                        require_once '../../tools/functions.php';
-                        $type = array('png', 'bmp', 'jpg');
-
-                        $size = (1024 * 1024) * 5; // 2 mb
-                        if (validate_file($_FILES, 'announcement_image', $type, $size)) {
-                            
-                            $announcement_file_dir = dirname(__DIR__,2) . '/img/announcement/';
-                            $announcement_file_dir_original =$announcement_file_dir. 'original/';
-                            $announcement_file_resized = $announcement_file_dir.'announcement-resized/';
-                            
-                            
-                            if(!is_dir($announcement_file_dir)){
-                                // create directory
-                                mkdir($announcement_file_dir);
-                            }
-                            
-                            // check if the folder exist  
-                            if(!is_dir($announcement_file_dir_original)){
-                                // create directory
-                                mkdir($announcement_file_dir_original);
-                            }
-                            $extension = getFileExtensionfromFilename($_FILES['announcement_image']['name']);
-                            $filename = md5($_FILES['announcement_image']['name']).'.'.$extension;
-                            $counter = 0;
-                            // only move if the filename is unique
-                            while(file_exists($announcement_file_dir_original.$filename)){
-                                $counter++;
-                                $filename = md5($_FILES['announcement_image']['name'].$counter).'.'.$extension;
-                            }
-                            switch($extension){
-                                case 'png':
-                                    $img = imagecreatefrompng($_FILES['announcement_image']['tmp_name']);
-                                    // convert jpeg
-                                    imagejpeg($img,$announcement_file_dir_original.$filename,100);
-                                    break;
-                                case 'bmp':
-                                    $img = imagecreatefrompng($_FILES['announcement_image']['tmp_name']);
-                                    // convert jpeg
-                                    imagejpeg($img,$announcement_file_dir_original.$filename,100);
-                                    break;
-                                case 'jpg':
-                                    move_uploaded_file($_FILES['announcement_image']['tmp_name'], $announcement_file_dir_original.$filename);
-                                    break;
-                            }
-                            // check if the profile-resize folder exist
-                            if(!is_dir($announcement_file_resized)){
-                                // create directory
-                                mkdir($announcement_file_resized);
-                            }
-                            // resize file
+                    if(isset($_POST['edit_announcement'])){
+                        $annoucement_title = trim($_POST['announcement_title']);
+                        $announcement_type_details = trim($_POST['announcement_type']);
+                        $announcement_status_details = trim($_POST['status']);
+                        $announcement_content = trim($_POST['content']);
+                        $announcement_start_date = $_POST['start_date'];
+                        $announcement_end_date = $_POST['end_date'];
+                        $announcement_file_image = $annoucement_details['announcement_file_image'];
                         
-                            // 
-                            $result = resizeImage_2($announcement_file_dir_original,$announcement_file_resized,$filename,$filename,80,1920,1080);
-                            if($result){
-                                if(unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
-                                    $announcement_file_image = $filename;
-                                }
-                                // unlink here / delete the old file
+
+                        if(isset($_FILES['announcement_image'])){
+                            require_once '../../tools/functions.php';
+                            $type = array('png', 'bmp', 'jpg');
+
+                            $size = (1024 * 1024) * 5; // 2 mb
+                            if (validate_file($_FILES, 'announcement_image', $type, $size)) {
                                 
-                            }else{
-                                echo '0';
-                                return;
-                            }                        
+                                $announcement_file_dir = dirname(__DIR__,2) . '/img/announcement/';
+                                $announcement_file_dir_original =$announcement_file_dir. 'original/';
+                                $announcement_file_resized = $announcement_file_dir.'announcement-resized/';
+                                
+                                
+                                if(!is_dir($announcement_file_dir)){
+                                    // create directory
+                                    mkdir($announcement_file_dir);
+                                }
+                                
+                                // check if the folder exist  
+                                if(!is_dir($announcement_file_dir_original)){
+                                    // create directory
+                                    mkdir($announcement_file_dir_original);
+                                }
+                                $extension = getFileExtensionfromFilename($_FILES['announcement_image']['name']);
+                                $filename = md5($_FILES['announcement_image']['name']).'.'.$extension;
+                                $counter = 0;
+                                // only move if the filename is unique
+                                while(file_exists($announcement_file_dir_original.$filename)){
+                                    $counter++;
+                                    $filename = md5($_FILES['announcement_image']['name'].$counter).'.'.$extension;
+                                }
+                                switch($extension){
+                                    case 'png':
+                                        $img = imagecreatefrompng($_FILES['announcement_image']['tmp_name']);
+                                        // convert jpeg
+                                        imagejpeg($img,$announcement_file_dir_original.$filename,100);
+                                        break;
+                                    case 'bmp':
+                                        $img = imagecreatefrompng($_FILES['announcement_image']['tmp_name']);
+                                        // convert jpeg
+                                        imagejpeg($img,$announcement_file_dir_original.$filename,100);
+                                        break;
+                                    case 'jpg':
+                                        move_uploaded_file($_FILES['announcement_image']['tmp_name'], $announcement_file_dir_original.$filename);
+                                        break;
+                                }
+                                // check if the profile-resize folder exist
+                                if(!is_dir($announcement_file_resized)){
+                                    // create directory
+                                    mkdir($announcement_file_resized);
+                                }
+                                // resize file
+                            
+                                // 
+                                $result = resizeImage_2($announcement_file_dir_original,$announcement_file_resized,$filename,$filename,80,1920,1080);
+                                if($result){
+                                    if(file_exists(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && file_exists(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
+                                        if(unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
+                                            $announcement_file_image = $filename;
+                                        }
+                                    }
+                                    // unlink here / delete the old file
+                                    
+                                }else{
+                                    echo '0';
+                                    return;
+                                }                        
+                            }
                         }
-                    }
-                    // insert db here
-                    print_r($_POST);
-                    if($annoucementObj->update($announcement_id,$announcement_status_details,$announcement_type_details,$annoucement_title,$announcement_content,$announcement_file_image,$announcement_start_date,$announcement_end_date)){
-                        header('location:announcement.php');
-                    }
-                }  
+                        // insert db here
+                        print_r($_POST);
+                        if($annoucementObj->update($announcement_id,$announcement_status_details,$announcement_type_details,$annoucement_title,$announcement_content,$announcement_file_image,$announcement_start_date,$announcement_end_date)){
+                            header('location:announcement.php');
+                        }
+                    }  
                 }else{
                     header('location:announcement.php');
                 }

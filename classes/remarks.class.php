@@ -12,10 +12,10 @@ class remarks
 
     function fetch_all($remark_equipment_id){
         try{
-            $sql = 'SELECT equipment_condition_details,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+            $sql = 'SELECT remark_id, equipment_condition_details,remark_remark, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
             LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
             LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
-            LEFT OUTER JOIN users ON admins.admin_id=users.user_id
+            LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
             WHERE remark_equipment_id = :remark_equipment_id
             ORDER BY remark_time ASC
             ;';
@@ -33,10 +33,10 @@ class remarks
     }
     function fetch_one($remark_equipment_id){
         try{
-            $sql = 'SELECT equipment_condition_details,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+            $sql = 'SELECT remark_id, equipment_condition_details,remark_remark, CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
             LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
             LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
-            LEFT OUTER JOIN users ON admins.admin_id=users.user_id
+            LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
             WHERE remark_equipment_id = :remark_equipment_id
             ORDER BY remark_time ASC
             LIMIT 1
