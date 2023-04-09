@@ -133,7 +133,12 @@ if(isset($_SESSION['user_id'])){
      <section id="home">
       <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
         <div class="carousel-indicators">
-          <button aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators" type="button"></button> <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button"></button>
+          <button aria-label="Slide 1" class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleIndicators" type="button"></button> 
+          <?php 
+            
+          ?>
+          <button aria-label="Slide 2" data-bs-slide-to="1" data-bs-target="#carouselExampleIndicators" type="button"></button> 
+          <button aria-label="Slide 3" data-bs-slide-to="2" data-bs-target="#carouselExampleIndicators" type="button"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item carousel-image bg-img-1 active">
@@ -224,38 +229,73 @@ if(isset($_SESSION['user_id'])){
             <div class="hline"></div>
           </div>
             <div class="owl-carousel owl-3-slider owl-carousel2">
-                <div class="item">
-                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Dumbells</h3>
-                        </div>
-                        <img src="images/weight_room/orig_size/orig_size_1.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Machines</h3>
-                        </div>
-                        <img src="images/weight_room/orig_size/orig_size_2.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Warm-Up Area</h3>
-                        </div>
-                        <img src="images/weight_room/orig_size/orig_size_3.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Warm-Up Area</h3>
-                        </div>
-                        <img src="images/weight_room/orig_size/orig_size_4.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
+              <?php 
+                require_once('classes/landing_page.class.php');
+                $landing_pageObj = new landing_page();
+
+                if($Weights_room_data = $landing_pageObj->fetch_all_by_type('Weights Room')){
+                  $counter =1;
+                    foreach ($Weights_room_data as $key => $value) {
+                      if($counter ==1){
+                        echo '
+                        <div class="item">
+                      <a class="media-thumb" href="img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                          <div class="media-text">
+                              <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
+                          </div>
+                          <img src="img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
+                      </a> 
+                    </div>';
+                      }else{
+                        echo '
+                        <div class="item">
+                            <a class="media-thumb" href="img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                                <div class="media-text">
+                                    <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
+                                </div>
+                                <img src="img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
+                            </a>
+                        </div>';
+                      }
+                      $counter++;
+                    }
+                  }else{
+                    // default
+                    echo '
+                    <div class="item">
+                      <a class="media-thumb" href="images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
+                          <div class="media-text">
+                              <h3 class="text-light">Dumbells</h3>
+                          </div>
+                          <img src="images/weight_room/orig_size/orig_size_1.jpg" alt="Image" class="img-fluid center-cropped">
+                      </a> 
+                    </div>
+                    <div class="item">
+                        <a class="media-thumb" href="images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
+                            <div class="media-text">
+                                <h3 class="text-light">Machines</h3>
+                            </div>
+                            <img src="images/weight_room/orig_size/orig_size_2.jpg" alt="Image" class="img-fluid center-cropped">
+                        </a> 
+                    </div>
+                    <div class="item">
+                        <a class="media-thumb" href="images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
+                            <div class="media-text">
+                                <h3 class="text-light">Warm-Up Area</h3>
+                            </div>
+                            <img src="images/weight_room/orig_size/orig_size_3.jpg" alt="Image" class="img-fluid center-cropped">
+                        </a>
+                    </div>
+                    <div class="item">
+                        <a class="media-thumb" href="images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
+                            <div class="media-text">
+                                <h3 class="text-light">Warm-Up Area</h3>
+                            </div>
+                            <img src="images/weight_room/orig_size/orig_size_4.jpg" alt="Image" class="img-fluid center-cropped">
+                        </a>
+                    </div>';
+                  }
+                ?>
             </div>
         </div>
   <!-- end of weights room -->
@@ -268,38 +308,74 @@ if(isset($_SESSION['user_id'])){
               <div class="hline"></div>
             </div>
             <div class="owl-carousel owl-3-slider owl-carousel2">
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/1.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Front View</h3>
-                        </div>
-                        <img src="images/function_room/orig_size/1.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/2.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Boxing Area</h3>
-                        </div>
-                        <img src="images/function_room/orig_size/2.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/3.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Threadmill</h3>
-                        </div>
-                        <img src="images/function_room/orig_size/3.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/4.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Bike Area</h3>
-                        </div>
-                        <img src="images/function_room/orig_size/4.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
+              <?php 
+               require_once('classes/landing_page.class.php');
+               $landing_pageObj = new landing_page();
+
+               if($Function_room_data = $landing_pageObj->fetch_all_by_type('Function Room')){
+                $counter =1;
+                  foreach ($Function_room_data as $key => $value) {
+                    if($counter ==1){
+                      echo '
+                      <div class="item">
+                          <a class="media-thumb" href="img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                              <div class="media-text">
+                                  <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
+                              </div>
+                              <img src="img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
+                          </a>
+                      </div>';
+                    }else{
+                      echo '
+                      <div class="item">
+                          <a class="media-thumb" href="img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                              <div class="media-text">
+                                  <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
+                              </div>
+                              <img src="img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
+                          </a>
+                      </div>';
+                    }
+                    $counter++;
+                  }
+                }else{
+                  // default
+                  echo '
+                  <div class="item">
+                      <a class="media-thumb" href="images/function_room/orig_size/1.jpg" data-fancybox="gallery">
+                          <div class="media-text">
+                              <h3 class="text-light">Front View</h3>
+                          </div>
+                          <img src="images/function_room/orig_size/1.jpg" alt="Image" class="img-fluid center-cropped">
+                      </a>
+                  </div>
+                  <div class="item">
+                      <a class="media-thumb" href="images/function_room/orig_size/2.jpg" data-fancybox="gallery">
+                          <div class="media-text">
+                              <h3 class="text-light">Boxing Area</h3>
+                          </div>
+                          <img src="images/function_room/orig_size/2.jpg" alt="Image" class="img-fluid center-cropped">
+                      </a>
+                  </div>
+                  <div class="item">
+                      <a class="media-thumb" href="images/function_room/orig_size/3.jpg" data-fancybox="gallery">
+                          <div class="media-text">
+                              <h3 class="text-light">Threadmill</h3>
+                          </div>
+                          <img src="images/function_room/orig_size/3.jpg" alt="Image" class="img-fluid center-cropped">
+                      </a>
+                  </div>
+                  <div class="item">
+                      <a class="media-thumb" href="images/function_room/orig_size/4.jpg" data-fancybox="gallery">
+                          <div class="media-text">
+                              <h3 class="text-light">Bike Area</h3>
+                          </div>
+                          <img src="images/function_room/orig_size/4.jpg" alt="Image" class="img-fluid center-cropped">
+                      </a>
+                  </div>';
+                }
+              ?>
+                
             </div>
         </div>
       <!-- end of func room -->
@@ -347,9 +423,14 @@ if(isset($_SESSION['user_id'])){
             <div class="col-md-2">
                 <h5 class="title-sm">Contact</h5>
                 <div class="footer-links">
-                    <p class="mb text-white">San Jose, Zamboanga City</p>
-                    <p class="mb text-white">8(800)316-06-42</p>
-                    <p class="mb text-white">hello@yourdomain.com</p>
+                  <?php 
+                    require_once('classes/admin_settings.class.php');
+                    $settingObj = new admin_settings();
+                    $setting_data = $settingObj->fetch_one();
+                  ?>
+                  <p class="mb text-white"><?php if($setting_data){echo htmlentities($setting_data['setting_gym_address']);}?></p>
+                  <p class="mb text-white"><?php if($setting_data){echo htmlentities($setting_data['setting_gym_contact_number']);}?></p>
+                  <p class="mb text-white"><?php if($setting_data){echo htmlentities($setting_data['setting_gym_email_address']);}?></p>
                 </div>
             </div>
         </div>

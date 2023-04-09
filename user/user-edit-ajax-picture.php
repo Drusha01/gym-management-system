@@ -31,9 +31,9 @@ if(isset($_SESSION['user_id'])){
                     $filename = md5($_FILES['valid_id']['name']).'.'.$extension;
                     $counter = 0;
                     // only move if the filename is unique
-                    while(is_dir($filename)){
+                    while(file_exists($valid_id_dir.$filename)){
                         $counter++;
-                        $filename = md5($_FILES['valid_id']['name']).$counter.'.'.$extension;
+                        $filename = md5($_FILES['valid_id']['name'].$counter).'.'.$extension;
                     }
                     // move file
                     if (move_uploaded_file($_FILES['valid_id']['tmp_name'],$valid_id_dir.$filename )) {

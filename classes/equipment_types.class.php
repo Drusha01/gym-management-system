@@ -1,6 +1,6 @@
 <?php 
 require_once 'database.php';
-class number_of_lockers
+class equipment_types
 {
     private $db;
 
@@ -10,13 +10,12 @@ class number_of_lockers
         $this->db = new Database();
     }
 
-    function get_number_of_lockers(){
+    function fetch_all(){
         try{
-            $sql = 'SELECT locker_id,locker_number FROM number_of_lockers
-            WHERE locker_id =1;';
+            $sql = 'SELECT * FROM equipment_types;';
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){
-                $data =  $query->fetch();
+                $data =  $query->fetchAll();
                 return $data;
             }else{
                 return false;
@@ -25,20 +24,20 @@ class number_of_lockers
             return false;
         }
     }
-
-    function update_number_of_lockers($locker_number){
+    function insert($equipment_type_details){
         try{
-            $sql = 'UPDATE number_of_lockers
-            SET locker_number = :locker_number
-            WHERE locker_id =1;';
+            $sql = 'INSERT INTO equipment_types VALUES
+            (
+                null,
+                :equipment_type_details
+            )';
             $query=$this->db->connect()->prepare($sql);
-            $query->bindParam(':locker_number', $locker_number);
+            $query->bindParam(':equipment_type_details', $equipment_type_details);
             return$query->execute();
         }catch (PDOException $e){
             return false;
         }
     }
-   
 }
 
 

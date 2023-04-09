@@ -276,7 +276,7 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div> -->
                                 </div>
-                                <ul id="trainer_list_ul">
+                                <ul id="trainer_list_ul" style="list-style-type: none;">
                                 </ul>
 
                                 <hr class="hr" />
@@ -321,7 +321,7 @@ if(isset($_SESSION['user_id'])){
                                         </div>
                                     </div>
                                 </div>
-                                <ul id="program_list_ul">
+                                <ul id="program_list_ul" style="list-style-type: none;}">
                                 </ul>
                             </div>
                             <div class="col d-flex justify-content-end">

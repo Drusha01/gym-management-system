@@ -1547,6 +1547,67 @@ if(isset($_SESSION['admin_id'])){
                         <div class="text-end text-muted pt-1">5 min Ago</div>
                     </td>
                 </tr>
+                <!-- Staff Maintenance deleted remarks -> Notify Admin -->
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), deleted a Remark on Equipment (Name).</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
+                <tr class="">
+                    <td class="col-11 ps-3 ps-lg-4">
+                    <div class="d-flex align-items-center mt-1">
+                        <img
+                            src="../../images/icons_notif/logs.png"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            />
+                            <div class="fw-bold ms-4">
+                                <div class="text-truncate">Logs</div>
+                                <div class="fw-light">Staff (name), added a Remark on Equipment (Name).</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-1">
+                        <span class="d-flex justify-content-end">
+                            <div class="btn-group rounded ms-5">
+                                <button type="button" class="btn btn-light btn-sm dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <button class="dropdown-item" type="button"><i class='bx bxs-trash'></i> Delete</button>
+                                    <button class="dropdown-item" type="button"><i class='bx bx-book-reader'></i> Mark as Read</button>
+                                </ul>
+                            </div>
+                            <br/>
+                        </span>
+                        <div class="text-end text-muted pt-1">5 min Ago</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

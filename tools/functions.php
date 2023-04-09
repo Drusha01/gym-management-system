@@ -30,7 +30,7 @@ function validate_gender($POST,$gender){
 
 function validate_birthdate($POST,$birthdate){
     //  do this
-    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < 0) ;
+    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < (60*60*24*370*5)) ;
 }
 
 function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')
@@ -118,6 +118,39 @@ function resizeImage($sourceFilename,$destination,$filename,$newFilename,$qualit
     }else {
         return false;
     }
+}
+function resizeImage_2($sourceFilename,$destination,$filename,$newFilename,$quality,$newwidth,$newheight){
+    list($width, $height) = getimagesize($sourceFilename.$filename);
+    // check if lower than newwidth and height
+    if($newwidth>$width || $newheight>$height){
+        // just resize it to 80 percent
+        $newwidth = $width;
+        $newheight = $height;
+    }else{
+        // check aspect ratio
+        if($height/$width>1){
+            $newwidth = 1920;
+            $newheight = $height/$width *$newwidth;
+        }else{
+            // $newwidth = $height/$width *$newwidth;
+            $newwidth = 1920;
+            $newheight = $height/$width *$newwidth;
+        }
+    }
+        $img = imagecreatefromjpeg($sourceFilename.$filename);
+        $thumb = imagecreatetruecolor($newwidth, $newheight);
+        if(imagecopyresized($thumb, $img, 0, 0, 0, 0,$newwidth, $newheight, $width, $height)){
+            if(imagejpeg($thumb,$destination.$filename,$quality)){
+                return true;
+            }else{
+                return false;
+            }
+        }else {
+            return false;
+        }
+
+    // creating jpeg 
+    
 }
 
 function getFileExtensionfromFilename($filename){

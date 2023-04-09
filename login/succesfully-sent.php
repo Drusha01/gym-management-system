@@ -12,13 +12,24 @@
   <link rel="stylesheet" href="../css/boxicons.min.css">
   <script defer src="../js/bootstrap.bundle.min.js"></script>
   <html itemscope itemtype="http://schema.org/Article">
-  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
 </head>
 <body>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+            <img src="../images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
+            <strong class="me-auto">KE-NO Fitness Center</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+            Succesfully sent to E-mail.✅
+            </div>
+        </div>
+    </div>
   <section class="container">
     <div class="row content d-flex justify-content-center align-items-center">
       <div class="col-md-5">
@@ -30,12 +41,18 @@
               <h6 class="mb-1 fs-10 text-white">Fitness Center</h6>
             </div>
           </div>
-            <div class="container text-center mt-3">
-                <p class="fw-bold fs-3">Your E-Mail Has Been Verified</p>
-                <img src="../images/email-ver.png" class="w-50">
-                <p class="fs-3 fw-light mt-3">Welcome to Ke-No Fitness Center!</p>
-                <a href="../index.php" class="btn btn-dark">Proceed to Website</a>
+          <a class="text-decoration-none text-black m-0" aria-current="page" href="log-in.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
+          <div class="container px-4">
+            <div class="text-center">
+              <p class="fw-bold fs-4">Email Has Been Sent To</p>
+              <p class="fw-light fs-5">youremail@gmail.com</p>
             </div>
+            <div class="text-center">
+              <img src="../images/email.png" class="img-fluid w-25">
+            </div>
+                <div class="text-center mt-2">
+                    <a href="log-in.php" type="button" class="btn btn-dark" ">Proceed</a>
+                </div>
             <br> <br>
           </div>
         </div>

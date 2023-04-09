@@ -15,6 +15,15 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if(isset($_GET['equipment_id']) && intval($_GET['equipment_id'])>0){
+            require_once '../../classes/equipments.class.php';
+            $equipmentsObj = new equipments();
+            if(!$equipment_data = $equipmentsObj->fetch_with_id($_GET['equipment_id'])){
+                header('location:maintenance.php');
+            }
+        }else{
+          header('location:maintenance.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -95,8 +104,8 @@ if(isset($_SESSION['admin_id'])){
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-success">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -105,7 +114,7 @@ if(isset($_SESSION['admin_id'])){
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Remarks by: <span class="fw-light fs-5">Trinidad, James Lorenz</span></h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Remarks by: <span class="fw-light fs-5">Trinidad, James Lorenz</span> <span class="fw-light fs-5">(March 30, 2023: 10:23 AM)</span></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -114,11 +123,10 @@ if(isset($_SESSION['admin_id'])){
         <div class="mb-3 container card">
             <p class="mt-2">Still in Good Condition</p>
         </div>
-        
+        <p class="fw-bold">Condition: <span class="fw-light">Good</span></p> 
         <div class="mb-3">
             <img src="../../images/function_room/orig_size/3.jpg" class="img-fluid">
         </div>
-        <p class="fw-bold">Condition: <span class="fw-light">Good</span></p> 
         <br>
       </div>
       <div class="modal-footer">
@@ -127,7 +135,7 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
-
+<input type="number" name="equipment_id" id="equipment_id" value="<?php echo htmlentities($_GET['equipment_id'])?>" style="visibility:hidden;">
 <!-- Modal -->
 <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -141,7 +149,7 @@ if(isset($_SESSION['admin_id'])){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
-        <button type="button" class="btn btn-secondary">No</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>
@@ -150,7 +158,7 @@ if(isset($_SESSION['admin_id'])){
 <script>
   $.ajax({
       type: "GET",
-      url: 'tbl/view-rem-tbl.php',
+      url: 'tbl/view-rem-tbl.php?equipment_id='+$('#equipment_id').val(),
       success: function(result)
       {
           $('div.table-responsive').html(result);
@@ -172,6 +180,10 @@ if(isset($_SESSION['admin_id'])){
           alert("Status: " + textStatus); alert("Error: " + errorThrown); 
       } 
   });
+
+  function delete_remark(id){
+    console.log(id);
+  }
 </script>
 
 

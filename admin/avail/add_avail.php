@@ -38,7 +38,7 @@ if(isset($_SESSION['admin_id'])){
   <div class="w-100">
     <div class="row">
         <h5 class="col-7 col-lg-4 fw-bold mb-3 ms-2">Avail Subscription</h5>
-        <a class="col-4  text-decoration-none text-black m-0" aria-current="page" href="avail.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
+        <a class="col-4  text-decoration-none text-black m-0" aria-current="page" href="avail.php?active=subs"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
     </div>
     <section id="avail" class="pb-5">
 
@@ -279,7 +279,7 @@ if(isset($_SESSION['admin_id'])){
                                             </div>
                                         </div> -->
                                     </div>
-                                    <ul id="trainer_list_ul">
+                                    <ul id="trainer_list_ul" style="list-style-type: none;}">
                                     </ul>
 
                                     <hr class="hr" />
@@ -324,7 +324,7 @@ if(isset($_SESSION['admin_id'])){
                                             </div>
                                         </div>
                                     </div>
-                                    <ul id="program_list_ul">
+                                    <ul id="program_list_ul" style="list-style-type: none;}">
                                     </ul>
                                 </div>
                                 <div class="col d-flex justify-content-end">

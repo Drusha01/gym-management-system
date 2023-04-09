@@ -508,32 +508,12 @@ user_birthdate = CURDATE()
 WHERE user_id = 1;
 
 -- table for controls
-CREATE TABLE offer_controls(
-	control_id int primary key auto_increment,
-    control_details varchar(50) unique
-);
-CREATE TABLE avail_controls(
-	control_id int primary key auto_increment,
-    control_details varchar(50) unique
-);
-CREATE TABLE account_controls(
-	control_id int primary key auto_increment,
-    control_details varchar(50) unique
-);
-CREATE TABLE payment_controls(
-	control_id int primary key auto_increment,
-    control_details varchar(50) unique
-);
-CREATE TABLE maintenance_controls(
-	control_id int primary key auto_increment,
-    control_details varchar(50) unique
-);
-CREATE TABLE report_controls(
+CREATE TABLE controls(
 	control_id int primary key auto_increment,
     control_details varchar(50) unique
 );
 
-INSERT INTO offer_controls (control_id, control_details) VALUES 
+INSERT INTO controls (control_id, control_details) VALUES 
 (
 	null,
     'Modify'
@@ -545,69 +525,18 @@ INSERT INTO offer_controls (control_id, control_details) VALUES
     'None'
 );
 
-INSERT INTO avail_controls (control_id, control_details) VALUES 
-(
-	null,
-    'Modify'
-),(
-	null,
-    'Read-Only'
-),(
-	null,
-    'None'
-);
-INSERT INTO account_controls (control_id, control_details) VALUES 
-(
-	null,
-    'Modify'
-),(
-	null,
-    'Read-Only'
-),(
-	null,
-    'None'
-);
-INSERT INTO payment_controls (control_id, control_details) VALUES 
-(
-	null,
-    'Modify'
-),(
-	null,
-    'Read-Only'
-),(
-	null,
-    'None'
-);
-INSERT INTO maintenance_controls (control_id, control_details) VALUES 
-(
-	null,
-    'Modify'
-),(
-	null,
-    'Read-Only'
-),(
-	null,
-    'None'
-);
-INSERT INTO report_controls (control_id, control_details) VALUES 
-(
-	null,
-    'Modify'
-),(
-	null,
-    'Read-Only'
-),(
-	null,
-    'None'
-);
 
-SELECT control_id FROM offer_controls WHERE control_details="Read-Only";
+
 
 -- table for admin
 CREATE TABLE admins(
 	admin_id int primary key auto_increment,
     admin_type_id int NOT NULL ,
 	admin_user_id int unique not null,
+    admin_announcement_restriction int not null,
+    admin_attendance_restriction int not null,
+    admin_locker_restriction int not null,
+    admin_notification_restriction int not null,
     admin_offer_restriction int not null,
     admin_avail_restriction int not null,
     admin_account_restriction int not null,
@@ -618,61 +547,94 @@ CREATE TABLE admins(
     admin_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (admin_type_id) REFERENCES user_types(user_type_id),
     FOREIGN KEY (admin_user_id) REFERENCES users(user_id),
-    FOREIGN KEY (admin_offer_restriction) REFERENCES offer_controls(control_id),
-    FOREIGN KEY (admin_avail_restriction) REFERENCES avail_controls(control_id),
-    FOREIGN KEY (admin_account_restriction) REFERENCES account_controls(control_id),
-    FOREIGN KEY (admin_payment_restriction) REFERENCES payment_controls(control_id),
-    FOREIGN KEY (admin_maintenance_restriction) REFERENCES maintenance_controls(control_id),
-    FOREIGN KEY (admin_report_restriction) REFERENCES report_controls(control_id)
-);
+    
+	FOREIGN KEY (admin_announcement_restriction) REFERENCES controls(control_id),
+	FOREIGN KEY (admin_attendance_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_locker_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_notification_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_offer_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_avail_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_account_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_payment_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_maintenance_restriction) REFERENCES controls(control_id),
+    FOREIGN KEY (admin_report_restriction) REFERENCES controls(control_id)
+    );
+
+
+
 -- INSERT admin
 INSERT INTO admins VALUES(
 	null,
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'admin'),
     (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1)) ,
-    (SELECT control_id FROM offer_controls WHERE control_details = "Read-Only"),
-    (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM report_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
     now(),
     now()
 );
+
+use gms;
 INSERT INTO admins VALUES(
 	null,
     (SELECT user_type_id FROM user_types WHERE user_type_details = 'sub-admin'),
     (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha02') OR (user_email = 'hanz.dumapit54@gmail.com' AND user_email_verified = 1)) ,
-    (SELECT control_id FROM offer_controls WHERE control_details = "Read-Only"),
-    (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
-    (SELECT control_id FROM report_controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
+    (SELECT control_id FROM controls WHERE control_details = "Modify"),
     now(),
     now()
 );
 
+(SELECT control_id FROM controls WHERE control_details = "Modify");
+
 UPDATE admins 
 SET
-admin_offer_restriction = (SELECT control_id FROM offer_controls WHERE control_details = "Modify"),
-admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
-admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Modify"),
-admin_payment_restriction= (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
-admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
-admin_report_restriction= (SELECT control_id FROM report_controls WHERE control_details = "Modify")
-WHERE admin_user_id = (SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1));
+admin_announcement_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_attendance_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_locker_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_notification_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_offer_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_avail_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_account_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_payment_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_maintenance_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_report_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify")
+WHERE admin_id = 3;
+
+UPDATE admins 
+SET
+admin_announcement_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify")
+WHERE admin_user_id = 1;
 
 
 UPDATE admins 
 SET
-admin_offer_restriction = (SELECT control_id FROM offer_controls WHERE control_details = "Read-Only"),
-admin_avail_restriction= (SELECT control_id FROM avail_controls WHERE control_details = "Modify"),
-admin_account_restriction= (SELECT control_id FROM account_controls WHERE control_details = "Read-Only"),
-admin_payment_restriction= (SELECT control_id FROM payment_controls WHERE control_details = "Modify"),
-admin_maintenance_restriction = (SELECT control_id FROM maintenance_controls WHERE control_details = "Modify"),
-admin_report_restriction= (SELECT control_id FROM report_controls WHERE control_details = "Modify")
-WHERE admin_user_id = 2;
+admin_announcement_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_attendance_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_locker_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_notification_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_offer_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_avail_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_account_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_payment_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_maintenance_restriction = (SELECT control_id FROM controls WHERE control_details = "Modify"),
+admin_report_restriction= (SELECT control_id FROM controls WHERE control_details = "Modify")
+WHERE admin_id = 3;
 
  SELECT user_id FROM users WHERE (user_name = BINARY 'Drusha01') OR (user_email = 'hanz.dumapit53@gmail.com' AND user_email_verified = 1);
 -- SELECT * admins
@@ -702,30 +664,40 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-WHERE admin_id =3;
+WHERE admin_id =1;
+
+
 
 -- admin details
 SELECT admin_id, user_id, user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
  user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
- user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,
- offer_controls.control_details AS admin_offer_restriction_details,
- avail_controls.control_details AS admin_avail_restriction_details,
- account_controls.control_details AS admin_account_restriction_details,
- payment_controls.control_details AS admin_payment_restriction_details,
- maintenance_controls.control_details AS admin_maintenance_restriction_details,
- report_controls.control_details AS admin_report_restriction_details
+ user_birthdate, user_valid_id_photo,user_name_verified, user_email_verified,user_phone_verified, user_profile_picture, user_date_created,  user_date_updated,
+ announcement_controls.control_details as admin_announcement_restriction_details,
+ attendance_controls.control_details as admin_attendance_restriction_details,
+ locker_controls.control_details as admin_locker_restriction_details,
+ notification_controls.control_details as admin_notification_restriction_details,
+ offer_controls.control_details as admin_offer_restriction_details,
+ avail_controls.control_details as admin_avail_restriction_details,
+ account_controls.control_details as admin_account_restriction_details,
+ payment_controls.control_details as admin_payment_restriction_details,
+ maintenance_controls.control_details as admin_maintenance_restriction_details,
+ report_controls.control_details as admin_report_restriction_details
  FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-LEFT OUTER JOIN offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
-LEFT OUTER JOIN avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
-LEFT OUTER JOIN account_controls ON admins.admin_account_restriction=account_controls.control_id
-LEFT OUTER JOIN payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
-LEFT OUTER JOIN maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
-LEFT OUTER JOIN report_controls ON admins.admin_report_restriction=report_controls.control_id
+LEFT OUTER JOIN controls as announcement_controls ON admins.admin_announcement_restriction=announcement_controls.control_id
+LEFT OUTER JOIN controls as attendance_controls ON admins.admin_attendance_restriction=attendance_controls.control_id
+LEFT OUTER JOIN controls as locker_controls ON admins.admin_locker_restriction=locker_controls.control_id
+LEFT OUTER JOIN controls as notification_controls ON admins.admin_notification_restriction=notification_controls.control_id
+LEFT OUTER JOIN controls as offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
+LEFT OUTER JOIN controls as avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
+LEFT OUTER JOIN controls as account_controls ON admins.admin_account_restriction=account_controls.control_id
+LEFT OUTER JOIN controls as payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
+LEFT OUTER JOIN controls  as maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
+LEFT OUTER JOIN controls as report_controls ON admins.admin_report_restriction=report_controls.control_id
 WHERE admin_id = 1
 ;
 
@@ -733,24 +705,32 @@ WHERE admin_id = 1
 SELECT admin_id, user_id,user_name, CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_status_details, user_type_details, user_gender_details, user_phone_contry_code_details, 
  user_phone_number, user_email, user_name, user_firstname, user_middlename, user_lastname, user_address,
  user_birthdate, user_valid_id_photo, user_profile_picture, user_date_created,  user_date_updated,CAST(admin_date_created AS DATE) admin_date_created,
- offer_controls.control_details AS admin_offer_restriction_details,
- avail_controls.control_details AS admin_avail_restriction_details,
- account_controls.control_details AS admin_account_restriction_details,
- payment_controls.control_details AS admin_payment_restriction_details,
- maintenance_controls.control_details AS admin_maintenance_restriction_details,
- report_controls.control_details AS admin_reports_restriction_details
+ announcement_controls.control_details as admin_announcement_restriction_details,
+ attendance_controls.control_details as admin_attendance_restriction_details,
+ locker_controls.control_details as admin_locker_restriction_details,
+ notification_controls.control_details as admin_notification_restriction_details,
+ offer_controls.control_details as admin_offer_restriction_details,
+ avail_controls.control_details as admin_avail_restriction_details,
+ account_controls.control_details as admin_account_restriction_details,
+ payment_controls.control_details as admin_payment_restriction_details,
+ maintenance_controls.control_details as admin_maintenance_restriction_details,
+ report_controls.control_details as admin_report_restriction_details
  FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN user_phone_country_code ON users.user_status_id=user_phone_country_code.user_phone_country_code_id
-LEFT OUTER JOIN offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
-LEFT OUTER JOIN avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
-LEFT OUTER JOIN account_controls ON admins.admin_account_restriction=account_controls.control_id
-LEFT OUTER JOIN payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
-LEFT OUTER JOIN maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
-LEFT OUTER JOIN report_controls ON admins.admin_report_restriction=report_controls.control_id
+LEFT OUTER JOIN controls as announcement_controls ON admins.admin_announcement_restriction=announcement_controls.control_id
+LEFT OUTER JOIN controls as attendance_controls ON admins.admin_attendance_restriction=attendance_controls.control_id
+LEFT OUTER JOIN controls as locker_controls ON admins.admin_locker_restriction=locker_controls.control_id
+LEFT OUTER JOIN controls as notification_controls ON admins.admin_notification_restriction=notification_controls.control_id
+LEFT OUTER JOIN controls as offer_controls ON admins.admin_offer_restriction=offer_controls.control_id
+LEFT OUTER JOIN controls as avail_controls ON admins.admin_avail_restriction=avail_controls.control_id
+LEFT OUTER JOIN controls as account_controls ON admins.admin_account_restriction=account_controls.control_id
+LEFT OUTER JOIN controls as payment_controls ON admins.admin_payment_restriction=payment_controls.control_id
+LEFT OUTER JOIN controls  as maintenance_controls ON admins.admin_maintenance_restriction=maintenance_controls.control_id
+LEFT OUTER JOIN controls as report_controls ON admins.admin_report_restriction=report_controls.control_id
 WHERE admin_id != 1
 ;
 
@@ -1247,52 +1227,93 @@ INSERT INTO equipments_conditions (equipment_condition_id, equipment_condition_d
 
 SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good';
 
+CREATE TABLE equipment_types(
+	equipment_type_id int primary key auto_increment,
+    equipment_type_details varchar(50) unique
+);
+
+INSERT INTO equipment_types VALUES
+(
+	null,
+    'Machine'
+),(
+	null,
+    'Weights'
+),(
+	null,
+    'Tool'
+);
+
 -- table for maintenance
 CREATE TABLE equipments(
 	equipment_id int primary key auto_increment,
     equipment_name VARCHAR(100) not null,
-    equipment_quantity int not null,
-    equipment_condition_id int not null,
-    FOREIGN KEY (equipment_condition_id) REFERENCES equipments_conditions(equipment_condition_id)
+    equipment_type_id int not null,
+    equipment_status_id int not null,
+    FOREIGN KEY (equipment_status_id) REFERENCES statuses(status_id),
+    FOREIGN KEY (equipment_type_id) REFERENCES equipment_types(equipment_type_id)
 );
-
-INSERT INTO equipments (equipment_id,equipment_name,equipment_quantity,equipment_condition_id) VALUES
+INSERT INTO equipments (equipment_id, equipment_name, equipment_type_id, equipment_status_id) VALUES
 (
 	null,
-    'Treadmill',
-    4,
-    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
-),(
+    'TreadMill Machine A',
+    (SELECT equipment_type_id FROM equipment_types WHERE equipment_type_details = 'Machine'),
+    (SELECT status_id FROM statuses WHERE status_details = 'Active')
+);
+SELECT equipment_id,equipment_name,equipment_type_details,status_details FROM equipments
+LEFT OUTER JOIN equipment_types ON equipments.equipment_type_id=equipment_types.equipment_type_id
+LEFT OUTER JOIN statuses ON equipments.equipment_status_id=statuses.status_id
+;
+UPDATE equipments
+SET equipment_status_id = (SELECT status_id FROM statuses WHERE status_details = 'Active')
+WHERE equipment_id =1
+;
+
+
+CREATE table remarks(
+	remark_id int primary key auto_increment,
+    remark_equipment_id int not null,
+    remark_equipment_condition_id int not null,
+    remark_admin_id int not null,
+    remark_time datetime not null,
+    remark_remark varchar(50) not null,
+    remark_file varchar(50) default null,
+	FOREIGN KEY (remark_equipment_condition_id) REFERENCES equipments_conditions(equipment_condition_id),
+	FOREIGN KEY (remark_equipment_id) REFERENCES equipments(equipment_id),
+	FOREIGN KEY (remark_admin_id) REFERENCES admins(admin_id)
+);
+INSERT INTO remarks VALUES
+(
 	null,
-    '	Leg Press Machine',
-    4,
-    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'In-Maintenance')
-),(
-	null,
-    'Bench Press',
-    4,
-    (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
+    1,
+    1,
+    1,
+    now(),
+    'asdfasdfas',
+    'asdfasd,'
 );
 
--- fetch all
-SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
-LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
+
+use gms;
+SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_id=users.user_id
+WHERE remark_equipment_id = 1
+ORDER BY remark_time ASC
 ;
 
-DELETE FROM equipments 
-WHERE equipment_id = 4;
-
--- fetch with id
-SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
-LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
-WHERE equipment_id = 1
+SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE remark_equipment_id = 1
+ORDER BY remark_time ASC
+LIMIT 1
 ;
 
-UPDATE equipments 
-SET equipment_name= 'Treadmill',
-equipment_quantity = '6',
-equipment_condition_id = (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = 'Good')
-WHERE equipment_id = 1;
+
+
 
 -- table for discounts
 CREATE TABLE discounts(
@@ -1310,6 +1331,240 @@ INSERT INTO discounts (discount_id, discount_name, discount_details, discount_ra
     'No discounted',
     0
 );
+
+
+
+-- settings
+CREATE TABLE admin_settings(
+	setting_id int primary key auto_increment,
+	setting_attendance_force_timeout time not null,
+    setting_percentage_of_payment_per_day float not null,
+    setting_gym_address varchar(255) not null,
+    setting_gym_contact_number varchar(20) not null,
+    setting_num_of_dates_to_notify int not null,
+    setting_gym_email_address varchar(255) not null,
+    setting_num_of_lockers int not null,
+	setting_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+-- default settings
+INSERT INTO admin_settings (setting_id, setting_attendance_force_timeout,setting_percentage_of_payment_per_day,setting_gym_address,setting_gym_contact_number,setting_num_of_dates_to_notify,setting_gym_email_address,setting_num_of_lockers) VALUES
+(
+	null,
+    '18:00:00',
+    .05,
+    'San Jose, Zamboanga City',
+    '8(800)316-06-42',
+    10,
+    'kenogymofficial@kenogym.online',
+    40
+);
+
+SELECT * FROM admin_settings
+WHERE setting_id =1;
+;
+
+UPDATE admin_settings
+set setting_attendance_force_timeout = '18:00'
+WHERE setting_id = 1;
+
+
+
+
+CREATE TABLE landing_page_types(
+	landing_page_type_id int primary key auto_increment,
+    landing_page_type_details VARCHAR(50) unique
+);
+
+INSERT INTO landing_page_types (landing_page_type_details) VALUES
+(
+	'Carousel'
+),(
+	'Weights Room'
+),(
+	'Function Room'
+);
+
+SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel';
+
+CREATE TABLE landing_page(
+	landing_page_id int primary key auto_increment,
+    landing_page_title varchar(50),
+    landing_page_file varchar(50),
+    landing_page_type_id int not null,
+	FOREIGN KEY (landing_page_type_id) REFERENCES landing_page_types(landing_page_type_id)
+    
+);
+
+-- UPDATE landing_page
+-- SET landing_page_title = '',
+-- landing_page_file = ''
+-- WHERE landing_page_id =;
+
+
+-- SELECT * FROM landing_page
+-- WHERE landing_page_type_id = (SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel')
+-- ;
+
+-- SELECT * FROM landing_page
+-- LEFT OUTER JOIN landing_page_types ON landing_page.landing_page_type_id=landing_page_types.landing_page_type_id
+-- ;
+
+-- DELETE FROM landing_page WHERE landing_page_id = 17;
+
+
+
+-- sample
+-- INSERT INTO landing_page  (landing_page_id,landing_page_title,landing_page_file,landing_page_type_id) VALUES
+-- (
+-- 	null,
+--     'something title',
+--     'landing_page_file.jpg',
+--     (SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel')
+-- );
+
+CREATE TABLE team_positions(
+	team_position_id int primary key auto_increment,
+    team_position_details VARCHAR(50) unique
+);
+
+INSERT INTO team_positions(team_position_details) VALUES
+(
+	'Gym-Owner'
+),(
+	'Employee'
+);
+
+
+SELECT team_position_id FROM team_positions WHERE team_position_details = "Gym-Owner";
+
+CREATE TABLE teams(
+	team_id int primary key auto_increment,
+	team_position_id int not null,
+    team_name varchar(255) not null ,
+	team_file varchar(255) not null ,
+    FOREIGN KEY (team_position_id) REFERENCES team_positions(team_position_id)
+);
+
+-- UPDATE teams
+-- SET team_position_id =( SELECT team_position_id FROM team_positions WHERE team_position_details = :team_position_details),
+-- team_name =:team_name ,
+-- team_file =:team_file,
+-- WHERE team_id=:team_id;
+
+SELECT * FROM teams
+LEFT OUTER JOIN team_positions ON teams.team_position_id=team_positions.team_position_id
+ ;
+
+
+
+
+
+
+-- annoucement_status
+CREATE TABLE announcement_statuses(
+	announcement_status_id int primary key auto_increment,
+    announcement_status_details varchar(50) unique
+);
+
+-- insert for announcement_status
+INSERT INTO announcement_statuses (announcement_status_id, announcement_status_details ) VALUES
+(
+	null,
+    'Active'
+),(
+	null,
+    'Disabled'
+);
+-- SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Active'; 
+-- table for announcement_type
+CREATE TABLE announcement_types(
+	announcement_type_id int primary key auto_increment,
+    announcement_type_details varchar(50) unique
+);
+
+INSERT INTO announcement_types (announcement_type_id, announcement_type_details ) VALUES
+(
+	null,
+    'Text'
+),(
+	null,
+    'Image'
+);
+
+-- SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = 'Image'; 
+
+-- announcement
+CREATE TABLE announcements(
+	announcement_id int primary key auto_increment,
+    announcement_status_id INT NOT NULL,
+    announcement_type_id INT NOT NULL,
+    announcement_title VARCHAR(50) NOT NULL,
+    announcement_content VARCHAR(1024) NOT NULL,
+    announcement_file_image VARCHAR(50) DEFAULT 'default.png',
+	announcement_order INT NOT NULL DEFAULT 0,
+    announcement_start_date DATETIME NOT NULL,
+	announcement_end_date DATETIME NOT NULL,
+	announcement_date_created datetime default NOW(),
+    announcement_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (announcement_status_id) REFERENCES announcement_statuses(announcement_status_id),
+    FOREIGN KEY (announcement_type_id) REFERENCES announcement_types(announcement_type_id)
+);
+-- UPDATE announcements
+-- SET announcement_order = 3,
+-- announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Disabled')
+-- WHERE announcement_id = 15;
+-- DELETE FROM announcements
+-- WHERE announcement_id = 1;
+
+-- INSERT into announcements (announcement_id, announcement_status_id, announcement_type_id, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_end_date) VALUES
+-- ();
+
+-- SELECT count(*)AS number_of_announcements FROM announcements;
+
+-- SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
+-- 	announcement_date_created, announcement_date_updated
+-- FROM announcements
+-- LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
+-- LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
+-- ORDER BY announcement_order DESC;
+
+-- down
+-- SELECT announcement_id, announcement_order 
+-- FROM announcements
+-- WHERE announcement_order <= 3
+-- ORDER BY announcement_order DESC
+-- LIMIT 2;
+
+-- up
+-- SELECT announcement_id, announcement_order 
+-- FROM announcements
+-- WHERE announcement_order >= 1
+-- ORDER BY announcement_order ASC
+-- LIMIT 2;
+
+-- UPDATE announcements
+-- SET announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = :announcement_status_details),
+-- announcement_type_id = (SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = :announcement_type_details),
+-- annoucement_title =:annoucement_title,
+-- announcement_content=:announcement_content,
+-- announcement_file_image=:announcement_file_image,
+-- announcement_start_date =:announcement_start_date,
+-- announcement_end_date=:announcement_end_date
+-- WHERE announcement_id =:announcement_id;
+
+
+-- attendance
+CREATE TABLE attendances(
+	attendance_id int primary key auto_increment,
+    attendance_user_id INT NOT NULL,
+    attendance_time_in DATETIME NOT NULL DEFAULT NOW(),
+    attendance_time_out DATETIME NOT NULL,
+	FOREIGN KEY (attendance_user_id) REFERENCES users(user_id)
+);
+	
+
 
 -- table for subscription status
 CREATE TABLE subscription_status(
@@ -1365,25 +1620,6 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
--- number of lockers
-CREATE TABLE number_of_lockers(
-	locker_id int primary key auto_increment ,
-    locker_number int not null
-);
-
-INSERT INTO  number_of_lockers VALUES
-(
-	null,
-    45
-);
-
-UPDATE number_of_lockers
-SET locker_number = 3
-WHERE locker_id =1;
-
-
-SELECT locker_id,locker_number FROM number_of_lockers
-WHERE locker_id =1;
 
 
 CREATE TABLE subscriber_trainers(
@@ -1413,13 +1649,12 @@ INSERT INTO walk_in_services VALUES
 ),(
 	null,
    'Gym-Use and Trainer'
-);
-
-
-INSERT INTO walk_in_services VALUES(
+),(
 	null,
    'Walk-In Trainer'
 );
+
+
 
 CREATE TABLE walk_in_prices(
 	walk_in_price_id int primary key auto_increment,

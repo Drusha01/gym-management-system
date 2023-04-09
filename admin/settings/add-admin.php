@@ -170,43 +170,15 @@ if(isset($_SESSION['admin_id'])){
                 // echo 'signup -done';
                     // require_once '../../classes/trainers.class.php';
                     $adminObj = new admins();
-                    if(isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
-                        if($adminObj->add($userObj->user_id_with_username()['user_id'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
+                    if(isset($_POST['Announcement']) && isset($_POST['Attendance']) && isset($_POST['Locker']) && isset($_POST['Notification']) && isset($_POST['Offer']) && isset($_POST['Avail']) && isset($_POST['Account']) && isset($_POST['Payment']) && isset($_POST['Maintenance'])&& isset($_POST['Report'])){
+                        if($adminObj->add($userObj->user_id_with_username()['user_id'],$_POST['Announcement'],$_POST['Attendance'],$_POST['Locker'],$_POST['Notification'],$_POST['Offer'],$_POST['Avail'],$_POST['Account'],$_POST['Payment'],$_POST['Maintenance'],$_POST['Report'])){
                             header('location:settings.php');
                         }else{
                             echo 'error';
                         }
+                    }else{
+                        header('location:settings.php');
                     }
-                    // $trainerObj = new trainers();
-                    // $userObj->setuser_name($_POST['username']);
-                    // if($trainerObj->add_trainer_with_id($userObj->user_id_with_username()['user_id'])){
-                    //     header('location:account.php');
-                    // }
-                    // get_user_details
-                    //$user_details = $userObj->get_user_details();
-                    // set session
-                    // $_SESSION['user_id'] = $user_details['user_id'];
-                    // $_SESSION['user_status_details'] = $user_details['user_status_details'];
-                    // $_SESSION['user_type_details'] = $user_details['user_type_details'] ;
-                    // $_SESSION['user_gender_details'] = $user_details['user_gender_details'];
-                    // $_SESSION['user_phone_contry_code_details'] = $user_details['user_phone_contry_code_details'];
-
-                    // $_SESSION['user_phone_number'] = $user_details['user_phone_number'];
-                    // $_SESSION['user_email'] =$user_details['user_email'];
-                    // $_SESSION['user_name'] = $user_details['user_name'];
-                    // $_SESSION['user_password_hashed'] = 'null';
-                    // $_SESSION['user_firstname'] = $user_details['user_firstname'];
-
-                    // $_SESSION['user_middlename'] = $user_details['user_middlename'];
-                    // $_SESSION['user_lastname'] = $user_details['user_lastname'];
-                    // $_SESSION['user_address'] = $user_details['user_address'];
-                    // $_SESSION['user_birthdate'] = $user_details['user_birthdate'];
-                    // $_SESSION['user_valid_id_photo'] = $user_details['user_valid_id_photo'];
-
-                    // $_SESSION['user_profile_picture'] = $user_details['user_profile_picture'];
-                    // $_SESSION['user_date_created'] = $user_details['user_date_created'];
-                    // $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
-                    // go to user page
                         
                     }else{
                         echo 'error-sign up';

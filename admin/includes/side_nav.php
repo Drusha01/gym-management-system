@@ -46,7 +46,7 @@
                     if((isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify') || (isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only')){
                         echo'
                     <li class="nav-item">
-                        <a href="../avail/avail.php" class="nav-link " title="Avail">
+                        <a href="../avail/avail.php?active=subs" class="nav-link " title="Avail">
                             <i class="bx bx-calendar-plus"></i>
                             <span class="links-name">Avail</span>
                         </a>

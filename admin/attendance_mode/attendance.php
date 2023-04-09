@@ -4,7 +4,7 @@
 <?php require_once '../includes/top_nav_attendance.php'; ?>
 <div class="container" style="margin-top: 7%;">
     <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="liveToast" class="toast toast_1" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
             <img src="../../images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
             <strong class="me-auto">KE-NO Fitness Center</strong>
@@ -74,31 +74,7 @@
 </div>
 
 
-<!-- Modal for exit -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Exit</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="username" placeholder="Enter Username" data-lpignore="true">
-        <label for="username">Enter Username</label>
-        </div>
-        <div class="form-floating">
-        <input type="password" class="form-control" id="pass" placeholder="Enter Password" data-lpignore="true">
-        <label for="pass">Password</label>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a type="button" class="btn btn-success" href="../admin_control_log_in.php">Confirm Exit</a>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- Modal for confirm attendance time in -->
 <div class="modal fade" id="attendance_time_in" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -156,7 +132,7 @@
 <!-- toast script -->
 <script>
 document.getElementById("toastbtn").onclick = function() {
-  var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+  var toastElList = [].slice.call(document.querySelectorAll('.toast_1'))
   var toastList = toastElList.map(function(toastEl) {
     return new bootstrap.Toast(toastEl)
   })
@@ -193,7 +169,7 @@ document.getElementById("toastbtn_2").onclick = function() {
             });
             $('input#keyword').on('input', function(e){
                 var status = $(this).val();
-                dataTable.columns([0]).search(status).draw();
+                dataTable.columns([1]).search(status).draw();
             })
             new $.fn.dataTable.FixedHeader(dataTable);
         },

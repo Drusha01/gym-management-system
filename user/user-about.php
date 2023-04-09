@@ -76,42 +76,38 @@
             </div>
 
             <div class="owl-carousel owl-3-slider owl-carousel2">
-
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Dumbells</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-1.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Machines</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-2.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Warm-Up Area</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-3.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Chest Area</h3>
-                        </div>
-                        <img src="../images/weight_room/slider/hero-slider-4.jpg" alt="Image" class="img-fluid">
-                    </a> 
-                </div>
-
+            <div class="item">
+                <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
+                    <div class="media-text">
+                        <h3 class="text-light">Dumbells</h3>
+                    </div>
+                    <img src="../images/weight_room/orig_size/orig_size_1.jpg" alt="Image" class="img-fluid center-cropped">
+                </a> 
             </div>
-
+            <div class="item">
+                <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
+                    <div class="media-text">
+                        <h3 class="text-light">Machines</h3>
+                    </div>
+                    <img src="../images/weight_room/orig_size/orig_size_2.jpg" alt="Image" class="img-fluid center-cropped">
+                </a> 
+            </div>
+            <div class="item">
+                <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
+                    <div class="media-text">
+                        <h3 class="text-light">Warm-Up Area</h3>
+                    </div>
+                    <img src="../images/weight_room/orig_size/orig_size_3.jpg" alt="Image" class="img-fluid center-cropped">
+                </a>
+            </div>
+            <div class="item">
+                <a class="media-thumb" href="../images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
+                    <div class="media-text">
+                        <h3 class="text-light">Warm-Up Area</h3>
+                    </div>
+                    <img src="../images/weight_room/orig_size/orig_size_4.jpg" alt="Image" class="img-fluid center-cropped">
+                </a>
+            </div>
         </div>
     </div>
     <!-- end of weights room -->

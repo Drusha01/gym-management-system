@@ -1,0 +1,87 @@
+Announcement
+	announcement_id
+	announcement_name
+	announcement_type	
+	announcement_start_date
+	announcement_end_date
+	announcement_date_created
+	announcement_date_modified
+	announcement_status
+	announcement_order
+
+Attendance
+	attendance_id
+	attendance_user_id
+	attendance_time_in
+	attendance_time_out
+
+
+Locker
+	locker_id
+	locker_user_id
+	locker_id
+	locker_start_date
+	locker_end_date
+
+Notifications
+	notificaiton_id
+	notification_creator
+	notificaiton_target
+	notification_type
+	notification_info
+	notification_icon
+	notification_is_read
+	notification_date_created
+	notification_date_modified
+
+Maintenance 
+	
+	equipments
+		equipment_id
+		equipment_name
+		equipment_type_id
+		equipment_status_id
+
+	
+
+	remarks
+		remark_id
+		remark_remarks
+		remark_condition_id
+		remark_check_date
+		remark_checked_by
+			
+
+Settings
+	Attendance force timeout
+	number_of_dates_to_notify_expiration
+	number_of_lockers
+	walk_in_gym_use_price
+	walk_in_trainer_price
+	overdue_percentage_of_payment_per_day
+	gym_address
+	gym_contact_number
+	gym_email_address
+	
+
+EMAIL VERIFICATION
+
+FORGOT PASSWORD
+		
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

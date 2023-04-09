@@ -14,7 +14,15 @@ if(isset($_SESSION['user_id'])){
 if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
-        // do nothing
+        // 
+        if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify'){
+
+        }elseif(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only'){
+            //
+        }else{
+            //do not load the page
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -82,7 +90,7 @@ if(isset($_SESSION['admin_id'])){
         Are you sure you want to delete this Announcement?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="delete_announcement_confirm">Yes</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
@@ -118,6 +126,173 @@ if(isset($_SESSION['admin_id'])){
             alert("Status: " + textStatus); alert("Error: " + errorThrown); 
         } 
     });
+
+    function delete_announcement(id){
+        $('#delete_announcement_confirm').attr('onclick','confirm_delete('+id+')');
+    }
+
+    function confirm_delete(id){
+        // ajax here
+       
+        var announcement = new FormData();  
+        announcement.append( 'announcement_id', id);  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "delete_announcement.php",
+            data: announcement,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                var obj =JSON.parse(result)
+                if(obj.announcement_id == id){
+                    alert('announcement successfully deleted');
+                    $.ajax({
+                        type: "GET",
+                        url: 'announce_tbl.php',
+                        success: function(result)
+                        {
+                            $('div.table-responsive').html(result);
+                            dataTable = $("#announce").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([2]).search(status).draw();
+                            })
+                            $('select#categoryFilter_1').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter_2').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([5]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        } 
+                    });
+                }else{
+                    alert('deletion failed');
+                }
+                
+
+                
+            }
+        });
+    }
+
+    function move_order_up(id){
+        var announcement = new FormData();  
+        announcement.append( 'announcement_id', id);  
+        announcement.append( 'order', 'up');  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "update_announcement_order.php",
+            data: announcement,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                console.log(result)
+                if(result == 1){
+                    $.ajax({
+                        type: "GET",
+                        url: 'announce_tbl.php',
+                        success: function(result)
+                        {
+                            $('div.table-responsive').html(result);
+                            dataTable = $("#announce").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([2]).search(status).draw();
+                            })
+                            $('select#categoryFilter_1').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter_2').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([5]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        } 
+                    });
+                }else{
+                    alert('order change failed');
+                }
+                
+
+                
+            }
+        });
+    }
+    function move_order_down(id){
+        var announcement = new FormData();  
+        announcement.append( 'announcement_id', id);  
+        announcement.append( 'order', 'down');  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "update_announcement_order.php",
+            data: announcement,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                console.log(result)
+                if(result == 1){
+                    $.ajax({
+                        type: "GET",
+                        url: 'announce_tbl.php',
+                        success: function(result)
+                        {
+                            $('div.table-responsive').html(result);
+                            dataTable = $("#announce").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([2]).search(status).draw();
+                            })
+                            $('select#categoryFilter_1').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter_2').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([5]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        } 
+                    });
+                }else{
+                    alert('order change failed');
+                }
+            }
+        });
+    }
 </script>
 
 </html>

@@ -17,7 +17,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <button class="nav-link active text-white" aria-current="page"  data-bs-toggle="modal" data-bs-target="#exampleModal"><span class='bx bx-exit align-middle fs-4 pe-2'></span>Exit</button>
+                    <a href="../admin_control_log_in.php" class="nav-link active text-white"><span class='bx bx-exit align-middle fs-4 pe-2'></span>Exit</a>
                 </li>
             </ul>
         </div>
