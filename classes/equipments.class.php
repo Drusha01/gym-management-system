@@ -9,11 +9,41 @@ class equipments
     {
         $this->db = new Database();
     }
-
-    function fetchAll(){
+    function insert($equipment_name,$equipment_type_details){
         try{
-            $sql = 'SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
-            LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
+            $sql = 'INSERT INTO equipments (equipment_id, equipment_name, equipment_type_id,equipment_status_id) VALUES
+            (
+                null,
+                :equipment_name,
+                (SELECT equipment_type_id FROM equipment_types WHERE equipment_type_details = :equipment_type_details),
+                (SELECT status_id FROM statuses WHERE status_details = "Active")
+            );';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':equipment_name', $equipment_name);
+            $query->bindParam(':equipment_type_details', $equipment_type_details);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function delete($equipment_id){
+        try{
+            $sql = 'UPDATE equipments
+            SET equipment_status_id = (SELECT status_id FROM statuses WHERE status_details = "deleted")
+            WHERE equipment_id =:equipment_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':equipment_id', $equipment_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function fetch_all(){
+        try{
+            $sql = 'SELECT equipment_id,equipment_name,equipment_type_details,status_details FROM equipments
+            LEFT OUTER JOIN equipment_types ON equipments.equipment_type_id=equipment_types.equipment_type_id
+            LEFT OUTER JOIN statuses ON equipments.equipment_status_id=statuses.status_id
             ;';
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){
@@ -28,9 +58,10 @@ class equipments
     }
     function fetch_with_id($equipment_id){
         try{
-            $sql = 'SELECT equipment_id,equipment_name,equipment_quantity,equipment_condition_details FROM equipments
-            LEFT OUTER JOIN equipments_conditions ON equipments.equipment_condition_id=equipments_conditions.equipment_condition_id
-            WHERE equipment_id = :equipment_id
+            $sql = 'SELECT equipment_id,equipment_name,equipment_type_details,status_details FROM equipments
+            LEFT OUTER JOIN equipment_types ON equipments.equipment_type_id=equipment_types.equipment_type_id
+            LEFT OUTER JOIN statuses ON equipments.equipment_status_id=statuses.status_id
+            WHERE equipment_id =:equipment_id
             ;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':equipment_id', $equipment_id);
@@ -44,50 +75,18 @@ class equipments
             return false;
         }
     }
-    
-    function update($equipment_name,$equipment_quantity,$equipment_condition_details,$equipment_id){
-        try{
-            $sql = 'UPDATE equipments 
-            SET equipment_name= :equipment_name,
-            equipment_quantity = :equipment_quantity,
-            equipment_condition_id = (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = :equipment_condition_details)
-            WHERE equipment_id = :equipment_id;';
-            $query=$this->db->connect()->prepare($sql);
-            $query->bindParam(':equipment_name', $equipment_name);
-            $query->bindParam(':equipment_quantity', $equipment_quantity);
-            $query->bindParam(':equipment_condition_details', $equipment_condition_details);
-            $query->bindParam(':equipment_id', $equipment_id);
-            return $query->execute();
-        }catch (PDOException $e){
-            return false;
-        }
-    }
-    function add($equipment_name,$equipment_quantity,$equipment_condition_details){
-        try{
-            $sql = 'INSERT INTO equipments (equipment_id,equipment_name,equipment_quantity,equipment_condition_id) VALUES
-            (
-                null,
-                :equipment_name,
-                :equipment_quantity,
-                (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = :equipment_condition_details)
-            )';
-            $query=$this->db->connect()->prepare($sql);
-            $query->bindParam(':equipment_name', $equipment_name);
-            $query->bindParam(':equipment_quantity', $equipment_quantity);
-            $query->bindParam(':equipment_condition_details', $equipment_condition_details);
-            return $query->execute();
-        }catch (PDOException $e){
-            return false;
-        }
-    }
 
-    function delete($equipment_id){
+    function update($equipment_id,$equipment_name,$equipment_type_details){
         try{
-            $sql = 'DELETE FROM equipments 
-            WHERE equipment_id = :equipment_id;';
+            $sql = 'UPDATE equipments
+            SET equipment_name =:equipment_name ,
+            equipment_type_id = (SELECT equipment_type_id FROM equipment_types WHERE equipment_type_details =:equipment_type_details)
+            WHERE equipment_id =:equipment_id ;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':equipment_id', $equipment_id);
-            return $query->execute();
+            $query->bindParam(':equipment_name', $equipment_name);
+            $query->bindParam(':equipment_type_details', $equipment_type_details);
+            return$query->execute();
         }catch (PDOException $e){
             return false;
         }

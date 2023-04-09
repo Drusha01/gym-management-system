@@ -1232,6 +1232,18 @@ CREATE TABLE equipment_types(
     equipment_type_details varchar(50) unique
 );
 
+INSERT INTO equipment_types VALUES
+(
+	null,
+    'Machine'
+),(
+	null,
+    'Weights'
+),(
+	null,
+    'Tool'
+);
+
 -- table for maintenance
 CREATE TABLE equipments(
 	equipment_id int primary key auto_increment,
@@ -1241,6 +1253,22 @@ CREATE TABLE equipments(
     FOREIGN KEY (equipment_status_id) REFERENCES statuses(status_id),
     FOREIGN KEY (equipment_type_id) REFERENCES equipment_types(equipment_type_id)
 );
+INSERT INTO equipments (equipment_id, equipment_name, equipment_type_id, equipment_status_id) VALUES
+(
+	null,
+    'TreadMill Machine A',
+    (SELECT equipment_type_id FROM equipment_types WHERE equipment_type_details = 'Machine'),
+    (SELECT status_id FROM statuses WHERE status_details = 'Active')
+);
+SELECT equipment_id,equipment_name,equipment_type_details,status_details FROM equipments
+LEFT OUTER JOIN equipment_types ON equipments.equipment_type_id=equipment_types.equipment_type_id
+LEFT OUTER JOIN statuses ON equipments.equipment_status_id=statuses.status_id
+;
+UPDATE equipments
+SET equipment_status_id = (SELECT status_id FROM statuses WHERE status_details = 'Active')
+WHERE equipment_id =2
+;
+
 
 CREATE table remarks(
 	remark_id int primary key auto_increment,
@@ -1254,6 +1282,33 @@ CREATE table remarks(
 	FOREIGN KEY (remark_equipment_id) REFERENCES equipments(equipment_id),
 	FOREIGN KEY (remark_admin_id) REFERENCES admins(admin_id)
 );
+INSERT INTO remarks VALUES
+(
+	null,
+    1,
+    1,
+    1,
+    now(),
+    'asdfasdfas',
+    'asdfasd,'
+);
+
+SELECT equipment_condition_details,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_id=users.user_id
+WHERE remark_equipment_id = 1
+ORDER BY remark_time ASC
+;
+
+SELECT equipment_condition_details,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_id=users.user_id
+WHERE remark_equipment_id = 1
+ORDER BY remark_time ASC
+LIMIT 1
+;
 
 
 

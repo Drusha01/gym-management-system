@@ -15,6 +15,13 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+          
+        }else if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Read-Only'){
+
+        }else{
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -117,12 +124,12 @@ if(isset($_SESSION['admin_id'])){
         <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="modal_body_content">
        Are you sure you want to delete this (Equipment Name)?
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
-        <button type="button" class="btn btn-secondary">No</button>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="confirm_delete" >Yes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal">No</button>
       </div>
     </div>
   </div>
@@ -132,33 +139,91 @@ if(isset($_SESSION['admin_id'])){
 
 <script>
   $.ajax({
-      type: "GET",
-      url: 'tbl/maintenance-tbl.php',
-      success: function(result)
-      {
-          $('div.table-responsive').html(result);
-          dataTable = $("#maintenance").DataTable({
-              "dom": '<"top"f>rt<"bottom"lp><"clear">',
-              responsive: true,
-          });
-          $('input#keyword').on('input', function(e){
-              var status = $(this).val();
-              dataTable.columns([2]).search(status).draw();
-          })
-          $('select#categoryFilter_1').on('change', function(e){
-          var status = $(this).val();
-          dataTable.columns([3]).search(status).draw();
-          })
-          $('select#categoryFilter_2').on('change', function(e){
-          var status = $(this).val();
-          dataTable.columns([4]).search(status).draw();
-          })
-          new $.fn.dataTable.FixedHeader(dataTable);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) { 
-          alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-      } 
+    type: "GET",
+    url: 'tbl/maintenance-tbl.php',
+    success: function(result)
+    {
+        $('div.table-responsive').html(result);
+        dataTable = $("#maintenance").DataTable({
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            responsive: true,
+        });
+        $('input#keyword').on('input', function(e){
+            var status = $(this).val();
+            dataTable.columns([2]).search(status).draw();
+        })
+        $('select#categoryFilter_1').on('change', function(e){
+        var status = $(this).val();
+        dataTable.columns([3]).search(status).draw();
+        })
+        $('select#categoryFilter_2').on('change', function(e){
+        var status = $(this).val();
+        dataTable.columns([4]).search(status).draw();
+        })
+        new $.fn.dataTable.FixedHeader(dataTable);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    } 
   });
+  
+  function delete_equipment(index,id,name){
+    $('#modal_body_content').html('Are you sure you want to delete this'+index+'. '+name+' ?');
+    $('#confirm_delete').attr('onclick','confirm_delete_equipment('+id+')');
+  }
+
+  function confirm_delete_equipment(id){
+    console.log(id)
+    var announcement = new FormData();  
+    announcement.append( 'equipment_id', id);  
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "delete_maintenance.php",
+        data: announcement,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+            // parse result
+            console.log(result)
+            if(result == 1){
+              alert('announcement successfully deleted');
+              $.ajax({
+                type: "GET",
+                url: 'tbl/maintenance-tbl.php',
+                success: function(result)
+                {
+                    $('div.table-responsive').html(result);
+                    dataTable = $("#maintenance").DataTable({
+                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                        responsive: true,
+                    });
+                    $('input#keyword').on('input', function(e){
+                        var status = $(this).val();
+                        dataTable.columns([2]).search(status).draw();
+                    })
+                    $('select#categoryFilter_1').on('change', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([3]).search(status).draw();
+                    })
+                    $('select#categoryFilter_2').on('change', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([4]).search(status).draw();
+                    })
+                    new $.fn.dataTable.FixedHeader(dataTable);
+                },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+              });
+            }else{
+                alert('deletion failed');
+            }
+        }
+    });
+  }
 </script>
 
 </html>

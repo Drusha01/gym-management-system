@@ -1,3 +1,14 @@
+<?php 
+session_start();
+if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify'){
+
+}elseif(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only'){
+    //
+}else{
+    //do not load the page
+    header('location:../dashboard/dashboard.php');
+}
+?>
 <table id="maintenance" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
     <thead class="table-dark" >
         <tr>
@@ -13,18 +24,52 @@
         </tr>
     </thead>
     <tbody>
+        <?php
+            require_once '../../../classes/equipments.class.php';
+            require_once '../../../classes/remarks.class.php';
+            $remarksObj = new remarks();
+            $equipmentsObj = new equipments();
+            if($equipments_data = $equipmentsObj->fetch_all()){
+                $counter =1;
+                foreach ($equipments_data as $key => $equipments_item) {
+                    // fetch recent remarks
+                    if($equipments_item['status_details'] =='active'){
+
+                        if($remark_data = $remarksObj->fetch_one($equipments_item['equipment_id'])){
+                            echo '
         <tr>
-        <th class="d-lg-none"></th>
-        <td class="text-center d-none d-sm-table-cell">1</td>
-        <td class="text-center">TreadMill Machine A</td>
-        <td class="text-center">Machine</td>
-        <td class="text-center">Good</td>
-        <td class="text-center">March 23, 2023 (3:30 PM)</td>
-        <td class="text-center">Trinidad, James Lorenz</td>
-        <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
-        <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><a href="edit-maintenance.php" class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
-        </tr>
+            <th class="d-lg-none"></th>
+            <td class="text-center d-none d-sm-table-cell">'.$counter.'</td>
+            <td class="text-center">'.htmlentities($equipments_item['equipment_name']).'</td>
+            <td class="text-center">'.htmlentities($equipments_item['equipment_type_details']).'</td>
+            <td class="text-center">'.htmlentities($remark_data['equipment_condition_details']).'</td>
+            <td class="text-center">March 23, 2023 (3:30 PM)</td>
+            <td class="text-center">Trinidad, James Lorenz</td>
+            <td class="text-center"><a href="view_rem.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-dark btn-sm">View All <i class="bx bx-show-alt" style="font-size:20px; vertical-align: middle;"></i></a></td>
+            <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle"></i></button><a href="edit-maintenance.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-primary btn-circle btn-sm"><i class="bx bx-edit-alt"></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class="bx bx-trash" onclick="delete_equipment('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"></i></button></td>
+        </tr>';
+                        }else{
+                            echo '
         <tr>
+            <th class="d-lg-none"></th>
+            <td class="text-center d-none d-sm-table-cell">'.$counter.'</td>
+            <td class="text-center">'.htmlentities($equipments_item['equipment_name']).'</td>
+            <td class="text-center">'.htmlentities($equipments_item['equipment_type_details']).'</td>
+            <td class="text-center">No data</td>
+            <td class="text-center">No data</td>
+            <td class="text-center">No data</td>
+            <td class="text-center"><a href="view_rem.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-dark btn-sm">View All <i class="bx bx-show-alt" style="font-size:20px; vertical-align: middle;"></i></a></td>
+            <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle"></i></button><a href="edit-maintenance.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-primary btn-circle btn-sm"><i class="bx bx-edit-alt"></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class="bx bx-trash"  onclick="delete_equipment('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"></i></button></td>
+        </tr>';
+                        }
+                        $counter++;
+                    }
+                }
+                
+            }
+        ?>
+        
+        <!-- <tr>
         <th class="d-lg-none"></th>
         <td class="text-center d-none d-sm-table-cell">2</td>
         <td class="text-center">TreadMill Machine B</td>
@@ -56,6 +101,6 @@
         <td class="text-center">Lim, Robbie John</td>
         <td class="text-center"><a href="view_rem.php" class="btn btn-outline-dark btn-sm">View All <i class='bx bx-show-alt' style="font-size:20px; vertical-align: middle;"></i></a></td>
         <td class="text-center"><button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class='bx bx-plus-circle'></i></button><a href="edit-maintenance.php" class="btn btn-outline-primary btn-circle btn-sm"><i class='bx bx-edit-alt'></i></a><button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class='bx bx-trash' ></i></button></td>
-        </tr>
+        </tr> -->
     </tbody>
 </table>

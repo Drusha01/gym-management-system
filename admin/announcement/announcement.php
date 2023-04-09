@@ -283,7 +283,7 @@ if(isset($_SESSION['admin_id'])){
                             })
                             new $.fn.dataTable.FixedHeader(dataTable);
                         },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            error: function(XMLHttpRequest, textStatus, errorThrown) { 
                             alert("Status: " + textStatus); alert("Error: " + errorThrown); 
                         } 
                     });
