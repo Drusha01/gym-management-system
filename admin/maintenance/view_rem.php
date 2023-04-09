@@ -58,7 +58,7 @@ if(isset($_SESSION['admin_id'])){
                 <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
             </div>
             <div class="col-12 col-sm-4 col-xs-12 form-group table-filter-option">
-                <label for="categoryFilter"l>Condition</label>
+                <label for="categoryFilter">Condition</label>
                 <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
                     <option value="">All</option>
                     <option value="Good">Good</option>
