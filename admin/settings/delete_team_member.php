@@ -16,10 +16,21 @@ if(isset($_SESSION['admin_id'])){
                 require_once('../../classes/teams.class.php');
                 $teamsObj= new teams();
                 if($team_data = $teamsObj->fetch_with_id($_POST['team_id'])){
-                    // delete here now
-                    if($teamsObj->delete($_POST['team_id'])){
-                        // delete the file here
-                        if(unlink(dirname(__DIR__,2) . '/img/team/original/'.$team_data['team_file']) && unlink(dirname(__DIR__,2) . '/img/team/team-resized/'.$team_data['team_file'])){
+                    // delete the file here
+                    $original_file_path = dirname(__DIR__,2) . '/img/team/original/'.$team_data['team_file'];
+                    $resize_file_path = dirname(__DIR__,2) . '/img/team/team-resized/'.$team_data['team_file'];
+
+                    $original_file = file_exists($original_file_path);
+                    $resize_file = file_exists($resize_file_path);
+                    if($original_file || $resize_file){
+                        if($original_file){
+                            unlink($original_file_path);
+                        }
+                        if($resize_file){
+                            unlink($resize_file_path);
+                        }
+                        if($teamsObj->delete($_POST['team_id'])){
+                            // delete here now
                             echo '1';
                         }else{
                             echo '0';

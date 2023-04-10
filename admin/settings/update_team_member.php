@@ -80,8 +80,18 @@ if(isset($_SESSION['admin_id'])){
                     
                     if($result){
                         // update db here
-                        
-                        if($team_data && unlink(dirname(__DIR__,2) . '/img/team/original/'.$team_data['team_file']) && unlink(dirname(__DIR__,2) . '/img/team/team-resized/'.$team_data['team_file'])){
+                        $original_file_path = dirname(__DIR__,2) . '/img/team/original/'.$team_data['team_file'];
+                        $resize_file_path = dirname(__DIR__,2) . '/img/team/team-resized/'.$team_data['team_file'];
+                        $original_file = file_exists($original_file_path);
+                        $resize_file = file_exists($resize_file_path);
+                        if($original_file || $resize_file){
+                            if($original_file){
+                                unlink($original_file_path);
+                            }
+                            if($resize_file){
+                                unlink($resize_file_path);
+                            }
+
                             $team_data['team_file'] = $filename;
                         }
                     }

@@ -20,24 +20,29 @@ if(isset($_SESSION['admin_id'])){
                     if($landing_pageObj->delete($_POST['landing_page_id'])){
                         // delete the file here
                         if($landing_page_data['landing_page_type_details']=='Carousel'){
-                            if(unlink(dirname(__DIR__,2) . '/img/carousel/original/'.$landing_page_data['landing_page_file']) && unlink(dirname(__DIR__,2) . '/img/carousel/carousel-resized/'.$landing_page_data['landing_page_file'])){
-                                echo '1';
-                            }else{
-                                echo '0';
-                            }
+                            $original_file_path = dirname(__DIR__,2) . '/img/carousel/original/'.$landing_page_data['landing_page_file'];
+                            $resize_file_path = dirname(__DIR__,2) . '/img/carousel/carousel-resized/'.$landing_page_data['landing_page_file'];
                         }else if($landing_page_data['landing_page_type_details']=='Weights Room'){
-                            if(unlink(dirname(__DIR__,2) . '/img/Weights/original/'.$landing_page_data['landing_page_file']) && unlink(dirname(__DIR__,2) . '/img/Weights/Weights-resized/'.$landing_page_data['landing_page_file'])){
-                                echo '1';
-                            }else{
-                                echo '0';
-                            }
+                            $original_file_path = dirname(__DIR__,2) . '/img/Weights/original/'.$landing_page_data['landing_page_file'];
+                            $resize_file_path = dirname(__DIR__,2) . '/img/Weights/Weights-resized/'.$landing_page_data['landing_page_file'];
                         }else if($landing_page_data['landing_page_type_details']=='Function Room'){
-                            if(unlink(dirname(__DIR__,2) . '/img/Function/original/'.$landing_page_data['landing_page_file']) && unlink(dirname(__DIR__,2) . '/img/Function/Function-resized/'.$landing_page_data['landing_page_file'])){
-                                echo '1';
-                            }else{
-                                echo '0';
-                            }
+                            $original_file_path = dirname(__DIR__,2) . '/img/Function/original/'.$landing_page_data['landing_page_file'];
+                            $resize_file_path = dirname(__DIR__,2) . '/img/Function/Function-resized/'.$landing_page_data['landing_page_file'];
                         }
+                        $original_file = file_exists($original_file_path);
+                        $resize_file = file_exists($resize_file_path);
+                        if($original_file || $resize_file){
+                            if($original_file){
+                                unlink($original_file_path);
+                            }
+                            if($resize_file){
+                                unlink($resize_file_path);
+                            }
+                            echo '1';
+                        }else{
+                            echo '0';
+                        }
+                        
                     }else{
                         echo '0';
                     }

@@ -91,13 +91,16 @@ if(isset($_SESSION['admin_id'])){
                                 // 
                                 $result = resizeImage_2($announcement_file_dir_original,$announcement_file_resized,$filename,$filename,80,1920,1080);
                                 if($result){
-                                    if(file_exists(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && file_exists(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
-                                        if(unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']) && unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image'])){
-                                            $announcement_file_image = $filename;
-                                        }
+                                    $original_file = file_exists(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']);
+                                    $resize_file = file_exists(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image']);
+                                    if($original_file){
+                                        unlink(dirname(__DIR__,2) . '/img/announcement/original/'.$annoucement_details['announcement_file_image']);
                                     }
+                                    if($resize_file){
+                                        unlink(dirname(__DIR__,2) . '/img/announcement/announcement-resized/'.$annoucement_details['announcement_file_image']);
+                                    }
+                                    $announcement_file_image = $filename;
                                     // unlink here / delete the old file
-                                    
                                 }else{
                                     echo '0';
                                     return;
@@ -105,7 +108,6 @@ if(isset($_SESSION['admin_id'])){
                             }
                         }
                         // insert db here
-                        print_r($_POST);
                         if($annoucementObj->update($announcement_id,$announcement_status_details,$announcement_type_details,$annoucement_title,$announcement_content,$announcement_file_image,$announcement_start_date,$announcement_end_date)){
                             header('location:announcement.php');
                         }
