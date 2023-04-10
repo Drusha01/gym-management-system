@@ -41,7 +41,7 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             <td class="text-center">
                 <button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#view" onclick="show_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-show-alt"></i></button>
                 <button class="btn btn-outline-primary btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#edit" onclick="edit_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-edit-alt"></i></button>
-                <button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="delete_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-trash" ></i></button></td>
+                <button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="add_delete_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-trash" ></i></button></td>
         </tr>';
                     $counter++;
                 }

@@ -85,39 +85,37 @@ if(isset($_SESSION['admin_id'])){
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+    <input type="number" name="equipment_id" value="" id="equipment_id" style="visibility:hidden;">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Remarks</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Remarks for: Equipment Name</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Max of 20 characters"></textarea>
+            <label for="exampleFormControlTextarea1" class="form-label" id="equipment_label">Remarks for: Equipment Name</label>
+            <textarea class="form-control" id="remark" name="remark"rows="3" placeholder="Enter remark"></textarea>
         </div>
         <div class="mb-3">
             <label for="formFileSm" class="form-label">Add photo (Not Required)</label>
-            <input class="form-control form-control-sm" id="formFileSm" type="file">
+            <input class="form-control form-control-sm" id="file" type="file">
         </div>
         Condition
         <br>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Good</label>
+            <input class="form-check-input" type="radio" name="remark_equipment_condition_details" id="remark_equipment_condition_detail_1" value="Good" >
+            <label class="form-check-label" for="remark_equipment_condition_detail_1">Good</label>
             </div>
             <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">In-Maintenance</label>
+            <input class="form-check-input" type="radio" name="remark_equipment_condition_details" id="remark_equipment_condition_detail_2" value="In-Maintenance">
+            <label class="form-check-label" for="remark_equipment_condition_detail_2">In-Maintenance</label>
             
         </div>
         <br>
-        <div class="py-1">
-          <label for="not_list" class="form-label">Not in the List?</label>
-          <input class="form-control" type="text" placeholder="Max 20 Characters" id="not_list">
-        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Submit</button>
+      <button type="button" class="btn btn-success" onclick="submit_remark()">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="remark_modal_close">Close</button>
+        
       </div>
     </div>
   </div>
@@ -179,14 +177,14 @@ if(isset($_SESSION['admin_id'])){
   }
 
   function confirm_delete_equipment(id){
-    console.log(id)
-    var announcement = new FormData();  
-    announcement.append( 'equipment_id', id);  
+    // console.log(id)
+    var equipment = new FormData();  
+    equipment.append( 'equipment_id', id);  
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
         url: "delete_maintenance.php",
-        data: announcement,
+        data: equipment,
         processData: false,
         contentType: false,
         cache: false,
@@ -226,6 +224,86 @@ if(isset($_SESSION['admin_id'])){
               });
             }else{
                 alert('deletion failed');
+            }
+        }
+    });
+  }
+
+  function add_remarks(index,id,equipment_name){
+    // change the id of modal
+    $('#equipment_id').val(id);
+    $('#equipment_label').html('Remarks for '+index+'. '+equipment_name);
+    // clear
+    $('#remark').val('');
+    $('#file').val('');
+    $('#remark_equipment_condition_detail_1').prop( "checked", true );
+    // console.log(id);
+  }
+
+  function submit_remark(){
+    var remarks = new FormData();  
+    // validation
+    if($('#remark').val().length<=0){
+      alert('Please add remark');
+      return;
+    }else{
+      remarks.append( 'equipment_id', $('#equipment_id').val());  
+      remarks.append( 'remarks', $('#remark').val());  
+    }
+    if($('#file').val().length>0){
+      remarks.append( 'file',$('#file')[0].files[0]);  
+    }
+    if($('[name="remark_equipment_condition_details"]').val().length<=0){
+      alert('Please select condition');
+    }else{
+      remarks.append( 'remark_equipment_condition_details', $('[name="remark_equipment_condition_details"]').val());  
+    }
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "add_remarks.php",
+        data: remarks,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+            // parse result
+            // close modal
+            $('#remark_modal_close').click();
+            if(result!= 0){
+              $.ajax({
+                type: "GET",
+                url: 'tbl/maintenance-tbl.php',
+                success: function(result)
+                {
+                    $('div.table-responsive').html(result);
+                    dataTable = $("#maintenance").DataTable({
+                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                        responsive: true,
+                    });
+                    $('input#keyword').on('input', function(e){
+                        var status = $(this).val();
+                        dataTable.columns([2]).search(status).draw();
+                    })
+                    $('select#categoryFilter_1').on('change', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([3]).search(status).draw();
+                    })
+                    $('select#categoryFilter_2').on('change', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([4]).search(status).draw();
+                    })
+                    new $.fn.dataTable.FixedHeader(dataTable);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+              });
+
+            }else{
+              alert('failed adding remark ')
             }
         }
     });

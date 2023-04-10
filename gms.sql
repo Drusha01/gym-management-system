@@ -1282,23 +1282,34 @@ CREATE table remarks(
 	FOREIGN KEY (remark_equipment_id) REFERENCES equipments(equipment_id),
 	FOREIGN KEY (remark_admin_id) REFERENCES admins(admin_id)
 );
-INSERT INTO remarks VALUES
+
+
+INSERT INTO remarks (remark_id, remark_equipment_id, remark_equipment_condition_id, remark_admin_id, remark_time, remark_remark, remark_file) VALUES
 (
 	null,
-    1,
-    1,
-    1,
+    :remark_equipment_id,
+	(SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = :equipment_condition_details),
+    :remark_admin_id,
     now(),
-    'asdfasdfas',
-    'asdfasd,'
+    :remark_remark,
+    :remark_file
 );
 
 
 use gms;
+
 SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
 LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
 LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
-LEFT OUTER JOIN users ON admins.admin_id=users.user_id
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE remark_id = 6
+
+;
+
+SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE remark_equipment_id = 1
 ORDER BY remark_time ASC
 ;

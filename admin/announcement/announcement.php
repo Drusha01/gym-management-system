@@ -181,9 +181,6 @@ if(isset($_SESSION['admin_id'])){
                 }else{
                     alert('deletion failed');
                 }
-                
-
-                
             }
         });
     }
