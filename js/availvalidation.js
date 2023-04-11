@@ -24,6 +24,8 @@ var program_multiplier=1;
 var program_quantity=1;
 var programs_default=null;
 
+var user_id;
+
 function updateGymUseModal(){
     console.log('update gym use modal');
     if($('#gym-use-'+$('#gym_use').val()).attr('name') != null){
@@ -628,9 +630,9 @@ function avail(){
     console.log('avail');
     $.ajax({
     method: "POST",
-    url: "user-avail-ajax.php",
+    url: "admin-avail.php",
     dataType: 'text',
-    data: { gym_use_id:gym_use_id, gym_use_multiplier:gym_use_multiplier,locker_use_id: locker_use_id,locker_quantity:locker_quantity, locker_multiplier:locker_multiplier,
+    data: { user_id:user_id, gym_use_id:gym_use_id, gym_use_multiplier:gym_use_multiplier,locker_use_id: locker_use_id,locker_quantity:locker_quantity, locker_multiplier:locker_multiplier,
     
         trainer_use_id:trainer_use_id,trainer_multiplier:trainer_multiplier,trainers_id:trainers_id,programs_use_id:programs_use_id,programs_multiplier:programs_multiplier
     },

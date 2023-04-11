@@ -1820,6 +1820,46 @@ LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_traine
 WHERE subscriber_trainers_subscriber_id = 3 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active');
 ;
 
+SELECT distinct user_name,subscription_status_details FROM subscriptions 
+LEFT OUTER JOIN users ON subscriptions.subscription_subscriber_user_id=users.user_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+;
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- attendance
+SELECT distinct user_name from users 
+LEFT OUTER JOIN subscriptions ON users.user_id=subscriptions.subscription_subscriber_user_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscription_status_details = 'Active' ;  
+
+-- selecting non subscribers
+SELECT distinct user_name,
+CASE WHEN subscription_status_details = 'Active' THEN '0'
+ WHEN subscription_status_details = 'Pending' THEN '0'
+ELSE '1'
+END AS sub
+ from users 
+LEFT OUTER JOIN subscriptions ON users.user_id=subscriptions.subscription_subscriber_user_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+
+;
+
+SELECT distinct user_name
+ from users 
+LEFT OUTER JOIN subscriptions ON users.user_id=subscriptions.subscription_subscriber_user_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+
+;
+
+
+SELECT distinct user_name from users 
+WHERE EXISTS
+(SELECT subscription_subscriber_user_id FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+ WHERE subscription_status_details ='Active' );
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
 -- activation / making it active
 UPDATE subscriptions 
 SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active')

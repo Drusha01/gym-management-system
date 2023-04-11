@@ -68,7 +68,7 @@ if(isset($_SESSION['admin_id'])){
                                     <div class="row py-2">
                                         <div class="col-12">
                                             <label for="users" class="pb-2">Search</label>
-                                            <select class="select2" name='users' id="users" style="width:100%;">
+                                            <select class="select2" name='users' id="customer" style="width:100%;">
                                                 <option value="None" selected>Select Customer Name</option> 
                                                 <?php 
                                                 require_once('../../classes/users.class.php');
@@ -78,7 +78,7 @@ if(isset($_SESSION['admin_id'])){
                                                 if($users_data = $userObj->fetch_all_users(0,100000)){
                                                     foreach ($users_data as $key => $value) {
                                                         # code...
-                                                        echo '<option value="'.$value['user_id'].'" >'.$value['user_fullname'].' </option>';
+                                                        echo '<option value="'.htmlentities($value['user_id']).'" >('.htmlentities($value['user_name']).') '.htmlentities($value['user_fullname']).' </option>';
                                                     }
 
                                                 }
@@ -421,7 +421,7 @@ if(isset($_SESSION['admin_id'])){
                             <h3 class="multisteps-form__title">Confirmation</h3>
                             <hr class="hr" />
                             <div class="multisteps-form__content pb-5">
-                                <div class="container fs-4">
+                                <div class="container fs-4" id="customer_content">
                                  Confirm Subscription for Customer, (Customer Name).
                                 </div>
                                 <div class="row pt-3">
@@ -453,7 +453,11 @@ if(isset($_SESSION['admin_id'])){
 <script src="../../js/availform.js"></script>
 <script src="../../js/availvalidation.js"></script>
 <script>
-    $('.select2').select2();
+    $('#customer').change(function(){
+        console.log($('#customer').val());
+        user_id = $('#customer').val();
+        $('#customer_content').html('Confirm Subscription for '+$('#customer').val()+'. '+$( "#customer option:selected" ).text())
+    })
 </script>
 </body>
 
