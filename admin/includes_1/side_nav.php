@@ -3,7 +3,7 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-3 col-xl-2 d-md-block background-color-green sidebar collapse">
             <div class="mh-100">
                 <ul class="nav flex-column">
-                    <li class="nav-item" id="../dashboard/dashboard.php" >
+                    <li class="nav-item" id="dashboard/dashboard.php" >
                         <div class="nav-link pt-3" title="Dashboard">
                             <i class='bx bx-grid-alt' ></i>
                             <span class="links-name">Dashboard</span>
@@ -12,7 +12,7 @@
                     <?php
                     if((isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify') || (isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only')){
                         echo'
-                    <li class="nav-item" id="../announcement/announcement.php">
+                    <li class="nav-item" id="announcement/announcement.php">
                         <div  class="nav-link "  title="Announcement">
                             <i class="bx bxs-megaphone"></i>
                             <span class="links-name ">Announcement</span>
@@ -21,7 +21,7 @@
                     }
                     if((isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_attendance_restriction_details'] == 'Modify') || (isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_attendance_restriction_details'] == 'Read-Only')){
                         echo'
-                    <li class="nav-item" id="../attendance/attendance.php">
+                    <li class="nav-item" id="attendance/attendance.php">
                         <div class="nav-link " title="Attendance">
                             <i class="bx bx-calendar-check"></i>
                             <span class="links-name">Attendance</span>
@@ -130,18 +130,27 @@
 $(".nav-item").on("click", function(){
     console.log($(this).attr("id"));
     const url = new URL(location);
-    url.searchParams.set("active", $(this).attr('id'));
-    const state = { active: $(this).attr('id')};
+    url.searchParams.set("nav", $(this).attr('id'));
     if(url != window.location.href){
-        history.pushState(state, "", url);
+        history.pushState({}, "", url);
     }
-    console.log(url);
+    $.ajax({
+        type: "GET",
+        url: $(this).attr('id'),
+        success: function(result)
+        {
+            $('#main-body-content').html(result);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        }
+    });
 });
 
 
 window.onload = (event) =>{
     const url = new URL(location);
-    $("#../dashboard/dashboard.php").click()
+    $("#dashboard/dashboard.php").click();
     // url.searchParams.set("nav", $(this).attr('id'));
     // history.pushState({}, "", url);
     

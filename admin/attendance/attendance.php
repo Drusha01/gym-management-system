@@ -30,12 +30,12 @@ if(isset($_SESSION['admin_id'])){
 
 
 
-<?php require_once '../includes/header.php'; ?>
+<?php //require_once '../includes/header.php'; ?>
 
-<body>
+<!-- <body> -->
    
-<?php require_once '../includes/top_nav_admin.php';?>
-<?php require_once '../includes/side_nav.php';?>
+<?php //require_once '../includes/top_nav_admin.php';?>
+<?php //require_once '../includes/side_nav.php';?>
 
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
@@ -47,7 +47,7 @@ if(isset($_SESSION['admin_id'])){
         </div>
         <div class="form-group col-12 col-sm-4 table-filter-option">
             <label for="datepicker" class="fw-bold">Date</label>
-            <input type="text" name="dates"" class="form-control ms-md-2">
+            <input type="text" name="dates" class="form-control ms-md-2">
         </div>
     </div>
         <div class="table-responsive table-container">
@@ -57,7 +57,7 @@ if(isset($_SESSION['admin_id'])){
 
 
   </div>
-</main>
+<!-- </main> -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -103,14 +103,14 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
-</body>
+<!-- </body> -->
 <script>
     $('input[name="dates"]').daterangepicker();
 </script>
 <script>
     $.ajax({
         type: "GET",
-        url: 'attend_tbl.php',
+        url: 'attendance/attend_tbl.php',
         success: function(result)
         {
             $('div.table-responsive').html(result);
@@ -135,4 +135,4 @@ if(isset($_SESSION['admin_id'])){
 });
 </script>
 
-</html>
+<!-- </html> -->
