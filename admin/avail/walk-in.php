@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
 
 
@@ -14,67 +14,66 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
 <?php  if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
  require_once 'walk-in-add.php';
 }?>
-<div class="tab-pane show fade active" id="tab-walk">
-    <div class="container-fluid">
-        <div class="row g-2 mb-2 mt-1">
-            <div class="col-12 col-lg-2 align-bottom ">
-                <p class="fw-bold fs-5">Recent Walk-In </p>
-            </div>
-            <div class="col-12 col-lg-10 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                <a href="walk-in_more.php" class="btn btn-success" role="button">More Details</a>
-            </div>
+
+<div class="container-fluid">
+    <div class="row g-2 mb-2 mt-1">
+        <div class="col-12 col-lg-2 align-bottom ">
+            <p class="fw-bold fs-5">Recent Walk-In </p>
         </div>
-        <div class="table-responsive">
-            <table class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
-            <?php 
-            require_once('../../classes/walk_ins.class.php');
+        <div class="col-12 col-lg-10 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
+            <a href="walk-in_more.php" class="btn btn-success" role="button">More Details</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless table-custom" style="width:100%;border: 3px solid black;">
+        <?php 
+        require_once('../../classes/walk_ins.class.php');
 
 
-            $walk_insObj = new walk_ins();
+        $walk_insObj = new walk_ins();
 
-            if($walk_ins_data = $walk_insObj->get_all_walkins_limit()){
-                echo '
-                <thead class="bg-dark text-light">
-                    <tr>
+        if($walk_ins_data = $walk_insObj->get_all_walkins_limit()){
+            echo '
+            <thead class="bg-dark text-light">
+                <tr>
+                <th class="d-lg-none"></th>
+                <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
+                <th>NAME</th>
+                <th class="">TRAINER NAME</th>
+                <th class="text-center ">AVAILED SERVICE</th>
+                <th scope="col" class="text-center">DATE AVAILED</th>
+                ';
+                if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
+                    echo '<th scope="col" class="text-center">ACTION</th>';
+                }
+                echo'
+                </tr>
+            </thead>
+            <tbody>';
+            $counter =1;
+            foreach ($walk_ins_data as $key => $value) {
+                echo ' 
+                <tr>
                     <th class="d-lg-none"></th>
-                    <th scope="col" class="text-center d-none d-sm-table-cell">#</th>
-                    <th>NAME</th>
-                    <th class="">TRAINER NAME</th>
-                    <th class="text-center ">AVAILED SERVICE</th>
-                    <th scope="col" class="text-center">DATE AVAILED</th>
-                    ';
+                    <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
+                    <td>'.htmlentities($value['user_fullname']).'</td>
+                    <td>'.htmlentities($value['trainer_fullname']).'</td>
+                    <td class="text-center ">'.htmlentities($value['walk_in_service_details']).'</td>
+                    <td class="text-center">'.htmlentities(date_format(date_create($value['walk_in_date']), "F d, Y")).'</td>';
                     if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
-                        echo '<th scope="col" class="text-center">ACTION</th>';
+                        echo '<td class="text-center"><button  onclick="delete_func('.$value['walk_in_id'].')"class="btn btn-danger btn-sm" role="button">Delete</button></td>';
                     }
                     echo'
-                    </tr>
-                </thead>
-                <tbody>';
-                $counter =1;
-                foreach ($walk_ins_data as $key => $value) {
-                    echo ' 
-                    <tr>
-                        <th class="d-lg-none"></th>
-                        <th scope="row" class="text-center d-none d-sm-table-cell">'.$counter.'</th>
-                        <td>'.htmlentities($value['user_fullname']).'</td>
-                        <td>'.htmlentities($value['trainer_fullname']).'</td>
-                        <td class="text-center ">'.htmlentities($value['walk_in_service_details']).'</td>
-                        <td class="text-center">'.htmlentities(date_format(date_create($value['walk_in_date']), "F d, Y")).'</td>';
-                        if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Modify'){
-                            echo '<td class="text-center"><button  onclick="delete_func('.$value['walk_in_id'].')"class="btn btn-danger btn-sm" role="button">Delete</button></td>';
-                        }
-                        echo'
-                    </tr>';
-                    $counter++;
-                }
-                echo '
-                    </tbody>';
-            }else{
-                echo 'No Data';
+                </tr>';
+                $counter++;
             }
-        ?>
-            </table>
-        </div>
+            echo '
+                </tbody>';
+        }else{
+            echo 'No Data';
+        }
+    ?>
+        </table>
     </div>
 </div>
 
