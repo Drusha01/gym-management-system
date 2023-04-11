@@ -20,33 +20,25 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
         <div class="w-100">
             <h5 class="col-12 fw-bold mb-3">Avail</h5>
             <ul class="nav nav-tabs application">
-                <li class="nav-item active " id="subs">
+                <li class="nav-item-avail" id="subs">
                     <a class="nav-link" href="#tab-subs" id="a-subs" data-bs-toggle="tab" >Subscription </a>
                 </li>
-                <li class="nav-item" id="exp">
+                <li class="nav-item-avail" id="exp">
                     <a class="nav-link" href="#tab-exp" id="a-exp"data-bs-toggle="tab" >Expiration</a>
                 </li>
-                <li class="nav-item" id="walk">
+                <li class="nav-item-avail" id="walk">
                     <a class="nav-link" href="#tab-walk" id="a-walk" data-bs-toggle="tab" >Walk-In</a>
                 </li>
             </ul>
             <div class="tab-content" >
-                <div class="tab-pane show fade active" id="tab-subs">
-                    <?php require_once 'subscription.php';?>
-                </div>
-                <div class="tab-pane show fade" id="tab-exp">
-                    <?php require_once 'expiration.php';?>
-                </div>
-                <div class="tab-pane show fade" id="tab-walk">
-                    <?php require_once 'walk-in.php';?>
-                </div>
+                
             </div>
         </div>
 
     </main>
 <script>
-$(".nav-item").on("click", function(){
-    $(".nav-item").removeClass("active");
+$(".nav-item-avail").on("click", function(){
+    $(".nav-item-avail").removeClass("active");
     $(this).addClass("active");
 
 });
@@ -69,42 +61,17 @@ $(document).ready(function () {
 </script> -->
 <script>
 // setting the default into subscription
-$.ajax({
-    type: "GET",
-    url: 'subscription.php',
-    success: function(result)
-    {
 
-        $('div#tab').html(result);
-        $.ajax({
-            type: "GET",
-            url: 'availtable.php',
-            success: function(result)
-            {
-                $('div.table-1').html(result);
-                dataTable = $("#table-1").DataTable({
-                    "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                    responsive: true
-                });
-                $('input#keyword').on('input', function(e){
-                    var status = $(this).val();
-                    dataTable.columns([3]).search(status).draw();
-                })
-                new $.fn.dataTable.FixedHeader(dataTable);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-            }
-        });
 
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+$(".nav-item-avail").on("click", function(){
+    const url = new URL(location);
+    url.searchParams.set("active", $(this).attr('id'));
+    const state = { active: $(this).attr('id')};
+    if(url != window.location.href){
+        history.pushState(state, "", url);
     }
-});
+    
 
-$(".nav-item").on("click", function(){
-            
     if($(this).attr('id') =='subs'){
         $.ajax({
             type: "GET",
@@ -112,7 +79,7 @@ $(".nav-item").on("click", function(){
             success: function(result)
             {
 
-                $('div#tab').html(result);
+                $('div.tab-content').html(result);
                 $.ajax({
                     type: "GET",
                     url: 'availtable.php',
@@ -146,7 +113,7 @@ $(".nav-item").on("click", function(){
             url: 'expiration.php',
             success: function(result)
             {
-                $('div#tab').html(result);
+                $('div.tab-content').html(result);
                 $.ajax({
                     type: "GET",
                     url: 'exptable.php',
@@ -173,7 +140,18 @@ $(".nav-item").on("click", function(){
             }
         });
     }else if($(this).attr('id') =='walk'){
-
+        $.ajax({
+            type: "GET",
+            url: 'walk-in.php',
+            success: function(result)
+            {
+                $('div.tab-content').html(result);
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
     }
 
 
@@ -186,15 +164,69 @@ window.onload = (event) =>{
   const active = urlParams.get('active')
   console.log(active);
   if(active != null){
-    $('#'+active).trigger('click');
+
+    $('#a-'+active).click();
     $('#a-'+active).attr('class','nav-link active');
-    $('#tab-walk').attr('class','tab-pane show fade')
-    $('#tab-exp').attr('class','tab-pane show fade')
-    $('#tab-subs').attr('class','tab-pane show fade')
     $('#tab-'+active).attr('class','tab-pane active show fade')
   }
+  
 
 };
+
+window.onpopstate = (event) => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const active = urlParams.get('active')
+    console.log(active);
+    
+    if(active != null){
+        $('#a-subs').attr('class','nav-link');
+        $('#a-exp').attr('class','nav-link');
+        $('#a-walk').attr('class','nav-link');
+
+        $('#a-'+active).click();
+        $('#a-'+active).attr('class','nav-link active');
+        $('#tab-'+active).attr('class','tab-pane active show fade')
+    }
+    console.log(
+        `location: ${document.location}, state: ${JSON.stringify(event.state)}`
+    );
+};
+
+// $(window).on('hashchange', function(e){
+//     const queryString = window.location.search;
+//     const urlParams = new URLSearchParams(queryString);
+//     const active = urlParams.get('active')
+//     console.log(active);
+    
+//     if(active != null){
+
+//         $('#a-'+active).click();
+//         $('#a-'+active).attr('class','nav-link active');
+//         $('#tab-'+active).attr('class','tab-pane active show fade')
+//     }
+// });
+
+// jQuery(window).on('hashchange', function(){
+//     var hash = window.location.hash;
+//     console.log(hash);
+// });
+
+// window.onpopstate = function(event) {
+//     const queryString = window.location.search;
+//     const urlParams = new URLSearchParams(queryString);
+//     const active = urlParams.get('active')
+//     console.log(active);
+    
+//     if(active != null){
+
+//         $('#a-'+active).click();
+//         $('#a-'+active).attr('class','nav-link active');
+//         $('#tab-'+active).attr('class','tab-pane active show fade')
+//     }
+
+
+// };
 </script>
 <!-- Modal -->
 <div class="modal fade" id="ModalTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">

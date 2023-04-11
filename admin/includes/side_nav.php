@@ -3,29 +3,29 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-3 col-xl-2 d-md-block background-color-green sidebar collapse">
             <div class="mh-100">
                 <ul class="nav flex-column">
-                    <li class="nav-item" id="../dashboard/dashboard.php" >
-                        <div class="nav-link pt-3" title="Dashboard">
+                    <li class="nav-item"  >
+                        <a href="../dashboard/dashboard.php" class="nav-link pt-3" title="Dashboard">
                             <i class='bx bx-grid-alt' ></i>
                             <span class="links-name">Dashboard</span>
-                        </div>
+                        </a>
                     </li>
                     <?php
                     if((isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify') || (isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only')){
                         echo'
-                    <li class="nav-item" id="../announcement/announcement.php">
-                        <div  class="nav-link "  title="Announcement">
+                    <li class="nav-item" >
+                        <a  href="../announcement/announcement.php" class="nav-link"  title="Announcement">
                             <i class="bx bxs-megaphone"></i>
                             <span class="links-name ">Announcement</span>
-                        </div>
+                        </a>
                     </li>';
                     }
                     if((isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_attendance_restriction_details'] == 'Modify') || (isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_attendance_restriction_details'] == 'Read-Only')){
                         echo'
-                    <li class="nav-item" id="../attendance/attendance.php">
-                        <div class="nav-link " title="Attendance">
+                    <li class="nav-item" ">
+                        <a href="../attendance/attendance.php" class="nav-link " title="Attendance">
                             <i class="bx bx-calendar-check"></i>
                             <span class="links-name">Attendance</span>
-                        </div>
+                        </a>
                     </li>';
                     }
                     if((isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Modify') || (isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Read-Only')){
@@ -127,24 +127,5 @@
     </div>
 </div>
 <script>
-$(".nav-item").on("click", function(){
-    console.log($(this).attr("id"));
-    const url = new URL(location);
-    url.searchParams.set("active", $(this).attr('id'));
-    const state = { active: $(this).attr('id')};
-    if(url != window.location.href){
-        history.pushState(state, "", url);
-    }
-    console.log(url);
-});
 
-
-window.onload = (event) =>{
-    const url = new URL(location);
-    $("#../dashboard/dashboard.php").click()
-    // url.searchParams.set("nav", $(this).attr('id'));
-    // history.pushState({}, "", url);
-    
-
-};
 </script>

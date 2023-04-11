@@ -38,11 +38,11 @@ if(isset($_SESSION['admin_id'])){
 
 
 
-<?php //require_once '../includes/header.php'; ?>
+<?php require_once '../includes/header.php'; ?>
 
-<!-- <body> -->
-<?php //require_once '../includes/top_nav_admin.php';?>
-<?php //require_once '../includes/side_nav.php';?>
+<body>
+<?php require_once '../includes/top_nav_admin.php';?>
+<?php require_once '../includes/side_nav.php';?>
 
 <main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
@@ -77,7 +77,7 @@ if(isset($_SESSION['admin_id'])){
     </div>
 
   </div>
-
+</main>
 <!-- Modal del -->
 <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -96,13 +96,11 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
-<!-- </main>
 </body>
-</html> -->
 <script>
     $.ajax({
         type: "GET",
-        url: 'announcement/announce_tbl.php',
+        url: 'announce_tbl.php',
         success: function(result)
         {
             $('div.table-responsive').html(result);
@@ -293,3 +291,5 @@ if(isset($_SESSION['admin_id'])){
         });
     }
 </script>
+
+</html>
