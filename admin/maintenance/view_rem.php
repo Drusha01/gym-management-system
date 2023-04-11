@@ -80,32 +80,30 @@ if(isset($_SESSION['admin_id'])){
         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Remarks</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="edit_modal_body">
         <div class="mb-3">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Max of 20 characters"></textarea>
+            <textarea class="form-control"  rows="3" id="remark_remark" placeholder="Enter remarks"></textarea>
         </div>
         <div class="mb-3">
             <label for="formFileSm" class="form-label">Add photo (Not Required)</label>
-            <input class="form-control form-control-sm" id="formFileSm" type="file">
+            <input class="form-control form-control-sm" name ="file" id="file" type="file">
         </div>
         Condition
         <br>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">Good</label>
+            <input class="form-check-input" type="radio" name="remark_equipment_condition_details" id="remark_equipment_condition_detail_1" value="Good" >
+            <label class="form-check-label" for="remark_equipment_condition_detail_1">Good</label>
             </div>
             <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">In-Maintenance</label>
-        </div>
-        <div class="py-1">
-          <label for="not_list" class="form-label">Not in the List?</label>
-          <input class="form-control" type="text" placeholder="Max 20 Characters" id="not_list">
+            <input class="form-check-input" type="radio" name="remark_equipment_condition_details" id="remark_equipment_condition_detail_2" value="In-Maintenance">
+            <label class="form-check-label" for="remark_equipment_condition_detail_2">In-Maintenance</label>
+            
         </div>
       </div>
+      <input type="number" id="remark_id" style="visibility:hidden;">
       <div class="modal-footer">
-        <button type="button" class="btn btn-success">Submit</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="submit_edit_remark">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="submit_edit_remark_close">Close</button>
       </div>
     </div>
   </div>
@@ -185,13 +183,13 @@ if(isset($_SESSION['admin_id'])){
   function delete_remark(id){
     
     console.log(id);
-    var remark = new FormData();  
-    remark.append('remark_id',id);
+    var remarks = new FormData();  
+    remarks.append('remark_id',id);
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
         url: "delete_remark.php",
-        data: remark,
+        data: remarks,
         processData: false,
         contentType: false,
         cache: false,
@@ -235,13 +233,13 @@ if(isset($_SESSION['admin_id'])){
 
   function show_remark(id){
     // console.log(id);
-    var remark = new FormData();  
-    remark.append('remark_id',id);
+    var remarks = new FormData();  
+    remarks.append('remark_id',id);
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
         url: "view_remark.php",
-        data: remark,
+        data: remarks,
         processData: false,
         contentType: false,
         cache: false,
@@ -265,8 +263,102 @@ if(isset($_SESSION['admin_id'])){
     });
   }
   function edit_remark(id){
-    console.log(id);
+    var remarks = new FormData();  
+    remarks.append('remark_id',id);
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "view_remark.php",
+        data: remarks,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+            // parse result
+            var obj =JSON.parse(result);
+            $('#remark_id').val(obj.remark_id);
+            $('#remark_remark').html(obj.remark_remark);
+            $('#file').val('');
+            $('#remark_remark').attr('placeholder',obj.remark_remark);
+            if(obj.equipment_condition_details =='Good'){
+              $('#remark_equipment_condition_detail_1').prop( "checked", true );
+            }else{
+              $('#remark_equipment_condition_detail_2').prop( "checked", true );
+            }
+            $('#edit_img_content_div').remove();
+            if(obj.remark_file.length>0){
+              $('#edit_modal_body').append('<div class="mb-3" id="edit_img_content_div"><br><img src="../../img/remarks/remarks-resized/'+obj.remark_file+'" id="img_content" class="img-fluid"></div>');
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+      } 
+    });
+
   }
+
+  $('#submit_edit_remark').click(function (){
+      var remarks = new FormData();  
+      remarks.append('remark_id',$('#remark_id').val());
+      remarks.append('remarks',$('#remark_remark').val());
+      if($('#remark_equipment_condition_detail_1').is(':checked')){
+        remarks.append( 'remark_equipment_condition_details', $('#remark_equipment_condition_detail_1').val());  
+      }else if($('#remark_equipment_condition_detail_2').is(':checked')){
+        remarks.append( 'remark_equipment_condition_details', $('#remark_equipment_condition_detail_2').val());  
+      }else{
+        alert('please select remark condition');
+      }
+      if($('#file').val().length>0){
+        remarks.append( 'file',$('#file')[0].files[0]);  
+      }
+      $.ajax({
+          type: "POST",
+          enctype: 'multipart/form-data',
+          url: "edit_remark.php",
+          data: remarks,
+          processData: false,
+          contentType: false,
+          cache: false,
+          timeout: 600000,
+          success: function ( result ) {
+              // parse result
+              console.log(result);
+              if(result ==1 ){
+                $('#submit_edit_remark_close').click();
+                $.ajax({
+                    type: "GET",
+                    url: 'tbl/view-rem-tbl.php?equipment_id='+$('#equipment_id').val(),
+                    success: function(result)
+                    {
+                        $('div.table-responsive').html(result);
+                        dataTable = $("#view-rem").DataTable({
+                            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                            responsive: true,
+                        });
+                        $('input#keyword').on('input', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([2]).search(status).draw();
+                        })
+                        $('select#categoryFilter').on('change', function(e){
+                        var status = $(this).val();
+                        dataTable.columns([3]).search(status).draw();
+                        })
+                        new $.fn.dataTable.FixedHeader(dataTable);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                    } 
+                });
+              }else{
+                alert('editing remark failed');
+              }
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) { 
+          alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+      });
+  });
 </script>
 
 

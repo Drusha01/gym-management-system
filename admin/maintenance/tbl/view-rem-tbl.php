@@ -34,7 +34,7 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
         <tr>
             <th class="d-lg-none"></th>
             <td class="text-center d-none d-sm-table-cell">'.$counter.'</td>
-            <td class="text-center">'.htmlentities($value['remark_remark']).'</td>
+            <td class="">'.htmlentities($value['remark_remark']).'</td>
             <td class="text-center">'.htmlentities($value['equipment_condition_details']).'</td>
             <td class="text-center">'.htmlentities($value['remark_time']).'</td>
             <td class="text-center">'.htmlentities($value['user_fullname']).'</td>

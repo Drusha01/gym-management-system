@@ -107,6 +107,27 @@ class remarks
             return false;
         }
     }
+
+    function update($remark_id, $equipment_condition_details, $remark_admin_id, $remark_remark, $remark_file){
+        try{
+            $sql = 'UPDATE remarks
+            SET remark_remark =:remark_remark,
+            remark_equipment_condition_id = (SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = :equipment_condition_details),
+            remark_admin_id =:remark_admin_id,
+            remark_remark =:remark_remark,
+            remark_file =:remark_file
+            WHERE remark_id =:remark_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':remark_id', $remark_id);
+            $query->bindParam(':equipment_condition_details', $equipment_condition_details);
+            $query->bindParam(':remark_admin_id', $remark_admin_id);
+            $query->bindParam(':remark_remark', $remark_remark);
+            $query->bindParam(':remark_file', $remark_file);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 }
 
 

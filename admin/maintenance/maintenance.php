@@ -253,10 +253,12 @@ if(isset($_SESSION['admin_id'])){
     if($('#file').val().length>0){
       remarks.append( 'file',$('#file')[0].files[0]);  
     }
-    if($('[name="remark_equipment_condition_details"]').val().length<=0){
-      alert('Please select condition');
+    if($('#remark_equipment_condition_detail_1').is(':checked')){
+      remarks.append( 'remark_equipment_condition_details', $('#remark_equipment_condition_detail_1').val());  
+    }else if($('#remark_equipment_condition_detail_2').is(':checked')){
+      remarks.append( 'remark_equipment_condition_details', $('#remark_equipment_condition_detail_2').val());  
     }else{
-      remarks.append( 'remark_equipment_condition_details', $('[name="remark_equipment_condition_details"]').val());  
+      alert('please select remark condition');
     }
 
     $.ajax({
