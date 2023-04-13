@@ -1178,6 +1178,14 @@ WHERE trainer_id = 1;
 
 SELECT * FROM trainers;
 
+-- table for forgot paass word
+CREATE TABLE forgot_password(
+	forgot_password_id int primary key	auto_increment,
+    forgot_password_email varchar(100) not null,
+    forgot_password_hashed varchar(250) not null,
+    forgot_password_tried int not null default 0
+);
+
 -- table for email verification
 CREATE TABLE email_verify(
 	email_verify_id int primary key	auto_increment,
@@ -1199,7 +1207,7 @@ INSERT INTO email_verify (email_verify_user_id,email_verify_email,email_verify_c
 SELECT * FROM email_verify;
 
 SELECT  email_verify_user_id,email_verify_email,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) as seconds,email_verify_code FROM email_verify
-WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id = '7';
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id = '9';
 
 UPDATE users
 SET user_email ='hanz.dumapit55@gmail.com',
@@ -1509,7 +1517,7 @@ INSERT INTO announcement_types (announcement_type_id, announcement_type_details 
 -- announcement
 CREATE TABLE announcements(
 	announcement_id int primary key auto_increment,
-    announcement_status_id INT NOT NULL,
+    announcement_status_idannouncement_status_id INT NOT NULL,
     announcement_type_id INT NOT NULL,
     announcement_title VARCHAR(50) NOT NULL,
     announcement_content VARCHAR(1024) NOT NULL,
