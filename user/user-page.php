@@ -36,12 +36,7 @@ if(isset($_SESSION['user_id'])){
 
   <?php require_once '../includes/header.php';?>
   <!-- Modal -->
-  <div class="modal fade" id="popAnnounce" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="position-absolute top-0 start-100 translate-middle">
-          <button type="button" class="btn btn-dark btn-circle btn-sm fw-bolder" data-bs-dismiss="modal" aria-label="Close">X</button>
-        </div>
+
         <?php   
             require_once('../classes/annoucements.class.php');
             $annoucementObj = new annoucements();
@@ -52,6 +47,12 @@ if(isset($_SESSION['user_id'])){
                 $counter=1;
                 $index =0;
           echo '
+<div class="modal fade" id="popAnnounce" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="position-absolute top-0 start-100 translate-middle">
+        <button type="button" class="btn btn-dark btn-circle btn-sm fw-bolder" data-bs-dismiss="modal" aria-label="Close">X</button>
+      </div>
         <div class="modal-body">
           <div class=" w-100">
               <div class="row">
@@ -77,18 +78,19 @@ if(isset($_SESSION['user_id'])){
         $counter++;
                 }
               echo' </div>
-              </div>
-          </div>
-      </div>';
+                 </div>
+             </div>
+         </div>     
+     </div>
+   </div>
+  </div>
+</div>
+ ';
             }
             
             ?>
                         
-        </div>
-      </div>
-    </div>
-  </div>
- 
+  
 
   <section id="home">
   <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleIndicators">
