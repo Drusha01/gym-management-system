@@ -25,7 +25,7 @@ if(isset($_SESSION['user_id'])){
       $error = false;
       $userObj = new users();
       $user_email = $userObj->user_duplicateEmail();
-      if(isset($_POST['email']) && validate_email($_POST) && $_POST['email'] != $_SESSION['user_email'] ){
+      if(isset($_POST['email']) && validate_email($_POST)){
         $userObj = new users();
         $userObj->setuser_email($_POST['email']);
         $user_email = $userObj->user_duplicateEmail();
