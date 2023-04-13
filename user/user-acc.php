@@ -155,7 +155,7 @@
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-9 text-secondary">
-                                <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right ms-2" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="user-change-email-address.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} ?>
+                                <?php echo_safe($_SESSION['user_email']); if(isset($_SESSION['user_email_verified'])){echo '<a class="btn btn-success float-right ms-2" id="view-valid-id">Verified ✓</a>';}else{echo('<a href="email/email-ver-form.php" class="btn btn-success float-right" id="view-valid-id">Verify your email </a>');} ?>
                             </div>
                         </div>
                     </div>

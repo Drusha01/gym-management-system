@@ -206,7 +206,7 @@ if(isset($_SESSION['admin_id'])){
                 </div>
                 <div class="row d-flex flex-row-reverse">
                     <div class="col-12 col-lg-8 d-grid d-lg-flex pt-3 pt-lg-1">
-                        <input type="submit" class="btn btn-success  border-0 rounded" name="edit_announcement" value="Edit Announcement" id="edit_announcement" >
+                        <input type="submit" class="btn btn-success  border-0 rounded" name="edit_announcement" value="Save Announcement" id="edit_announcement" >
                     </div>
                 </div>
             </div>

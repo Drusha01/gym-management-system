@@ -28,41 +28,43 @@ if(isset($_SESSION['user_id'])){
         $userObj->setuser_email($_POST['email']);
 
         // verify if email is taken
-        $user_email = $userObj->user_duplicateEmail();
-        // check first if we already sent and email in last 60 seconds
-        // if so dont sent another one.
-        $emailObj = new email();
-        $email_data =$emailObj->get_last_sent_email($_SESSION['user_id']);
+        if($user_email = $userObj->user_duplicateEmail()){
+          print_r($user_email);
+          // check first if we already sent and email in last 60 seconds
+          // if so dont sent another one.
+          $emailObj = new email();
+          $email_data =$emailObj->get_last_sent_email($_SESSION['user_id']);
 
-        if(!isset($user_email['user_id']) && !isset($email_data['seconds'])){
-          $code = rand(1000000,10000000);
-          $mail = new PHPMailer;
-          $mail->isSMTP();
-          $mail->SMTPDebug = 0;
-          $mail->Host = 'smtp.hostinger.com';
-          $mail->Port = 587;
-          $mail->SMTPAuth = true;
-          $mail->Username = 'kenogymofficial@kenogym.online';
-          $mail->Password = 'Uwat09hanz@2keno';
-          $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
-          $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
-          $mail->addAddress($_POST['email'], $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
-          $mail->Subject = 'Email Verification';
-          $mail->msgHTML('none');
-          $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
-          //$mail->addAttachment('attachment.txt');
-          if (!$mail->send()) {
-              echo 'Mailer Error: ' . $mail->ErrorInfo;
-          } else {
-              // insert to db here
-              
-            if($emailObj->insert($_SESSION['user_id'],$_POST['email'],$code)){
-                echo 'insert successfully';
+          if(!isset($user_email['user_id']) && !isset($email_data['seconds'])){
+            $code = rand(100000,1000000);
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->SMTPDebug = 0;
+            $mail->Host = 'smtp.hostinger.com';
+            $mail->Port = 587;
+            $mail->SMTPAuth = true;
+            $mail->Username = 'kenogymofficial@kenogym.online';
+            $mail->Password = 'Uwat09hanz@2keno';
+            $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+            $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
+            $mail->addAddress($_POST['email'], $_SESSION['user_firstname'].' '.$_SESSION['user_lastname']);
+            $mail->Subject = 'Email Verification';
+            $mail->msgHTML('none');
+            $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
+            //$mail->addAttachment('attachment.txt');
+            if (!$mail->send()) {
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                // insert to db here
+                
+              if($emailObj->insert($_SESSION['user_id'],$_POST['email'],$code)){
+                  echo 'insert successfully';
+              }
+              echo 'code';
             }
-            echo 'code';
+          }else{
+            //header('location:user-change-email-address.php');
           }
-        }else{
-          header('location:user-change-email-address.php');
         }
         // must be code
       }else if(isset($_POST['code'])  ){
@@ -82,7 +84,7 @@ if(isset($_SESSION['user_id'])){
         }
       }
       else{
-        header('location:user-change-email-address.php');
+        //header('location:user-change-email-address.php');
       }
     } 
   }else if($_SESSION['user_status_details'] =='inactive'){
@@ -107,7 +109,7 @@ if(isset($_SESSION['user_id'])){
 <body>
     <h3>EMAIL VERIFICATION</h3>
     <form action="" method="POST">
-        <label for="">EMAIL SENT TO <?php echo  $_POST['email']?></label><br>
+        <label for="">EMAIL SENT TO <?php echo  $_GET['email']?></label><br>
         
         <label for="">code</label>
         <input type="number" name="code" id="" value="">

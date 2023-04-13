@@ -166,7 +166,7 @@ if(isset($_SESSION['user_id'])){
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-4 text-secondary pb-1">
-                                            <h6 class="mb-0"><?php echo_safe($_SESSION['user_email'])?></h6><a href="user-change-email-address.php">change</a>
+                                            <h6 class="mb-0"><?php echo_safe($_SESSION['user_email'])?></h6><a href="email/email-ver-form.php">change</a>
                                             
                                         </div>
                                         <div class="col-sm-2 align-self-center pb-1"> 
