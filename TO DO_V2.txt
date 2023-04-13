@@ -1,13 +1,4 @@
-Announcement
-	announcement_id
-	announcement_name
-	announcement_type	
-	announcement_start_date
-	announcement_end_date
-	announcement_date_created
-	announcement_date_modified
-	announcement_status
-	announcement_order
+
 
 Attendance
 	attendance_id
@@ -34,39 +25,28 @@ Notifications
 	notification_date_created
 	notification_date_modified
 
-Maintenance 
-	
-	equipments
-		equipment_id
-		equipment_name
-		equipment_type_id
-		equipment_status_id
-
-	
-
-	remarks
-		remark_id
-		remark_remarks
-		remark_condition_id
-		remark_check_date
-		remark_checked_by
-			
-
-Settings
-	Attendance force timeout
-	number_of_dates_to_notify_expiration
-	number_of_lockers
-	walk_in_gym_use_price
-	walk_in_trainer_price
-	overdue_percentage_of_payment_per_day
-	gym_address
-	gym_contact_number
-	gym_email_address
-	
-
-EMAIL VERIFICATION
 
 FORGOT PASSWORD
+
+
+
+avail add when user is subscribed to a gym use
+http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/avail/activate.php?user_id=10
+
+
+payment table
+
+payment void
+http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/viewpayment.php?user_id=10&name=Dumapit,%20Hanrickson%20Etrone
+
+
+payment history
+http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/payment_hist.php
+
+
+dashboard
+
+reports
 		
 	
 	
