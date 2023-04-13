@@ -140,11 +140,7 @@ if(isset($_SESSION['admin_id'])){
             <hr>
             <a href="manage-website.php" class="btn btn-outline-dark" role="button">Manage Website</a>
         </div>
-        <div class="pb-3">
-            <h5 class="col-12 fw-regular ">Maintenance </h5>
-            <hr>
-            <a href="mng_maintenance.php" class="btn btn-outline-dark" role="button">Manage Maintenance</a>
-        </div>
+       
 
         <!-- end of first part -->
         <?php 
