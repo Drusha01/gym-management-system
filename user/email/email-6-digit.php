@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Keno Gym | Log-In</title>
-  <link rel="icon" type="images/x-icon" href="../images/favicon.png">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/log-in.css">
-  <link rel="stylesheet" href="../css/boxicons.min.css">
+  <link rel="icon" type="images/x-icon" href="../../images/favicon.png">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/log-in.css">
+  <link rel="stylesheet" href="../../css/boxicons.min.css">
   <script defer src="../js/bootstrap.bundle.min.js"></script>
   <html itemscope itemtype="http://schema.org/Article">
 
@@ -21,7 +21,7 @@
     <div class="toast-container position-fixed top-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-            <img src="../images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
+            <img src="../../images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
             <strong class="me-auto">KE-NO Fitness Center</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
@@ -60,7 +60,6 @@
                     </div>
                 </div>
             </section>
-            
             <div class="row mt-4">
                 <div class="col-lg-6 text-center text-lg-start">
                     Didn't Get the Code?<a href="#" class="ms-2">Resend?</a>
@@ -75,6 +74,22 @@
       </div>
     </div>
   </section>
+  <script>
+    // Listen to paste on the document
+document.addEventListener("paste", function(e) {
+  // if the target is a text input
+  if (e.target.type === "text") {
+   var data = e.clipboardData.getData('Text');
+   // split clipboard text into single characters
+   data = data.split('');
+   // find all other text inputs
+   [].forEach.call(document.querySelectorAll("input[type=text]"), (node, index) => {
+      // And set input value to the relative character
+      node.value = data[index];
+    });
+  }
+});
+  </script>
 </body>
 
 </html>
