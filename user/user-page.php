@@ -200,7 +200,7 @@ if(isset($_SESSION['user_id'])){
                       if($counter ==1){
                         echo '
                         <div class="item">
-                      <a class="media-thumb" href="img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                      <a class="media-thumb" href="../img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
                           <div class="media-text">
                               <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
                           </div>
@@ -210,7 +210,7 @@ if(isset($_SESSION['user_id'])){
                       }else{
                         echo '
                         <div class="item">
-                            <a class="media-thumb" href="img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                            <a class="media-thumb" href="../img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
                                 <div class="media-text">
                                     <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
                                 </div>
@@ -279,7 +279,7 @@ if(isset($_SESSION['user_id'])){
                     if($counter ==1){
                       echo '
                       <div class="item">
-                          <a class="media-thumb" href="img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                          <a class="media-thumb" href="../img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
                               <div class="media-text">
                                   <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
                               </div>
@@ -289,7 +289,7 @@ if(isset($_SESSION['user_id'])){
                     }else{
                       echo '
                       <div class="item">
-                          <a class="media-thumb" href="img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
+                          <a class="media-thumb" href="../img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
                               <div class="media-text">
                                   <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
                               </div>
