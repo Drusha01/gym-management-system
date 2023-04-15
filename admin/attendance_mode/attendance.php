@@ -42,7 +42,7 @@
              <!-- Actual search box -->
              <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input type="search" id="keyword" class="form-control" placeholder="Search" data-lpignore="true">
+                <input type="search" id="keyword" class="form-control" placeholder="Search"   data-lpignore="false" autocomplete="false">
             </div>
 
             <div class="table-responsive table-container px-2 mt-2 ">
@@ -86,15 +86,15 @@
       </div>
       <div class="modal-body">
       <div class="form-floating mb-3">
-        <div><h5 class="fw-bolder fs-5">Customer Name: <span class="fw-light fs-4">Dela, Juan Cruz</span></h5></div>
+        <div><h5 class="fw-bolder fs-5">Customer Name: <span class="fw-light fs-4" id="time_in_name">Dela, Juan Cruz</span></h5></div>
         <div class="form-floating">
-        <input type="password" class="form-control" id="pass" placeholder="Enter Password" data-lpignore="true">
+        <input type="password" class="form-control" id="time_in_pass" placeholder="Enter Password" data-lpignore="true">
         <label for="pass">Password</label>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="toastbtn">Confirm Time In</button>
+        <button type="button" class="btn btn-success"  id="confirm_time_in">Confirm Time In</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirm_time_in_close">Close</button>
       </div>
     </div>
   </div>
@@ -110,15 +110,15 @@
       </div>
       <div class="modal-body">
       <div class="form-floating mb-3">
-        <div><h5 class="fw-bolder fs-5">Customer Name: <span class="fw-light fs-4">Dela, Juan Cruz</span></h5></div>
+        <div><h5 class="fw-bolder fs-5">Customer Name: <span class="fw-light fs-4" id="time_out_name">Dela, Juan Cruz</span></h5></div>
         <div class="form-floating">
-        <input type="password" class="form-control" id="pass" placeholder="Enter Password" data-lpignore="true">
+        <input type="password" class="form-control" id="time_out_pass" placeholder="Enter Password" data-lpignore="true">
         <label for="pass">Password</label>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="toastbtn_2">Confirm Time Out</button>
+        <button type="button" class="btn btn-success"  id="confirm_time_out">Confirm Time Out</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirm_time_out_close">Close</button>
       </div>
     </div>
   </div>
@@ -131,13 +131,7 @@
 
 <!-- toast script -->
 <script>
-document.getElementById("toastbtn").onclick = function() {
-  var toastElList = [].slice.call(document.querySelectorAll('.toast_1'))
-  var toastList = toastElList.map(function(toastEl) {
-    return new bootstrap.Toast(toastEl)
-  })
-  toastList.forEach(toast => toast.show())
-}
+
 
 document.getElementById("toastbtn_2").onclick = function() {
   var toastElList = [].slice.call(document.querySelectorAll('.toast_2'))
@@ -206,6 +200,145 @@ document.getElementById("toastbtn_2").onclick = function() {
 
 <script>
   $('#attendance_time_out').appendTo("body") 
+
+
+  function time_in_attendance(user_id){
+    $('#time_in_name').html($('#user_fullname_'+user_id).html());
+    $('#time_in_pass').val('');
+    $('#confirm_time_in').attr('onclick','confirm_time_in_func('+user_id+')')
+  }
+
+  
+
+  function confirm_time_in_func(user_id){
+    // ajax here
+
+    var attendance = new FormData();  
+    // validation
+    
+    attendance.append( 'user_id', user_id);  
+    if( $('#time_in_pass').val().length<12){
+      alert('Please enter a valid password');
+      return;
+    }
+    attendance.append( 'password', $('#time_in_pass').val());  
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "attendance_time_in_and_out.php",
+        data: attendance,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+          if(result == 1){
+              var toastElList = [].slice.call(document.querySelectorAll('.toast_1'))
+              var toastList = toastElList.map(function(toastEl) {
+              return new bootstrap.Toast(toastEl)
+            })
+            toastList.forEach(toast => toast.show())
+            $.ajax({
+                type: "GET",
+                url: 'attendance_tbl.php',
+                success: function(result)
+                {
+                    $('div.table-responsive').html(result);
+                    dataTable = $("#attendance").DataTable({
+                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                        responsive: true,
+                        order: [[1, 'asc']]
+                    });
+                    $('input#keyword').on('input', function(e){
+                        var status = $(this).val();
+                        dataTable.columns([1]).search(status).draw();
+                    })
+                    new $.fn.dataTable.FixedHeader(dataTable);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+            });
+          }else{
+            alert('Error time in attendance');
+          }
+          $('#confirm_time_in_close').click();
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+      });
+  };
+
+
+  function time_out_attendance(user_id){
+    $('#time_out_name').html($('#user_fullname_'+user_id).html());
+    $('#time_out_pass').val('');
+    $('#confirm_time_out').attr('onclick','confirm_time_out_func('+user_id+')')
+  }
+
+  
+  function confirm_time_out_func(user_id){
+    // ajax here
+
+    var attendance = new FormData();  
+    // validation
+    
+    attendance.append( 'user_id', user_id);  
+    if( $('#time_in_pass').val().length<12){
+      alert('Please enter a valid password');
+      return;
+    }
+    attendance.append( 'password', $('#time_in_pass').val());  
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "attendance_time_in_and_out.php",
+        data: attendance,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+          if(result == 1){
+              var toastElList = [].slice.call(document.querySelectorAll('.toast_1'))
+              var toastList = toastElList.map(function(toastEl) {
+              return new bootstrap.Toast(toastEl)
+            })
+            toastList.forEach(toast => toast.show())
+            $.ajax({
+                type: "GET",
+                url: 'attendance_tbl.php',
+                success: function(result)
+                {
+                    $('div.table-responsive').html(result);
+                    dataTable = $("#attendance").DataTable({
+                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                        responsive: true,
+                        order: [[1, 'asc']]
+                    });
+                    $('input#keyword').on('input', function(e){
+                        var status = $(this).val();
+                        dataTable.columns([1]).search(status).draw();
+                    })
+                    new $.fn.dataTable.FixedHeader(dataTable);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+            });
+          }else{
+            alert('Error time in attendance');
+          }
+          $('#confirm_time_out_close').click();
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+      });
+  }
 </script>
 
 

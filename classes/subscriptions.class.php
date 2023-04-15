@@ -434,7 +434,47 @@ class subscriptions
             return false;
         }
     }
-   
+
+    function active_subscribed_users(){
+        try{
+            $sql = 'SELECT distinct user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+            WHERE  subscription_status_details = "Active"
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function one_active_subscribed_user($user_id){
+        try{
+            $sql = 'SELECT distinct user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_password_hashed FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+            WHERE  subscription_status_details = "Active" AND user_id =:user_id
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
 }
 
 ?>

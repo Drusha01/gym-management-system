@@ -15,6 +15,14 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        
+        if(isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_attendance_restriction_details'] == 'Modify'){
+            
+        }else if(isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_attendance_restriction_details'] == 'Read-Only'){
+
+        }else{
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -47,7 +55,7 @@ if(isset($_SESSION['admin_id'])){
         </div>
         <div class="form-group col-12 col-sm-4 table-filter-option">
             <label for="datepicker" class="fw-bold">Date</label>
-            <input type="text" name="dates"" class="form-control ms-md-2">
+            <input type="text" name="dates" class="form-control ms-md-2">
         </div>
     </div>
         <div class="table-responsive table-container">
@@ -94,11 +102,11 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete the Attendance of <span>Customer Name?</span>
+        Are you sure you want to delete the Attendance of <span id="cust_name">Customer Name?</span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" id="confirm_delete_modal">Yes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="attendance_delete_modal">Close</button>
       </div>
     </div>
   </div>
@@ -133,6 +141,58 @@ if(isset($_SESSION['admin_id'])){
     $(document).ready(function() {
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });
+
+function delete_attendance(attendance_id){
+  $('#confirm_delete_modal').attr('onclick','confirm_delete_attendance('+attendance_id+')')
+  $('#cust_name').html($('#user_name_'+attendance_id).html())
+}
+function confirm_delete_attendance(attendance_id){
+  var attendance = new FormData();  
+    // validation
+    attendance.append( 'attendance_id', attendance_id);  
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "delete_attendance.php",
+        data: attendance,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+          console.log(result);
+          if(result == 1){
+            $.ajax({
+                type: "GET",
+                url: 'attend_tbl.php',
+                success: function(result)
+                {
+                    $('div.table-responsive').html(result);
+                    dataTable = $("#attendance").DataTable({
+                        "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                        responsive: true,
+                    });
+                    $('input#keyword').on('input', function(e){
+                        var status = $(this).val();
+                        dataTable.columns([2]).search(status).draw();
+                    })
+                    new $.fn.dataTable.FixedHeader(dataTable);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                }
+            });
+          }else{
+            alert('Error time in attendance');
+          }
+          $('#attendance_delete_modal').click();
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+      });
+}
 </script>
 
 </html>

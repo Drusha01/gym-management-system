@@ -1574,15 +1574,48 @@ CREATE TABLE announcements(
 -- WHERE announcement_id =:announcement_id;
 
 
+-- SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
+-- 	announcement_date_created, announcement_date_updated
+-- FROM announcements
+-- LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
+-- LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
+-- WHERE  announcement_status_details = 'Active' AND CURDATE() < announcement_end_date 
+-- ORDER BY announcement_order DESC
+-- ;
+
 -- attendance
 CREATE TABLE attendances(
 	attendance_id int primary key auto_increment,
     attendance_user_id INT NOT NULL,
     attendance_time_in DATETIME NOT NULL DEFAULT NOW(),
-    attendance_time_out DATETIME NOT NULL,
+    attendance_time_out DATETIME ,
 	FOREIGN KEY (attendance_user_id) REFERENCES users(user_id)
 );
+
+INSERT attendances (attendance_user_id,attendance_time_in)VALUES (
+	10,
+    '2023-04-14 14:20:06'
+);
+UPDATE attendances
+SET attendance_time_out = CONCAT(CURDATE()," 18:00:00")
+WHERE attendance_id = 2;
+SELECT * FROM attendances;
+
+SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_time_in,CAST(attendance_time_in AS DATE) AS date_time_in,attendance_time_out  
+FROM attendances
+WHERE CAST(attendance_time_in AS DATE) = CURDATE() AND attendance_time_out is null;
+
+SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, '%h:%i %p') as time_in, TIME_FORMAT(attendance_time_out, '%h:%i %p') as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+ORDER BY attendance_time_in DESC
+;
 	
+SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_time_in,CAST(attendance_time_in AS DATE) AS date_time_in,attendance_time_out  
+FROM attendances
+WHERE CAST(attendance_time_in AS DATE) = CURDATE();
+;
+
 
 
 -- table for subscription status
@@ -2018,6 +2051,13 @@ subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
 WHERE  subscription_status_details = 'Active'
+;
+
+-- active user
+SELECT distinct user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_password_hashed FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE  subscription_status_details = 'Active' AND user_id = 8
 ;
 
 
