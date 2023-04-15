@@ -53,7 +53,7 @@ if(isset($_SESSION['admin_id'])){
             <input type="text" name="keyword" id="keyword" placeholder="Search" class="form-control ms-md-2">
         </div>
         <div class="form-group col-12 col-sm-7 table-filter-option d-grid d-lg-flex justify-content-lg-end pt-2">
-            <button href="#" class="btn btn-outline-dark" role="button" data-bs-toggle="modal" data-bs-target="#lockers_availability">Show Available Lockers</button>
+            <button href="#" class="btn btn-outline-dark" role="button" data-bs-toggle="modal" data-bs-target="#lockers_availability" id="show_available_lockers">Show Available Lockers</button>
         </div>
     </div>
     <div class="table-responsive table-container">
@@ -93,7 +93,7 @@ if(isset($_SESSION['admin_id'])){
         <h5 class="modal-title" id="exampleModalLabel">Locker Availability</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="modal_body_content_avail">
         <ul class="list-group">
             <li class="list-group-item">Locker_2</li>
             <li class="list-group-item">Locker_5</li>
@@ -144,5 +144,20 @@ if(isset($_SESSION['admin_id'])){
     });
 
     }
+
+    $('#show_available_lockers').click(function (){
+        $.ajax({
+            type: "GET",
+            url: 'available_locker.php',
+            success: function(result)
+            {
+                $('#modal_body_content_avail').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
+    });
+
 </script>
 </html>
