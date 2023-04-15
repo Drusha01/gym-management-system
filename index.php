@@ -63,7 +63,7 @@ if(isset($_SESSION['user_id'])){
             $number_of_announcement = $annoucementObj->get_number_of_annoucements()['number_of_announcements'];
 
             // fetch all announcements ordering by announcement order
-            if($annoucement_data = $annoucementObj->fetch_all()){
+            if($annoucement_data = $annoucementObj->fetch_all_active()){
                 $counter=1;
                 $index =0;
           echo '

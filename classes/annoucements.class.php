@@ -184,8 +184,26 @@ class annoucements
         }
     }
 
-
- 
+    function fetch_all_active(){
+        try{
+            $sql = 'SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
+            announcement_date_created, announcement_date_updated
+        FROM announcements
+        LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
+        LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
+        WHERE  announcement_status_details = "Active" AND CURDATE() < announcement_end_date 
+        ORDER BY announcement_order DESC';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
 }
 
