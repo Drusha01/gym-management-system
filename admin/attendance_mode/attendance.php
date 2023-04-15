@@ -48,28 +48,50 @@
             <div class="table-responsive table-container px-2 mt-2 ">
             </div>
         </div>
+        <?php   
+            require_once('../../classes/annoucements.class.php');
+            $annoucementObj = new annoucements();
+            $number_of_announcement = $annoucementObj->get_number_of_annoucements()['number_of_announcements'];
+
+            // fetch all announcements ordering by announcement order
+            if($annoucement_data = $annoucementObj->fetch_all_active()){
+                $counter=1;
+                $index =0;
+          echo '
         <div class="col-12 col-lg-5">
-            <div class="container ms-4">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <h3 class="ms-1">Announcements</h3>
-                        <div class="owl-single dots-absolute owl-carousel">
-                            <img src="../../images/home-0.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
-                            <img src="../../images/home-1.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
-                            <div class="card" style="width: 100%; height:282px;">
-                              <div class="card-body">
-                                <h5 class="card-title">No Gym Between these Dates</h5>
-                                <hr>
-                                <p class="card-text"><li>March 23, 2022</li></p>
-                                <p class="card-text"><li>March 25, 2022</li></p>
-                              </div>
-                            </div>
-                            <img src="../../images/home-3.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">
-                        </div>
-                    </div>
+          <div class="container ms-4">
+            <div class="row">
+              <div class="col-lg-12">
+              <h3 class="ms-1">Announcements</h3>
+                <div class="owl-single dots-absolute owl-carousel">';
+                foreach ($annoucement_data as $key => $annoucement_item) {
+                  if( $annoucement_item['announcement_status_details'] == 'Active'){
+                    if($annoucement_item['announcement_type_details'] ==  'Image' ){
+                      echo '<img src="../../img/announcement/announcement-resized/'.htmlentities($annoucement_item['announcement_file_image']).'" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3 w-100">';
+                    }else{
+                      echo '
+                    <div class="card mh-50" style="width: 100%; min-height:100%;">
+                      <div class="card-body">
+                        <h5 class="card-title">'.htmlentities($annoucement_item['announcement_title']).'</h5>
+                        <hr>
+                        <p class="card-text"><li>'.date_format(date_create($annoucement_item['announcement_start_date']), "F d, Y").'</li></p>
+                        <p class="card-text"><li>'.date_format(date_create($annoucement_item['announcement_end_date']), "F d, Y").'</li></p>
+                      </div>
+                    </div>';
+                    }
+                }
+        $index++;
+        $counter++;
+                }
+              echo'     
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
+        </div>';
+            }
+            
+            ?>           
     </div>
 </div>
 
