@@ -1596,9 +1596,13 @@ INSERT attendances (attendance_user_id,attendance_time_in)VALUES (
 	10,
     '2023-04-14 14:20:06'
 );
+
+DELETE FROM attendances 
+WHERE attendance_id = 4;
 UPDATE attendances
-SET attendance_time_out = CONCAT(CURDATE()," 18:00:00")
-WHERE attendance_id = 2;
+SET attendance_time_out = CONCAT(CAST(attendance_time_in AS DATE)," 18:00:00")
+WHERE attendance_id = 4;
+
 SELECT * FROM attendances;
 
 SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_time_in,CAST(attendance_time_in AS DATE) AS date_time_in,attendance_time_out  
@@ -1616,7 +1620,41 @@ FROM attendances
 WHERE CAST(attendance_time_in AS DATE) = CURDATE();
 ;
 
+drop table lockers;
+-- table for lockers
+CREATE TABLE lockers(
+	locker_id int primary key auto_increment,
+    locker_subscription_id int not null,
+    locker_UID int unique not null ,
+	FOREIGN KEY (locker_subscription_id) REFERENCES subscriptions(subscription_id)
+);
 
+
+INSERT INTO lockers (locker_id,locker_subscription_id,locker_UID) VALUES
+(
+	:locker_subscription_id,
+    :locker_UID
+);
+SELECT * FROM lockers;
+
+SELECT * FROM lockers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=lockers.locker_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE  subscription_status_details = 'Active' 
+ORDER BY locker_UID;
+
+SELECT locker_id,locker_UID FROM lockers
+WHERE locker_subscription_id =:locker_subscription_id;
+
+SELECT subscription_id,user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE (subscription_status_details = "Active" AND type_of_subscription_details = "Locker Subscription")
+ORDER by subscription_start_date DESC
+;
 
 -- table for subscription status
 CREATE TABLE subscription_status(

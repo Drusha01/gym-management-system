@@ -642,7 +642,7 @@ function avail(){
             console.log(result);
             alert('Availed successfully');
             
-            location.href = "user-profile.php?active=Subscription-tab";
+            location.href = "../avail/activate.php?user_id="+user_id;
         }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) { 

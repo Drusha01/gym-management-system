@@ -35,13 +35,13 @@ if(isset($_SESSION['admin_id'])){
                 $subscriptionsObj = new subscriptions();
                 $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id']);
                 if(!$subscription_data){
-                    header('location:avail.php');
+                    header('location:avail.php?active=subs');
                 }
             }else{
-                header('location:avail.php');
+                header('location:avail.php?active=subs');
             }
         }elseif(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail_restriction_details'] == 'Read-Only'){
-            header('location:avail.php');
+            header('location:avail.php?active=subs');
         }else{
             //do not load the page
             header('location:../dashboard/dashboard.php');
@@ -458,7 +458,7 @@ if(isset($_SESSION['admin_id'])){
                 // $( "#offer_id_"+id ).remove();
                 // update selected
                 alert('deleted successfully');
-                window.location.href = "avail.php";
+                window.location.href = "avail.php?active=subs";
                 console.log(result)
             }else{
                 alert('deletion failed');
@@ -476,7 +476,7 @@ if(isset($_SESSION['admin_id'])){
                 // $( "#offer_id_"+id ).remove();
                 // update selected
                 alert('deleted successfully');
-                window.location.href = "avail.php";
+                window.location.href = "avail.php?active=subs";
                 console.log(result)
             }else{
                 alert('deletion failed');

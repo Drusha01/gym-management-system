@@ -15,6 +15,19 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Modify'){
+            if(isset($_GET['subscription_id']) && intval($_GET['subscription_id'])>0){
+                require_once '../../classes/lockers.class.php';
+                $lockerObj = new lockers();
+                $locker_data = $lockerObj->fetch_lockers_id($_GET['subscription_id']);
+                $lockerlist = $lockerObj->fetch_all_lockers();
+            }
+            
+        }else if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Read-Only'){
+            header('location:locker.php');
+        }else{
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -54,51 +67,67 @@ if(isset($_SESSION['admin_id'])){
                     </tr>
                 </thead>
                 <tbody>
+                <?php 
+                require_once('../../classes/admin_settings.class.php');
+                $settingObj = new admin_settings();
+                $setting_data = $settingObj->fetch_one();
+                if($locker_data){
+                    foreach ($locker_data as $key => $value) {
+                        echo 
+                        '
                     <tr>
-                        <td class="text-center">Locker_2</td>
-                        <td class="text-center">
-                        <select class="form-select form-select-sm" name='users' id="users" style="width:100%;">
-                            <option value="None" selected>Select Locker</option>
-                            <option value="None" >Locker_2</option>
-                            <option value="None" >Locker_5</option> 
-                            <option value="None" >Locker_7</option> 
-                        </select>
+                        <td class="text-center">Locker_'.$value['locker_UID'].'</td>
+
+                        <td class="text-center">';
+                        $found = false;
+                        $locker_uid =1;
+                        while($locker_uid<$setting_data['setting_num_of_lockers']){
+                            $avail = true;
+                            foreach ($lockerlist as $key => $locker_list_item) {
+                                if($locker_list_item['locker_UID'] == $locker_uid){
+                                    $avail = false;
+                                }
+                            }
+                            if($avail){
+
+                                if(!$found){
+                                    echo '
+                            <select class="form-select form-select-sm" name="users" id="locker_id_'.$value['locker_id'].'" onchange="update_locker_UID('.$value['locker_id'].')" style="width:100%;">
+                                <option value="None" >Select Locker</option>';
+                                $found =true;
+                                }
+                               echo '
+                                <option value="'. $locker_uid.'" >Locker_'.$locker_uid.'</option> ';
+                            }
+                            $locker_uid++;
+                        }
+                    
+                        
+                            
+                        echo '
+                            </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Locker_5</td>
-                        <td class="text-center">
-                        <select class="form-select form-select-sm" name='users' id="users" style="width:100%;">
-                            <option value="None" selected>Select Locker</option>
-                            <option value="None" >Locker_2</option>
-                            <option value="None" >Locker_5</option> 
-                            <option value="None" >Locker_7</option> 
-                        </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Locker_7</td>
-                        <td class="text-center">
-                        <select class="form-select form-select-sm" name='users' id="users" style="width:100%;">
-                            <option value="None" selected>Select Locker</option>
-                            <option value="None" >Locker_2</option>
-                            <option value="None" >Locker_5</option> 
-                            <option value="None" >Locker_7</option> 
-                        </select>
-                        </td>
-                    </tr>
+                    </tr>';
+                    }
+                }
+                ?>
                 </tbody>
             </table>
             </div>
-            <div class="row d-flex flex-row-reverse">
+            <!-- <div class="row d-flex flex-row-reverse">
                 <div class="col-12  d-grid d-lg-flex pt-3 pt-lg-1">
                     <button type="submit" class="btn btn-success  border-0 rounded" name="add_offer" value="add_offer" id="submit" >Save</button>
                 </div>
-            </div>
+            </div> -->
         </div>
   </div>
 </main>
 
+<script>
+    function update_locker_UID(locker_id){
+        console.log($('#locker_id_'+locker_id).val())
+    }
+</script>
 </body>
 
 </html>

@@ -116,7 +116,7 @@ if(isset($_SESSION['admin_id'])){
                             // get subscription id of trainer subs
                             if($trainersub_data = $subscriptionsObj->get_sub_id($_POST['user_id'])){
                                 // insert trainers here
-                                require_once '../classes/subscriber_trainers.class.php';
+                                require_once '../../classes/subscriber_trainers.class.php';
 
                                 $subscriber_trainersObj = new subscriber_trainers();
                                 foreach ($trainer_id as $key => $value) {
@@ -158,4 +158,4 @@ if(isset($_SESSION['admin_id'])){
 
 ?>
 
-?>
+

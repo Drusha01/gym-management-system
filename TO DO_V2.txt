@@ -5,9 +5,8 @@
 Locker
 	locker_id
 	locker_user_id
+	locker_subscription_id
 	locker_id
-	locker_start_date
-	locker_end_date
 
 Notifications
 	notificaiton_id

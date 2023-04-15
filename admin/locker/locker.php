@@ -15,6 +15,13 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Modify'){
+            
+        }else if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Read-Only'){
+
+        }else{
+            header('location:../dashboard/dashboard.php');
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -64,7 +71,7 @@ if(isset($_SESSION['admin_id'])){
         <h5 class="modal-title" id="exampleModalLabel">Owned Lockers</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="modal_body_content">
         <ul class="list-group">
             <li class="list-group-item">Locker_2</li>
             <li class="list-group-item">Locker_5</li>
@@ -122,5 +129,20 @@ if(isset($_SESSION['admin_id'])){
             alert("Status: " + textStatus); alert("Error: " + errorThrown); 
         } 
     });
+
+    function showLockers(subscription_id){
+      $.ajax({
+        type: "GET",
+        url: 'get_lockers.php?subscription_id='+subscription_id,
+        success: function(result)
+        {
+            $('#modal_body_content').html(result);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+    });
+
+    }
 </script>
 </html>
