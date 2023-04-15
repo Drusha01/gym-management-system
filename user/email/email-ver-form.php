@@ -54,14 +54,16 @@ if(isset($_SESSION['user_id'])){
           $mail->msgHTML('none');
           $mail->Body = 'Your email verification code is <strong>'.$code.'</strong><br> if this is not you, please contact us';
           //$mail->addAttachment('attachment.txt');
-          if (!$mail->send()) {
-              echo 'Mailer Error: ' . $mail->ErrorInfo;
-          } else {
-              // insert to db here
-              
+          if ($mail->send()) {
+            // insert to db here
             if($emailObj->insert($_SESSION['user_id'],$_POST['email'],$code)){
-                header('location:email-6-digit.php?email='.$_POST['email']);
-            }
+              header('location:email-6-digit.php?email='.$_POST['email']);
+            } 
+             
+          } else {
+              
+              echo 'Mailer Error: ' . $mail->ErrorInfo;
+           
           }
         }else{
           if($user_email ){

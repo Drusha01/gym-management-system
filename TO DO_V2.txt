@@ -33,6 +33,7 @@ dashboard
 
 reports
 		
+user-about.php
 	
 	
 

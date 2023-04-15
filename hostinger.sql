@@ -1173,6 +1173,8 @@ WHERE trainer_id = 1;
 
 SELECT * FROM trainers;
 
+
+
 -- table for email verification
 CREATE TABLE email_verify(
 	email_verify_id int primary key	auto_increment,
@@ -1194,7 +1196,7 @@ INSERT INTO email_verify (email_verify_user_id,email_verify_email,email_verify_c
 SELECT * FROM email_verify;
 
 SELECT  email_verify_user_id,email_verify_email,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) as seconds,email_verify_code FROM email_verify
-WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id = '7';
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id = '9';
 
 UPDATE users
 SET user_email ='hanz.dumapit55@gmail.com',
@@ -1279,16 +1281,7 @@ CREATE table remarks(
 );
 
 
--- INSERT INTO remarks (remark_id, remark_equipment_id, remark_equipment_condition_id, remark_admin_id, remark_time, remark_remark, remark_file) VALUES
--- (
--- 	null,
---     :remark_equipment_id,
--- 	(SELECT equipment_condition_id FROM equipments_conditions WHERE equipment_condition_details = :equipment_condition_details),
---     :remark_admin_id,
---     now(),
---     :remark_remark,
---     :remark_file
--- );
+
 
 
 
@@ -1561,15 +1554,39 @@ CREATE TABLE announcements(
 -- WHERE announcement_id =:announcement_id;
 
 
+-- SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
+-- 	announcement_date_created, announcement_date_updated
+-- FROM announcements
+-- LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
+-- LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
+-- WHERE  announcement_status_details = 'Active' AND CURDATE() < announcement_end_date 
+-- ORDER BY announcement_order DESC
+-- ;
+
 -- attendance
 CREATE TABLE attendances(
 	attendance_id int primary key auto_increment,
     attendance_user_id INT NOT NULL,
     attendance_time_in DATETIME NOT NULL DEFAULT NOW(),
-    attendance_time_out DATETIME NOT NULL,
+    attendance_time_out DATETIME ,
 	FOREIGN KEY (attendance_user_id) REFERENCES users(user_id)
 );
-	
+
+
+
+
+
+
+
+-- forgot password
+CREATE TABLE forgot_password(
+	forgot_password_id int primary key auto_increment,
+    forgot_password_user_id int not null,
+    forgot_password_hashed varchar(100) not null,
+    forgot_password_date_time DATETIME default NOW(),
+    FOREIGN KEY (forgot_password_user_id) REFERENCES users(user_id)
+);
+
 
 
 -- table for subscription status
@@ -1625,6 +1642,15 @@ CREATE TABLE subscriptions(
     
     -- foreign keys
 );
+
+-- table for lockers
+CREATE TABLE lockers(
+	locker_id int primary key auto_increment,
+    locker_subscription_id int not null,
+    locker_UID int unique not null ,
+	FOREIGN KEY (locker_subscription_id) REFERENCES subscriptions(subscription_id)
+);
+
 
 
 
@@ -1722,7 +1748,6 @@ INSERT INTO walk_ins (walk_in_id, walk_in_user_id, walk_in_trainer_id, walk_in_s
     (SELECT walk_in_service_price FROM walk_in_prices WHERE walk_in_service_id =(SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Gym-Use'))+
     (SELECT walk_in_service_price FROM walk_in_prices WHERE walk_in_service_id =(SELECT walk_in_service_id FROM walk_in_services WHERE walk_in_service_details = 'Walk-In Trainer'))
 );
-
 
 
 -- walkintable
@@ -2007,6 +2032,13 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE  subscription_status_details = 'Active'
 ;
 
+-- active user
+SELECT distinct user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_password_hashed FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE  subscription_status_details = 'Active' AND user_id = 8
+;
+
 
 -- update percent discount
 UPDATE subscriptions
@@ -2031,17 +2063,17 @@ SELECT * FROM offers;
 
 select * from trainers;
 
--- SELECT COUNT(*)  FROM subscriptions
--- LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
--- LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
--- WHERE  subscription_status_details = 'Active' AND subscription_type_of_subscription_details = 'Gym Subscription'
--- ;
+SELECT COUNT(*)  FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE  subscription_status_details = 'Active' AND subscription_type_of_subscription_details = 'Gym Subscription'
+;
 
 
--- DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
+DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
 
--- (SELECT user_id FROM users WHERE user_name = BINARY 'RobRoche');
+(SELECT user_id FROM users WHERE user_name = BINARY 'RobRoche');
 
--- SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
+SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
 
--- SELECT  CURDATE();
+SELECT  CURDATE();

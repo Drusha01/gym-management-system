@@ -39,10 +39,10 @@ if(isset($_SESSION['user_id'])){
             $userObj->setuser_id($user_email['user_id']);
             $user_details = $userObj->get_user_details();
            // print_r($user_details);
-            // if($forgot_password_data = $forgot_passwordObj->get_last_sent_email($user_email['user_id'])){
-            //   header('location:successfully-sent.php');
+            if($forgot_password_data = $forgot_passwordObj->get_last_sent_email($user_email['user_id'])){
+              header('location:successfully-sent.php');
               
-            // }else{
+            }else{
               $hashed = md5(random_bytes(48));
               echo $hashed;              
               // set session to retrieve later
@@ -68,7 +68,7 @@ if(isset($_SESSION['user_id'])){
               } else {
                   echo 'Mailer Error: ' . $mail->ErrorInfo;
               }
-            // }
+            }
             
         }
       
