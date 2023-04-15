@@ -1,10 +1,5 @@
 
 
-Attendance
-	attendance_id
-	attendance_user_id
-	attendance_time_in
-	attendance_time_out
 
 
 Locker
