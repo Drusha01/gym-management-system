@@ -107,7 +107,7 @@ if(isset($_SESSION['user_id'])){
           <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
         </div>
       </div>
-      <!-- <div class="carousel-item carousel-image bg-img-2">
+      <div class="carousel-item carousel-image bg-img-2">
         <div class="carousel-caption">
           <h1 class="fw-bolder fst-italic text-white display-4" ><strong>NUMEROUS <br> GYM EQUIPMENTS</strong></h1>
           <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
@@ -119,7 +119,7 @@ if(isset($_SESSION['user_id'])){
           <h1 class="fw-bolder fst-italic text-white display-4" ><strong>A GOOD PLACE <br> TO WORKOUT</strong></h1>
           <p><a class="btn btn-brand fs-6" href="#">Learn More</a></p>
         </div>
-      </div> -->
+      </div>
     </div>
     <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleIndicators" type="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span></button> <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleIndicators" type="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="visually-hidden">Next</span></button>
   </div>
