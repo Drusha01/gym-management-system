@@ -49,7 +49,8 @@ class lockers
     function fetch_lockers_id($locker_subscription_id){
         try{
             $sql = 'SELECT locker_id,locker_UID FROM lockers
-            WHERE locker_subscription_id =:locker_subscription_id;';
+            WHERE locker_subscription_id =:locker_subscription_id
+            ORDER BY locker_UID;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':locker_subscription_id', $locker_subscription_id);
             if($query->execute()){
@@ -88,6 +89,39 @@ class lockers
             $query=$this->db->connect()->prepare($sql);
             if($query->execute()){
                 $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function fetch_locker_details($locker_id){
+        try{
+            $sql = 'SELECT locker_id,locker_subscription_id,locker_UID FROM lockers
+            WHERE locker_id=:locker_id ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':locker_id', $locker_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    function fetch_locker_details_with_locker_UID($locker_UID){
+        try{
+            $sql = 'SELECT locker_id,locker_subscription_id,locker_UID FROM lockers
+            WHERE locker_UID=:locker_UID ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':locker_UID', $locker_UID);
+            if($query->execute()){
+                $data =  $query->fetch();
                 return $data;
             }else{
                 return false;

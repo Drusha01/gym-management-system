@@ -124,9 +124,35 @@ if(isset($_SESSION['admin_id'])){
 </main>
 
 <script>
-    function update_locker_UID(locker_id){
-        console.log($('#locker_id_'+locker_id).val())
-    }
+function update_locker_UID(locker_id){
+    var locker = new FormData();  
+    // validation
+    locker.append( 'locker_id', locker_id);  
+    locker.append( 'locker_UID', $('#locker_id_'+locker_id).val());  
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "update_locker.php",
+        data: locker,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+          console.log(result);
+          if(result == 1){
+            //reload
+            location.reload();
+          }else{
+            alert('Error updating locker_UID');
+          }
+          
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+    });
+}
 </script>
 </body>
 

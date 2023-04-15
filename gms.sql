@@ -1619,8 +1619,6 @@ SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_t
 FROM attendances
 WHERE CAST(attendance_time_in AS DATE) = CURDATE();
 ;
-
-drop table lockers;
 -- table for lockers
 CREATE TABLE lockers(
 	locker_id int primary key auto_increment,
@@ -1632,16 +1630,20 @@ CREATE TABLE lockers(
 
 INSERT INTO lockers (locker_id,locker_subscription_id,locker_UID) VALUES
 (
-	:locker_subscription_id,
-    :locker_UID
+	1,
+    23,
+    1
 );
 SELECT * FROM lockers;
+
+DELETE FROM lockers
+WHERE locker_id = 1;
 
 SELECT * FROM lockers
 LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=lockers.locker_subscription_id
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE  subscription_status_details = 'Active' 
+WHERE  subscription_status_details != 'Active' 
 ORDER BY locker_UID;
 
 SELECT locker_id,locker_UID FROM lockers
