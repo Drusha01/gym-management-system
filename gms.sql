@@ -1646,8 +1646,8 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 WHERE  subscription_status_details != 'Active' 
 ORDER BY locker_UID;
 
-SELECT locker_id,locker_UID FROM lockers
-WHERE locker_subscription_id =:locker_subscription_id;
+-- SELECT locker_id,locker_UID FROM lockers
+-- WHERE locker_subscription_id =:locker_subscription_id;
 
 SELECT subscription_id,user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
 subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
@@ -1657,6 +1657,25 @@ LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_use
 WHERE (subscription_status_details = "Active" AND type_of_subscription_details = "Locker Subscription")
 ORDER by subscription_start_date DESC
 ;
+
+
+-- forgot password
+CREATE TABLE forgot_password(
+	forgot_password_id int primary key auto_increment,
+    forgot_password_user_id int not null,
+    forgot_password_hashed varchar(100) not null,
+    forgot_password_date_time DATETIME default NOW(),
+    FOREIGN KEY (forgot_password_user_id) REFERENCES users(user_id)
+);
+INSERT INTO forgot_password(forgot_password_user_id,forgot_password_hashed) VALUES
+(
+	3,
+    'sdfasdfsaf'
+);
+
+
+SELECT  forgot_password_id,forgot_password_user_id,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) as seconds,forgot_password_hashed FROM forgot_password
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 3 AND forgot_password_hashed = 'sdfasdfsaf';
 
 -- table for subscription status
 CREATE TABLE subscription_status(

@@ -44,8 +44,8 @@
           <a class="text-decoration-none text-black m-0" aria-current="page" href="log-in.php"><span class='bx bxs-left-arrow align-middle fs-4'></span>Go Back</a>
           <div class="container px-4">
             <div class="text-center">
-              <p class="fw-bold fs-4">Email Has Been Sent To</p>
-              <p class="fw-light fs-5">youremail@gmail.com</p>
+              <p class="fw-bold fs-4">Email Has Been Sent</p>
+              <p class="fw-light fs-5">please check your email</p>
             </div>
             <div class="text-center">
               <img src="../images/email.png" class="img-fluid w-25">
