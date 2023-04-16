@@ -66,7 +66,7 @@ if(isset($_SESSION['user_id'])){
                   <head>
                   </head>
                   <body>
-                  <strong><a href="change_pass.php?code='.$hashed.'">https://kenogym.online/login/change_pass.php?code='.$hashed.'"</a></strong><br> if this is not you, please contact us
+                  <strong><a href="'.dirname(__DIR__,1).'change_pass.php?code='.$hashed.'">https://kenogym.online/login/change_pass.php?code='.$hashed.'"</a></strong><br> if this is not you, please contact us
                   </body>
                   </html>
                   ';
@@ -74,6 +74,7 @@ if(isset($_SESSION['user_id'])){
               if ($mail->send()) {
                   // insert to db here
                   $forgot_passwordObj->insert($user_email['user_id'],$hashed);
+                  header('location:successfully-sent.php');
               } else {
                   echo 'Mailer Error: ' . $mail->ErrorInfo;
               }
