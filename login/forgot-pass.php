@@ -66,7 +66,7 @@ if(isset($_SESSION['user_id'])){
                   <head>
                   </head>
                   <body>
-                  <strong><a href="https://kenogym.online/login/change_pass.php?code='.$hashed.'"></a></strong><br> if this is not you, please contact us
+                  <strong><a href="https://kenogym.online/login/change_pass.php?code='.$hashed.'">https://kenogym.online/login/change_pass.php?code='.$hashed.'"</a></strong><br> if this is not you, please contact us
                   </body>
                   </html>
                   ';
