@@ -74,5 +74,10 @@
           </div>
         </div>
       </nav>
+      <script>
+        setInterval(function () {
+          console.log('nice')
+        }, 1000);
+      </script>
 </section>
 

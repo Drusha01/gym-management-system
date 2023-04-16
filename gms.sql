@@ -1679,6 +1679,112 @@ INSERT INTO forgot_password(forgot_password_user_id,forgot_password_hashed) VALU
 SELECT  forgot_password_id,forgot_password_user_id,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) as seconds,forgot_password_hashed FROM forgot_password
 WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 3 AND forgot_password_hashed = 'sdfasdfsaf';
 
+
+CREATE TABLE notification_types(
+	notification_type_id int primary key auto_increment,
+    notification_type_details varchar(50) unique
+);
+
+INSERT INTO notification_types (notification_type_details)  VALUES
+(
+	'Avail'
+),(
+	'Cancel'
+),(
+	'Renew'
+),(
+	'Partial'
+),(
+	'Payment'
+),(
+	'Activate'
+),(
+	'Trainer'
+),(
+	'Expiration'
+),(
+	'Unpaid'
+),(
+	'Overdue'
+),(
+	'Logs'
+),(
+	'Locker'
+),(
+	'Activated'
+);
+
+
+CREATE TABLE notification_icons(
+	notification_icon_id int primary key auto_increment,
+    notification_icon_details varchar(50) unique
+);
+
+INSERT INTO notification_icons (notification_icon_details) VALUES
+(
+	'avail.png'
+),(
+	'cancelled.png'
+),(
+	'renew.png'
+),(
+	'partial.png'
+),(
+	'payment.png'
+),(
+	'activated.png'
+),(
+	'trainer.png'
+),(
+	'trainer_not.png'
+),(
+	'change.png'
+),(
+	'choose.png'
+),(
+	'expiration.png'
+),(
+	'unpaid.png'
+),(
+	'overdue.png'
+),(
+	'verified.png'
+),(
+	'logs.png'
+),(
+	'locker.png'
+),(
+	'account.png'
+);
+
+CREATE TABLE notifications(
+	notification_id int primary key auto_increment,
+	notification_creator int not null,
+	notification_target int not null,
+	notification_type_id int not null,
+	notification_icon_id int not null,
+	notification_info varchar(255) not null,
+	notification_is_read bool not null default 0,
+    notification_date_created datetime default NOW(),
+    notification_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (notification_creator) REFERENCES users(user_id),
+    FOREIGN KEY (notification_target) REFERENCES users(user_id),
+    FOREIGN KEY (notification_type_id) REFERENCES notification_types(notification_type_id),
+    FOREIGN KEY (notification_icon_id) REFERENCES notification_icons(notification_icon_id)
+);
+
+
+
+-- receiver of notification
+SELECT * FROM notifications 
+WHERE notification_target = 1
+ORDER BY notification_date_created DESC;
+
+UPDATE notifications 
+SET notification_is_read = true
+WHERE notification_id = 1;
+
+
 -- table for subscription status
 CREATE TABLE subscription_status(
 	subscription_status_id int primary key auto_increment,

@@ -1,14 +1,5 @@
 
-Notifications
-	notificaiton_id
-	notification_creator
-	notificaiton_target
-	notification_type
-	notification_info
-	notification_icon
-	notification_is_read
-	notification_date_created
-	notification_date_modified
+
 
 
 FORGOT PASSWORD

@@ -64,25 +64,25 @@ if(isset($_SESSION['user_id'])){
                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                   <?php require_once 'user-acc.php'; ?>
                 </div>
-                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab" onclick="changeActiveTab('notification')">
+                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab" onclick="changeActiveTab('notification-tab')">
                       <?php require_once 'user-notif.php'; ?>
                 </div>
-                <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription')">
+                <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription-tab')">
                     <div class="container-fluid p-3 " style="min-height: 450px;">
                         <?php require_once 'user_subscriptions.php'; ?>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab"  onclick="changeActiveTab('locker')">
+                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab"  onclick="changeActiveTab('lockers-tab')">
                     <div class="container-fluid p-3 " style="min-height: 450px;">
                       <?php require_once 'user-locker.php'; ?>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer')">
+                <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer-tab')">
                     <div class="container-fluid p-3" style="min-height: 450px;">
                       <?php require_once 'user-trainer.php'; ?>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" onclick="changeActiveTab('payment')">
+                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" onclick="changeActiveTab('payment-tab')">
                     <div class="container-fluid p-3" style="min-height: 450px;">
                       <?php require_once 'user-payment.php'; ?>
                     </div>
@@ -491,9 +491,14 @@ if(isset($_SESSION['user_id'])){
 // });
 
 function changeActiveTab(tab){
-  console.log(tab);
-  var myParam = location.search.split('active=')[1];
-  console.log(myParam);
+    var myParam = location.search.split('active=')[1];
+
+    const url = new URL(location);
+    url.searchParams.set("active", tab);
+    const state = { active: $(this).attr('id')};
+    if(url != window.location.href){
+        history.pushState(state, "", url);
+    }
 }
 
 window.onload = (event) =>{
@@ -505,6 +510,19 @@ window.onload = (event) =>{
     $('#'+active).trigger('click');
   }
 
-};
+}
+
+
+window.onpopstate = (event) => {
+    const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const active = urlParams.get('active')
+  console.log(active);
+  if(active != null){
+    $('#'+active).trigger('click');
+  }
+    
+    
+}
 
 </script>
