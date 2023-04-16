@@ -1615,6 +1615,12 @@ LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
 ORDER BY attendance_time_in DESC
 ;
 	
+SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, '%h:%i %p') as time_in, TIME_FORMAT(attendance_time_out, '%h:%i %p') as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE attendance_user_id = 10 
+ORDER BY attendance_time_in DESC
+;
 SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_time_in,CAST(attendance_time_in AS DATE) AS date_time_in,attendance_time_out  
 FROM attendances
 WHERE CAST(attendance_time_in AS DATE) = CURDATE();

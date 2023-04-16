@@ -2,17 +2,17 @@
     <div class="row gutters-sm">
         <div class="col-md-4 mb-3">
             <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
-                <div class="mt-3">
-                    <h4><?php if(isset($_SESSION['user_name'])){
-                    echo_safe($_SESSION['user_name']);}else {echo 'username not set';}?></h4>
-                    <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
-                    <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                    <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
+                    <div class="mt-3">
+                        <h4><?php if(isset($_SESSION['user_name'])){
+                        echo_safe($_SESSION['user_name']);}else {echo 'username not set';}?></h4>
+                        <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
+                        <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
+                    </div>
+                    </div>
                 </div>
-                </div>
-            </div>
             </div>
             <div class="card mt-3">
                 <div class="py-1 px-3">
@@ -199,57 +199,55 @@
             <div class="row gutters-sm">
                 <div class="col">
                     <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col align-center">
-                            <h5> Attendance </h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col align-center">
+                                    <h5> Attendance </h5>
+                                </div>
+                                <div class="col">
+                                    <li class="list-group-item d-flex flex-row-reverse flex-wrap">
+                                        <a class="btn btn-success float-right " href="attendance-hist.php?user_id=<?php echo $_SESSION['user_id']?>">More Details</a>
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="container table-responsive">
+                                    <table class="table  table-striped table-borderless" style="border: 3px solid black;">
+                                        <thead class="bg-dark text-light">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">DATE</th>
+                                                <th scope="col">TIME IN</th>
+                                                <th scope="col">TIME OUT</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                            require_once('../classes/attendances.class.php');
+                                            $attendanceObj = new attendances();
+
+                                            if($attendance_data = $attendanceObj->fetch_5_user_attendances($_SESSION['user_id'])){
+                                                $counter=1;
+                                                foreach ($attendance_data as $key => $value) {
+                                                    echo '
+                                            <tr>
+                                                <th scope="row">'.$counter.'</th>
+                                                <td>'.date_format(date_create(($value['attendance_time_in'])), "F d, Y").'</td>
+                                                <td>'.htmlentities($value['time_in']).'</td>
+                                                <td>'.htmlentities($value['time_out']).'</td>
+                                            </tr>';
+                                                $counter++;
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <li class="list-group-item d-flex flex-row-reverse flex-wrap">
-                                <a class="btn btn-success float-right " href="attendance-hist.php">More Details</a>
-                            </li>
-                        </div>
-                        </div>
-                        <div class="row mt-2">
-                        <div class="container table-responsive">
-                            <table class="table  table-striped table-borderless" style="border: 3px solid black;">
-                            <thead class="bg-dark text-light">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">DATE</th>
-                                <th scope="col">TIME IN</th>
-                                <th scope="col">TIME OUT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>October 16, 2022</td>
-                                <td>3:00 PM</td>
-                                <td>4:30 PM</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>January 16, 2022</td>
-                                <td>3:00 PM</td>
-                                <td>4:30 PM</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>September 16, 2022</td>
-                                <td>3:00 PM</td>
-                                <td>4:30 PM</td>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    
+    </div>    
 </div>
