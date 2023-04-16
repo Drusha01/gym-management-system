@@ -43,8 +43,7 @@ if(isset($_SESSION['user_id'])){
               header('location:successfully-sent.php');
               
             }else{
-              $hashed = md5(random_bytes(48));
-              echo $hashed;              
+              $hashed = md5(random_bytes(48));             
               // set session to retrieve later
               $_SESSION['forgot_user_id'] = $user_email['user_id'];
               $_SESSION['forgot_password_hashed'] = $hashed;
@@ -61,7 +60,17 @@ if(isset($_SESSION['user_id'])){
               $mail->addAddress($user_details['user_email'], $user_details['user_firstname'].' '.$user_details['user_lastname']);
               $mail->Subject = 'RECOVER ACCOUNT';
               $mail->msgHTML('none');
-              $mail->Body = '<strong><a href="https://kenogym.online/login/change_pass.php?code='.$hashed.'"></a></strong><br> if this is not you, please contact us';
+              $mail->Body = '
+                  <!DOCTYPE html>
+                  <html lang="en">
+                  <head>
+                  </head>
+                  <body>
+                  <strong><a href="https://kenogym.online/login/change_pass.php?code='.$hashed.'"></a></strong><br> if this is not you, please contact us
+                  </body>
+                  </html>
+                  ';
+
               if ($mail->send()) {
                   // insert to db here
                   $forgot_passwordObj->insert($user_email['user_id'],$hashed);
