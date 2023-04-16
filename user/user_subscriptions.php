@@ -252,6 +252,34 @@
 
     function cancel_sub_confirm(subscription_id){
         console.log(subscription_id);
-    }
+        var subscriptions = new FormData();  
+        // validation
+        subscriptions.append( 'subscription_id', subscription_id);  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "cancel_subscriptions.php",
+            data: subscriptions,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+            console.log(result);
+            if(result == 1){
+                //reload
+                location.reload();
+            }else if(-1){
+                alert('cannot cancel gym use while there are other subscriptions');
+            }else{
+                alert('Error canceling subscription');
+            }
+            
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
+        }
 
 </script>
