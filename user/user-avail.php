@@ -456,7 +456,7 @@ if(isset($_SESSION['user_id'])){
 
 
 
-<script src="../js/availvalidation.js"></script>
+<script src="../js/availvalidation-user.js"></script>
 
 
 <!-- 
