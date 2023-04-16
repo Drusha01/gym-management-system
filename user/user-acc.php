@@ -3,22 +3,7 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex flex-column align-items-center text-center">
-                    <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
-                    <div class="mt-3">
-                        <h4><?php if(isset($_SESSION['user_name'])){
-                        echo_safe($_SESSION['user_name']);}else {echo 'username not set';}?></h4>
-                        <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Subscribed</span></p>
-                        <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-3">
-                <div class="py-1 px-3">
-                    <h5 class="fw-bold">Status of Subscription</h5>
-                </div>
-            <?php 
+                <?php 
             // query my active / pending subscription
 
                 require_once('../classes/subscriptions.class.php');
@@ -69,6 +54,22 @@
                     }
                 }
             ?>
+                    <div class="d-flex flex-column align-items-center text-center">
+                    <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
+                    <div class="mt-3">
+                        <h4><?php if(isset($_SESSION['user_name'])){
+                        echo_safe($_SESSION['user_name']);}else {echo 'username not set';}?></h4>
+                        <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal"><?php if(isset( $gym_use_str)){echo 'Subscribed';}?></span></p>
+                        <p class="text-muted font-size-sm"><?php echo $_SESSION['user_address']?></p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="py-1 px-3">
+                    <h5 class="fw-bold">Status of Subscription</h5>
+                </div>
+            
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">Gym-Use</h6>
