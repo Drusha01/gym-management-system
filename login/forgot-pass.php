@@ -61,7 +61,7 @@ if(isset($_SESSION['user_id'])){
               $mail->addAddress($user_details['user_email'], $user_details['user_firstname'].' '.$user_details['user_lastname']);
               $mail->Subject = 'RECOVER ACCOUNT';
               $mail->msgHTML('none');
-              $mail->Body = '<strong><a href="../change_pass.php?code=">'.$hashed.'</a></strong><br> if this is not you, please contact us';
+              $mail->Body = '<strong><a href="../change_pass.php?code='.$hashed.'"></a></strong><br> if this is not you, please contact us';
               if ($mail->send()) {
                   // insert to db here
                   $forgot_passwordObj->insert($user_email['user_id'],$hashed);
