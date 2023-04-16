@@ -202,7 +202,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-success" id="conform_delete_sub">Yes</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="conform_delete_sub_close">No</button>
         </div>
         </div>
     </div>
@@ -258,7 +258,7 @@
         $.ajax({
             type: "POST",
             enctype: 'multipart/form-data',
-            url: "cancel_subscriptions.php",
+            url: "cancel_subscription.php",
             data: subscriptions,
             processData: false,
             contentType: false,
@@ -274,7 +274,7 @@
             }else{
                 alert('Error canceling subscription');
             }
-            
+            $('#conform_delete_sub_close').click();
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 

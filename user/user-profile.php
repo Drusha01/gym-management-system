@@ -72,7 +72,7 @@ if(isset($_SESSION['user_id'])){
                         <?php require_once 'user_subscriptions.php'; ?>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab">
+                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab"  onclick="changeActiveTab('locker')">
                     <div class="container-fluid p-3 " style="min-height: 450px;">
                       <?php require_once 'user-locker.php'; ?>
                     </div>

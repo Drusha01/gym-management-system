@@ -517,6 +517,21 @@ class subscriptions
         }
     }
 
+    function delete_pending_sub($subscription_id){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Deleted")
+            WHERE  (subscription_id =:subscription_id AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"));';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_id', $subscription_id);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+
+
+    }
+
     
 }
 
