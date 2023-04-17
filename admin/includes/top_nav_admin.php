@@ -1,7 +1,7 @@
 
 <header class="navbar navbar-expand-md navbar-dark sticky-top background-color-green-visible shadow-sm py-0">
         <div class="container-fluid p-0 pe-3 pe-md-0">
-        <a class="navbar-brand col-md-3 col-lg-3 col-xl-2 me-0 px-3 py-3 background-color-green" href="#">
+        <a class="navbar-brand col-md-3 col-lg-3 col-xl-2 me-0 px-3 py-3 background-color-green"  href="../dashboard/dashboard.php">
             <img class="logo-icon" src="../../images/logo.png" alt="">
             <div class="d-flex flex-column p-2 pt-0 pb-0">
                 <h3 class="mb-1 fs-5 text-white"><strong>KE-NO</strong></h3>
