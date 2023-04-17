@@ -140,8 +140,11 @@ if(isset($_SESSION['admin_id'])){
             <hr>
             <a href="manage-website.php" class="btn btn-outline-dark" role="button">Manage Website</a>
         </div>
-       
-
+        <h5 class="col-12 fw-regular">Recover</h5>
+        <hr>
+        <button class="btn btn-outline-dark" role="button" data-bs-toggle="modal" data-bs-target="#recov_pass">Recover</button>
+        <br>
+        <br>
         <!-- end of first part -->
         <?php 
             require_once('../../classes/admin_settings.class.php');
@@ -289,8 +292,62 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
+<!-- Modal recov pass-->
+<div class="modal fade" id="recov_pass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Recover Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row py-2">
+            <div class="col-12">
+                <label for="users" class="pb-2">Search</label>
+                <select class="select2" name='users' id="customer" style="width:100%;">
+                    <option value="None" selected>Select Customer Name</option> 
+                    <?php 
+                    require_once('../../classes/users.class.php');
+
+                    $userObj = new users();
+
+                    if($users_data = $userObj->fetch_all_users(0,100000)){
+                        foreach ($users_data as $key => $value) {
+                            # code...
+                            echo '<option value="'.htmlentities($value['user_id']).'" >('.htmlentities($value['user_name']).') '.htmlentities($value['user_fullname']).' </option>';
+                        }
+
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="inputPassword4">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="inputPassword4">
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
+    $('.select2').select2({
+        dropdownParent: $('#recov_pass')
+    });
+</script>
+<script>
+    
     function UpdateModal(number,admin_id,user_name){
         console.log(user_name);
         $('#deleteModalBody').html('Are you sure you want to '+number+'. '+user_name+'?');

@@ -69,7 +69,7 @@ if(isset($_SESSION['admin_id'])){
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
                 <div class="bg-light rounded p-4">
-                    <canvas id="salse-revenue"></canvas>
+                    <canvas id="revenue_chart"></canvas>
                 </div>
                 <div class="row pt-3">
                     <div id="MyButtons" class="d-flex mb-md-2 mb-lg-0 col-12 col-md-7"></div>
@@ -78,7 +78,7 @@ if(isset($_SESSION['admin_id'])){
                         <input type="text" name="keyword" id="keyword" placeholder="Search" class="form-control ms-md-2">
                     </div>
                 </div>
-                <?php require_once 'sales-revenue.php';?>
+                <?php require_once 'revenue.php';?>
             </div>
 
             <div class="tab-pane fade" id="subs" role="tabpanel" aria-labelledby="subs-tab">
@@ -134,11 +134,11 @@ $(".nav-item").on("click", function(){
 <script>
     $.ajax({
         type: "GET",
-        url: 'sales-revenue.php',
+        url: 'revenue.php',
         success: function(result)
         {
             $('div.table-responsive').html(result);
-            dataTable = $("#table-sales").DataTable({
+            dataTable = $("#table-revenue").DataTable({
                 "dom": '<"top"f>rt<"bottom"lp><"clear">',
                 responsive: true,
                 fixedHeader: true,
@@ -171,7 +171,7 @@ $(".nav-item").on("click", function(){
         }
     });
     $('#print-chart-btn').on('click', function() {
-    var canvas = document.querySelector("#salse-revenue");
+    var canvas = document.querySelector("#revenue_chart");
     var canvas_img = canvas.toDataURL("image/png",1.0); //JPEG will not match background color
     var pdf = new jsPDF('landscape','in', 'letter'); //orientation, units, page size
     pdf.addImage(canvas_img, 'png', .5, 1.75, 10, 5); //image, type, padding left, padding top, width, height

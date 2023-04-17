@@ -453,6 +453,7 @@ if(isset($_SESSION['admin_id'])){
 <script src="../../js/availform.js"></script>
 <script src="../../js/availvalidation.js"></script>
 <script>
+    $('.select2').select2();
     $('#customer').change(function(){
         console.log($('#customer').val());
         user_id = $('#customer').val();

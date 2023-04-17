@@ -1,5 +1,5 @@
 <div class="table-responsive table-container">
-    <table id="table-sales" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
+    <table id="table-revenue" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
         <thead class="table-dark">
             <tr>
             <th scope="col" class="d-lg-none"></th>
