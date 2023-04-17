@@ -28,7 +28,7 @@ if(isset($_SESSION['user_id'])){
     require_once '../classes/forgot_password.class.php';
    
     
-    $error = false;
+
     $userObj = new users();
     $forgot_passwordObj = new forgot_password();
     $user_email = $userObj->user_duplicateEmail();
@@ -40,7 +40,7 @@ if(isset($_SESSION['user_id'])){
             $user_details = $userObj->get_user_details();
            // print_r($user_details);
             if($forgot_password_data = $forgot_passwordObj->get_last_sent_email($user_email['user_id'])){
-              header('location:successfully-sent.php');
+              $error = 'Cannot sent email right now, try later';
               
             }else{
               $hashed = md5(random_bytes(48));             
@@ -76,7 +76,7 @@ if(isset($_SESSION['user_id'])){
                   $forgot_passwordObj->insert($user_email['user_id'],$hashed);
                   header('location:successfully-sent.php');
               } else {
-                  echo 'Mailer Error: ' . $mail->ErrorInfo;
+                  //echo 'Mailer Error: ' . $mail->ErrorInfo;
               }
             }
             
@@ -123,11 +123,15 @@ if(isset($_SESSION['user_id'])){
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
-                <!-- <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1">
+                <?php 
+                if(isset($error)){
+                  echo ' 
+                <div class="bg-danger text-dark bg-opacity-10 border border-danger rounded-1" id="error" ">
                   <div class="py-2 ms-3">
-                    Insert Text Here
+                      '.$error.'
                   </div>
-                </div> -->
+                </div>';
+                }?>
                 <div class="text-center mt-2">
                   <input type="submit" value="Recover" name="recover" class="btn btn-dark">
                   <!-- <a href="succesfully-sent.php" class="btn btn-dark">Next</a> -->

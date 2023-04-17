@@ -30,10 +30,11 @@ class forgot_password
     function get_last_sent_email($user_id){
         try{
             $sql = 'SELECT  forgot_password_id,forgot_password_user_id,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) as seconds,forgot_password_hashed FROM forgot_password
-            WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= :user_id ';
+            WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= :user_id 
+            ORDER BY forgot_password_date_time DESC
+            LIMIT 1;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_id', $user_id);
-            $query->bindParam(':forgot_password_hashed', $forgot_password_hashed);
             if($query->execute()){
                 $data =  $query->fetch();
                 return $data;

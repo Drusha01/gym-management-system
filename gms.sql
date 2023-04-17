@@ -1683,7 +1683,7 @@ INSERT INTO forgot_password(forgot_password_user_id,forgot_password_hashed) VALU
 
 
 SELECT  forgot_password_id,forgot_password_user_id,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) as seconds,forgot_password_hashed FROM forgot_password
-WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 3 AND forgot_password_hashed = 'sdfasdfsaf';
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 6 AND ;
 
 
 CREATE TABLE notification_types(
