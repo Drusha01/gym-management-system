@@ -53,62 +53,11 @@ if(isset($_SESSION['admin_id'])){
                             <a class="nav-link" href="#tab-trainer" data-bs-toggle="tab" >Trainer</a>
                         </li>
                     </ul>
-            <div class="tab-content">
-                <div class="tab-pane active show fade" id="tab-user">
-                    <div class="row g-2 mb-2 mt-1">
-                        <div class="form-group col-12 col-sm-4 table-filter-option">
-                            <label>User Status</label>
-                            <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
-                                <option value="">All</option>
-                                <option value="active">Active</option>
-                                <option value="deleted">Deleted</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-12 col-sm-4 table-filter-option">
-                            <label for="keyword">Search</label>
-                            <input type="text" name="keyword" id="keyword" placeholder="Enter Name Here" class="form-control ms-md-2">
-                        </div>
-                        <?php  if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){?>
-                            <div class="col-12 col-sm-4 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                            <a href="user-add.php" class="btn btn-success" role="button" id="add-button">Add Customer</a>
-                        </div>
-                        <?php }?>
-
-                    </div>
-                    <div class="table-responsive table-container">
-
-                    </div>
-
-                </div>
-                 <!-- end of acc table -->
-
-                <!-- <div class="tab-pane show fade" id="tab-trainer">
-                    <div class="row g-2 mb-2 mt-1">
-                            <div class="form-group col-12 col-sm-4 table-filter-option">
-                                <label>Type</label>
-                                <select name="categoryFilter" id="categoryFilter" class="form-select ms-md-2">
-                                    <option value="">All</option>
-                                    <option value="asdads">Available</option>
-                                    <option value="Not Subscribed">Not Available</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-12 col-sm-5 table-filter-option">
-                                <label for="keyword">Search</label>
-                                <input type="text" name="keyword" id="keyword" placeholder="Enter Name of Offer Here" class="form-control ms-md-2">
-                            </div>
-                            <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50">
-                                <a href="trainer-add.php" class="btn btn-success" role="button">Add Trainer</a>
-                            </div>
-                        </div>
-                        <div class="table-container">
-                            <?php //require_once 'trainertable.php'; ?>
-                        </div>
-                    </div> -->
+            <div class="tab">
+            
             </div>
                 <!-- end of acc table -->
-
-           
+        </div>  
     </div>
 </main>
 
@@ -120,6 +69,12 @@ if(isset($_SESSION['admin_id'])){
 
 
 $(".nav-item").on("click", function(){
+    const url = new URL(location);
+    url.searchParams.set("active", $(this).attr('id') );
+    const state = { active: $(this).attr('id')};
+    if(url != window.location.href){
+        history.pushState(state, "", url);
+    }
     $(".nav-item").removeClass("active");
     $(this).addClass("active");
     console.log($(this).attr('id'))
@@ -132,13 +87,13 @@ $(".nav-item").on("click", function(){
             {
                 $('#add-button').html('Add Customer');
                 $('#add-button').attr('href','user-add.php');
-                $('div#tab').html(result);
+                $('div.tab').html(result);
                 $.ajax({
                     type: "GET",
                     url: 'usertable.php?page=1',
                     success: function(result)
                     {
-                        $('div.table-responsive').html(result);
+                        $('div.table-responsive-1').html(result);
                         dataTable = $("#example").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
@@ -171,13 +126,13 @@ $(".nav-item").on("click", function(){
             {
                 $('#add-button').html('Add Trainer');
                 $('#add-button').attr('href','trainer-add.php');
-                $('div#tab').html(result);
+                $('div.tab').html(result);
                 $.ajax({
                     type: "GET",
                     url: 'trainertable.php',
                     success: function(result)
                     {
-                        $('div.table-responsive').html(result);
+                        $('div.table-responsive-1').html(result);
                         dataTable = $("#table-1").DataTable({
                             "dom": '<"top"f>rt<"bottom"lp><"clear">',
                             responsive: true,
@@ -210,64 +165,40 @@ $(".nav-item").on("click", function(){
 
 });
 
-// default as usertable
-$.ajax({
-    type: "GET",
-    url: 'user-table-header.php',
-    success: function(result)
-    {
-        $('div#tab').html(result);
-        $.ajax({
-            type: "GET",
-            url: 'usertable.php?',
-            success: function(result)
-            {
-                $('div.table-responsive').html(result);
-                dataTable = $("#example").DataTable({
-                    "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                    responsive: true,
-                });
-                $('input#keyword').on('input', function(e){
-                    var status = $(this).val();
-                    dataTable.columns([3]).search(status).draw();
-                })
-                $('select#categoryFilter').on('change', function(e){
-                    var status = $(this).val();
-                    dataTable.columns([7]).search(status).draw();
-                })
-                new $.fn.dataTable.FixedHeader(dataTable);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-            }
-        });
-        
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+function changeActiveTab(tab){
+    var myParam = location.search.split('active=')[1];
+
+    const url = new URL(location);
+    url.searchParams.set("active", tab);
+    const state = { active: $(this).attr('id')};
+    if(url != window.location.href){
+        history.pushState(state, "", url);
     }
-});
+}
+
+window.onload = (event) =>{
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const active = urlParams.get('active')
+  console.log(active);
+  if(active != null){
+    $('#'+active).trigger('click');
+  }
+
+}
 
 
-// function createModal(val){
-//     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-//         <div class="modal-dialog modal-dialog-centered">
-//             <div class="modal-content">
-//             <div class="modal-header">
-//                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-//                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-//             </div>
-//             <div class="modal-body">
-//                 Are you sure you want to delete this?
-//             </div>
-//             <div class="modal-footer">
-//                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
-//                 <button type="button" class="btn btn-danger">Delete</button>
-//             </div>
-//             </div>
-//         </div>
-//     </div>
-// }
+window.onpopstate = (event) => {
+    const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const active = urlParams.get('active')
+  console.log(active);
+  if(active != null){
+    $('#'+active).trigger('click');
+  }
+    
+    
+}
 </script>
 
 </body>

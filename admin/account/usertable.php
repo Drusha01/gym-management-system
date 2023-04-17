@@ -112,11 +112,33 @@ function confirmfunction(id,index,name){
                 // update selected
                 $('#user_status'+id+' option[value=deleted]').attr('selected','selected'); 
                 alert('deleted successfully');
-                console.log(result)
+                $.ajax({
+                    type: "GET",
+                    url: 'usertable.php?page=1',
+                    success: function(result)
+                    {
+                        $('div.table-responsive-1').html(result);
+                        dataTable = $("#example").DataTable({
+                            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                            responsive: true,
+                        });
+                        $('input#keyword').on('input', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                        })
+                        $('select#categoryFilter').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([7]).search(status).draw();
+                        })
+                        new $.fn.dataTable.FixedHeader(dataTable);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                    }
+                });
             }else{
                 alert('deletion failed');
             }
-            location.reload();
         }});
     } else {
         return;
@@ -137,11 +159,32 @@ function changeUserStatus(id){
                 // update datatables
                 //$( "#offer_id_"+id ).remove();
                 alert('changed successfully');
-                console.log(result)
-                location.reload();
+                $.ajax({
+                    type: "GET",
+                    url: 'usertable.php?page=1',
+                    success: function(result)
+                    {
+                        $('div.table-responsive-1').html(result);
+                        dataTable = $("#example").DataTable({
+                            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                            responsive: true,
+                        });
+                        $('input#keyword').on('input', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([3]).search(status).draw();
+                        })
+                        $('select#categoryFilter').on('change', function(e){
+                            var status = $(this).val();
+                            dataTable.columns([7]).search(status).draw();
+                        })
+                        new $.fn.dataTable.FixedHeader(dataTable);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                    }
+                });
             }else{
                 alert('changed failed');
-                location.reload();
             }
     }});
 }
