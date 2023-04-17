@@ -482,13 +482,7 @@ if(isset($_SESSION['user_id'])){
 
 <script>
 
-// $(document).ready(function() {
-//   $('.btn btn-success float-right').magnificPopup({type:'image'});
-// });
 
-// $(document).ready(function() {
-//   $('#view-valid-id').magnificPopup({type:'image'});
-// });
 
 function changeActiveTab(tab){
     var myParam = location.search.split('active=')[1];

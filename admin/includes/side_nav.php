@@ -68,7 +68,7 @@
                     if((isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify') || (isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Read-Only')){
                         echo'
                     <li class="nav-item">
-                        <a href="../account/account.php" class="nav-link " title="Accounts">
+                        <a href="../account/account.php?active=user" class="nav-link " title="Accounts">
                             <i class="bx bx-user" ></i>
                             <span class="links-name">Accounts</span>
                         </a>
