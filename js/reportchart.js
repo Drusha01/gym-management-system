@@ -19,12 +19,6 @@ function getRandomColor() {
                  backgroundColor: "rgba(0, 156, 255, .5)",
                  fill: true
              },
-             {
-                 label: "Revenue",
-                 data: [99, 135, 170, 130, 190, 180, 270],
-                 backgroundColor: "rgba(0, 156, 255, .3)",
-                 fill: true
-             }
          ]
          },
      options: {
