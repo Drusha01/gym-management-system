@@ -60,8 +60,7 @@ if(isset($_SESSION['admin_id'])){
             <div class="col-sm-12 col-xl-8">
                 <div class="card rounded-4 border-0 shadow text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Sales & Revenue</h6>
-                        March 20-25, 2023
+                        <h6 class="mb-0">Revenue</h6>
                     </div>
                     <canvas id="salse-revenue"></canvas>
                 </div>

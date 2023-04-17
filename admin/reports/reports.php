@@ -57,7 +57,7 @@ if(isset($_SESSION['admin_id'])){
             </li>
         </ul>
         <div class="row my-2">
-            <div class="col-lg-6 d-grid d-lg-inline"><button class="btn btn-outline-dark  me-1 py-1 ">Print</button><button class="btn btn-outline-dark me-1 py-1">PDF</button><button class="btn btn-outline-dark me-1 py-1">Excel</button></div>
+            <div class="col-lg-6 d-grid d-lg-inline"><button id="print-chart-btn" class="btn btn-outline-dark">Print Chart</button></div>
             <div class="col-12 col-lg-6 pb-2 d-flex justify-content-end">
                 <div id="reportrange_1" class="pull-right rounded" style="background: #fff; cursor: pointer; padding: 4px 10px; border: 1px solid #ccc; width:100%;">
                     <i class='bx bxs-calendar'></i>&nbsp;
@@ -68,9 +68,17 @@ if(isset($_SESSION['admin_id'])){
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                <div class="bg-light rounded h-100 p-4">
-                    <canvas id="salse-revenue"></canvas>
+                <div class="bg-light rounded p-4">
+                    <canvas id="revenue_chart"></canvas>
                 </div>
+                <div class="row pt-3">
+                    <div id="MyButtons" class="d-flex mb-md-2 mb-lg-0 col-12 col-md-7"></div>
+                    <div class="form-group col-12 col-sm-5 table-filter-option">
+                        <label for="keyword">Search</label>
+                        <input type="text" name="keyword" id="keyword" placeholder="Search" class="form-control ms-md-2">
+                    </div>
+                </div>
+                <?php require_once 'revenue.php';?>
             </div>
 
             <div class="tab-pane fade" id="subs" role="tabpanel" aria-labelledby="subs-tab">
@@ -122,6 +130,55 @@ $(".nav-item").on("click", function(){
             $(this).addClass("active");
 
         });
+</script>
+<script>
+    $.ajax({
+        type: "GET",
+        url: 'revenue.php',
+        success: function(result)
+        {
+            $('div.table-responsive').html(result);
+            dataTable = $("#table-revenue").DataTable({
+                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                responsive: true,
+                fixedHeader: true,
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        className: 'border-white'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'PDF',
+                        className: 'border-white'
+                    },
+                    {
+                        extend: 'print',
+                        text: 'Print',
+                        className: 'border-white'
+                    }
+                ],
+            });
+            dataTable.buttons().container().appendTo($('#MyButtons'));
+            $('input#keyword').on('input', function(e){
+                var status = $(this).val();
+                dataTable.columns([2]).search(status).draw();
+            });
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        }
+    });
+    $('#print-chart-btn').on('click', function() {
+    var canvas = document.querySelector("#revenue_chart");
+    var canvas_img = canvas.toDataURL("image/png",1.0); //JPEG will not match background color
+    var pdf = new jsPDF('landscape','in', 'letter'); //orientation, units, page size
+    pdf.addImage(canvas_img, 'png', .5, 1.75, 10, 5); //image, type, padding left, padding top, width, height
+    pdf.autoPrint(); //print window automatically opened with pdf
+    var blob = pdf.output("bloburl");
+    window.open(blob);
+});
 </script>
 </body>
 
