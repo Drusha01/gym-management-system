@@ -63,7 +63,7 @@ if(isset($_SESSION['admin_id'])){
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="min-width:30px;">
                             <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button" >Word <i class='bx bxs-file-doc fs-5'></i></button></li>
                             <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">PDF <i class='bx bxs-file-pdf fs-5' ></i></button></li>
-                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button" id="btnPrint">Print <i class='bx bx-printer fs-5' ></i></button></li>
+                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button"  onclick="print_this('to_print')">Print <i class='bx bx-printer fs-5' ></i></button></li>
                             </ul>
                         </div>
                     </div>
@@ -71,8 +71,19 @@ if(isset($_SESSION['admin_id'])){
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpayment" id="confirm_payment_modal">Confirm Payment</button>
                     </div>
                 </div>
+              <div class="table-responsive table-1" id="to_print">
+                <div class="d-none">
+                  <div class="text-center">
+                    <img src="../../images/logo.png" width="70">
+                    <h4 class="fw-bolder text-uppercase">KE-NO Fitness Center</h4>
+                    <h5 class="fw-bold">San Jose, Zamboanga City</h5>
+                  </div>
+                  <h4 class="fw-bold "><?php echo $_GET['name'];?></h4>
+                  <div class="col-12 d-flex justify-content-end">
+                        <span class="fw-bolder fs-5">Date: <span id="dateDiv" class="fw-normal fs-5"></span></span>
+                  </div>
+                </div>
                 
-              <div class="table-responsive table-1">
                 <table id="table-1" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                     <thead class="table-secondary">
                         <tr>
@@ -328,10 +339,51 @@ if(isset($_SESSION['admin_id'])){
 </body>
 </html>
 <script>
-const $btnPrint = document.querySelector("#btnPrint");
-$btnPrint.addEventListener("click", () => {
-    window.print();
-});
+window.print_this = function(id) {
+    var prtContent = document.getElementById(id);
+    var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    
+    WinPrint.document.write('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">');
+    
+  	// To keep styling
+    /*var file = WinPrint.document.createElement("link");
+    file.setAttribute("rel", "stylesheet");
+    file.setAttribute("type", "text/css");
+    file.setAttribute("href", 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+    WinPrint.document.head.appendChild(file);*/
+
+    
+    WinPrint.document.write(prtContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.setTimeout(function(){
+      WinPrint.focus();
+      WinPrint.print();
+      WinPrint.close();
+    }, 1000);
+}
+</script>
+<script>
+    function showDate()
+    {
+    var now = new Date();
+    var days = new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+    var months = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+    var date = ((now.getDate()<10) ? "0" : "")+ now.getDate();
+    function fourdigits(number)
+    {
+    return (number < 1000) ? number + 1900 : number;
+    }
+    tnow=new Date();
+    thour=now.getHours();
+    tmin=now.getMinutes();
+    tsec=now.getSeconds();
+    if (tmin<=9) { tmin="0"+tmin; }
+    if (tsec<=9) { tsec="0"+tsec; }
+    if (thour<10) { thour="0"+thour; }
+    today = days[now.getDay()] + ", " + date + " " + months[now.getMonth()] + ", " + (fourdigits(now.getYear())) ;
+    document.getElementById("dateDiv").innerHTML = today;
+    }
+    setInterval("showDate()", 1000);
 </script>
 <script>
 function discount_modal(subscription_id){ 
