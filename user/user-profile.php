@@ -61,22 +61,22 @@ if(isset($_SESSION['user_id'])){
               </ul>
           </div>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab" onclick="changeActiveTab('account-tab')">
+                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                   
                 </div>
-                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab" onclick="changeActiveTab('notification-tab')">
+                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab" >
 
                 </div>
-                <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription-tab')">
+                <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" >
 
                 </div>
-                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab"  onclick="changeActiveTab('lockers-tab')">
+                <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab"  >
 
                 </div>
-                <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer-tab')">
+                <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" >
 
                 </div>
-                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" onclick="changeActiveTab('payment-tab')">
+                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" >
 
                 </div>
               </div>
@@ -442,34 +442,34 @@ if(isset($_SESSION['user_id'])){
 </body>
 </html>
 <script>
-    $.ajax({
-        type: "GET",
-        url: 'tbl/paid_hist_tbl.php',
-        success: function(result)
-        {
-            $('div.tbl-hist-paid').html(result);
-            dataTable = $("#hist-pay").DataTable({
-                "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                responsive: true,
-            });
-            $('input#keyword').on('input', function(e){
-                var status = $(this).val();
-                dataTable.columns([1]).search(status).draw();
-            })
-            $('select#categoryFilter').on('change', function(e){
-            var status = $(this).val();
-            dataTable.columns([2]).search(status).draw();
-            });
-            $('select#categoryFilter_2').on('change', function(e){
-            var status = $(this).val();
-            dataTable.columns([4]).search(status).draw();
-            })
-            new $.fn.dataTable.FixedHeader(dataTable);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: 'tbl/paid_hist_tbl.php',
+    //     success: function(result)
+    //     {
+    //         $('div.tbl-hist-paid').html(result);
+    //         dataTable = $("#hist-pay").DataTable({
+    //             "dom": '<"top"f>rt<"bottom"lp><"clear">',
+    //             responsive: true,
+    //         });
+    //         $('input#keyword').on('input', function(e){
+    //             var status = $(this).val();
+    //             dataTable.columns([1]).search(status).draw();
+    //         })
+    //         $('select#categoryFilter').on('change', function(e){
+    //         var status = $(this).val();
+    //         dataTable.columns([2]).search(status).draw();
+    //         });
+    //         $('select#categoryFilter_2').on('change', function(e){
+    //         var status = $(this).val();
+    //         dataTable.columns([4]).search(status).draw();
+    //         })
+    //         new $.fn.dataTable.FixedHeader(dataTable);
+    //     },
+    //     error: function(XMLHttpRequest, textStatus, errorThrown) { 
+    //         alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+    //     }
+    // });
 </script>
 
 <script>
@@ -569,6 +569,8 @@ window.onload = (event) =>{
   console.log(active);
   if(active != null){
     $('#'+active).trigger('click');
+  }else{
+    $('#account-tab').trigger('click');
   }
 
 }
@@ -581,6 +583,8 @@ window.onpopstate = (event) => {
   console.log(active);
   if(active != null){
     $('#'+active).trigger('click');
+  }else{
+    $('#account-tab').trigger('click');
   }
     
     

@@ -56,6 +56,7 @@ if(isset($_SESSION['admin_id'])){
                                 }
                             }else{
                                 // percentage
+                                print_r($_POST);
                             }
 
                             if($error){
