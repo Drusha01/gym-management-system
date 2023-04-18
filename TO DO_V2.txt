@@ -19,6 +19,12 @@ http://localhost/gym%20management%20system/gym-management-system/gym-management-
 payment history
 http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/payment_hist.php
 
+subs history
+http://localhost/gym%20management%20system/gym-management-system/gym-management-system/user/user-profile.php?active=Subscription-tab
+
+customer payment history
+http://localhost/gym%20management%20system/gym-management-system/gym-management-system/user/user-profile.php?active=payment-tab
+
 
 dashboard
 

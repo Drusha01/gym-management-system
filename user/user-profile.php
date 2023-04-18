@@ -61,31 +61,23 @@ if(isset($_SESSION['user_id'])){
               </ul>
           </div>
               <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                  <?php require_once 'user-acc.php'; ?>
+                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab" onclick="changeActiveTab('account-tab')">
+                  
                 </div>
                 <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab" onclick="changeActiveTab('notification-tab')">
-                      <?php require_once 'user-notif.php'; ?>
+
                 </div>
                 <div class="tab-pane fade" id="Subscription" role="tabpanel" aria-labelledby="Subscription-tab" onclick="changeActiveTab('Subscription-tab')">
-                    <div class="container-fluid p-3 " style="min-height: 450px;">
-                        <?php require_once 'user_subscriptions.php'; ?>
-                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="lockers" role="tabpanel" aria-labelledby="lockers-tab"  onclick="changeActiveTab('lockers-tab')">
-                    <div class="container-fluid p-3 " style="min-height: 450px;">
-                      <?php require_once 'user-locker.php'; ?>
-                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="trainer" role="tabpanel" aria-labelledby="trainer-tab" onclick="changeActiveTab('trainer-tab')">
-                    <div class="container-fluid p-3" style="min-height: 450px;">
-                      <?php require_once 'user-trainer.php'; ?>
-                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" onclick="changeActiveTab('payment-tab')">
-                    <div class="container-fluid p-3" style="min-height: 450px;">
-                      <?php require_once 'user-payment.php'; ?>
-                    </div>
+
                 </div>
               </div>
             </div>
@@ -493,6 +485,81 @@ function changeActiveTab(tab){
     if(url != window.location.href){
         history.pushState(state, "", url);
     }
+    if(tab == 'account-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'user-acc.php',
+            success: function(result)
+            {
+                $('#account').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }else if(tab == 'notification-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'user-notif.php',
+            success: function(result)
+            {
+                $('#notification').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }else if(tab == 'Subscription-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'user_subscriptions.php',
+            success: function(result)
+            {
+                $('#Subscription').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }else if(tab == 'lockers-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'user-locker.php',
+            success: function(result)
+            {
+                $('#lockers').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }else if(tab == 'trainer-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'user-trainer.php',
+            success: function(result)
+            {
+                $('#trainer').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }else if(tab == 'payment-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'user-payment.php',
+            success: function(result)
+            {
+                $('#payment').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
+    }
+
+    
 }
 
 window.onload = (event) =>{

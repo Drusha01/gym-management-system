@@ -57,14 +57,9 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     <div class="col-lg-2 d-none d-lg-flex justify-content-end">
                         <div class="btn-group dropstart">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Save As
+                            <button class="btn btn-secondary " type="button" id="dropdownMenuButton1"  aria-expanded="false" onclick="print_this('to_print')">
+                                Print
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="min-width:30px;">
-                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button" >Word <i class='bx bxs-file-doc fs-5'></i></button></li>
-                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">PDF <i class='bx bxs-file-pdf fs-5' ></i></button></li>
-                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button"  onclick="print_this('to_print')">Print <i class='bx bx-printer fs-5' ></i></button></li>
-                            </ul>
                         </div>
                     </div>
                     <div class="col-12 col-lg-2 d-grid d-lg-flex justify-content-lg-end">

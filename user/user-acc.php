@@ -4,9 +4,11 @@
             <div class="card">
                 <div class="card-body">
                 <?php 
-            // query my active / pending subscription
-
+                // query my active / pending subscription
+                session_start();
+                require_once '../tools/functions.php';
                 require_once('../classes/subscriptions.class.php');
+                
                 $subscriptionsObj = new subscriptions();
                 $gym_use_str = 'Not Availed';
                 $trainer_use_str = 'Not Availed';
