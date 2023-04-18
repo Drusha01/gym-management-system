@@ -61,9 +61,9 @@ if(isset($_SESSION['admin_id'])){
                                 Save As
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="min-width:30px;">
-                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">Word <i class='bx bxs-file-doc fs-5'></i></button></li>
+                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button" >Word <i class='bx bxs-file-doc fs-5'></i></button></li>
                             <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">PDF <i class='bx bxs-file-pdf fs-5' ></i></button></li>
-                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button">Print <i class='bx bx-printer fs-5' ></i></button></li>
+                            <li><button class="dropdown-item d-flex align-items-center justify-content-end" type="button" id="btnPrint">Print <i class='bx bx-printer fs-5' ></i></button></li>
                             </ul>
                         </div>
                     </div>
@@ -327,7 +327,12 @@ if(isset($_SESSION['admin_id'])){
 
 </body>
 </html>
-
+<script>
+const $btnPrint = document.querySelector("#btnPrint");
+$btnPrint.addEventListener("click", () => {
+    window.print();
+});
+</script>
 <script>
 function discount_modal(subscription_id){ 
   $('#discount_confirm').attr('onclick','sub_discount('+subscription_id+')');
