@@ -21,8 +21,10 @@ if(isset($_SESSION['admin_id'])){
                 
                 require_once('../../classes/subscriptions.class.php');
                 require_once('../../classes/admins.class.php');
+                require_once('../../classes/payments.class.php');
                 $subscriptionsObj = new subscriptions();
                 $adminObj = new admins();
+                $paymentsObj = new payments();
                 if($admin_data = $adminObj->get_admin_password($_SESSION['admin_id'])){
                     if (password_verify($_POST['password'], $admin_data['user_password_hashed'])) {
                         if($payments_data = $subscriptionsObj->fetch_active_subs_payment($_POST['user_id'])){
@@ -35,16 +37,16 @@ if(isset($_SESSION['admin_id'])){
                                     if($partial_payment>0){
                                         $balance = (($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']))+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount']);
                                         if($partial_payment-$balance>=0){
-                                            $partial_payment -=$balance;
-                                            if(!$subscriptionsObj->full_payment($value['subscription_id'])){
+                                            if(!$subscriptionsObj->full_payment($value['subscription_id']) || !$paymentsObj->insert($value['total'],$value['subscription_id'],'Full payment')){
                                                 $error = true;
                                             }
                                         }else{
-                                            if(!$subscriptionsObj->partial_payment($value['subscription_id'],$partial_payment)){
+                                            if(!$subscriptionsObj->partial_payment($value['subscription_id'],$partial_payment) || !$paymentsObj->insert($partial_payment,$value['subscription_id'],'Partial payment')){
                                                 $error = true;
                                             }
-                                            $partial_payment -=$balance;
-                                        }      
+                                            
+                                        }     
+                                        $partial_payment -=$balance; 
                                     }else{
                                         break;
                                     }

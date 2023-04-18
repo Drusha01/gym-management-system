@@ -488,13 +488,13 @@ $('#confirm_payment_modal').click(function (){
 });
 
 $('#confirm_payment').click(function (){
-  console.log($('#admin_user_password').val());
   $.post("full_payment.php",
   {
     password: $('#admin_user_password').val(),
     user_id: $('#customer_user_id').val()
   },
   function(data, status){
+    console.log(data)
     if(data ==1){
       location.reload();
     }else{
@@ -560,7 +560,7 @@ $('#confirm_partial_payment').click(function (){
     if(data ==1){
       location.reload();
     }else{
-      //alert('Wrong password / Error');
+      alert('Wrong password / Error');
     }
   });
 });

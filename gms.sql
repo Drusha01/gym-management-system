@@ -1683,7 +1683,9 @@ INSERT INTO forgot_password(forgot_password_user_id,forgot_password_hashed) VALU
 
 
 SELECT  forgot_password_id,forgot_password_user_id,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) as seconds,forgot_password_hashed FROM forgot_password
-WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 6 AND ;
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 6 
+ORDER BY forgot_password_date_time DESC
+LIMIT 1;
 
 
 CREATE TABLE notification_types(
@@ -1953,6 +1955,46 @@ LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
 ORDER BY walk_in_date ASC
 ;
 
+CREATE TABLE payment_types(
+	payment_type_id int primary key auto_increment,
+    payment_type_details varchar(50) unique
+);
+
+INSERT INTO payment_types (payment_type_details) VALUES
+(
+	'Partial Payment'
+),(
+	'Full Payment'
+),(
+	'Void Payment'
+),(
+	'Discount Payment'
+);
+
+(SELECT payment_type_id FROM payment_types WHERE payment_type_details="Paid");
+CREATE TABLE payments(
+	payment_id int primary key auto_increment ,
+    payment_amount float not null,
+    payment_subscription_id int not null,
+    payment_type_id int not null,
+    payment_date datetime default NOW(),
+    FOREIGN KEY (payment_subscription_id) REFERENCES subscriptions(subscription_id),
+    FOREIGN KEY (payment_type_id) REFERENCES payment_types(payment_type_id)
+);
+
+SELECT * FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payment_types.payment_type_id
+;
+INSERT INTO payments (payment_id,payment_amount,payment_subscription_id,payment_type_id,payment_date) VALUES
+(
+	null,
+	800,
+	30,
+	(SELECT payment_type_id FROM payment_types WHERE payment_type_details = "Paid" ),
+	NOW()
+);
+
+
 
 
 -- walk in table
@@ -2020,6 +2062,12 @@ SELECT count(*) as total FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 WHERE subscription_status_details = 'Active' AND subscription_subscriber_user_id = 7;
 
+-- activate pending sub at date
+UPDATE subscriptions 
+SET subscription_start_date ='2023-4-20' , 
+subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Active")
+WHERE  (subscription_subscriber_user_id = 8 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"))
+;
 
 SELECT * FROM subscriber_trainers
 LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
@@ -2194,7 +2242,7 @@ WHERE subscription_status_details = 'Completed';
 
 -- full payment
 UPDATE subscriptions 
-SET subscription_paid_amount =  ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due)
+SET subscription_paid_amount =  ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount - subscription_paid_amount + subscription_penalty_due)
 WHERE subscription_id = 9;
 
 -- payment

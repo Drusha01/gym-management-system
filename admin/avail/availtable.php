@@ -76,22 +76,26 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
                         }
                     }
                     if(($gym_sub)){
-                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$gym_sub_total.')').'</td>';
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$gym_sub_total.')').'
+                        <br>'.htmlentities(date_format(date_create($user_subscription_data_value['subscription_start_date']), "F d, Y")).'</td>';
                     }else{
                         echo '<td class="text-center">None</td>';
                     }
                     if(($trainer_sub)){
-                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$trainer_sub_total.')').'</td>';
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$trainer_sub_total.')').'
+                        <br>'.htmlentities(date_format(date_create($user_subscription_data_value['subscription_start_date']), "F d, Y")).'</td>';
                     }else{
                         echo '<td class="text-center">None</td>';
                     }
                     if(($locker_sub)){
-                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$locker_sub_total.')').'</td>';
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$locker_sub_total.')').'
+                        <br>'.htmlentities(date_format(date_create($user_subscription_data_value['subscription_start_date']), "F d, Y")).'</td>';
                     }else{
                         echo '<td class="text-center">None</td>';
                     }
                     if(($program_sub)){
-                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$program_sub_total.')').'</td>';
+                        echo '<td class="text-center">'.htmlentities($user_subscription_data_value['subscription_status_details'].'('.$program_sub_total.')').'
+                        <br>'.htmlentities(date_format(date_create($user_subscription_data_value['subscription_start_date']), "F d, Y")).'</td>';
                     }else{
                         echo '<td class="text-center">None</td>';
                     }

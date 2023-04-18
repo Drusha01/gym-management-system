@@ -242,10 +242,10 @@ if(isset($_SESSION['admin_id'])){
         <div class="row ms-2 ms-lg-5">
             <div class="col-6">
                 <label class="pb-1 ms-1" for="end">Choose Date</label>
-                <input type="date" class="form-control" value="" id="end" name="birthdate" placeholder="Enter End Date"  required>
+                <input type="date" class="form-control" value="<?php echo (date("Y-m-d"))?>" min="<?php echo (date("Y-m-d"))?>" id="start_date" name="start_date" placeholder="Enter End Date"  required>
             </div>
             <div class="col-6 d-flex align-items-end ">
-                <button class="btn btn-success">Confirm Date</button>
+                <button class="btn btn-success" onclick="activate_subscription_with_start_date(<?php echo $_GET['user_id'];?>)">Confirm Date</button>
             </div>
         </div>
         <div class="d-flex px-3 pt-3">
@@ -451,7 +451,8 @@ if(isset($_SESSION['admin_id'])){
 
     function deleteSubscription(user_id){
         console.log('deleting');
-        $.ajax({url: "delete_pendingSubs.php?user_id="+user_id, success: function(result){
+        $.ajax({
+            url: "delete_pendingSubs.php?user_id="+user_id, success: function(result){
             console.log(result);
             if(result ==1){
                 // update datatables
@@ -484,6 +485,32 @@ if(isset($_SESSION['admin_id'])){
             }
             //location.reload();
         }});
+    }
+
+    function activate_subscription_with_start_date(user_id){
+        var start_date = $('#start_date').val();
+
+        var activate_sub = new FormData();  
+        activate_sub.append( 'user_id', user_id);  
+        activate_sub.append( 'start_date', start_date);  
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "activate_subscription_with_start_date.php",
+            data: activate_sub,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                console.log(result)
+                if(result == 1){
+                    alert('activated successfully');
+                }
+                location.reload();
+            }
+        });
     }
 </script>
 <script>
