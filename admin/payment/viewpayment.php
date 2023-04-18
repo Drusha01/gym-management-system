@@ -52,10 +52,10 @@ if(isset($_SESSION['admin_id'])){
         </div>
             <div class="container-fluid">
                 <div class="row pb-2">
-                    <div class="col-12 col-lg-10">
+                    <div class="col-12 col-lg-8">
                         <h5 class="fw-bold "><?php echo $_GET['name'];?></h5>
                     </div>
-                    <div class="col-lg-1 d-none d-lg-flex justify-content-end">
+                    <div class="col-lg-2 d-none d-lg-flex justify-content-end">
                         <div class="btn-group dropstart">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Save As
@@ -67,7 +67,7 @@ if(isset($_SESSION['admin_id'])){
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-1 d-grid d-lg-flex justify-content-lg-end">
+                    <div class="col-12 col-lg-2 d-grid d-lg-flex justify-content-lg-end">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmpayment" id="confirm_payment_modal">Confirm Payment</button>
                     </div>
                 </div>
