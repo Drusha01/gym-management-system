@@ -140,7 +140,7 @@ if(isset($_SESSION['admin_id'])){
             <hr>
             <a href="manage-website.php" class="btn btn-outline-dark" role="button">Manage Website</a>
         </div>
-        <h5 class="col-12 fw-regular">Recover</h5>
+        <h5 class="col-12 fw-regular">Recover Account</h5>
         <hr>
         <button class="btn btn-outline-dark" role="button" data-bs-toggle="modal" data-bs-target="#recov_pass">Recover</button>
         <br>
