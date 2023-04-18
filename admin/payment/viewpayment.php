@@ -83,7 +83,6 @@ if(isset($_SESSION['admin_id'])){
                         <span class="fw-bolder fs-5">Date: <span id="dateDiv" class="fw-normal fs-5"></span></span>
                   </div>
                 </div>
-                
                 <table id="table-1" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                     <thead class="table-secondary">
                         <tr>
