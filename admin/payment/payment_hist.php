@@ -176,7 +176,8 @@ if(isset($_SESSION['admin_id'])){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive ">
+                <div class="table-responsive " id="to_print_full_subs">
+                    <div class="d-none"><h4>Trinindad, James Lorenz</h4></div>
                     <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                         <thead class="table-secondary">
                             <tr>
@@ -226,8 +227,7 @@ if(isset($_SESSION['admin_id'])){
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success">Show</button>
-                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-outline-dark" onclick="print_this_full_subs('to_print_full_subs')">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -244,7 +244,8 @@ if(isset($_SESSION['admin_id'])){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive ">
+                <div class="table-responsive " id="to_print_partial_subs">
+                    <div class="d-none"><h4>Trinindad, James Lorenz</h4></div>
                     <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                         <thead class="table-secondary">
                             <tr>
@@ -294,8 +295,7 @@ if(isset($_SESSION['admin_id'])){
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success">Show</button>
-                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-outline-dark" onclick="print_this_partial_subs('to_print_partial_subs')" >Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -312,7 +312,8 @@ if(isset($_SESSION['admin_id'])){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive ">
+                <div class="table-responsive " id="to_print_this_void_subs">
+                    <div class="d-none"><h4>Trinindad, James Lorenz</h4></div>
                     <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                         <thead class="table-secondary">
                             <tr>
@@ -372,8 +373,7 @@ if(isset($_SESSION['admin_id'])){
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success">Show</button>
-                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-outline-dark" onclick="print_this_void_subs('to_print_this_void_subs')">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -390,7 +390,8 @@ if(isset($_SESSION['admin_id'])){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive ">
+                <div class="table-responsive " id="to_print_this_walk_in_single">
+                <div class="d-none"><h4>Trinindad, James Lorenz</h4></div>
                     <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                         <thead class="table-secondary">
                             <tr>
@@ -429,8 +430,7 @@ if(isset($_SESSION['admin_id'])){
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success">Show</button>
-                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-outline-dark" onclick="print_this_walk_in_single('to_print_this_walk_in_single')">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -446,7 +446,8 @@ if(isset($_SESSION['admin_id'])){
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive ">
+                <div class="table-responsive " id="to_print_this_walk_in_with_trainer">
+                <div class="d-none"><h4>Trinindad, James Lorenz</h4></div>
                     <table id="" class="table table-striped table-bordered " style="width:100%;border: 2px solid grey;">
                         <thead class="table-secondary">
                             <tr>
@@ -495,8 +496,7 @@ if(isset($_SESSION['admin_id'])){
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success">Show</button>
-                    <button type="button" class="btn btn-outline-dark">Download</button>
+                    <button type="button" class="btn btn-outline-dark" onclick="print_this_walk_in_with_trainer('to_print_this_walk_in_with_trainer')">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -535,4 +535,5 @@ if(isset($_SESSION['admin_id'])){
         } 
     });
 </script>
+<script src="../../js/print.js"></script>
 </html>
