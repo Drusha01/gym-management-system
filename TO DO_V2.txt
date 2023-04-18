@@ -1,16 +1,12 @@
 
 
-
-
-FORGOT PASSWORD
-
-
-
 avail add when user is subscribed to a gym use
 http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/avail/activate.php?user_id=10
 
 
 payment table
+
+payment percentage
 
 payment void
 http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/viewpayment.php?user_id=10&name=Dumapit,%20Hanrickson%20Etrone
@@ -25,6 +21,8 @@ http://localhost/gym%20management%20system/gym-management-system/gym-management-
 customer payment history
 http://localhost/gym%20management%20system/gym-management-system/gym-management-system/user/user-profile.php?active=payment-tab
 
+
+notification event
 
 dashboard
 
