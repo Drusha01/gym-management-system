@@ -3,11 +3,11 @@
         <nav id="sidebarMenu" class="col-md-3 col-lg-3 col-xl-2 d-md-block background-color-green sidebar collapse">
             <div class="mh-100">
                 <ul class="nav flex-column">
-                    <li class="nav-item"  >
-                        <a href="../dashboard/dashboard.php" class="nav-link pt-3" title="Dashboard">
+                    <li class="nav-item"  id="dashboard" name="side-nav">
+                        <div href="../dashboard/dashboard.php" class="nav-link pt-3" title="Dashboard">
                             <i class='bx bx-grid-alt' ></i>
                             <span class="links-name">Dashboard</span>
-                        </a>
+                        </div>
                     </li>
                     <?php
                     if((isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify') || (isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only')){
@@ -130,52 +130,93 @@
 <script>
 
 $('li[name="side-nav"]').click(function (){
-    // append
-    $.ajax({
-        type: "GET",
-        url: '../'+$(this).attr('id')+'/'+$(this).attr('id')+'.php',
-        success: function(result)
-        {
-            $('main#main-content').html(result);
+    var path_name= $(this).attr('id');
+    const location_length = (window.location.pathname.split("/").length);
+    var offset = 5;
+    if(location_length == offset+1){
+        const location = (window.location.pathname.split("/"));
+        var offset = 5;
+        location[offset] = path_name
+        location[offset+1] = path_name
+        var url_path = '';
+        for (let index = 1; index < location.length; index++) {
+            url_path+=('/'+location[index]);
             
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) { 
-            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-        } 
-    });
-});
-    window.onload = (event) =>{
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const active = urlParams.get('active')
-    console.log(active);
-    if(active != null){
-
-        $('#a-'+active).click();
-        $('#a-'+active).attr('class','nav-link active');
-        $('#tab-'+active).attr('class','tab-pane active show fade')
+        }
+        if(window.location.href != window.location.origin+url_path){
+                    history.pushState({}, "", window.location.origin+url_path+'.php');
+                }
+        $.ajax({
+            type: "GET",
+            url: '../'+$(this).attr('id')+'/'+$(this).attr('id')+'.php',
+            success: function(result)
+            {
+                $('main#main-content').html(result);
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
+    }else{
+        $.ajax({
+            type: "GET",
+            url: '../'+$(this).attr('id')+'/'+$(this).attr('id')+'.php',
+            success: function(result)
+            {
+                $('main#main-content').html(result);
+                const location = (window.location.pathname.split("/"));
+                var offset = 5;
+                location[offset] = path_name
+                location[offset+1] = path_name
+                var url_path = '';
+                for (let index = 1; index < location.length; index++) {
+                    url_path+=('/'+location[index]);
+                    
+                }
+                if(window.location.href != window.location.origin+url_path){
+                    history.pushState({}, "", window.location.origin+url_path+'.php');
+                }
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
     }
     
+});
 
+
+
+var application_loaded =false;
+
+    window.onload = (event) =>{
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const active = urlParams.get('active');
+        if(active == null){
+            $('#dashboard').click();
+        }else{
+            $('#'+active).click();
+        }
     };
 
     window.onpopstate = (event) => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const active = urlParams.get('active')
-        console.log(active);
+        const location = (window.location.pathname.split("/"));
+        var offset = 5;
+        $.ajax({
+            type: "GET",
+            url: '../'+location[offset]+'/'+location[offset+1],
+            success: function(result)
+            {
+                $('main#main-content').html(result);
+            
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
         
-        if(active != null){
-            $('#a-subs').attr('class','nav-link');
-            $('#a-exp').attr('class','nav-link');
-            $('#a-walk').attr('class','nav-link');
-
-            $('#a-'+active).click();
-            $('#a-'+active).attr('class','nav-link active');
-            $('#tab-'+active).attr('class','tab-pane active show fade')
-        }
-        console.log(
-            `location: ${document.location}, state: ${JSON.stringify(event.state)}`
-        );
     };
 </script>

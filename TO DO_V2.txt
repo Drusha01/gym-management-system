@@ -29,7 +29,7 @@ dashboard
 reports
 		
 
-	
+http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/profile/profile-edit.php
 	
 
 

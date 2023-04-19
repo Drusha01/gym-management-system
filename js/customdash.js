@@ -37,9 +37,9 @@
  var ctx2 = $("#salse-revenue").get(0).getContext("2d");
   $.ajax({url: '../dashboard/sales_and_revenue.php', 
     success: function(result){
-        console.log(result);
+        // console.log(result);
         var sales_and_rev = JSON.parse(result);
-        console.log(sales_and_rev);
+        // console.log(sales_and_rev);
         var data_val=[];
         var data_years=[];
         for (let index = 0; index < sales_and_rev.length; index++) {
@@ -85,7 +85,7 @@
         data_val.push(obj.not_verified);
         data_val.push(obj.verified);
         // console.log(obj.not_verified);
-        console.log(data_val);
+        // console.log(data_val);
         var myChart5 = new Chart(ctx5, {
             type: "pie",
             data: {

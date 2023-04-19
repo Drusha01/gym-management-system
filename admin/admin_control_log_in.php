@@ -68,7 +68,7 @@ if(isset($_SESSION['admin_id'])){
         $_SESSION['admin_user_phone_verified'] = $admin_data['user_phone_verified'];
 
 
-        header('location:dashboard/dashboard.php');
+        header('location:admin.php');
       }
     }
   }

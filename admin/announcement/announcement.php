@@ -4,6 +4,9 @@ session_start();
 
 // includes
 
+if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+    header('location:../admin.php?active='.basename(__DIR__,1)); 
+}
 
 // check if we are normal user
 if(isset($_SESSION['user_id'])){
@@ -38,13 +41,9 @@ if(isset($_SESSION['admin_id'])){
 
 
 
-<?php require_once '../includes/header.php'; ?>
 
-<body>
-<?php require_once '../includes/top_nav_admin.php';?>
-<?php require_once '../includes/side_nav.php';?>
 
-<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
+
   <div class="w-100">
     <h5 class="col-12 fw-bold mb-3">Announcement</h5>
     <div class="row mb-3">
@@ -68,8 +67,8 @@ if(isset($_SESSION['admin_id'])){
                 <option value="Disabled">Disabled</option>
             </select>
         </div>
-        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50 py-2 py-lg-0">
-            <a href="add_announce.php" class="btn btn-success" role="button">Add Annoucement</a>
+        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-"content-lg-end form-group h-50 py-2 py-lg-0">
+            <div href="add_announce.php" class="btn btn-success" id="add_announce" name="add_announcement"role="button">Add Annoucement</div>
         </div>
     </div>
     <div class="table-responsive table-container">
@@ -77,7 +76,7 @@ if(isset($_SESSION['admin_id'])){
     </div>
 
   </div>
-</main>
+
 <!-- Modal del -->
 <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -96,11 +95,11 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
-</body>
+
 <script>
     $.ajax({
         type: "GET",
-        url: 'announce_tbl.php',
+        url: '../announcement/announce_tbl.php',
         success: function(result)
         {
             $('div.table-responsive').html(result);
@@ -290,6 +289,40 @@ if(isset($_SESSION['admin_id'])){
             }
         });
     }
+
+
+    $('div[name="add_announcement"]').click(function (){
+        var path_name= $(this).attr('id');
+        const location_length = (window.location.pathname.split("/").length);
+        var offset = 5;
+        const location = (window.location.pathname.split("/"));
+        var offset = 5;
+        location[offset] = 'announcement'
+        location[offset+1] = path_name
+        var url_path = '';
+        for (let index = 1; index < location.length; index++) {
+            url_path+=('/'+location[index]);
+            
+        }
+        if(window.location.href != window.location.origin+url_path){
+                    history.pushState({}, "", window.location.origin+url_path+'.php');
+                }
+        $.ajax({
+            type: "GET",
+            url: '../announcement/'+$(this).attr('id')+'.php',
+            success: function(result)
+            {
+                $('main#main-content').html(result);
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
+    });
+    $('button.btn').click(function (){
+        console.log('nice');
+
+    });
 </script>
 
-</html>

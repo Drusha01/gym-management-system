@@ -9,7 +9,7 @@ if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_lock
     header('location:../dashboard/dashboard.php');
 }
 ?>
-<table id="locker" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
+<table id="locker-content" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
     <thead class="table-dark" >
         <tr>
         <th class="d-lg-none"></th>
@@ -54,15 +54,5 @@ if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_lock
          }
 
         ?>
-        
-        <!-- <tr>
-        <th class="d-lg-none"></th>
-        <td class="text-center d-none d-sm-table-cell">2</td>
-        <td>Nicholas, Shania Gabrielle</td>
-        <td class="text-center">1</td>
-        <td class="text-center">March 25, 2023 - March 28, 2023</td>
-        <td class="text-center">Locker_1</td>
-        <td class="text-center "><a href="edit_locker.php" class="btn btn-primary btn-sm" role="button">Edit</a></td>
-        </tr> -->
     </tbody>
 </table>

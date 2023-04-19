@@ -9,7 +9,7 @@ if(isset($_SESSION['admin_attendance_restriction_details']) && $_SESSION['admin_
     header('location:../dashboard/dashboard.php');
 }
 ?>
-<table id="attendance" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
+<table id="attendance-table" class="table table-borderless table-striped" style="width:100%; border: 3px solid black;">
     <thead class="table-dark" >
         <tr>
         <th class="d-lg-none"></th>

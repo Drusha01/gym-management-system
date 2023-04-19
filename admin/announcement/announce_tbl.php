@@ -61,7 +61,7 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
                 </div>
             </td>
             <td class="text-center align-middle">'.htmlentities($annoucement_item['announcement_status_details']).'</td>
-            <td class="text-center align-middle "><a href="edit_announcement.php?announcement_id='.$annoucement_item['announcement_id'].'" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="delete_announcement('.$annoucement_item['announcement_id'].')">Delete</button></td>
+            <td class="text-center align-middle "><button name="announcement" id="'.$annoucement_item['announcement_id'].'"  class="btn btn-primary btn-sm" role="button">Edit</button> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="delete_announcement('.$annoucement_item['announcement_id'].')">Delete</button></td>
         </tr>';
         $index++;
         $counter++;
@@ -69,34 +69,6 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             }
             
             ?>
-        
-        <!-- <tr>
-        <th class="d-lg-none align-middle"></th>
-        <td class="text-center d-none d-sm-table-cell align-middle">2</td>
-        <td class="align-middle">Promo for Couples</td>
-        <td class="text-center align-middle">Image</td>
-        <td class="text-center align-middle">March 25, 2023 - March 28, 2023</td>
-        <td class="text-center align-middle">
-            <div class="row">
-                <div class="col-auto ms-3">
-                    <div class="btn-group-vertical btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-dark"><i class='bx bx-up-arrow-alt' style="font-size:20px; vertical-align: middle;"></i></button>
-                        <button type="button" class="btn btn-outline-dark"><i class='bx bx-down-arrow-alt' style="font-size:20px; vertical-align: middle;"></i></button>
-                    </div>
-                </div>
-                <div class="col-auto mt-auto mb-auto">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-        </td>
-        <td class="text-center align-middle">Disabled</td>
-        <td class="text-center align-middle "><a href="edit_announce.php" class="btn btn-primary btn-sm" role="button">Edit</a> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">Delete</button></td>
-        </tr> -->
     </tbody>
 </table>
 

@@ -2,8 +2,11 @@
 // start session
 session_start();
 
-// includes
 
+
+if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+  header('location:../admin.php?active='.basename(__DIR__,1)); 
+}
 
 // check if we are normal user
 if(isset($_SESSION['user_id'])){
@@ -38,34 +41,26 @@ if(isset($_SESSION['admin_id'])){
 
 
 
-<?php require_once '../includes/header.php'; ?>
-
-<body>
-   
-<?php require_once '../includes/top_nav_admin.php';?>
-<?php require_once '../includes/side_nav.php';?>
-
-<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
-  <div class="w-100">
-    <h5 class="col-12 fw-bold mb-3">Attendance</h5>
-    <div class="row pb-3">
-        <div class="form-group col-12 col-sm-4 table-filter-option">
-            <label for="keyword" class="fw-bold">Search</label>
-            <input type="text" name="keyword" id="keyword" placeholder="Search" class="form-control ms-md-2">
-        </div>
-        <div class="form-group col-12 col-sm-4 table-filter-option">
-            <label for="datepicker" class="fw-bold">Date</label>
-            <input type="text" name="dates" class="form-control ms-md-2">
-        </div>
-    </div>
-        <div class="table-responsive table-container">
-
-        </div>
-    </div>
-
-
+<div class="w-100">
+  <h5 class="col-12 fw-bold mb-3">Attendance</h5>
+  <div class="row pb-3">
+      <div class="form-group col-12 col-sm-4 table-filter-option">
+          <label for="keyword" class="fw-bold">Search</label>
+          <input type="text" name="keyword" id="keyword" placeholder="Search" class="form-control ms-md-2">
+      </div>
+      <div class="form-group col-12 col-sm-4 table-filter-option">
+          <label for="datepicker" class="fw-bold">Date</label>
+          <input type="text" name="dates" class="form-control ms-md-2">
+      </div>
   </div>
-</main>
+      <div class="table-responsive table-container">
+
+      </div>
+  </div>
+
+
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -118,11 +113,11 @@ if(isset($_SESSION['admin_id'])){
 <script>
     $.ajax({
         type: "GET",
-        url: 'attend_tbl.php',
+        url: '../attendance/attend_tbl.php',
         success: function(result)
         {
             $('div.table-responsive').html(result);
-            dataTable = $("#attendance").DataTable({
+            dataTable = $("#attendance-table").DataTable({
                 "dom": '<"top"f>rt<"bottom"lp><"clear">',
                 responsive: true,
             });
@@ -195,4 +190,3 @@ function confirm_delete_attendance(attendance_id){
 }
 </script>
 
-</html>

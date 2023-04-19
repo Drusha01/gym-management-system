@@ -2,8 +2,10 @@
 // start session
 session_start();
 
-// includes
 
+if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+  header('location:../admin.php?active='.basename(__DIR__,1)); 
+}
 
 // check if we are normal user
 if(isset($_SESSION['user_id'])){
@@ -37,13 +39,7 @@ if(isset($_SESSION['admin_id'])){
 
 
 
-<?php require_once '../includes/header.php'; ?>
 
-<body>
-<?php require_once '../includes/top_nav_admin.php';?>
-<?php require_once '../includes/side_nav.php';?>
-
-<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
 
     <div class="row">
     <h5 class="fw-bold mb-3">Locker</h5>
@@ -61,7 +57,6 @@ if(isset($_SESSION['admin_id'])){
     </div>
 
   </div>
-</main>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -106,15 +101,14 @@ if(isset($_SESSION['admin_id'])){
     </div>
   </div>
 </div>
-</body>
 <script>
     $.ajax({
         type: "GET",
-        url: 'locker_tbl.php',
+        url: '../locker/locker_tbl.php',
         success: function(result)
         {
             $('div.table-responsive').html(result);
-            dataTable = $("#locker").DataTable({
+            dataTable = $("#locker-content").DataTable({
                 "dom": '<"top"f>rt<"bottom"lp><"clear">',
                 responsive: true,
             });
@@ -160,4 +154,3 @@ if(isset($_SESSION['admin_id'])){
     });
 
 </script>
-</html>
