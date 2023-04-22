@@ -67,8 +67,8 @@ if(isset($_SESSION['admin_id'])){
                 <option value="Disabled">Disabled</option>
             </select>
         </div>
-        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-"content-lg-end form-group h-50 py-2 py-lg-0">
-            <div href="add_announce.php" class="btn btn-success" id="add_announce" name="add_announcement"role="button">Add Annoucement</div>
+        <div class="col-12 col-sm-3 d-grid d-lg-inline-flex justify-content-lg-end form-group h-50 py-2 py-lg-0">
+            <div href="add_announce.php" class="btn btn-success" id="add_announce.php" name="add_announcement"role="button">Add Annoucement</div>
         </div>
     </div>
     <div class="table-responsive table-container">
@@ -305,11 +305,11 @@ if(isset($_SESSION['admin_id'])){
             
         }
         if(window.location.href != window.location.origin+url_path){
-            history.pushState({}, "", window.location.origin+url_path+'.php');
+            history.pushState({}, "", window.location.origin+url_path);
         }
         $.ajax({
             type: "GET",
-            url: '../announcement/'+$(this).attr('id')+'.php',
+            url: '../announcement/'+$(this).attr('id'),
             success: function(result)
             {
                 $('main#main-content').html(result);

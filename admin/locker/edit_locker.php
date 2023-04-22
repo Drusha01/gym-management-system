@@ -3,7 +3,9 @@
 session_start();
 
 // includes
-
+if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+    header('location:../admin.php?path='.basename(__DIR__,1).'&active='.basename(__FILE__,1)); 
+}
 
 // check if we are normal user
 if(isset($_SESSION['user_id'])){
@@ -18,7 +20,10 @@ if(isset($_SESSION['admin_id'])){
         if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Modify'){
             if(isset($_GET['subscription_id']) && intval($_GET['subscription_id'])>0){
                 require_once '../../classes/lockers.class.php';
+                require_once '../../classes/subscriptions.class.php';
                 $lockerObj = new lockers();
+                $subscriptionsObj = new subscriptions();
+                $user_data = $subscriptionsObj->get_user_details_with_subscription_id($_GET['subscription_id']);
                 $locker_data = $lockerObj->fetch_lockers_id($_GET['subscription_id']);
                 $lockerlist = $lockerObj->fetch_all_lockers();
             }
@@ -45,10 +50,10 @@ if(isset($_SESSION['admin_id'])){
   <div class="w-100">
         <div class="row">
             <h5 class="col-8 col-lg-4 fw-bold mb-3">Edit Locker</h5>
-            <a class="col text-decoration-none text-black m-0" aria-current="page" href="locker.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a>
+            <div class="col text-decoration-none text-black m-0" aria-current="page" onclick="history.back()"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</div>
         </div>
         <div class="container">
-            <h5 class="fw-bold fs-5">Customer: <span class="fw-light fs-5">Trinidad, James Lorenz</span></h5>
+            <h5 class="fw-bold fs-5">Customer: <span class="fw-light fs-5"><?php if($user_data){echo $user_data['user_fullname'];}?></span></h5>
             <h5 class="fw-bold fs-5">Owned Lockers: <span class="fw-light fs-5">3</span></h5>
             <div class="col-12 col-lg-6">
             <table class="table table-striped table-borderless" style="width:100%; border: 3px solid black;">

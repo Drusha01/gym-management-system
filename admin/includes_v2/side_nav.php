@@ -137,7 +137,7 @@ $('li[name="side-nav"]').click(function (){
         const location = (window.location.pathname.split("/"));
         var offset = 5;
         location[offset] = path_name
-        location[offset+1] = path_name
+        location[offset+1] = active
         var url_path = '';
         for (let index = 1; index < location.length; index++) {
             url_path+=('/'+location[index]);
@@ -206,18 +206,18 @@ var application_loaded =false;
             const location = (window.location.pathname.split("/"));
             var offset = 5;
             location[offset] = path
-            location[offset+1] = path
+            location[offset+1] = active
             var url_path = '';
             for (let index = 1; index < location.length; index++) {
                 url_path+=('/'+location[index]);
                 
             }
             if(window.location.href != window.location.origin+url_path){
-                history.pushState({}, "", window.location.origin+url_path+'.php');
+                history.pushState({}, "", window.location.origin+url_path+'?'+urlParams);
             }
             $.ajax({
                 type: "GET",
-                url: '../'+path+'/'+active,
+                url: '../'+path+'/'+active+'?'+urlParams,
                 success: function(result)
                 {
                     $('main#main-content').html(result);

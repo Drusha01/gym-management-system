@@ -35,7 +35,7 @@ if(isset($_SESSION['admin_id'])){
 
 ?>
 
-<table id="example"  class="table table-striped table-borderless table-custom table-hover" style="width:100%;border: 3px solid black;">
+<table id="offer-table"  class="table table-striped table-borderless table-custom table-hover" style="width:100%;border: 3px solid black;">
     <thead class="bg-dark text-light">
         <tr>
         <th class="d-lg-none"></th>

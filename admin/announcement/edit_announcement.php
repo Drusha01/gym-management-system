@@ -3,7 +3,9 @@
 session_start();
 
 // includes
-
+if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+    header('location:../admin.php?path='.basename(__DIR__,1).'&active='.basename(__FILE__,1).'&'.$_SERVER['QUERY_STRING']); 
+}
 
 // check if we are normal user
 if(isset($_SESSION['user_id'])){

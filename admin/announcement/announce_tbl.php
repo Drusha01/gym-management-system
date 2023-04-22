@@ -90,7 +90,7 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             
         }
         if(window.location.href != window.location.origin+url_path){
-            history.pushState({}, "", window.location.origin+url_path+'.php');
+            history.pushState({}, "", window.location.origin+url_path);
         }
         $.ajax({
             type: "GET",
