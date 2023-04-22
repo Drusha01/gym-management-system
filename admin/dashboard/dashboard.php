@@ -5,7 +5,7 @@ session_start();
 // includes
 
 if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-    header('location:../admin.php?active='.basename(__DIR__,1)); 
+    header('location:../admin.php?path='.basename(__DIR__,1).'&active='.basename(__FILE__,1)); 
 }
 
 // check if we are normal user

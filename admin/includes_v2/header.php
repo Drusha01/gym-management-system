@@ -1,3 +1,27 @@
+<?php
+
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+    header('location:../user/user-page.php');
+}
+
+
+if(isset($_SESSION['admin_id'])){
+    // check admin user details
+    if($_SESSION['admin_user_status_details'] == 'active'){
+        // do nothing
+    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+        // do this
+    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+        // go to deleted user page
+    }
+
+}else{
+    // go to admin login
+    header('location:admin_control_log_in.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keno Gym</title>
-    <link rel="icon" type="images/x-icon" href="../images/favicon.ico">
+    <link rel="icon" type="images/x-icon" href="../../images/favicon.ico">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/owl.carousel.min.css">
     <link rel="stylesheet" href="../css/owl.theme.default.min.css">

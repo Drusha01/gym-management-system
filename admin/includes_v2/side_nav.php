@@ -192,31 +192,85 @@ $('li[name="side-nav"]').click(function (){
 var application_loaded =false;
 
     window.onload = (event) =>{
+        
+        const location = (window.location.pathname.split("/"));
+        var offset = 5;
+
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const active = urlParams.get('active');
+        const path = urlParams.get('path');
         if(active == null){
             $('#dashboard').click();
         }else{
-            $('#'+active).click();
+            const location = (window.location.pathname.split("/"));
+            var offset = 5;
+            location[offset] = path
+            location[offset+1] = path
+            var url_path = '';
+            for (let index = 1; index < location.length; index++) {
+                url_path+=('/'+location[index]);
+                
+            }
+            if(window.location.href != window.location.origin+url_path){
+                history.pushState({}, "", window.location.origin+url_path+'.php');
+            }
+            $.ajax({
+                type: "GET",
+                url: '../'+path+'/'+active,
+                success: function(result)
+                {
+                    $('main#main-content').html(result);
+                
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+            });
         }
     };
 
     window.onpopstate = (event) => {
         const location = (window.location.pathname.split("/"));
         var offset = 5;
-        $.ajax({
-            type: "GET",
-            url: '../'+location[offset]+'/'+location[offset+1],
-            success: function(result)
-            {
-                $('main#main-content').html(result);
-            
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-            } 
-        });
+        if(location[offset+1]!=null){
+            $.ajax({
+                type: "GET",
+                url: '../'+location[offset]+'/'+location[offset+1],
+                success: function(result)
+                {
+                    $('main#main-content').html(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+            });        
+        }else{
+            const location = (window.location.pathname.split("/"));
+            var offset = 5;
+            location[offset] = path
+            location[offset+1] = path
+            var url_path = '';
+            for (let index = 1; index < location.length; index++) {
+                url_path+=('/'+location[index]);
+                
+            }
+            if(window.location.href != window.location.origin+url_path){
+                history.pushState({}, "", window.location.origin+url_path+'.php');
+            }
+            $.ajax({
+                type: "GET",
+                url: '../'+path+'/'+active,
+                success: function(result)
+                {
+                    $('main#main-content').html(result);
+                
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+            });
+        }
         
     };
 </script>

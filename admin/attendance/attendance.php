@@ -5,7 +5,7 @@ session_start();
 
 
 if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-  header('location:../admin.php?active='.basename(__DIR__,1)); 
+  header('location:../admin.php?path='.basename(__DIR__,1).'&active='.basename(__FILE__,1)); 
 }
 
 // check if we are normal user
@@ -163,7 +163,7 @@ function confirm_delete_attendance(attendance_id){
                 success: function(result)
                 {
                     $('div.table-responsive').html(result);
-                    dataTable = $("#attendance").DataTable({
+                    dataTable = $("#attendance-table").DataTable({
                         "dom": '<"top"f>rt<"bottom"lp><"clear">',
                         responsive: true,
                     });

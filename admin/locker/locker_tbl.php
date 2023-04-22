@@ -45,7 +45,7 @@ if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_lock
             <td class="text-center">March 25, 2023 - March 28, 2023</td>
             <td class="text-center"><button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showLockers('.$value['subscription_id'].')">Show All <i class="bx bx-show-alt" style="font-size:20px; vertical-align: middle;"></i></button></td>';
             if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_locker_restriction_details'] == 'Modify'){
-                echo ' <td class="text-center "><a href="edit_locker.php?subscription_id='.$value['subscription_id'].'" class="btn btn-primary btn-sm" role="button">Edit</a></td>';
+                echo ' <td class="text-center "><button name="edit_locker" id="'.$value['subscription_id'].'" class="btn btn-primary btn-sm" role="button">Edit</button></td>';
             }
             echo'
         </tr>';
@@ -56,3 +56,37 @@ if(isset($_SESSION['admin_locker_restriction_details']) && $_SESSION['admin_lock
         ?>
     </tbody>
 </table>
+<script>
+    $('button[name="edit_locker"]').click(function (){
+        console.log($(this).attr('id'));
+
+        var path_name= $(this).attr('id');
+        const location_length = (window.location.pathname.split("/").length);
+        var offset = 5;
+        const location = (window.location.pathname.split("/"));
+        var offset = 5;
+        location[offset] = 'locker'
+        location[offset+1] = 'edit_locker.php?subscription_id='+$(this).attr('id');
+        var url_path = '';
+        for (let index = 1; index < location.length; index++) {
+            url_path+=('/'+location[index]);
+            
+        }
+        if(window.location.href != window.location.origin+url_path){
+            history.pushState({}, "", window.location.origin+url_path+'.php');
+        }
+        $.ajax({
+            type: "GET",
+            url: '../locker/edit_locker.php?subscription_id='+$(this).attr('id'),
+            success: function(result)
+            {
+                $('main#main-content').html(result);
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
+
+    });
+</script>

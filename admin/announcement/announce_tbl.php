@@ -61,7 +61,9 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
                 </div>
             </td>
             <td class="text-center align-middle">'.htmlentities($annoucement_item['announcement_status_details']).'</td>
-            <td class="text-center align-middle "><button name="announcement" id="'.$annoucement_item['announcement_id'].'"  class="btn btn-primary btn-sm" role="button">Edit</button> <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="delete_announcement('.$annoucement_item['announcement_id'].')">Delete</button></td>
+            <td class="text-center align-middle ">
+                <button name="edit_announcement" id="'.$annoucement_item['announcement_id'].'"  class="btn btn-primary btn-sm" role="button">Edit</button> 
+                <button href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="delete_announcement('.$annoucement_item['announcement_id'].')">Delete</button></td>
         </tr>';
         $index++;
         $counter++;
@@ -71,4 +73,38 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             ?>
     </tbody>
 </table>
+<script>
+    $('button[name="edit_announcement"]').click(function (){
+        console.log($(this).attr('id'));
+
+        var path_name= $(this).attr('id');
+        const location_length = (window.location.pathname.split("/").length);
+        var offset = 5;
+        const location = (window.location.pathname.split("/"));
+        var offset = 5;
+        location[offset] = 'announcement'
+        location[offset+1] = 'edit_announcement.php?announcement_id='+$(this).attr('id');
+        var url_path = '';
+        for (let index = 1; index < location.length; index++) {
+            url_path+=('/'+location[index]);
+            
+        }
+        if(window.location.href != window.location.origin+url_path){
+            history.pushState({}, "", window.location.origin+url_path+'.php');
+        }
+        $.ajax({
+            type: "GET",
+            url: '../announcement/edit_announcement.php?announcement_id='+$(this).attr('id'),
+            success: function(result)
+            {
+                $('main#main-content').html(result);
+                
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            } 
+        });
+
+    });
+</script>
 

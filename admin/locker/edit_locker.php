@@ -42,14 +42,6 @@ if(isset($_SESSION['admin_id'])){
 ?>
 
 
-
-<?php require_once '../includes/header.php'; ?>
-
-<body>
-<?php require_once '../includes/top_nav_admin.php';?>
-<?php require_once '../includes/side_nav.php';?>
-
-<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4">
   <div class="w-100">
         <div class="row">
             <h5 class="col-8 col-lg-4 fw-bold mb-3">Edit Locker</h5>
@@ -121,7 +113,7 @@ if(isset($_SESSION['admin_id'])){
             </div> -->
         </div>
   </div>
-</main>
+
 
 <script>
 function update_locker_UID(locker_id){
