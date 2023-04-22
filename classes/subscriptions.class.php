@@ -545,9 +545,27 @@ class subscriptions
         }catch (PDOException $e){
             return false;
         }
-
-
     }
+
+    function get_user_details_with_subscription_id($subscription_id){
+        try{
+            $sql = 'SELECT user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname FROM subscriptions
+            LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+            WHERE subscription_id = :subscription_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_id', $subscription_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
 
     
 }
