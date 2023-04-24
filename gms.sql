@@ -1981,7 +1981,7 @@ CREATE TABLE payments(
     FOREIGN KEY (payment_subscription_id) REFERENCES subscriptions(subscription_id),
     FOREIGN KEY (payment_type_id) REFERENCES payment_types(payment_type_id)
 );
-
+use gms;
 SELECT * FROM payments
 LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payment_types.payment_type_id
 ;
@@ -2318,8 +2318,18 @@ WHERE  subscription_status_details = 'Active' AND subscription_type_of_subscript
 
 SELECT user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname FROM subscriptions
 LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
-WHERE subscription_id =
+WHERE subscription_id =;
 
+SELECT SUM(subscription_paid_amount)as Sales_Revenue FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE YEAR(subscription_start_date ) = 2023 AND (subscription_status_details = 'Active'  OR subscription_status_details = 'Completed') ;
+
+-- dashboard Status of Subscriptions
+SELECT count(case subscription_status_details when 'Active' then 1 else null end)as active_subscriptions,count(case subscription_status_details when 'Deleted' then 1 else null end)as deleted_subscriptions,
+count(case subscription_status_details when 'Pending' then 1 else null end)as pending_subscriptions,count(case subscription_status_details when 'Terminated' then 1 else null end)as terminated_subscriptions,
+count(case subscription_status_details when 'Completed' then 1 else null end)as completed_subscriptions
+FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id;
 
 DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
 

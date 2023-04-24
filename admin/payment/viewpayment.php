@@ -186,7 +186,7 @@ if(isset($_SESSION['admin_id'])){
                     </div>
                     
                     <div class="col-12 col-lg-2 d-grid d-lg-inline pt-3 pt-lg-1">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmvoid" >Confirm</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"  id="void_payment_modal"  >Confirm</button>
                     </div>
                 </div>
             </div>
@@ -223,15 +223,15 @@ if(isset($_SESSION['admin_id'])){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        User: Drusha01
+        User: <?php echo htmlentities($_SESSION['admin_user_name']);?>
         <br>
         <div class="form-group pt-1">
             <label for="pass">Password:</label>
-            <input type="password" class="form-control" id="pass">
+            <input type="password" class="form-control" id="void_pass">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" id="btn-success" data-bs-dismiss="modal">Confirm</button>
+        <button type="button" class="btn btn-success" id="confirm_void_payment" >Confirm</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -557,6 +557,71 @@ $('#confirm_partial_payment').click(function (){
     }else{
       alert('Wrong password / Error');
     }
+  });
+});
+
+
+$('#voidfixed').change(function(){
+  $('#voidpercent').val('');
+});
+$('#voidpercent').change(function(){
+  $('#voidfixed').val('')
+  if($('#voidpercent').val()>100){
+    $('#voidpercent').val(100);
+  }
+});
+
+var type;
+var void_payment;
+$('#void_payment_modal').click(function (){
+ 
+  // check if it is populated
+  $('#void_payment_modal').attr('data-bs-target','');
+  if(!($('#voidfixed').val()>0) && !($('#voidpercent').val()>0)){
+    alert('Please input void value')
+  }else{
+    if($('#voidfixed').val()>0){
+      type = 'voidfixed';
+      void_payment = $('#voidfixed').val();
+    }else{
+      type = 'voidpercent';
+      void_payment = $('#voidpercent').val();
+    }
+    $('#void_payment_modal').attr('data-bs-target','#confirmvoid');
+    $('#void_payment_modal').click();
+  }
+});
+
+
+$('#confirm_void_payment').click(function (){
+
+  
+
+  var void_payment_form = new FormData();  
+  void_payment_form.append( 'type', type);  
+  void_payment_form.append( 'void_payment', void_payment);  
+  void_payment_form.append( 'password', $('#void_pass').val());  
+  void_payment_form.append( 'user_id', $('#customer_user_id').val());  
+
+  $.ajax({
+      type: "POST",
+      enctype: 'multipart/form-data',
+      url: "void_payment.php",
+      data: void_payment_form,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000,
+      success: function ( result ) {
+          // parse result
+          console.log(result)
+          if(result ==1){
+            location.reload();
+          }else{
+            alert('Wrong password / Error');
+          }
+          
+      }
   });
 });
 </script>

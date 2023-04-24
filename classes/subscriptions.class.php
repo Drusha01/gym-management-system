@@ -199,7 +199,7 @@ class subscriptions
         try{
             $sql = 'SELECT SUM(subscription_paid_amount)as Sales_Revenue FROM subscriptions
             LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-            WHERE YEAR(subscription_start_date ) = :YEAR;';
+            WHERE YEAR(subscription_start_date ) = :YEAR AND (subscription_status_details = "Active"  OR subscription_status_details = "Completed") ;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':YEAR', $YEAR);
             if($query->execute()){
@@ -456,6 +456,19 @@ class subscriptions
             return false;
         }
     }
+    function void_payment($subscription_id,$subscription_void_amount){
+        try{
+            $sql = 'UPDATE subscriptions 
+            SET subscription_paid_amount =  subscription_paid_amount  - :subscription_void_amount
+            WHERE subscription_id = :subscription_id; ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_id', $subscription_id);
+            $query->bindParam(':subscription_void_amount', $subscription_void_amount);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
 
     function recent_customers_subscribed(){
         try{
@@ -566,7 +579,24 @@ class subscriptions
     }
 
     
-
+    function status_of_subscriptions(){
+        try{
+            $sql = 'SELECT count(case subscription_status_details when "Active" then 1 else null end)as active_subscriptions,count(case subscription_status_details when "Deleted" then 1 else null end)as deleted_subscriptions,
+            count(case subscription_status_details when "Pending" then 1 else null end)as pending_subscriptions,count(case subscription_status_details when "Terminated" then 1 else null end)as terminated_subscriptions,
+            count(case subscription_status_details when "Completed" then 1 else null end)as completed_subscriptions
+            FROM subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
     
 }
 

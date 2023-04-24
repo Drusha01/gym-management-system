@@ -56,7 +56,41 @@ if(isset($_SESSION['admin_id'])){
                                 }
                             }else{
                                 // percentage
-                                print_r($_POST);
+                                if(floatval($_POST['partial_payment']) > 0 && floatval($_POST['partial_payment']) <= 100){
+
+                                $percentage = $_POST['partial_payment'];
+                                // get total amount
+                                $total_amount = 0 ;
+                                foreach ($payments_data as $key => $value) {
+                                    $total_amount += (($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']))+$value['subscription_penalty_due']-$value['subscription_discount']);
+                                }
+                                $partial_payment = floatval($percentage/100) * $total_amount;
+                                foreach ($payments_data as $key => $value) {
+                                    // get subscriptions
+                                    if($partial_payment>0){
+                                        $balance = (($value['subscription_price']*$value['subscription_quantity']*($value['subscription_total_duration']/$value['subscription_duration']))+$value['subscription_penalty_due']-$value['subscription_discount']-$value['subscription_paid_amount']);
+                                        if($partial_payment-$balance>=0){
+                                            if(!$subscriptionsObj->full_payment($value['subscription_id']) || !$paymentsObj->insert($value['total'],$value['subscription_id'],'Full payment')){
+                                                $error = true;
+                                            }
+                                        }else{
+                                            if(!$subscriptionsObj->partial_payment($value['subscription_id'],$partial_payment) || !$paymentsObj->insert($partial_payment,$value['subscription_id'],'Partial payment')){
+                                                $error = true;
+                                            }
+                                            
+                                        }     
+                                        $partial_payment -=$balance; 
+                                    }else{
+                                        break;
+                                    }
+                                }
+                                if($partial_payment>0){
+                                    echo $partial_payment;
+                                }
+                                                                    
+                                }else{
+                                    $error = true;
+                                }   
                             }
 
                             if($error){

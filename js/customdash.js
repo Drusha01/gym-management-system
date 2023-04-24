@@ -77,8 +77,8 @@
  
   // Pie Chart
 
-  var ctx5 = $("#pie-chart").get(0).getContext("2d");
-  $.ajax({url: '../dashboard/accounts_stat.php', 
+var ctx5 = $("#pie-chart").get(0).getContext("2d");
+$.ajax({url: '../dashboard/accounts_stat.php', 
     success: function(result){
         var data_val=[];
         var obj = JSON.parse(result);
@@ -112,25 +112,38 @@
 
   // doughnnut
  var ctx6 = $("#doughnut-chart").get(0).getContext("2d");
-    var myChart6 = new Chart(ctx6, {
-        type: "doughnut",
-        data: {
-            labels: ["Paid","Pending", "Partial", "Unpaid", "Overdue"],
-            datasets: [{
-                backgroundColor: [
-                    "rgba(0, 102, 0, .7)",
-                    "rgba(253, 208, 35, .7)",
-                    "rgba(0, 156, 255, .6)",
-                    "rgba(204, 0, 0, .5)",
-                    "rgba(153, 0, 0, .4)"
-                ],
-                data: [60, 30, 49, 44, 24]
-            }]
-        },
-        options: {
-            responsive: true
-        }
-    });
+ $.ajax({url: '../dashboard/status_of_subscriptions.php', 
+    success: function(result){
+        console.log(result);
+        var obj = JSON.parse(result);
+        var data=[];
+        data.push(obj.active_subscriptions);
+        data.push(obj.pending_subscriptions);
+        data.push(obj.terminated_subscriptions);
+        data.push(obj.deleted_subscriptions);
+        data.push(obj.completed_subscriptions);
+        var myChart6 = new Chart(ctx6, {
+            type: "doughnut",
+            data: {
+                labels: ["Active","Pending", "Terminated", "Deleted", "Completed"],
+                datasets: [{
+                    backgroundColor: [
+                        "rgba(0, 102, 0, .7)",
+                        "rgba(253, 208, 35, .7)",
+                        "rgba(0, 156, 255, .6)",
+                        "rgba(204, 0, 0, .5)",
+                        "rgba(153, 0, 0, .4)"
+                    ],
+                    data: data
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
+});
+    
 
     // Single Bar Chart
     var ctx4 = $("#bar-chart").get(0).getContext("2d");
