@@ -6,11 +6,6 @@ http://localhost/gym%20management%20system/gym-management-system/gym-management-
 
 payment table
 
-payment percentage
-
-payment void
-http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/viewpayment.php?user_id=10&name=Dumapit,%20Hanrickson%20Etrone
-
 
 payment history
 http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/payment_hist.php

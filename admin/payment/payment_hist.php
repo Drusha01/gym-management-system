@@ -15,6 +15,20 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        require_once('../../classes/users.class.php');
+        $userObj = new users();
+
+        if(isset($_GET['user_id']) && intval($_GET['user_id'])>0){
+            $userObj->setuser_id($_GET['user_id']);
+            if($user_data = $userObj->get_user_details()){
+                require_once '../../tools/functions.php';
+            }else{
+                header('location:paid.php');   
+            }
+        }else{
+            header('location:paid.php');
+        }
+
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
@@ -46,12 +60,12 @@ if(isset($_SESSION['admin_id'])){
             <div class="col-md-4 mb-3">
                 <div class="card h-100">
                     <div class="card-body">
+                        <input type="text" id="user_id" name=user_id value="<?php echo $_GET['user_id']?>" style="visibility:hidden;">
                         <div class="d-flex flex-column align-items-center text-center">
-                        <img src="../../images/acc_img.png" alt="Admin" class="rounded-circle" width="150">
+                        <a href="../../img/profile/<?php echo  htmlentities($user_data['user_profile_picture'])?>"><img src="../../img/profile-resize/<?php echo htmlentities($user_data['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
                         <div class="mt-3">
-                            <h4>James_No_Legday</h4>
-                            <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal">Active</span></p>
-                            <p class="text-muted font-size-sm">San Jose, Zamboanga City</p>
+                            <h4><?php echo htmlentities($user_data['user_name'])?></h4>
+                            <p class="text-muted font-size-sm"><?php echo htmlentities($user_data['user_address'])?></p>
                         </div>
                         </div>
                     </div>
@@ -66,7 +80,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Full Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Trinidad, James Lorenz
+                            <?php echo htmlentities($user_data['user_fullname'])?>
                             </div>
                         </div>
                         <div class="col">
@@ -74,7 +88,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Gender</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Male
+                                <?php echo htmlentities($user_data['user_gender_details'])?>
                             </div>
                         </div>
                     </div>
@@ -85,7 +99,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                San Jose, Zamboanga City
+                                <?php echo htmlentities($user_data['user_address'])?>
                             </div>
                         </div>
                         <div class="col">
@@ -93,7 +107,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Phone Number</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                0921-234-5678
+                            <?php echo htmlentities($user_data['user_phone_number'])?>
                             </div>
                         </div>
                     </div>
@@ -104,7 +118,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Age</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                22 Years Old
+                            <?php echo htmlentities(getAge($user_data['user_birthdate']))?>
                             </div>
                         </div>
                         <div class="col-6">
@@ -112,7 +126,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-9 text-secondary">
-                                James_No_Legday@gmail.com
+                                <?php echo htmlentities($user_data['user_email'])?>
                             </div>
                         </div>
                     </div>
@@ -123,7 +137,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Birth Date</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                November 14, 2000
+                            <?php echo_safe(date_format(date_create($user_data['user_birthdate']), "F d,Y"));?>
                             </div>
                         </div>
                         <div class="col">
@@ -131,7 +145,7 @@ if(isset($_SESSION['admin_id'])){
                                 <h6 class="mb-0">Account Created</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                December 20, 2019
+                            <?php echo_safe(date_format(date_create($user_data['user_date_created']), "F d, Y"));?>
                             </div>
                         </div>
                     </div>
@@ -328,16 +342,8 @@ if(isset($_SESSION['admin_id'])){
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="d-lg-none"></td>
-                                <td class="text-center">1</td>
-                                <td class="ps-3">1-Month Gym-Use</td>
-                                <td class="text-end">₱800.00</td>
-                                <td class="text-center">None</td>
-                                <td class="text-center">None</td>
-                                <td class="text-center">₱500.00</td>
-                                <td class="text-end">₱300.00</td>
-                            </tr>
+                           
+                            
 
                             <tr>
                                 <td class="d-lg-none"></td>
@@ -508,7 +514,7 @@ if(isset($_SESSION['admin_id'])){
 <script>
     $.ajax({
         type: "GET",
-        url: 'paid_hist_tbl.php',
+        url: 'paid_hist_tbl.php?user_id='+$('#user_id').val(),
         success: function(result)
         {
             $('div.table-hist').html(result);

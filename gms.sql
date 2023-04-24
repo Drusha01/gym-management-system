@@ -1983,8 +1983,29 @@ CREATE TABLE payments(
 );
 use gms;
 SELECT * FROM payments
-LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payment_types.payment_type_id
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
 ;
+
+-- payment history of subscriber
+SELECT payment_id,type_of_subscription_details,payment_amount,payment_type_details,payment_date FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_subscriber_user_id = 9
+ORDER BY payment_date DESC
+;
+
+SELECT distinct (user_id),CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+LEFT OUTER JOIN users  ON users.user_id=subscriptions.subscription_subscriber_user_id
+ORDER BY payment_date DESC
+;
+
+
+
+
 INSERT INTO payments (payment_id,payment_amount,payment_subscription_id,payment_type_id,payment_date) VALUES
 (
 	null,

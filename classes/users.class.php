@@ -118,7 +118,7 @@ Class users{
     // get user details  / select sql
     function get_user_details(){
         try{
-            $sql = 'SELECT user_id,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
+            $sql = 'SELECT user_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_status_details,user_type_details,user_gender_details,user_phone_contry_code_details,user_phone_number,user_email,
             user_name,user_phone_verified,user_email_verified,user_name_verified,user_firstname,user_address,user_middlename,user_lastname,user_birthdate,user_valid_id_photo,user_profile_picture,user_date_created,user_date_updated FROM users
             LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
             LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
