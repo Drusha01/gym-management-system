@@ -4,18 +4,10 @@ avail add when user is subscribed to a gym use
 http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/avail/activate.php?user_id=10
 
 
-payment table
 
 
-payment history
-http://localhost/gym%20management%20system/gym-management-system/gym-management-system/admin/payment/payment_hist.php
-
-subs history
-http://localhost/gym%20management%20system/gym-management-system/gym-management-system/user/user-profile.php?active=Subscription-tab
-
-customer payment history
-http://localhost/gym%20management%20system/gym-management-system/gym-management-system/user/user-profile.php?active=payment-tab
-
+Recover Account
+ under settings
 
 notification event
 
