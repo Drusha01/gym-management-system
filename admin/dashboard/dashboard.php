@@ -35,7 +35,7 @@ if(isset($_SESSION['admin_id'])){
 <body>
 <?php require_once '../includes/top_nav_admin.php';?>
 <?php require_once '../includes/side_nav.php';?>
-<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4" id="main-body-content">
+<main class="col-md-9 ms-sm-auto col-lg-9 col-xl-10 p-3 p-md-4" id="main-body-content" >
     <div class="w-100">
     <section id="subscription" class="pt-3 ps-3 ps-lg-0">
         <?php require_once 'subscription.php';?>
@@ -143,6 +143,10 @@ if(isset($_SESSION['admin_id'])){
             </div>
         </div>
     </div>
+
+
+
+</script>
 </main>
 
 <!-- <script>
@@ -154,5 +158,5 @@ $(".nav-item").on("click", function(){
 </script> -->
 <script src="../../lib/chart/chart.min.js"></script>
 <script src="../../js/customdash.js"></script>
-</body>
-</html>
+
+

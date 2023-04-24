@@ -48,4 +48,34 @@
         </div>
         
     </div>
+
 </header>
+<audio id="myAudio">
+
+<source src="../../audio/notification.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+<p>Click the buttons to play or pause the audio.</p>
+
+<button id="play_button" onclick="playAudio()"type="button">Play Audio</button>
+<button onclick="pauseAudio()" type="button">Pause Audio</button> 
+
+<script>
+var x = document.getElementById("myAudio"); 
+
+function playAudio() { 
+  console.log('moce')
+  x.play(); 
+} 
+
+function pauseAudio() { 
+x.pause(); 
+} 
+setInterval(function(){
+    // var audio = $("#myAudio")[0];
+    // audio.muted = false;
+    // audio.play();
+
+}, 5000);
+</script>
