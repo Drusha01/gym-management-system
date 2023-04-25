@@ -245,6 +245,25 @@ class admins
         }
     }
 
+    function fetch_all_admin_id(){
+        try{
+            $sql = 'SELECT admin_user_id FROM admins
+            LEFT OUTER JOIN controls as notification_controls ON admins.admin_notification_restriction=notification_controls.control_id
+            WHERE notification_controls.control_details != "None";';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
+
 
 }
 

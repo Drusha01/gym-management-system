@@ -640,6 +640,9 @@ WHERE admin_id = 3;
 -- SELECT * admins
 SELECT * FROM admins;
 
+SELECT admin_user_id FROM admins
+LEFT OUTER JOIN controls as notification_controls ON admins.admin_notification_restriction=notification_controls.control_id
+WHERE notification_controls.control_details != 'None';
 
 DELETE FROM admins
 WHERE admin_id =3;
@@ -1722,6 +1725,8 @@ INSERT INTO notification_types (notification_type_details)  VALUES
 	'Activated'
 );
 
+SELECT notification_type_id FROM notification_types WHERE notification_type_details = 'Avail';
+
 
 CREATE TABLE notification_icons(
 	notification_icon_id int primary key auto_increment,
@@ -1765,6 +1770,8 @@ INSERT INTO notification_icons (notification_icon_details) VALUES
 	'account.png'
 );
 
+SELECT notification_icon_id FROM notification_icons WHERE notification_icon_details = 'avail.png';
+
 CREATE TABLE notifications(
 	notification_id int primary key auto_increment,
 	notification_creator int not null,
@@ -1781,12 +1788,31 @@ CREATE TABLE notifications(
     FOREIGN KEY (notification_icon_id) REFERENCES notification_icons(notification_icon_id)
 );
 
+INSERT INTO notifications (notification_id,notification_creator,notification_target,notification_type_id,notification_icon_id,notification_info,notification_is_read,notification_date_created,notification_date_updated) VALUES
+(
+	null,
+    2,
+    4,
+    (SELECT notification_type_id FROM notification_types WHERE notification_type_details = 'Avail'),
+    (SELECT notification_icon_id FROM notification_icons WHERE notification_icon_details = 'avail.png'),
+    'Customer XXXXX has availed gym-use, trainer, locker, and program.',
+    0
+);
 
-
+SELECT * FROM notifications ;
 -- receiver of notification
-SELECT * FROM notifications 
-WHERE notification_target = 1
+SELECT count(notification_is_read)as number_of_notification FROM notifications 
+WHERE notification_target = 6 AND notification_is_read = 0
 ORDER BY notification_date_created DESC;
+
+-- receiver
+SELECT notification_id,notification_icon_details,notification_type_details,notification_date_created,notification_date_updated,notification_info,notification_is_read FROM notifications 
+LEFT OUTER JOIN notification_types ON notification_types.notification_type_id=notifications.notification_type_id
+LEFT OUTER JOIN notification_icons ON notification_icons.notification_icon_id=notifications.notification_icon_id
+WHERE notification_target = 6 AND notification_is_read = 0
+ORDER BY notification_date_created DESC
+LIMIT 3
+;
 
 UPDATE notifications 
 SET notification_is_read = true

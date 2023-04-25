@@ -15,21 +15,11 @@
         <ul class="nav navbar-nav navbar-right d-none d-lg-block pe-3">
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class='bx bx-bell fs-1 text-dark'></i> <span class="position-absolute top-75 start-100 translate-middle badge rounded-pill bg-danger">+99 <span class="visually-hidden">unread messages</span></span>
+                    <i class='bx bx-bell fs-1 text-dark'></i> <span class="position-absolute top-75 start-100 translate-middle badge rounded-pill bg-danger" id="notification_number">0 <span class="visually-hidden">unread messages</span></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" style="width:350px;">
-                    <table class="table table-bordered table-hover">
-                        <tbody>
-                            <tr>
-                            <td class="w-100 ps-3"><strong>Trinidad, James Lorenz</strong> Gym-Use Subscription is Nearing Expiration.<br> <p class="pb-0 mb-0 fw-light">15 Minutes Ago</p></td>
-                            </tr>
-                            <tr>
-                            <td class="w-100 ps-3"><strong>Trinidad, James Lorenz</strong> Trainer Subscription is Nearing Expiration.<br> <p class="pb-0 mb-0 fw-light">15 Minutes Ago</p></td>
-                            </tr>
-                            <tr>
-                            <td class="w-100 ps-3"><strong>Nicholas, Shania Gabrielle</strong> has availed Gym-Use Subscription.<br> <p class="pb-0 mb-0 fw-light">15 Minutes Ago</p></td>
-                            </tr>
-                        </tbody>
+                    <table class="table table-bordered table-hover" id="notification_content">
+                        
                     </table>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item text-center" href="../notification/notification.php" style="text-indent: 1%;">Show More</a></li>
@@ -72,10 +62,93 @@ function playAudio() {
 function pauseAudio() { 
 x.pause(); 
 } 
-setInterval(function(){
-    // var audio = $("#myAudio")[0];
-    // audio.muted = false;
-    // audio.play();
 
-}, 5000);
+var prev =0;
+var current =0;
+var notification = new FormData(); 
+$.ajax({
+    type: "GET",
+    enctype: 'multipart/form-data',
+    url: "../notification/number_of_notification.php",
+    data: notification,
+    processData: false,
+    contentType: false,
+    cache: false,
+    timeout: 600000,
+    success: function ( result ) {
+        // parse result
+        current = parseInt(result);
+        $('#notification_number').html(current);
+        prev = current;
+        // get three latest notification
+        $.ajax({
+            type: "GET",
+            enctype: 'multipart/form-data',
+            url: "../notification/get_three_latest_notifications.php",
+            data: notification,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                $('#notification_content').html(result);
+                
+                
+            }
+        });
+    }
+});
+setInterval(function(){
+    var notification = new FormData(); 
+    var audio = $("#myAudio")[0];
+    audio.muted = false; 
+        $.ajax({
+            type: "GET",
+            enctype: 'multipart/form-data',
+            url: "../notification/number_of_notification.php",
+            data: notification,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                current = parseInt(result);
+                $('#notification_number').html(current);
+                if(current>prev){
+                    
+                    // play audio
+                    audio.play();
+                    // update notification number
+
+                    // update three latest notification
+                    $.ajax({
+                        type: "GET",
+                        enctype: 'multipart/form-data',
+                        url: "../notification/get_three_latest_notifications.php",
+                        data: notification,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 600000,
+                        success: function ( result ) {
+                            // parse result
+                            $('#notification_content').html(result);
+                            
+                            
+                        }
+                    });
+                    // update prev
+                    prev =current;
+                }
+                console.log(result)
+                
+            }
+        });
+    
+    // 
+
+
+}, 1500);
 </script>

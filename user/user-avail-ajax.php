@@ -30,7 +30,12 @@ if(isset($_SESSION['user_id'])){
             
             require_once '../classes/offers.class.php';
             require_once '../classes/trainers.class.php';
+            require_once '../classes/notifications.class.php';
+            require_once '../classes/admins.class.php';
+            $adminObj = new admins();
             $offersObj = new offers();
+            $notificationObj = new notifications();
+            $notification_info = $_SESSION['user_lastname'].', '.$_SESSION['user_firstname'].' '.$_SESSION['user_middlename'].' has availed';
             // check if the gym use id is valid
             if($gym_use_data = $offersObj->fetch_offer($_POST['gym_use_id']['offer_id'])){
                 //print_r($gym_use_data);
@@ -107,12 +112,15 @@ if(isset($_SESSION['user_id'])){
                 // no errors insert now
                 // insert gym
                 if($subscriptionsObj->insert_subscription(1,$_SESSION['user_id'],$gym_use_data['offer_name'],$gym_use_data['type_of_subscription_id'],$gym_use_data['offer_duration'],$gym_use_data['offer_price'],$gym_use_data['offer_duration']*$gym_use_multiplier)){
+                    $notification_info .= ' gym-use';
                     if(isset($locker_use_data)){
+                        $notification_info .= ', locker';
                         if(!$subscriptionsObj->insert_subscription($locker_quantity,$_SESSION['user_id'],$locker_use_data['offer_name'],$locker_use_data['type_of_subscription_id'],$locker_use_data['offer_duration'],$locker_use_data['offer_price'],$locker_use_data['offer_duration']*$locker_multiplier)){
                             exit('locker insert error');
                         }
                     }
                     if(isset($trainer_use_data)){
+                        $notification_info .= ', trainer';
                         if(!$subscriptionsObj->insert_subscription($trainer_quantity,$_SESSION['user_id'],$trainer_use_data['offer_name'],$trainer_use_data['type_of_subscription_id'],$trainer_use_data['offer_duration'],$trainer_use_data['offer_price'],$trainer_use_data['offer_duration']*$trainer_multiplier)){
                             exit('trainer insert error');
                         }else{
@@ -133,6 +141,7 @@ if(isset($_SESSION['user_id'])){
                     }
                     if(isset($programs_use_id)){
                         $counter=0;
+                        $notification_info .= ', program';
                         foreach ($programs_use_id as $key => $value) {
                             if(!$subscriptionsObj->insert_subscription(1,$_SESSION['user_id'],$value['offer_name'],$value['type_of_subscription_id'],$value['offer_duration'],$value['offer_price'],intval($_POST['programs_multiplier'][$counter]['duration']))){
                                 exit('programs insert error');
@@ -143,6 +152,19 @@ if(isset($_SESSION['user_id'])){
                 }else{
                     exit('gym insert error');
                 }
+
+                // insert notification here
+                $notification_info .= '.';
+                // fetch all admins and admin_id
+                if($admin_id_data = $adminObj->fetch_all_admin_id()){
+                    foreach ($admin_id_data as $key => $value) {
+                        if(!$notificationObj->insert($_SESSION['user_id'],$value['admin_user_id'],'Avail','avail.png', $notification_info)){
+                            exit('notification insert error');
+                        }
+                    }
+                    
+                }
+                
                 echo '1';
             } 
         }else{
