@@ -53,12 +53,7 @@
             type: "line",
             data: {
                 labels: data_years,
-                datasets: [{
-                        data_labels: "Income",
-                        data: [15, 30, 55, 45, 70, 65, 85],
-                        backgroundColor: "rgba(0, 156, 255, .5)",
-                        fill: true
-                    },
+                datasets: [
                     {
                         label: "Revenue",
                         data: data_val,
