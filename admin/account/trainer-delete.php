@@ -60,7 +60,7 @@ if(isset($_SESSION['admin_id'])){
                     if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
                         foreach ($admin_id_data as $key => $value) {
                             
-                            $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' '.htmlentities(strtolower($_GET['trainer_status'])).' the trainer account.';
+                            $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' modified ('.htmlentities(strtolower($_GET['trainer_status'])).') the trainer account.';
                             
                             if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
                                 exit('notification insert error');
