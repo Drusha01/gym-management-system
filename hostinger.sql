@@ -635,6 +635,9 @@ WHERE admin_id = 3;
 -- SELECT * admins
 SELECT * FROM admins;
 
+SELECT admin_user_id FROM admins
+LEFT OUTER JOIN controls as notification_controls ON admins.admin_notification_restriction=notification_controls.control_id
+WHERE notification_controls.control_details != 'None';
 
 DELETE FROM admins
 WHERE admin_id =3;
@@ -651,6 +654,11 @@ WHERE (user_name = BINARY 'Drusha01' AND user_name_verified = 1) OR (user_email 
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE admin_id = 1;
+
+SELECT user_id FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+WHERE user_type_details = 'admin';
 
 -- admin details
 SELECT * FROM admins
@@ -956,30 +964,7 @@ INSERT INTO offers  (offer_id, offer_name, offer_status_id, offer_type_of_subscr
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 );
 
--- INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description)VALUES
--- (
--- 	null,
---     'Walk-In Gym-Use',
---     (SELECT status_id FROM statuses WHERE status_details= 'active'),
---     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details=  'Walk-In Gym Subscription'),
---     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
---     1,
---     'None',
---     100.00,
---     'offer_default.jpg',
---     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
--- ),(
--- 	null,
---     'Walk-In Trainer-Use',
---     (SELECT status_id FROM statuses WHERE status_details= 'active'),
---     (SELECT type_of_subscription_id FROM type_of_subscriptions WHERE type_of_subscription_details=  'Walk-In Trainer Subscription'),
---     (SELECT age_qualification_id FROM age_qualifications WHERE age_qualification_details= 'None'),
---     1,
---     'None',
---     150.00,
---     'offer_default.jpg',
---     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
--- );
+
 
 INSERT INTO offers   (offer_id, offer_name, offer_status_id, offer_type_of_subscription_id, offer_age_qualification_id, offer_duration, offer_slots, offer_price,offer_file,offer_description)VALUES
 (
@@ -1149,6 +1134,7 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 WHERE trainer_availability_details = 'Available'
 ORDER BY user_fullname
 
+
 ;
 
 SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details,user_address,
@@ -1173,6 +1159,7 @@ WHERE trainer_id = 1;
 
 SELECT * FROM trainers;
 
+-- table for forgot paass word
 
 
 -- table for email verification
@@ -1285,7 +1272,6 @@ CREATE table remarks(
 
 
 
-
 SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
 LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
 LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
@@ -1296,10 +1282,19 @@ WHERE remark_id = 6
 
 SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
 LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN equipments ON remarks.remark_equipment_id=equipments.equipment_id
 LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE remark_equipment_id = 1
 ORDER BY remark_time ASC
+;
+
+SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN equipments ON remarks.remark_equipment_id=equipments.equipment_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE remark_equipment_id = 1
 ;
 
 SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
@@ -1396,32 +1391,7 @@ CREATE TABLE landing_page(
     
 );
 
--- UPDATE landing_page
--- SET landing_page_title = '',
--- landing_page_file = ''
--- WHERE landing_page_id =;
 
-
--- SELECT * FROM landing_page
--- WHERE landing_page_type_id = (SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel')
--- ;
-
--- SELECT * FROM landing_page
--- LEFT OUTER JOIN landing_page_types ON landing_page.landing_page_type_id=landing_page_types.landing_page_type_id
--- ;
-
--- DELETE FROM landing_page WHERE landing_page_id = 17;
-
-
-
--- sample
--- INSERT INTO landing_page  (landing_page_id,landing_page_title,landing_page_file,landing_page_type_id) VALUES
--- (
--- 	null,
---     'something title',
---     'landing_page_file.jpg',
---     (SELECT landing_page_type_id FROM landing_page_types WHERE landing_page_type_details = 'Carousel')
--- );
 
 CREATE TABLE team_positions(
 	team_position_id int primary key auto_increment,
@@ -1446,11 +1416,7 @@ CREATE TABLE teams(
     FOREIGN KEY (team_position_id) REFERENCES team_positions(team_position_id)
 );
 
--- UPDATE teams
--- SET team_position_id =( SELECT team_position_id FROM team_positions WHERE team_position_details = :team_position_details),
--- team_name =:team_name ,
--- team_file =:team_file,
--- WHERE team_id=:team_id;
+
 
 SELECT * FROM teams
 LEFT OUTER JOIN team_positions ON teams.team_position_id=team_positions.team_position_id
@@ -1510,58 +1476,6 @@ CREATE TABLE announcements(
     FOREIGN KEY (announcement_status_id) REFERENCES announcement_statuses(announcement_status_id),
     FOREIGN KEY (announcement_type_id) REFERENCES announcement_types(announcement_type_id)
 );
--- UPDATE announcements
--- SET announcement_order = 3,
--- announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = 'Disabled')
--- WHERE announcement_id = 15;
--- DELETE FROM announcements
--- WHERE announcement_id = 1;
-
--- INSERT into announcements (announcement_id, announcement_status_id, announcement_type_id, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_end_date) VALUES
--- ();
-
--- SELECT count(*)AS number_of_announcements FROM announcements;
-
--- SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
--- 	announcement_date_created, announcement_date_updated
--- FROM announcements
--- LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
--- LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
--- ORDER BY announcement_order DESC;
-
--- down
--- SELECT announcement_id, announcement_order 
--- FROM announcements
--- WHERE announcement_order <= 3
--- ORDER BY announcement_order DESC
--- LIMIT 2;
-
--- up
--- SELECT announcement_id, announcement_order 
--- FROM announcements
--- WHERE announcement_order >= 1
--- ORDER BY announcement_order ASC
--- LIMIT 2;
-
--- UPDATE announcements
--- SET announcement_status_id = (SELECT announcement_status_id FROM announcement_statuses WHERE announcement_status_details = :announcement_status_details),
--- announcement_type_id = (SELECT announcement_type_id FROM announcement_types WHERE announcement_type_details = :announcement_type_details),
--- annoucement_title =:annoucement_title,
--- announcement_content=:announcement_content,
--- announcement_file_image=:announcement_file_image,
--- announcement_start_date =:announcement_start_date,
--- announcement_end_date=:announcement_end_date
--- WHERE announcement_id =:announcement_id;
-
-
--- SELECT announcement_id, announcement_status_details, announcement_type_details, announcement_title, announcement_content, announcement_file_image, announcement_order, announcement_start_date, announcement_start_date, DATE(announcement_end_date) as announcement_end_date,
--- 	announcement_date_created, announcement_date_updated
--- FROM announcements
--- LEFT OUTER JOIN announcement_statuses ON announcements.announcement_status_id=announcement_statuses.announcement_status_id
--- LEFT OUTER JOIN announcement_types ON announcements.announcement_type_id=announcement_types.announcement_type_id
--- WHERE  announcement_status_details = 'Active' AND CURDATE() < announcement_end_date 
--- ORDER BY announcement_order DESC
--- ;
 
 -- attendance
 CREATE TABLE attendances(
@@ -1574,7 +1488,39 @@ CREATE TABLE attendances(
 
 
 
+SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, '%h:%i %p') as time_in, TIME_FORMAT(attendance_time_out, '%h:%i %p') as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE attendance_id = 10 ;
 
+DELETE FROM attendances 
+WHERE attendance_id = 4;
+UPDATE attendances
+SET attendance_time_out = CONCAT(CAST(attendance_time_in AS DATE)," 18:00:00")
+WHERE attendance_id = 4;
+
+SELECT * FROM attendances;
+
+SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_time_in,CAST(attendance_time_in AS DATE) AS date_time_in,attendance_time_out  
+FROM attendances
+WHERE CAST(attendance_time_in AS DATE) = CURDATE() AND attendance_time_out is null;
+
+SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, '%h:%i %p') as time_in, TIME_FORMAT(attendance_time_out, '%h:%i %p') as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+ORDER BY attendance_time_in DESC
+;
+	
+SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, '%h:%i %p') as time_in, TIME_FORMAT(attendance_time_out, '%h:%i %p') as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE attendance_user_id = 10 
+ORDER BY attendance_time_in DESC
+;
+SELECT attendance_id,TIME_FORMAT(attendance_time_in, '%h:%i %p') as attendance_time_in,CAST(attendance_time_in AS DATE) AS date_time_in,attendance_time_out  
+FROM attendances
+WHERE CAST(attendance_time_in AS DATE) = CURDATE();
+;
 
 
 
@@ -1586,8 +1532,145 @@ CREATE TABLE forgot_password(
     forgot_password_date_time DATETIME default NOW(),
     FOREIGN KEY (forgot_password_user_id) REFERENCES users(user_id)
 );
+INSERT INTO forgot_password(forgot_password_user_id,forgot_password_hashed) VALUES
+(
+	3,
+    'sdfasdfsaf'
+);
 
 
+SELECT  forgot_password_id,forgot_password_user_id,UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) as seconds,forgot_password_hashed FROM forgot_password
+WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(forgot_password_date_time) ) <=60*15 AND forgot_password_user_id= 6 
+ORDER BY forgot_password_date_time DESC
+LIMIT 1;
+
+
+CREATE TABLE notification_types(
+	notification_type_id int primary key auto_increment,
+    notification_type_details varchar(50) unique
+);
+
+INSERT INTO notification_types (notification_type_details)  VALUES
+(
+	'Avail'
+),(
+	'Cancel'
+),(
+	'Renew'
+),(
+	'Partial'
+),(
+	'Payment'
+),(
+	'Activate'
+),(
+	'Trainer'
+),(
+	'Expiration'
+),(
+	'Unpaid'
+),(
+	'Overdue'
+),(
+	'Logs'
+),(
+	'Locker'
+),(
+	'Activated'
+);
+
+SELECT notification_type_id FROM notification_types WHERE notification_type_details = 'Avail';
+
+
+CREATE TABLE notification_icons(
+	notification_icon_id int primary key auto_increment,
+    notification_icon_details varchar(50) unique
+);
+
+INSERT INTO notification_icons (notification_icon_details) VALUES
+(
+	'avail.png'
+),(
+	'cancelled.png'
+),(
+	'renew.png'
+),(
+	'partial.png'
+),(
+	'payment.png'
+),(
+	'activated.png'
+),(
+	'trainer.png'
+),(
+	'trainer_not.png'
+),(
+	'change.png'
+),(
+	'choose.png'
+),(
+	'expiration.png'
+),(
+	'unpaid.png'
+),(
+	'overdue.png'
+),(
+	'verified.png'
+),(
+	'logs.png'
+),(
+	'locker.png'
+),(
+	'account.png'
+);
+
+SELECT notification_icon_id FROM notification_icons WHERE notification_icon_details = 'avail.png';
+
+CREATE TABLE notifications(
+	notification_id int primary key auto_increment,
+	notification_creator int not null,
+	notification_target int not null,
+	notification_type_id int not null,
+	notification_icon_id int not null,
+	notification_info varchar(255) not null,
+	notification_is_read bool not null default 0,
+    notification_date_created datetime default NOW(),
+    notification_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (notification_creator) REFERENCES users(user_id),
+    FOREIGN KEY (notification_target) REFERENCES users(user_id),
+    FOREIGN KEY (notification_type_id) REFERENCES notification_types(notification_type_id),
+    FOREIGN KEY (notification_icon_id) REFERENCES notification_icons(notification_icon_id)
+);
+
+
+
+
+
+
+SELECT * FROM notifications ;
+-- receiver of notification
+SELECT count(notification_is_read)as number_of_notification FROM notifications 
+WHERE notification_target = 6 AND notification_is_read = 0
+ORDER BY notification_date_created DESC;
+
+
+UPDATE notifications 
+SET notification_is_read = false
+WHERE notification_target = 7;
+-- receiver
+SELECT notification_id,notification_icon_details,notification_type_details,notification_date_created,notification_date_updated,notification_info,notification_is_read FROM notifications 
+LEFT OUTER JOIN notification_types ON notification_types.notification_type_id=notifications.notification_type_id
+LEFT OUTER JOIN notification_icons ON notification_icons.notification_icon_id=notifications.notification_icon_id
+WHERE notification_target = 6 AND notification_is_read = 0
+ORDER BY notification_date_created DESC
+LIMIT 3
+;
+
+UPDATE notifications 
+SET notification_is_read = true
+WHERE notification_id = 1;
+
+DELETE FROM notifications WHERE notification_id = 150;
 
 -- table for subscription status
 CREATE TABLE subscription_status(
@@ -1643,15 +1726,6 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
--- table for lockers
-CREATE TABLE lockers(
-	locker_id int primary key auto_increment,
-    locker_subscription_id int not null,
-    locker_UID int unique not null ,
-	FOREIGN KEY (locker_subscription_id) REFERENCES subscriptions(subscription_id)
-);
-
-
 
 
 CREATE TABLE subscriber_trainers(
@@ -1664,6 +1738,12 @@ CREATE TABLE subscriber_trainers(
     FOREIGN KEY (subscriber_trainers_subscription_id) REFERENCES subscriptions(subscription_id)
 );
 
+SELECT CONCAT(user_lastname,", ",user_firstname," ",user_middlename) as user_fullname,subscriber_trainers_subscriber_id FROM subscriber_trainers 
+LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
+LEFT OUTER JOIN users ON users.user_id=trainers.trainer_user_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscriber_trainers_trainer_id = 4 AND  subscription_status_details = 'Active';
 
 
 
@@ -1750,6 +1830,7 @@ INSERT INTO walk_ins (walk_in_id, walk_in_user_id, walk_in_trainer_id, walk_in_s
 );
 
 
+
 -- walkintable
 SELECT walk_in_id,CONCAT(u.user_lastname,", ",u.user_firstname," ",u.user_middlename) AS user_fullname, walk_in_service_details, walk_in_date,CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS trainer_fullname FROM walk_ins
 LEFT OUTER JOIN users as u ON walk_ins.walk_in_user_id=u.user_id
@@ -1759,8 +1840,119 @@ LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
 ORDER BY walk_in_date ASC
 ;
 
+SELECT walk_in_id,CONCAT(u.user_lastname,", ",u.user_firstname," ",u.user_middlename) AS user_fullname, walk_in_service_details, walk_in_date,CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS trainer_fullname FROM walk_ins
+LEFT OUTER JOIN users as u ON walk_ins.walk_in_user_id=u.user_id
+LEFT OUTER JOIN walk_in_services ON walk_ins.walk_in_service_id=walk_in_services.walk_in_service_id
+LEFT OUTER JOIN trainers ON walk_ins.walk_in_trainer_id=trainers.trainer_id
+LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
+WHERE walk_in_id = 1;
+;
 
 
+
+CREATE TABLE payment_types(
+	payment_type_id int primary key auto_increment,
+    payment_type_details varchar(50) unique
+);
+
+INSERT INTO payment_types (payment_type_details) VALUES
+(
+	'Partial Payment'
+),(
+	'Full Payment'
+),(
+	'Void Payment'
+),(
+	'Discount Payment'
+);
+
+(SELECT payment_type_id FROM payment_types WHERE payment_type_details="Paid");
+CREATE TABLE payments(
+	payment_id int primary key auto_increment ,
+    payment_amount float not null,
+    payment_subscription_id int not null,
+    payment_type_id int not null,
+    payment_date datetime default NOW(),
+    FOREIGN KEY (payment_subscription_id) REFERENCES subscriptions(subscription_id),
+    FOREIGN KEY (payment_type_id) REFERENCES payment_types(payment_type_id)
+);
+
+
+SELECT * FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+;
+
+-- payment history of subscriber
+SELECT payment_id,type_of_subscription_details,payment_amount,payment_type_details,payment_date FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+ORDER BY payment_date DESC
+;
+
+-- reports
+SELECT payment_id,type_of_subscription_details,subscription_offer_name,payment_amount,payment_type_details,payment_date,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name 
+FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+LEFT OUTER JOIN users  ON users.user_id=subscriptions.subscription_subscriber_user_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+ORDER BY payment_date DESC
+;
+ 
+SELECT distinct (user_id),CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+LEFT OUTER JOIN users  ON users.user_id=subscriptions.subscription_subscriber_user_id
+ORDER BY payment_date DESC
+;
+
+
+
+
+
+
+
+
+-- table for lockers
+CREATE TABLE lockers(
+	locker_id int primary key auto_increment,
+    locker_subscription_id int not null,
+    locker_UID int unique not null ,
+	FOREIGN KEY (locker_subscription_id) REFERENCES subscriptions(subscription_id)
+);
+
+
+
+
+SELECT locker_id,locker_UID,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date FROM lockers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=lockers.locker_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE  subscription_status_details = 'Active' AND user_id =10
+ORDER BY locker_UID;
+
+SELECT locker_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name FROM lockers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=lockers.locker_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE  locker_id =10;
+
+-- SELECT locker_id,locker_UID FROM lockers
+-- WHERE locker_subscription_id =:locker_subscription_id;
+
+SELECT subscription_id,user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
+subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end 
+FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE (subscription_status_details = "Active" AND type_of_subscription_details = "Locker Subscription" AND user_id = 10)
+ORDER by subscription_start_date DESC
+;
 -- walk in table
 
 --  subscription insert
@@ -1826,6 +2018,12 @@ SELECT count(*) as total FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
 WHERE subscription_status_details = 'Active' AND subscription_subscriber_user_id = 7;
 
+-- activate pending sub at date
+UPDATE subscriptions 
+SET subscription_start_date ='2023-4-20' , 
+subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Active")
+WHERE  (subscription_subscriber_user_id = 8 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Pending"))
+;
 
 SELECT * FROM subscriber_trainers
 LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
@@ -1889,6 +2087,11 @@ WHERE  (subscription_subscriber_user_id =8 AND subscription_status_id = (SELECT 
 UPDATE subscriptions 
 SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Deleted')
 WHERE  (subscription_subscriber_user_id =8 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active'));
+
+-- deleting pending subs
+UPDATE subscriptions 
+SET subscription_start_date = now(), subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Deleted')
+WHERE  (subscription_id =8 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'));
 
 
 (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active' );
@@ -1962,118 +2165,3 @@ LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_i
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
 WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Trainer Subscription'
 ;
-
--- dashboard subscription Total Subscriptions for locker
-SELECT SUM(subscription_quantity) as number_of_locker_use FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Locker Subscription'
-;
-
--- dashboard subscription Total Subscriptions for program
-SELECT  SUM(subscription_quantity) as number_of_program_use FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_status_details = 'Active'  AND type_of_subscription_details = 'Program Subscription'
-;
-
--- dashboard accounts
-SELECT count(*) - count(user_email_verified) as not_verified,count(user_email_verified) as verified FROM users;
-
-
--- payment 
-SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_date_created,subscription_date_updated,subscription_discount,subscription_penalty_due,subscription_paid_amount FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE  (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
-;
-
-SELECT * FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-WHERE subscription_status_details = 'Completed';
-
--- full payment
-UPDATE subscriptions 
-SET subscription_paid_amount =  ((subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )) - subscription_discount + subscription_penalty_due)
-WHERE subscription_id = 9;
-
--- payment
-
-SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration,subscription_status_details, 
-subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_status_details = 'Pending' OR subscription_status_details = 'Active' OR subscription_status_details = 'Complete'
-;
-
--- subscription complete 
-UPDATE subscriptions 
-SET subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Completed')
-WHERE  (subscription_subscriber_user_id =8 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Active') AND subscription_id = 25);
-
--- history
-SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_status_details = 'Completed' AND subscription_subscriber_user_id = 11
-;
-
--- cancel pending subscription
-DELETE FROM subscriptions
-WHERE (subscription_subscriber_user_id = 8 AND subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending'));
-
--- active
-SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_subscriber_user_id, subscription_offer_name, subscription_type_of_subscription_id,type_of_subscription_details, subscription_duration, subscription_price, subscription_total_duration, 
-subscription_start_date,DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscription_date_created,subscription_date_updated,DATEDIFF(DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY), NOW()) as subscription_days_to_end FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE  subscription_status_details = 'Active'
-;
-
--- active user
-SELECT distinct user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_password_hashed FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
-WHERE  subscription_status_details = 'Active' AND user_id = 8
-;
-
-
--- update percent discount
-UPDATE subscriptions
-SET  subscription_discount=(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration ))*.10
-WHERE subscription_id = 1;
-
--- update fixed discount
-UPDATE subscriptions
-SET  subscription_discount= if(3000>(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),3000)
-WHERE subscription_id = 1;
-SELECT * FROM subscriptions;
-
-SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = 'Pending';
-
-
-SELECT * FROM subscriptions 
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE (subscription_subscriber_user_id = 8 AND  subscription_status_details = 'Pending' AND type_of_subscription_details = 'Trainer Subscription' ) ;
-
-SELECT * FROM offers;
-
-select * from trainers;
-
-SELECT COUNT(*)  FROM subscriptions
-LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE  subscription_status_details = 'Active' AND subscription_type_of_subscription_details = 'Gym Subscription'
-;
-
-
-DELETE FROM subscriptions WHERE subscription_subscriber_user_id =(SELECT user_id FROM users WHERE user_name = BINARY 'Drusha02');
-
-(SELECT user_id FROM users WHERE user_name = BINARY 'RobRoche');
-
-SELECT MONTH(DATE_ADD(MONTH, -1, CURRENT_TIMESTAMP));
-
-SELECT  CURDATE();
