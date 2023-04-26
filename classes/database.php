@@ -1,10 +1,10 @@
 <?php
 
 class Database{
-    private $host = 'localhost';
-    private $username = 'root';
-    private $password = 'Uwat09hanz';
-    private $database = 'gms';
+    private $host = '';
+    private $username = 'u306747909_drusha';
+    private $password = '+9m5B!c$I';
+    private $database = 'u306747909_drusha-';
     protected $connection;
 
     function connect(){
