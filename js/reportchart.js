@@ -126,7 +126,7 @@ $.ajax({url: '../dashboard/report_most_availed_offer.php',
                 labels: data_labels,
                 datasets: [{
                     label: "Quantity",
-                    borderColor:getRandomColor(),
+                    backgroundColor:getRandomColor(),
                     data: data_val,
                     tension: 0.1
                 }]
@@ -145,32 +145,51 @@ $.ajax({url: '../dashboard/report_most_availed_offer.php',
 
 // Most Frequent Customer
 var ctx4 = $("#most-frequent").get(0).getContext("2d");
-var myChart4 = new Chart(ctx4, {
-    type: "line",
-    data: {
-        labels: ["03/26/2023","03/27/2023","03/28/2023","03/29/2023","03/30/2023","03/31/2023","04/01/2023"],
-        datasets: [{
-            label: "Trinidad, James Lorenz",
-            borderColor:getRandomColor(),
-            data: [5,1,2,3,4,5,6],
-            tension: 0.1
-        },
-        {
-            label: "Cruz, Juan Dela",
-            borderColor:getRandomColor(),
-            data: [2,4,3,2,10,3,9],
-            tension: 0.1
+
+
+$.ajax({url: '../dashboard/report_most_frequent_customer.php', 
+    success: function(result){
+        console.log(result);
+        var obj = JSON.parse(result);
+        console.log(obj);
+        var data_val=[];
+        var data_date=[];
+        for (let index = 0; index < obj.dates.length; index++) {
+            console.log(obj.dates[index].attendance_time_out)
+            data_date.push(obj.dates[index].attendance_time_out);
+           
         }
-        ]
-    },
-    options: {
-        responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-          },
+
+        
+        var myChart4 = new Chart(ctx4, {
+            type: "line",
+            data: {
+                labels: ["03/26/2023","03/27/2023","03/28/2023","03/29/2023","03/30/2023","03/31/2023","04/01/2023"],
+                datasets: [{
+                    label: "Trinidad, James Lorenz",
+                    borderColor:getRandomColor(),
+                    data: [5,1,2,3,4,5,6],
+                    tension: 0.1
+                },
+                {
+                    label: "Cruz, Juan Dela",
+                    backgroundColor:getRandomColor(),
+                    data: [2,4,3,2,10,3,9],
+                    tension: 0.1
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                  },
+            }
+        });
     }
 });
+
 
 
 // Most availed Trainer
@@ -193,7 +212,7 @@ $.ajax({url: '../dashboard/report_most_availed_trainer.php',
                 labels: data_labels,
                 datasets: [{
                     label: "Quantity",
-                    color:getRandomColor(),
+                    backgroundColor:getRandomColor(),
                     data: data_val,
                     tension: 0.1
                 }]

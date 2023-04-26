@@ -2409,7 +2409,7 @@ GROUP BY attendance_user_id
 ORDER BY time_attended_in_seconds DESC;
 
 -- report most frequent customer
-SELECT DATE(attendance_time_out) as attendance_date,attendance_user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,
+SELECT DATE(attendance_time_out) as attendance_date,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,
 user_id,
 UNIX_TIMESTAMP(attendance_time_out)-UNIX_TIMESTAMP(attendance_time_in) as time_attended_in_seconds,
 (UNIX_TIMESTAMP(attendance_time_out)-UNIX_TIMESTAMP(attendance_time_in))/3600 as time_attended_in_hours
@@ -2418,9 +2418,13 @@ LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
 WHERE DATE(attendance_time_out) >= current_date - interval '15' day
 ORDER BY time_attended_in_seconds DESC;
 
-SELECT distinct
+SELECT distinct date(attendance_time_out) FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE DATE(attendance_time_out) >= current_date - interval '30' day;
 
-
+SELECT distinct user_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,; FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE DATE(attendance_time_out) >= current_date - interval '30' day;;
 ;
 count(subscriber_trainers_id),CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS user_fullname,;
 
