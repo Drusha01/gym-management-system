@@ -76,40 +76,57 @@ if(isset($_SESSION['user_id'])){
     <!-- end of about gym -->
 
     <!-- team -->
+    <?php 
+        require_once('../classes/teams.class.php');
+        $teamsObj = new teams();
+
+        if($Function_room_data = $teamsObj->fetch_all()){
+        $counter =1;
+        echo ' 
     <div class="testimonial-section">
         <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7 text-center">
-            <h2 class="section-title text-center">Team</h2>
-            <div class="d-flex justify-content-center py-2 pb-3">
-                <div class="bg-dark w-25" style="padding: 2px;"></div>
-            </div>
-
-            <div class="owl-single owl-carousel no-nav">
-                <div class="mx-auto">
-                    <div class="d-flex justify-content-center">
-                        <img src="../images/person_1.jpg" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <h2 class="section-title text-center">Team</h2>
+                    <div class="d-flex justify-content-center py-2 pb-3">
+                        <div class="bg-dark w-25" style="padding: 2px;"></div>
                     </div>
-                    <div class="px-3">
-                    <h3 class="mb-0">Ken Steven Lao</h3>
-                    <p>Gym-Owner</p>
+                    <div class="owl-single owl-carousel no-nav">';
+            foreach ($Function_room_data as $key => $value) {
+                if($counter ==1){
+                    echo '
+                            <div class="mx-auto">
+                                <div class="d-flex justify-content-center">
+                                    <img src="../img/team/team-resized/'.htmlentities($value['team_file']).'" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
+                                </div>
+                                <div class="px-3">
+                                <h3 class="mb-0">'.htmlentities($value['team_name']).'</h3>
+                                <p>'.htmlentities($value['team_position_details']).'</p>
+                                </div>
+                            </div>';
+                }else{
+                    echo '
+                            <div class="mx-auto">
+                                <div class="d-flex justify-content-center">
+                                    <img src="../img/team/team-resized/'.htmlentities($value['team_file']).'" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
+                                </div>
+                                <div class="px-3">
+                                    <h3 class="mb-0">'.htmlentities($value['team_name']).'</h3>
+                                    <p>'.htmlentities($value['team_position_details']).'</p>
+                                </div>
+                            </div>';
+                }
+            $counter++;
+            }
+            echo ' 
                     </div>
                 </div>
-                <div class="mx-auto">
-                    <div class="d-flex justify-content-center">
-                        <img src="../images/person_1.jpg" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
-                    </div>
-                    <div class="px-3">
-                    <h3 class="mb-0">Joviel Biya</h3>
-                    <p>Gym Employee</p>
-                    </div>
-                </div>
-            </div>
-
             </div>
         </div>
-        </div>
-    </div>
+    </div>';
+        }
+   
+    ?>
     <!-- end of team -->
 
 
