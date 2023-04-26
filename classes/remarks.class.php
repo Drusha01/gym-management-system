@@ -79,8 +79,9 @@ class remarks
 
     function fetch_remark_details($remark_id){
         try{
-            $sql = 'SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time,remark_file FROM remarks 
+            $sql = 'SELECT remark_id,equipment_name,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time,remark_file FROM remarks 
             LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+            LEFT OUTER JOIN equipments ON remarks.remark_equipment_id=equipments.equipment_id
             LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
             LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
             WHERE remark_id =:remark_id;';
@@ -96,6 +97,32 @@ class remarks
             return false;
         }
     }
+
+    function fetch_remark_details_with_equipment_id($equipment_id){
+        try{
+            $sql = 'SELECT remark_id,equipment_name,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time ,remark_file FROM remarks 
+            LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+            LEFT OUTER JOIN equipments ON remarks.remark_equipment_id=equipments.equipment_id
+            LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+            LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+            WHERE equipment_id = :equipment_id
+            LIMIT 1
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':equipment_id', $equipment_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+
+    
 
     function delete($remark_id){
         try{

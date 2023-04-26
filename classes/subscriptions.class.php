@@ -578,6 +578,24 @@ class subscriptions
         }
     }
 
+    function get_user_details_with_user_id($user_id){
+        try{
+            $sql = 'SELECT user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname FROM subscriptions
+            LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+            WHERE user_id = :user_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
     
     function status_of_subscriptions(){
         try{
@@ -597,6 +615,54 @@ class subscriptions
             return false;
         }
     }
+
+    function report_subscriptions(){
+        try{
+            $sql = 'SELECT DATE(subscription_start_date) as subscription_start_date,sum(1*subscription_quantity) as subscription_count_per_day,
+            sum(case type_of_subscription_details when "Program Subscription" then 1*subscription_quantity else null end)as program_subscriptions_count,
+            sum(case type_of_subscription_details when "Gym Subscription" then 1*subscription_quantity else null end)as gym_subscriptions_count,
+            sum(case type_of_subscription_details when "Locker Subscription" then 1*subscription_quantity else null end)as locker_subscriptions_count,
+            sum(case type_of_subscription_details when "Trainer Subscription" then 1*subscription_quantity else null end) as trainer_subscriptions_count
+            from subscriptions
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE subscription_status_details = "Active" OR subscription_status_details = "Completed" 
+            GROUP BY DATE(subscription_start_date)
+            ORDER BY subscription_start_date ASC;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function report_most_availed_offer(){
+        try{
+            $sql = 'SELECT subscription_offer_name,sum(subscription_quantity) as subscription_quantity FROM subscriptions 
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            WHERE subscription_status_details = "Active" OR subscription_status_details = "Completed" 
+            GROUP BY subscription_offer_name;';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+             }else{
+                return false;
+             }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
+
+    
     
 }
 

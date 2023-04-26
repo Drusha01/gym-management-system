@@ -262,6 +262,25 @@ class admins
         }
     }
 
+    function fetch_admin_id_of_admins(){
+        try{
+            $sql = 'SELECT user_id FROM admins
+            LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+            LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+            WHERE user_type_details = "admin";';
+            $query=$this->db->connect()->prepare($sql);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
     
 
 

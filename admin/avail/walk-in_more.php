@@ -95,6 +95,22 @@ if(isset($_SESSION['admin_id'])){
           alert("Status: " + textStatus); alert("Error: " + errorThrown); 
       }  
   });
+
+  function delete_func(walk_in_id){
+        $.post("delete_walk_in.php",{
+            walk_in_id: walk_in_id
+
+        },
+        function(data, status){
+            console.log(data);
+            if(data ==1){
+                alert('deleted successfully')
+                location.href = 'avail.php?active=walk';
+            }else{
+                alert('Error avail');
+            }
+        });
+    }
 </script>
 </body>
 

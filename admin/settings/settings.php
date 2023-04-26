@@ -304,7 +304,7 @@ if(isset($_SESSION['admin_id'])){
         <div class="row py-2">
             <div class="col-12">
                 <label for="users" class="pb-2">Search</label>
-                <select class="select2" name='users' id="customer" style="width:100%;">
+                <select class="select2" name='user_recover_password' id="user_recover_password" style="width:100%;">
                     <option value="None" selected>Select Customer Name</option> 
                     <?php 
                     require_once('../../classes/users.class.php');
@@ -324,18 +324,18 @@ if(isset($_SESSION['admin_id'])){
         </div>
         <div class="row">
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">New Password</label>
-                <input type="password" class="form-control" id="inputPassword4">
+                <label for="inputPassword4"  class="form-label">New Password</label>
+                <input type="password" class="form-control" name="new_pass" id="new_pass" >
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="inputPassword4">
+                <input type="password" class="form-control" name="confirm_new_pass" id="confirm_new_pass">
             </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close_modal_change_pass">Close</button>
+        <button type="button" class="btn btn-primary" id="recover_password_func">Save changes</button>
       </div>
     </div>
   </div>
@@ -344,6 +344,55 @@ if(isset($_SESSION['admin_id'])){
 <script>
     $('.select2').select2({
         dropdownParent: $('#recov_pass')
+    });
+</script>
+
+<script>
+    $('#recover_password_func').click(function(){
+        // check if we 
+        if($('#user_recover_password').val()!='None'){
+            if($('#new_pass').val().length>=12){
+                if($('#new_pass').val() == $('#confirm_new_pass').val()){
+                    // ajax here
+                    var change_pass = new FormData();  
+                    change_pass.append( 'user_id', $('#user_recover_password').val());  
+                    change_pass.append( 'new_password', $('#new_pass').val());  
+                    change_pass.append( 'confirm_password', $('#confirm_new_pass').val());  
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: "recover_account.php",
+                        data: change_pass,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 600000,
+                        success: function ( result ) {
+                            // parse result
+                            console.log(result)
+                            if(result == 1){
+                                alert('password changed successfully');
+                                location.reload();
+                            }else{
+                                alert('error changing password');
+                            }
+                            
+                        }
+                    });
+                }else{
+                    alert('password is not the same');
+                }
+            }else{
+                alert('password length should be 12 or more');
+            }
+            
+        }else{
+            alert('Please select user');
+        }
+        $('#user_recover_password').val('None')
+        $('#new_pass').val('')
+        $('#confirm_new_pass').val('')
+        
     });
 </script>
 <script>

@@ -20,7 +20,30 @@ if(isset($_SESSION['admin_id'])){
             if(isset($_POST['attendance_id']) && intval($_POST['attendance_id'])>0){
                 require_once '../../classes/attendances.class.php';
                 $attendanceObj = new attendances();
+                if(!$attendance_data = $attendanceObj->fetch_attendance_details($_POST['attendance_id'])){
+                    echo '0';
+                    return;
+                }
                 if($attendanceObj->delete($_POST['attendance_id'])){
+                    if($_SESSION['admin_user_type_details'] != 'admin'){
+                        require_once('../../classes/admins.class.php');
+                        require_once('../../classes/notifications.class.php');
+                        $adminObj = new admins();
+                        $notificationObj = new notifications();
+                        if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+
+                            
+                            foreach ($admin_id_data as $key => $value) {
+                                
+                                $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' deleted the attendance of customer ('.$attendance_data['user_name'].') '.$attendance_data['user_fullname'];
+                                
+                                if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                            }
+                        }
+                        
+                    }
                     echo '1';
                 }else{
                     echo '0';

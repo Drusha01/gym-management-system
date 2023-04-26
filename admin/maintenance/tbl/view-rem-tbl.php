@@ -1,8 +1,8 @@
 <?php 
 session_start();
-if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify'){
+if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
 
-}elseif(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only'){
+}elseif(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Read-Only'){
     //
 }else{
     //do not load the page
@@ -19,7 +19,10 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
         <th class="text-center">CONDITION</th>
         <th class="text-center">DATE AND TIME</th>
         <th class="text-center">CHECKED BY</th>
-        <th class="text-center">ACTION</th>
+        <?php 
+        if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+            echo '<th class="text-center">ACTION</th>';
+        }?>
         </tr>
     </thead>
     <tbody>
@@ -38,11 +41,15 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             <td class="text-center">'.htmlentities($value['equipment_condition_details']).'</td>
             <td class="text-center">'.htmlentities($value['remark_time']).'</td>
             <td class="text-center">'.htmlentities($value['user_fullname']).'</td>
+            ';
+            if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+                echo '
             <td class="text-center">
                 <button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#view" onclick="show_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-show-alt"></i></button>
                 <button class="btn btn-outline-primary btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#edit" onclick="edit_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-edit-alt"></i></button>
                 <button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete" onclick="add_delete_remark('.htmlentities($value['remark_id']).')"><i class="bx bx-trash" ></i></button></td>
-        </tr>';
+        </tr>'; 
+                    }
                     $counter++;
                 }
             }

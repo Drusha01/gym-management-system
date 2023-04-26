@@ -23,6 +23,20 @@ if(isset($_SESSION['admin_id'])){
 
                 $trainerObj = new trainers();
                 if($trainerObj->add_trainer_with_id($_GET['trainer_add_with_id'])){
+                    // notification
+
+                    require_once '../../classes/notifications.class.php';
+                    $notificationObj = new notifications();
+                        
+                    $notification_info ='Congratulations! You are now a trainer. Go to the to train tab to check for more information. ';
+                    if(!$notificationObj->insert($_SESSION['admin_user_id'],$_GET['trainer_add_with_id'],'Trainer','trainer.png', $notification_info)){
+                        exit('notification insert error');
+                    }
+                            
+                            
+                        
+                        
+                    
                     echo '1';
                 }else{
                     echo '0';

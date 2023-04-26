@@ -20,11 +20,13 @@ if(isset($_SESSION['admin_id'])){
                 require_once '../../classes/remarks.class.php';
                 $remarksObj = new remarks();
                 if($remark_data = $remarksObj->fetch_remark_details($_POST['remark_id'])){
+                    
+
                     if(isset($_POST['remark_id']) && intval($_POST['remark_id'])>0 && isset($_POST['remarks']) && isset($_POST['remark_equipment_condition_details'])){
                         $remark_id = $_POST['remark_id'];
                         $remark_remarks = trim($_POST['remarks']);
                         $remark_equipment_condition_details = trim($_POST['remark_equipment_condition_details']);
-                        $remark_file = '';
+                        $remark_file = $remark_data['remark_file'];
                         // check if we have picture
                         if(isset($_FILES['file'])){
                             require_once '../../tools/functions.php';
@@ -81,6 +83,24 @@ if(isset($_SESSION['admin_id'])){
                                 // 
                                 $result = resizeImage_2($remarks_file_dir_original,$remarks_file_resized,$filename,$filename,80,1920,1080);
                                 if($result){
+
+                                    // check if we have img
+                                    if(strlen($remark_data['remark_file'])>0){
+                                        // check if file exist
+                                        $remark_original_path = dirname(__DIR__,2) . '/img/remarks/original/'.$remark_data['remark_file'];
+                                        $remark_resize_path = dirname(__DIR__,2) . '/img/remarks/remarks-resized/'.$remark_data['remark_file'];
+                                        $remark_original = file_exists($remark_original_path);
+                                        $remark_resize = file_exists($remark_resize_path);
+                                        // unlink the file / delete the file
+                                        if($remark_original || $remark_resize){
+                                            if($remark_original){
+                                                unlink($remark_original_path);
+                                            }
+                                            if($remark_resize){
+                                                unlink($remark_resize_path);
+                                            }
+                                        }
+                                    }
                                     $remark_file = $filename;
                                     // delete old file
                                     
@@ -109,6 +129,25 @@ if(isset($_SESSION['admin_id'])){
 
                         // insert db
                         if($remarksObj->update($remark_id,$remark_equipment_condition_details,$_SESSION['admin_id'],$remark_remarks,$remark_file)){
+                            
+                            if($_SESSION['admin_user_type_details'] != 'admin'){
+                                require_once('../../classes/admins.class.php');
+                                require_once('../../classes/notifications.class.php');
+                                
+                                $adminObj = new admins();
+                                $notificationObj = new notifications();
+                                if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                                    foreach ($admin_id_data as $key => $value) {
+                                        
+                                        $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' edited the remark on equipment ('.$remark_data['equipment_name'].').';
+                                        
+                                        if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                            exit('notification insert error');
+                                        }
+                                    }
+                                }
+                                
+                            }
                             echo '1';
                         }else{
                             echo '0';

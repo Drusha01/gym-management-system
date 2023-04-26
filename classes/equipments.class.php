@@ -76,6 +76,8 @@ class equipments
         }
     }
 
+    
+
     function update($equipment_id,$equipment_name,$equipment_type_details){
         try{
             $sql = 'UPDATE equipments

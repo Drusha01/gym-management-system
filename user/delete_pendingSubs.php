@@ -18,7 +18,21 @@ if(isset($_SESSION['user_id'])){
 
         $subscriptionsObj = new subscriptions();
 
+
         if($subscriptionsObj->delete_pending_subscription($_GET['user_id'])){
+            require_once '../classes/notifications.class.php';
+            $notificationObj = new notifications();
+            require_once '../classes/admins.class.php';
+            $adminObj = new admins();
+            $notification_info ='Customer '.$_SESSION['user_lastname'].', '.$_SESSION['user_firstname'].' '.$_SESSION['user_middlename'].' has cancelled availing their subscription.';
+            if($admin_id_data = $adminObj->fetch_all_admin_id()){
+              foreach ($admin_id_data as $key => $value) {
+                  if(!$notificationObj->insert($_SESSION['user_id'],$value['admin_user_id'],'Cancel','cancelled.png', $notification_info)){
+                      exit('notification insert error');
+                  }
+              }
+              
+            }
             echo '1';
         }else{
             echo '0';

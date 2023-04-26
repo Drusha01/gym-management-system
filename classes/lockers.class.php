@@ -138,6 +138,30 @@ class lockers
             return false;
         }
     }
+
+    function fetch_user_locker_details($locker_UID){
+        try{
+            $sql = 'SELECT locker_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name FROM lockers
+            LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=lockers.locker_subscription_id
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+            LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+            WHERE  locker_UID =:locker_UID;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':locker_UID', $locker_UID);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+
+    
     function fetch_locker_details_with_locker_UID($locker_UID){
         try{
             $sql = 'SELECT locker_id,locker_subscription_id,locker_UID FROM lockers

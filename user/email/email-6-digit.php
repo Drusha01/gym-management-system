@@ -31,9 +31,18 @@ if(isset($_SESSION['user_id'])){
           if($userObj->update_email($email_data['email_verify_user_id'],$email_data['email_verify_email'])){
             
            // update session
-           $_SESSION['user_email'] = $email_data['email_verify_email'];
-           $_SESSION['user_email_verified'] = 1;
-           header('location:../user-profile.php');
+            $_SESSION['user_email'] = $email_data['email_verify_email'];
+            $_SESSION['user_email_verified'] = 1;
+
+            require_once '../classes/notifications.class.php';
+            $notificationObj = new notifications();
+                
+            $notification_info ='Congratulations! Your Account is now verified. ';
+            if(!$notificationObj->insert($_SESSION['admin_user_id'],$_GET['trainer_add_with_id'],'Account','verified.png', $notification_info)){
+                exit('notification insert error');
+            }
+
+            header('location:../user-profile.php');
           }
         }else{
           echo 'not nice';

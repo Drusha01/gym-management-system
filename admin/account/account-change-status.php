@@ -16,7 +16,7 @@ if(isset($_SESSION['admin_id'])){
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
         if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
-            if(isset($_GET['user_id']) && isset($_GET['user_status_details']) && $_SESSION['admin_user_type_details']=='admin'){
+            if(isset($_GET['user_id']) && isset($_GET['user_status_details']) ){
                 // include the db
                 require_once '../../classes/users.class.php';
                 require_once '../../classes/admins.class.php';
@@ -30,6 +30,26 @@ if(isset($_SESSION['admin_id'])){
                     $userObj = new users();
     
                     if($userObj->update_user_status($_GET['user_id'],$_GET['user_status_details'])){
+                        $userObj->setuser_id($_GET['user_id']);
+                        if(!$users_data = $userObj->get_user_details()){
+                            echo '0';
+                            return;
+                        }
+
+                        require_once('../../classes/admins.class.php');
+                        require_once('../../classes/notifications.class.php');
+                        $adminObj = new admins();
+                        $notificationObj = new notifications();
+                        if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                            foreach ($admin_id_data as $key => $value) {
+                                
+                                $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' modified ('.$_GET['user_status_details'].') the customer account of ('.$users_data['user_lastname'].', '.$users_data['user_firstname'].' '.$users_data['user_middlename'].').';
+                                
+                                if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                            }
+                        }
                         echo '1';
                     }else{
                         echo '0';

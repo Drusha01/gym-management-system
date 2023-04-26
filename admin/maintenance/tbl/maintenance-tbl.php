@@ -1,8 +1,8 @@
 <?php 
 session_start();
-if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Modify'){
+if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
 
-}elseif(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admin_announcement_restriction_details'] == 'Read-Only'){
+}elseif(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Read-Only'){
     //
 }else{
     //do not load the page
@@ -20,7 +20,11 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
         <th class="text-center">DATE AND TIME</th>
         <th class="text-center">LAST CHECKED BY</th>
         <th class="text-center">VIEW REMARKS</th>
-        <th class="text-center">ACTION</th>
+        <?php 
+        if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+            echo '<th class="text-center">ACTION</th>';
+        }?>
+        
         </tr>
     </thead>
     <tbody>
@@ -46,11 +50,15 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             <td class="text-center">'.htmlentities($remark_data['remark_time']).'</td>
             <td class="text-center">'.htmlentities($remark_data['user_fullname']).'</td>
             <td class="text-center"><a href="view_rem.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-dark btn-sm">View All <i class="bx bx-show-alt" style="font-size:20px; vertical-align: middle;"></i></a></td>
+            ';
+            if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+                echo '
             <td class="text-center">
                 <button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bx bx-plus-circle" onclick="add_remarks('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"></i></button>
                 <a href="edit-maintenance.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-primary btn-circle btn-sm"><i class="bx bx-edit-alt"></i></a>
                 <button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class="bx bx-trash" onclick="delete_equipment('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"></i></button></td>
         </tr>';
+                            }
                         }else{
                             echo '
         <tr>
@@ -62,11 +70,17 @@ if(isset($_SESSION['admin_announcement_restriction_details']) && $_SESSION['admi
             <td class="text-center">No data</td>
             <td class="text-center">No data</td>
             <td class="text-center"><a href="view_rem.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-dark btn-sm">View All <i class="bx bx-show-alt" style="font-size:20px; vertical-align: middle;"></i></a></td>
+            
+            ';
+                 if(isset($_SESSION['admin_maintenance_restriction_details']) && $_SESSION['admin_maintenance_restriction_details'] == 'Modify'){
+                    echo '
+            
             <td class="text-center">
                 <button class="btn btn-outline-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="add_remarks('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"><i class="bx bx-plus-circle"></i></button>
                 <a href="edit-maintenance.php?equipment_id='.$equipments_item['equipment_id'].'" class="btn btn-outline-primary btn-circle btn-sm"><i class="bx bx-edit-alt"></i></a>
                 <button class="btn btn-outline-danger btn-circle btn-sm" data-bs-toggle="modal" data-bs-target="#delete"><i class="bx bx-trash"  onclick="delete_equipment('.$counter.','.$equipments_item['equipment_id'].',\''.htmlentities($equipments_item['equipment_name']).'\')"></i></button></td>
         </tr>';
+                            }
                         }
                         $counter++;
                     }

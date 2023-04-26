@@ -660,6 +660,11 @@ SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE admin_id = 1;
 
+SELECT user_id FROM admins
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+LEFT OUTER JOIN user_types ON admins.admin_type_id=user_types.user_type_id
+WHERE user_type_details = 'admin';
+
 -- admin details
 SELECT * FROM admins
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
@@ -1157,6 +1162,7 @@ LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
 WHERE trainer_availability_details = 'Available'
 ORDER BY user_fullname
 
+
 ;
 
 SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details,user_address,
@@ -1319,10 +1325,19 @@ WHERE remark_id = 6
 
 SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
 LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN equipments ON remarks.remark_equipment_id=equipments.equipment_id
 LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
 LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
 WHERE remark_equipment_id = 1
 ORDER BY remark_time ASC
+;
+
+SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
+LEFT OUTER JOIN equipments_conditions ON remarks.remark_equipment_condition_id=equipments_conditions.equipment_condition_id
+LEFT OUTER JOIN equipments ON remarks.remark_equipment_id=equipments.equipment_id
+LEFT OUTER JOIN admins ON remarks.remark_admin_id=admins.admin_id
+LEFT OUTER JOIN users ON admins.admin_user_id=users.user_id
+WHERE remark_equipment_id = 1
 ;
 
 SELECT remark_id,equipment_condition_details,remark_remark,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, remark_time FROM remarks 
@@ -1600,6 +1615,11 @@ INSERT attendances (attendance_user_id,attendance_time_in)VALUES (
     '2023-04-14 14:20:06'
 );
 
+SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, '%h:%i %p') as time_in, TIME_FORMAT(attendance_time_out, '%h:%i %p') as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE attendance_id = 10 ;
+
 DELETE FROM attendances 
 WHERE attendance_id = 4;
 UPDATE attendances
@@ -1655,6 +1675,13 @@ LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscript
 LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
 WHERE  subscription_status_details = 'Active' AND user_id =10
 ORDER BY locker_UID;
+
+SELECT locker_id,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name FROM lockers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=lockers.locker_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+LEFT OUTER JOIN users ON users.user_id=subscriptions.subscription_subscriber_user_id
+WHERE  locker_id =10;
 
 -- SELECT locker_id,locker_UID FROM lockers
 -- WHERE locker_subscription_id =:locker_subscription_id;
@@ -1799,12 +1826,19 @@ INSERT INTO notifications (notification_id,notification_creator,notification_tar
     0
 );
 
+
+
+
 SELECT * FROM notifications ;
 -- receiver of notification
 SELECT count(notification_is_read)as number_of_notification FROM notifications 
 WHERE notification_target = 6 AND notification_is_read = 0
 ORDER BY notification_date_created DESC;
 
+
+UPDATE notifications 
+SET notification_is_read = false
+WHERE notification_target = 7;
 -- receiver
 SELECT notification_id,notification_icon_details,notification_type_details,notification_date_created,notification_date_updated,notification_info,notification_is_read FROM notifications 
 LEFT OUTER JOIN notification_types ON notification_types.notification_type_id=notifications.notification_type_id
@@ -1818,6 +1852,7 @@ UPDATE notifications
 SET notification_is_read = true
 WHERE notification_id = 1;
 
+DELETE FROM notifications WHERE notification_id = 150;
 
 -- table for subscription status
 CREATE TABLE subscription_status(
@@ -1885,6 +1920,12 @@ CREATE TABLE subscriber_trainers(
     FOREIGN KEY (subscriber_trainers_subscription_id) REFERENCES subscriptions(subscription_id)
 );
 
+SELECT CONCAT(user_lastname,", ",user_firstname," ",user_middlename) as user_fullname,subscriber_trainers_subscriber_id FROM subscriber_trainers 
+LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
+LEFT OUTER JOIN users ON users.user_id=trainers.trainer_user_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscriber_trainers_trainer_id = 4 AND  subscription_status_details = 'Active';
 
 
 
@@ -1981,6 +2022,16 @@ LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
 ORDER BY walk_in_date ASC
 ;
 
+SELECT walk_in_id,CONCAT(u.user_lastname,", ",u.user_firstname," ",u.user_middlename) AS user_fullname, walk_in_service_details, walk_in_date,CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS trainer_fullname FROM walk_ins
+LEFT OUTER JOIN users as u ON walk_ins.walk_in_user_id=u.user_id
+LEFT OUTER JOIN walk_in_services ON walk_ins.walk_in_service_id=walk_in_services.walk_in_service_id
+LEFT OUTER JOIN trainers ON walk_ins.walk_in_trainer_id=trainers.trainer_id
+LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
+WHERE walk_in_id = 1;
+;
+
+
+
 CREATE TABLE payment_types(
 	payment_type_id int primary key auto_increment,
     payment_type_details varchar(50) unique
@@ -2018,10 +2069,19 @@ SELECT payment_id,type_of_subscription_details,payment_amount,payment_type_detai
 LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
 LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
-WHERE subscription_subscriber_user_id = 9
 ORDER BY payment_date DESC
 ;
 
+-- reports
+SELECT payment_id,type_of_subscription_details,subscription_offer_name,payment_amount,payment_type_details,payment_date,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name 
+FROM payments
+LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
+LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
+LEFT OUTER JOIN users  ON users.user_id=subscriptions.subscription_subscriber_user_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+ORDER BY payment_date DESC
+;
+ 
 SELECT distinct (user_id),CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_name FROM payments
 LEFT OUTER JOIN payment_types  ON payment_types.payment_type_id=payments.payment_type_id
 LEFT OUTER JOIN subscriptions  ON subscriptions.subscription_id=payments.payment_subscription_id
@@ -2274,7 +2334,117 @@ WHERE subscription_status_details = 'Active'  AND type_of_subscription_details =
 -- dashboard accounts
 SELECT count(*) - count(user_email_verified) as not_verified,count(user_email_verified) as verified FROM users;
 
+SELECT count(case subscription_status_details when 'Program Subscription' then 1 else null end)as program_subscriptions_count FROM subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active' OR subscription_status_details = 'Completed' ;
 
+SELECT *,DATE(walk_in_date) FROM walk_ins;
+-- dashboard walkins
+SELECT count(walk_in_id)as number_of_walkins,DATE(walk_in_date) as walk_in_date,DATE_FORMAT (DATE(walk_in_date), '%W') as walk_in_day FROM walk_ins
+WHERE DATE(walk_in_date) >= current_date - interval '7' day
+GROUP BY DATE(walk_in_date)
+ORDER BY walk_in_date ASC;
+;
+
+
+SELECT * FROM payments
+ORDER BY payment_date DESC
+;
+-- report subscriptions
+select DATE(subscription_start_date) as subscription_start_date,sum(1*subscription_quantity) as subscription_count_per_day,
+sum(case type_of_subscription_details when 'Program Subscription' then 1*subscription_quantity else null end)as program_subscriptions_count,
+sum(case type_of_subscription_details when 'Gym Subscription' then 1*subscription_quantity else null end)as gym_subscriptions_count,
+sum(case type_of_subscription_details when 'Locker Subscription' then 1*subscription_quantity else null end)as locker_subscriptions_count,
+sum(case type_of_subscription_details when 'Trainer Subscription' then 1*subscription_quantity else null end) as trainer_subscriptions_count
+from subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active' OR subscription_status_details = 'Completed' 
+GROUP BY DATE(subscription_start_date)
+ORDER BY subscription_start_date ASC;
+
+-- report subscriptions
+select DATE(subscription_start_date) as subscription_start_date,sum(1*subscription_quantity) as subscription_count_per_day,
+sum(case type_of_subscription_details when 'Program Subscription' then 1*subscription_quantity else null end)as program_subscriptions_count,
+sum(case type_of_subscription_details when 'Gym Subscription' then 1*subscription_quantity else null end)as gym_subscriptions_count,
+sum(case type_of_subscription_details when 'Locker Subscription' then 1*subscription_quantity else null end)as locker_subscriptions_count,
+sum(case type_of_subscription_details when 'Trainer Subscription' then 1*subscription_quantity else null end) as trainer_subscriptions_count
+from subscriptions
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE (subscription_status_details = 'Active' AND (DATE(subscription_start_date) >= current_date - interval '7' day)) OR (subscription_status_details = 'Completed' AND (DATE(subscription_start_date) >= current_date - interval '7' day))
+GROUP BY DATE(subscription_start_date)
+ORDER BY subscription_start_date DESC;
+
+-- report most availed offer
+SELECT subscription_offer_name,sum(subscription_quantity) as subscription_quantity FROM subscriptions 
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE subscription_status_details = 'Active' OR subscription_status_details = 'Completed' 
+GROUP BY subscription_offer_name;
+
+-- report most availed over with limit
+SELECT *,subscription_offer_name,sum(subscription_quantity)FROM subscriptions 
+
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
+WHERE (subscription_status_details = 'Active' AND (DATE(subscription_start_date) >= current_date - interval '15' day)) OR (subscription_status_details = 'Completed' AND (DATE(subscription_start_date) >= current_date - interval '15' day))
+GROUP BY subscription_offer_name
+ORDER BY DATE(subscription_start_date)
+;
+
+ CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS user_fullname;
+SELECT * FROM attendances;
+
+;
+
+-- report most frequent customer ?ASD?asd?ASD?
+SELECT DATE(attendance_time_out) as attendance_date,attendance_user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,count(attendance_id),(sum(UNIX_TIMESTAMP(attendance_time_out)-UNIX_TIMESTAMP(attendance_time_in))/3600) as time_attended_in_hours,
+sum(UNIX_TIMESTAMP(attendance_time_out)-UNIX_TIMESTAMP(attendance_time_in)) as time_attended_in_seconds
+ FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE DATE(attendance_time_out) >= current_date - interval '15' day
+GROUP BY attendance_user_id
+ORDER BY time_attended_in_seconds DESC;
+
+-- report most frequent customer
+SELECT DATE(attendance_time_out) as attendance_date,attendance_user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,
+user_id,
+UNIX_TIMESTAMP(attendance_time_out)-UNIX_TIMESTAMP(attendance_time_in) as time_attended_in_seconds,
+(UNIX_TIMESTAMP(attendance_time_out)-UNIX_TIMESTAMP(attendance_time_in))/3600 as time_attended_in_hours
+ FROM attendances
+LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+WHERE DATE(attendance_time_out) >= current_date - interval '15' day
+ORDER BY time_attended_in_seconds DESC;
+
+SELECT distinct
+
+
+;
+count(subscriber_trainers_id),CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS user_fullname,;
+
+-- report most availed trainer
+SELECT count(subscriber_trainers_id)as subscriber_trainers_id,CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS user_fullname,count(subscriber_trainers_trainer_id)as subscriber_trainers_trainer_count 
+FROM subscriber_trainers
+LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
+LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
+LEFT OUTER JOIN subscriptions  ON subscriber_trainers.subscriber_trainers_subscription_id=subscriptions.subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE (subscription_status_details = 'Active' AND (DATE(subscription_start_date) >= current_date - interval '15' day)) OR (subscription_status_details = 'Completed' AND (DATE(subscription_start_date) >= current_date - interval '15' day))
+GROUP BY subscriber_trainers_trainer_id
+ORDER BY DATE(subscription_start_date) ASC
+;
+
+
+
+SELECT *,DATE(subscription_start_date),CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS user_fullname,user_name FROM subscriber_trainers
+LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
+LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
+LEFT OUTER JOIN subscriptions  ON subscriber_trainers.subscriber_trainers_subscription_id=subscriptions.subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscription_status_details = 'Active' OR subscription_status_details = 'Completed' AND (DATE(subscription_start_date) >= current_date - interval '5' day)
+;
 -- payment 
 SELECT subscription_id,subscription_status_details ,subscription_quantity, subscription_offer_name, subscription_duration, subscription_price, subscription_total_duration, 
 subscription_date_created,subscription_date_updated,subscription_discount,subscription_penalty_due,subscription_paid_amount FROM subscriptions
@@ -2282,6 +2452,8 @@ LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_i
 LEFT OUTER JOIN type_of_subscriptions ON type_of_subscriptions.type_of_subscription_id=subscriptions.subscription_type_of_subscription_id
 WHERE  (subscription_subscriber_user_id =8 AND  subscription_status_details = 'Active')
 ;
+
+
 
 SELECT * FROM subscriptions
 LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id

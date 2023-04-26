@@ -194,6 +194,25 @@ if(isset($_SESSION['admin_id'])){
                     // $_SESSION['user_date_created'] = $user_details['user_date_created'];
                     // $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
                     // go to user page
+
+                    if($_SESSION['admin_user_type_details'] != 'admin'){
+                        require_once('../../classes/admins.class.php');
+                        
+                        require_once('../../classes/notifications.class.php');
+                        $adminObj = new admins();
+                        $notificationObj = new notifications();
+                        if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                            foreach ($admin_id_data as $key => $value) {
+                                
+                                $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' added a new customer account.';
+                                
+                                if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                            }
+                        }
+                        
+                    }
                         header('location:account.php');
                     }else{
                         echo 'error-sign up';

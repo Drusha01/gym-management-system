@@ -74,7 +74,36 @@ if(isset($_SESSION['admin_id'])){
                 $diff=date_diff($date1,$date2,false);
                 if(intval($diff->format("%R%a"))>=0){
                     if($subscriptionsObj->activate_pending_subscription_at($_POST['user_id'],$_POST['start_date'])){
-                        
+                        //notification
+                        require_once '../../classes/notifications.class.php';
+                        $notificationObj = new notifications();
+                        $notification_info ='Your Availed Subscriptions is now active at '.htmlentities(date_format(date_create($_POST['start_date']), "F d, Y")).' . ';
+                        if(!$notificationObj->insert($_SESSION['admin_user_id'],$_POST['user_id'],'Activate','activated.png', $notification_info)){
+                            exit('notification insert error');
+                        }
+
+                        if(!$customer_details = $subscriptionsObj->get_user_details_with_user_id($_POST['user_id'])){
+                            echo 'error getting customer data';
+                            return;
+                        }
+    
+                        if($_SESSION['admin_user_type_details'] != 'admin'){
+                            require_once('../../classes/admins.class.php');
+                            require_once('../../classes/notifications.class.php');
+                            $adminObj = new admins();
+                            $notificationObj = new notifications();
+                            if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                                foreach ($admin_id_data as $key => $value) {
+                                    
+                                    $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' activated a subscription of '.$customer_details['user_fullname'].' at '.htmlentities(date_format(date_create($_POST['start_date']), "F d, Y")).' .';
+                                    
+                                    if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                        exit('notification insert error');
+                                    }
+                                }
+                            }
+                            
+                        }
                         echo '1';
                     }else{
                         echo '0';

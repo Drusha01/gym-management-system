@@ -26,6 +26,10 @@ if(isset($_SESSION['admin_id'])){
                 if (password_verify($_POST['password'], $admin_data['user_password_hashed'])) {
                     if($payments_data = $subscriptionsObj->fetch_active_subs_payment($_POST['user_id'])){
                         $error = false;
+
+
+                        
+                    
                         foreach ($payments_data as $key => $value) {
                             // insert payments table here
                             if($value['total']>0){
@@ -34,6 +38,14 @@ if(isset($_SESSION['admin_id'])){
                                 }
                             }
                         }
+
+                        require_once '../../classes/notifications.class.php';
+                        $notificationObj = new notifications();
+                        $notification_info ='You have fully paid your subscriptions ';
+                        if(!$notificationObj->insert($_SESSION['admin_user_id'],$_POST['user_id'],'Payment','payment.png', $notification_info)){
+                            exit('notification insert error');
+                        }
+
                         if($error){
                             echo '0';
                         }else{

@@ -71,7 +71,36 @@ if(isset($_SESSION['admin_id'])){
                 }
                 
                 if($subscriptionsObj->activate_pending_subscription($_GET['user_id'])){
-                    
+                    // notification
+
+                    require_once '../../classes/notifications.class.php';
+                    $notificationObj = new notifications();
+                    $notification_info ='Your Availed Subscriptions is now active. ';
+                    if(!$notificationObj->insert($_SESSION['admin_user_id'],$_GET['user_id'],'Activate','activated.png', $notification_info)){
+                        exit('notification insert error');
+                    }
+                    if(!$customer_details = $subscriptionsObj->get_user_details_with_user_id($_GET['user_id'])){
+                        echo 'error getting customer data';
+                        return;
+                    }
+
+                    if($_SESSION['admin_user_type_details'] != 'admin'){
+                        require_once('../../classes/admins.class.php');
+                        require_once('../../classes/notifications.class.php');
+                        $adminObj = new admins();
+                        $notificationObj = new notifications();
+                        if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                            foreach ($admin_id_data as $key => $value) {
+                                
+                                $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' activated a subscription of '.$customer_details['user_fullname'].'.';
+                                
+                                if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                            }
+                        }
+                        
+                    }
                     echo '1';
                 }else{
                     echo '0';

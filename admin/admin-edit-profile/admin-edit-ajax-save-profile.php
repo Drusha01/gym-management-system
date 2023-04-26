@@ -106,6 +106,21 @@ if(isset($_SESSION['admin_id'])){
                     // $_SESSION['user_address'] = $user_details['user_address'];
                     // $_SESSION['user_birthdate'] = $user_details['user_birthdate'];
 
+                        require_once('../../classes/admins.class.php');
+                        require_once('../../classes/notifications.class.php');
+                        $adminObj = new admins();
+                        $notificationObj = new notifications();
+                        if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                            foreach ($admin_id_data as $key => $value) {
+                                
+                                $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' modified the customer account of ('.$_POST['lname'].', '.$_POST['fname'].' '.$_POST['mname'].').';
+                                
+                                if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                            }
+                        }
+
                     echo 'saved';
                     
                 } else {

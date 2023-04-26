@@ -195,6 +195,7 @@ if(isset($_SESSION['admin_id'])){
         cache: false,
         timeout: 600000,
         success: function ( result ) {
+          console.log(result);
           if(result ==1){
             $('#dismiss_modal').click();
             $.ajax({

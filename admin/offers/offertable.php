@@ -97,7 +97,6 @@ if(isset($_SESSION['admin_id'])){
                     // update datatables
                     $( "#offer_id_"+id ).remove();
                     alert('deleted successfully');
-                    console.log(result)
                 }else{
                     alert('deletion failed');
                 }

@@ -144,6 +144,27 @@ class attendances
             return false;
         }
     }
+
+    function fetch_attendance_details($attendance_id){
+        try{
+            $sql = 'SELECT attendance_id,user_id,user_name,CAST(attendance_time_in AS DATE) AS date_time_in,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, TIME_FORMAT(attendance_time_in, "%h:%i %p") as time_in, TIME_FORMAT(attendance_time_out, "%h:%i %p") as time_out,attendance_time_in ,attendance_time_out, NOW() as date_now 
+            FROM attendances
+            LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
+            WHERE attendance_id = :attendance_id 
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':attendance_id', $attendance_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+    
     
 }
 

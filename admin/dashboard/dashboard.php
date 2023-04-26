@@ -47,7 +47,7 @@ if(isset($_SESSION['admin_id'])){
                 <div class="card rounded-4 border-0 shadow text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Total Subscriptions for the Week</h6>
-                        March 20-25, 2023
+                        <?php echo date('M d, Y', strtotime("-7 day")); echo ' - ' ;echo date("F d, Y");?>
                     </div>
                     <div style="height: 300px">
                         <canvas id="total-subs"></canvas>
@@ -133,7 +133,7 @@ if(isset($_SESSION['admin_id'])){
                     <div class="card rounded-4 border-0 shadow p-4 w-100">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Total walk-In For this Week</h6>
-                            <span>March 20-25, 2023</span>
+                            <span><?php echo date('M d, Y', strtotime("-7 day")); echo ' - ' ;echo date("F d, Y");?></span>
                         </div>
                         <div style="height: 200px">
                         <canvas id="bar-chart"></canvas>

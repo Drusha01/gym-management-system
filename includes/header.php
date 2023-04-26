@@ -32,24 +32,16 @@
               <ul class="nav navbar-nav navbar-right d-none d-lg-block">
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class='bx bx-bell fs-2'></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                      <i class='bx bx-bell fs-2'></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" id="notification_number"> <span class="visually-hidden">unread messages</span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" style="width:350px;">
                       <table class="table table-bordered table-hover">
-                          <tbody>
-                              <tr>
-                              <td class="w-100 ps-3"><strong>Trinidad, James Lorenz</strong> Gym-Use Subscription is Nearing Expiration.<br> <p class="pb-0 mb-0 fw-light">15 Minutes Ago</p></td>
-                              </tr>
-                              <tr>
-                              <td class="w-100 ps-3"><strong>Trinidad, James Lorenz</strong> Trainer Subscription is Nearing Expiration.<br> <p class="pb-0 mb-0 fw-light">15 Minutes Ago</p></td>
-                              </tr>
-                              <tr>
-                              <td class="w-100 ps-3"><strong>Nicholas, Shania Gabrielle</strong> has availed Gym-Use Subscription.<br> <p class="pb-0 mb-0 fw-light">15 Minutes Ago</p></td>
-                              </tr>
+                          <tbody id="notification_content">
+                             
                           </tbody>
                       </table>
                       <div class="dropdown-divider"></div>
-                      <li><a class="dropdown-item text-center" href="#" style="text-indent: 1%;">Show More</a></li>
+                      <li><a class="dropdown-item text-center" href="../user/user-profile.php?active=notification-tab" style="text-indent: 1%;">Show More</a></li>
                   </ul>
                   </li>
               </ul>
@@ -74,10 +66,118 @@
           </div>
         </div>
       </nav>
-      <script>
-        setInterval(function () {
-          console.log('nice')
-        }, 1000);
+
+<audio id="myAudio">
+
+<source src="../audio/notification.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+<p>Click the buttons to play or pause the audio.</p>
+
+<button id="play_button" onclick="playAudio()"type="button">Play Audio</button>
+<button onclick="pauseAudio()" type="button">Pause Audio</button> 
+
+<script>
+var x = document.getElementById("myAudio"); 
+
+function playAudio() { 
+  console.log('moce')
+  x.play(); 
+} 
+
+function pauseAudio() { 
+x.pause(); 
+} 
+
+var prev =0;
+var current =0;
+var notification = new FormData(); 
+$.ajax({
+    type: "GET",
+    enctype: 'multipart/form-data',
+    url: "../user/notification/number_of_notification.php",
+    data: notification,
+    processData: false,
+    contentType: false,
+    cache: false,
+    timeout: 600000,
+    success: function ( result ) {
+        // parse result
+        current = parseInt(result);
+        $('#notification_number').html(result);
+        prev = current;
+        // get three latest notification
+        $.ajax({
+            type: "GET",
+            enctype: 'multipart/form-data',
+            url: "../user/notification/get_three_latest_notifications.php",
+            data: notification,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                $('#notification_content').html(result);
+                
+                
+            }
+        });
+    }
+});
+setInterval(function(){
+    var notification = new FormData(); 
+    var audio = $("#myAudio")[0];
+    audio.muted = false; 
+        $.ajax({
+            type: "GET",
+            enctype: 'multipart/form-data',
+            url: "../user/notification/number_of_notification.php",
+            data: notification,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function ( result ) {
+                // parse result
+                current = parseInt(result);
+                $('#notification_number').html(current);
+                if(current>prev){
+                    
+                    // play audio
+                    audio.play();
+                    // update notification number
+
+                    // update three latest notification
+                    $.ajax({
+                        type: "GET",
+                        enctype: 'multipart/form-data',
+                        url: "../user/notification/get_three_latest_notifications.php",
+                        data: notification,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 600000,
+                        success: function ( result ) {
+                            // parse result
+                            $('#notification_content').html(result);
+                            
+                            
+                        }
+                    });
+                    // update prev
+                    prev =current;
+                }
+                console.log(result)
+                
+            }
+        });
+    
+    // 
+
+
+}, 1500);
       </script>
 </section>
 

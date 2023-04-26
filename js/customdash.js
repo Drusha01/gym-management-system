@@ -146,21 +146,40 @@ $.ajax({url: '../dashboard/accounts_stat.php',
     
 
     // Single Bar Chart
-    var ctx4 = $("#bar-chart").get(0).getContext("2d");
-    var myChart4 = new Chart(ctx4, {
-        type: "bar",
-        data: {
-            labels: ["Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"],
-            datasets: [{
-                label: "Walk-In",
-                backgroundColor: [
-                    "rgba(153, 0, 0, .7)",
-                ],
-                data: [10, 5, 3, 2, 10, 4]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
+    
+
+
+$.ajax({url: '../dashboard/dashboard_walkins.php', 
+    success: function(result){
+        console.log(result);
+        var obj = JSON.parse(result);
+        console.log(obj);
+        var data_val=[];
+        var data_label=[];
+        for (let index = 0; index < obj.length; index++) {
+            data_label.push(obj[index].walk_in_date);
+           data_val.push(obj[index].number_of_walkins)
         }
-    });
+        
+        
+        
+        var ctx4 = $("#bar-chart").get(0).getContext("2d");
+        var myChart4 = new Chart(ctx4, {
+            type: "bar",
+            data: {
+                labels: data_label,
+                datasets: [{
+                    label: "Walk-In",
+                    backgroundColor: [
+                        "rgba(153, 0, 0, .7)",
+                    ],
+                    data: data_val
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+});

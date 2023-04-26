@@ -6,11 +6,6 @@ http://localhost/gym%20management%20system/gym-management-system/gym-management-
 
 
 
-Recover Account
- under settings
-
-notification event
-1
 
 
 

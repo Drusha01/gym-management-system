@@ -201,6 +201,26 @@ if(isset($_SESSION['admin_id'])){
                     // $_SESSION['user_date_created'] = $user_details['user_date_created'];
                     // $_SESSION['user_date_updated'] = $user_details['user_date_updated'];
                     // go to user page
+                        $userObj->setuser_id($userObj->user_id_with_username()['user_id']);
+                        if(!$users_data = $userObj->get_user_details()){
+                            echo '0';
+                            return;
+                        }
+
+                        require_once('../../classes/admins.class.php');
+                        require_once('../../classes/notifications.class.php');
+                        $adminObj = new admins();
+                        $notificationObj = new notifications();
+                        if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
+                            foreach ($admin_id_data as $key => $value) {
+                                
+                                $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].'  added a new trainer account ('.$users_data['user_lastname'].', '.$users_data['user_firstname'].' '.$users_data['user_middlename'].').';
+                                
+                                if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                            }
+                        }
                         
                     }else{
                         echo 'error-sign up';

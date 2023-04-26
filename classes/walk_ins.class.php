@@ -109,6 +109,29 @@ class walk_ins
         }
     }
 
+    function get_walk_in_details_with_walk_in_id($walk_in_id){
+        try{
+            $sql = 'SELECT walk_in_id,CONCAT(u.user_lastname,", ",u.user_firstname," ",u.user_middlename) AS user_fullname, walk_in_service_details, walk_in_date,CONCAT(tr_u.user_lastname,", ",tr_u.user_firstname," ",tr_u.user_middlename) AS trainer_fullname FROM walk_ins
+            LEFT OUTER JOIN users as u ON walk_ins.walk_in_user_id=u.user_id
+            LEFT OUTER JOIN walk_in_services ON walk_ins.walk_in_service_id=walk_in_services.walk_in_service_id
+            LEFT OUTER JOIN trainers ON walk_ins.walk_in_trainer_id=trainers.trainer_id
+            LEFT OUTER JOIN users as tr_u ON trainers.trainer_user_id=tr_u.user_id
+            WHERE walk_in_id = :walk_in_id;
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':walk_in_id', $walk_in_id);
+        if($query->execute()){
+            return $query->fetch();
+        }else{
+            return false;
+        }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
+
     function delete_walk_in($walk_in_id){
         try{
             $sql = 'DELETE FROM walk_ins
@@ -120,6 +143,26 @@ class walk_ins
                 return false;
             }
     }
+
+    function dashboard_walkins(){
+        try{
+        $sql = 'SELECT count(walk_in_id) as number_of_walkins,DATE(walk_in_date) as walk_in_date,DATE_FORMAT (DATE(walk_in_date), "%W") as walk_in_day FROM walk_ins
+        WHERE DATE(walk_in_date) >= current_date - interval "7" day
+        GROUP BY DATE(walk_in_date)
+        ORDER BY walk_in_date ASC;
+        ;';
+        $query=$this->db->connect()->prepare($sql);
+        if($query->execute()){
+            return $query->fetchAll();
+        }else{
+            return false;
+        }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
     
 }
 
