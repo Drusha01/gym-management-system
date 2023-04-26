@@ -198,10 +198,10 @@
 
     <!-- team -->
     <?php 
-        require_once('../classes/landing_page.class.php');
-        $landing_pageObj = new landing_page();
+        require_once('../classes/teams.class.php');
+        $teamsObj = new teams();
 
-        if($Function_room_data = $landing_pageObj->fetch_all_by_type('Function Room')){
+        if($Function_room_data = $teamsObj->fetch_all()){
         $counter =1;
         echo ' 
     <div class="testimonial-section">
@@ -218,22 +218,22 @@
                     echo '
                             <div class="mx-auto">
                                 <div class="d-flex justify-content-center">
-                                    <img src="../images/person_1.jpg" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
+                                    <img src="../img/team/team-resized/'.htmlentities($value['team_file']).'" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
                                 </div>
                                 <div class="px-3">
-                                <h3 class="mb-0">Ken Steven Lao</h3>
-                                <p>Gym-Owner</p>
+                                <h3 class="mb-0">'.htmlentities($value['team_name']).'</h3>
+                                <p>'.htmlentities($value['team_position_details']).'</p>
                                 </div>
                             </div>';
                 }else{
                     echo '
                             <div class="mx-auto">
                                 <div class="d-flex justify-content-center">
-                                    <img src="../images/person_1.jpg" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
+                                    <img src="../img/team/team-resized/'.htmlentities($value['team_file']).'" alt="Image" class="img-fluid mb-4 rounded-3 w-50">
                                 </div>
                                 <div class="px-3">
-                                    <h3 class="mb-0">Joviel Biya</h3>
-                                    <p>Gym Employee</p>
+                                    <h3 class="mb-0">'.htmlentities($value['team_name']).'</h3>
+                                    <p>'.htmlentities($value['team_position_details']).'</p>
                                 </div>
                             </div>';
                 }
