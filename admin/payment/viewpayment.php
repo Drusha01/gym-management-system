@@ -616,11 +616,10 @@ $('#confirm_void_payment').click(function (){
           // parse result
           console.log(result)
           if(result ==1){
-            location.reload();
           }else{
             alert('Wrong password / Error');
           }
-          
+          location.reload();
       }
   });
 });
