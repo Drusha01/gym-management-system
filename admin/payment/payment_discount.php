@@ -33,6 +33,11 @@ if(isset($_SESSION['admin_id'])){
                 }
             }else if($_GET['type'] == 'fixeddisc'){
                 if(floatval($_GET['discount'])>0){
+                    if($subscription_data_discount = $subscriptionsObj->get_subscription_details_with_subscription_id($_GET['subscription_id'])){
+                        if($_GET['discount'] > ($subscription_data_discount['subscription_quantity']*$subscription_data_discount['subscription_price'] * ($subscription_data_discount['subscription_total_duration'] / $subscription_data_discount['subscription_duration'] ))){
+                            $_GET['discount'] =($subscription_data_discount['subscription_quantity']*$subscription_data_discount['subscription_price'] * ($subscription_data_discount['subscription_total_duration'] / $subscription_data_discount['subscription_duration'] ));
+                        }
+                    }
                     if($subscriptionsObj->update_fixed_discount($_GET['subscription_id'],$_GET['discount'])){
                         echo '1';
                     }else{
@@ -48,7 +53,7 @@ if(isset($_SESSION['admin_id'])){
                     echo '0';
                 }   
             }else{
-                echo '0 ';
+                echo '0';
             }
         }else if(isset($_SESSION['admin_payment_restriction_details']) && $_SESSION['admin_payment_restriction_details'] == 'Read-Only'){
             header('location:../payment/payment.php'); 

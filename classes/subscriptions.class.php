@@ -420,12 +420,29 @@ class subscriptions
     function update_fixed_discount($subscription_id,$subscription_fixed_discount){
         try{
             $sql = 'UPDATE subscriptions
-            SET  subscription_discount= if(:subscription_fixed_discount>(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),(subscription_quantity*subscription_price * (subscription_total_duration / subscription_duration )),:subscription_fixed_discount)
-            WHERE subscription_id = :subscription_id; ';
+            SET  subscription_discount= :subscription_fixed_discount
+            WHERE subscription_id = :subscription_id;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':subscription_fixed_discount', $subscription_fixed_discount);
             $query->bindParam(':subscription_id', $subscription_id);
             return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    function get_subscription_details_with_subscription_id($subscription_id){
+        try{
+            $sql = 'SELECT * FROM subscriptions
+            WHERE subscription_id = :subscription_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscription_id', $subscription_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+             }else{
+                return false;
+             }
         }catch (PDOException $e){
             return false;
         }
