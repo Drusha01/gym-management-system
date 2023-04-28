@@ -109,8 +109,7 @@ class attendances
         try{
             $sql = ' UPDATE attendances
             SET attendance_time_out = NOW()
-            WHERE attendance_id = :attendance_id;
-            SELECT * FROM attendances;';
+            WHERE attendance_id = :attendance_id;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':attendance_id', $attendance_id);
             return $query->execute();

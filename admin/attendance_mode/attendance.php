@@ -284,6 +284,7 @@ document.getElementById("toastbtn_2").onclick = function() {
           }else{
             alert('Error time in attendance');
           }
+          console.log(result);
           $('#confirm_time_in_close').click();
 
         },
@@ -312,7 +313,7 @@ document.getElementById("toastbtn_2").onclick = function() {
       alert('Please enter a valid password');
       return;
     }
-    attendance.append( 'password', $('#time_in_pass').val());  
+    attendance.append( 'password', $('#time_out_pass').val());  
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
@@ -353,6 +354,7 @@ document.getElementById("toastbtn_2").onclick = function() {
           }else{
             alert('Error time in attendance');
           }
+          console.log(result);
           $('#confirm_time_out_close').click();
 
         },
