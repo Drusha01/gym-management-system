@@ -67,7 +67,11 @@
                 foreach ($subscription_data as $key => $value) {
                         $end_date = date_create($value['subscription_start_date']);
                         date_add($end_date, date_interval_create_from_date_string(strval($value['subscription_total_duration'])." days"));
+                       
                         if(intval($value['subscription_days_to_end'])>0){
+                            if($value['subscription_days_to_end']>$value['subscription_total_duration']){
+                                $value['subscription_days_to_end'] = 'Not yet started';
+                            }
                             echo '
                                     <tr>
                                         <th class="d-lg-none"></th>

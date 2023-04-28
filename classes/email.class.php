@@ -35,7 +35,6 @@ class email
             WHERE (UNIX_TIMESTAMP(now()) -UNIX_TIMESTAMP(email_date_time) ) <=60 AND email_verify_user_id =:user_id ';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':user_id', $user_id);
-            $query->bindParam(':email', $email);
             if($query->execute()){
                 $data =  $query->fetch();
                 return $data;

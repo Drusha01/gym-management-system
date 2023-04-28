@@ -70,13 +70,12 @@
 <audio id="myAudio">
 
 <source src="../audio/notification.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
 </audio>
 
-<p>Click the buttons to play or pause the audio.</p>
 
-<button id="play_button" onclick="playAudio()"type="button">Play Audio</button>
-<button onclick="pauseAudio()" type="button">Pause Audio</button> 
+
+<button id="play_button" onclick="playAudio()"type="button" style="visibility:hidden;">Play Audio</button>
+<button onclick="pauseAudio()" type="button" style="visibility:hidden;">Pause Audio</button> 
 
 <script>
 var x = document.getElementById("myAudio"); 
