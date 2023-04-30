@@ -20,7 +20,6 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
             <th>NAME</th>
             <th class="text-center ">AGE</th>
             <th class="text-center ">GENDER</th>
-            <th class="text-center">SUBSCRIPTION STATUS</th>
             <th class="text-center">ACTION</th>
             </tr>
         </thead>
@@ -48,7 +47,6 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                 echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'"  class="text-decoration-none text-dark">';echo_safe($value['user_fullname']);echo'</a></td>';
                 echo '<td class="text-center ">'; echo_safe(getAge($value['user_birthdate']));'</td>';
                 echo '<td class="text-center ">';echo_safe($value['user_gender_details']);echo '</td>';
-                echo '<td class="text-center">TO BE IMPLEMENTED</td>';
                 echo '<td class="text-center"> <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" onclick="createModal(\'';echo_safe($value['user_fullname']);echo'\',';echo_safe($value['user_id']);echo',';echo $counter;echo')">Add</button></td>';
                 echo '</tr>';
                 $counter++;
