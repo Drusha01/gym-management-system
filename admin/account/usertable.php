@@ -20,7 +20,6 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
         <th scope="col">USERNAME</th>
         <th scope="col">NAME</th>
         <th scope="col" class="text-center ">AGE</th>
-        <th scope="col" class="text-center">SUBSCRIPTION STATUS</th>
         <th scope="col" class="text-center">EMAIL VERIFIED</th>
         <th scope="col" class="text-center">USER STATUS</th>
         <?php
@@ -68,7 +67,6 @@ if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_acc
                     echo '<td>'; echo_safe($value['user_name']);'</td>';
                     echo '<td><a href="account-profile.php?user_id=';echo_safe($value['user_id']);echo'" class="text-decoration-none text-dark">';echo_safe($value['user_lastname'].', '.$value['user_firstname'].' '.$value['user_middlename']);echo'</a></td>';
                     echo '<td class="text-center">'; echo_safe(getAge($value['user_birthdate']));'</td>';
-                    echo '<td class="text-center">TO BE IMPLEMENTED</td>';
                     echo '<td class="text-center">'; if($value['user_email_verified'] ==1){echo('<i class="bx bxs-check-square fs-3 align-bottom" style="color:green;" >');}else{echo '';}'</td>';
                     echo '<td class="text-center">';
                     if(isset($_SESSION['admin_account_restriction_details']) && $_SESSION['admin_account_restriction_details'] == 'Modify'){
