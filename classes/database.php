@@ -13,9 +13,7 @@ class Database{
         try 
 			{
 				$this->connection = new PDO("mysql:host=$this->host;dbname=$this->database", $this->username, $this->password,
-                array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8, time_zone = "+8:00";', 
-                PDO::ATTR_EMULATE_PREPARES => false, 
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8, time_zone = "+8:00";'));
                 
 			} 
 			catch (PDOException $e) 

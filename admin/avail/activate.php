@@ -35,7 +35,7 @@ if(isset($_SESSION['admin_id'])){
                 $subscriptionsObj = new subscriptions();
                 $subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_GET['user_id']);
                 if(!$subscription_data){
-                    header('location:avail.php?active=subs');
+                   // header('location:avail.php?active=subs');
                 }
             }else{
                 header('location:avail.php?active=subs');
