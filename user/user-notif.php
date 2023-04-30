@@ -1,13 +1,13 @@
 <div class="w-100 py-4 px-1 px-lg-2" style="min-height: 450px;">
 <div class="card border-0 shadow-lg rounded-3">
-    <table class="table">
+        <div class="box-title d-flex justify-content-end my-3 me-2">
+            <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
+        </div>
+    <table class="table" id="notif_tbl">
         <thead>
             <tr>
-            <th colspan="2">
-                <div class="box-title py-2 d-flex justify-content-end">
-                    <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
-                </div>
-            </th>
+                <th class="p-0 m-0"></th>
+                <th class="p-0 m-0"></th>
             </tr>
         </thead>
         <!-- No Notifcations -->
@@ -21,7 +21,19 @@
         </tbody>
     </table>
 </div>
+<div id="custom-pagination" class="d-flex justify-content-center justify-content-lg-end mt-3">
+    
+</div>
 <script>
+$('#notif_tbl').DataTable({
+"dom": '<"top"f>rt<"bottom"lp><"clear">',
+"bLengthChange": false,
+"ordering": false,
+
+initComplete: (settings, json)=>{
+    $('.dataTables_paginate').appendTo('#custom-pagination');
+},
+});
 $.ajax({
     type: "GET",
     url: 'notification/notification_list.php',

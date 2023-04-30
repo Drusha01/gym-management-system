@@ -245,7 +245,6 @@ if(isset($_SESSION['user_id'])){
 
 </body>
 </html>
-<script src="../js/tabchange_user.js"></script>
 
 <script>
 function changeActiveTab(tab){
