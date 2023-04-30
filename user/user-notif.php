@@ -128,31 +128,7 @@ function delete_notification(notification_id){
     }
 </script>
 </div>
-<div class="container-fluid d-flex justify-content-center justify-content-lg-end pb-3">
-<nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
 
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-            </li>
-
-            <li class="page-item" aria-current="page">
-                <a class="page-link text-dark" href="#">2</a>
-            </li>
-
-            <li class="page-item">
-                <a class="page-link text-dark" href="#">3</a>
-            </li>
-
-            <li class="page-item">
-            <a class="page-link text-dark" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-</div>
 
 
 

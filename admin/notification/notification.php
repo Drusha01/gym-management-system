@@ -61,6 +61,12 @@ if(isset($_SESSION['admin_id'])){
                     </th>
                 </tr> -->
             </thead>
+            <!-- No Notifcations -->
+            <!-- <tbody>
+                <tr>
+                    <td colspan="2" class="text-center fw-bold">Notifications will appear here</td>
+                </tr>
+            </tbody> -->
             <tbody id="notification-content">
             </tbody>
         </table>
