@@ -34,10 +34,9 @@
                     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class='bx bx-bell fs-2'></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" id="notification_number"> <span class="visually-hidden">unread messages</span></span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" style="width:350px;">
-                      <table class="table table-bordered table-hover">
+                    <ul class="dropdown-menu dropdown-menu-end" style="width:320px;">
+                      <table class="table table-hover">
                           <tbody id="notification_content">
-                             
                           </tbody>
                       </table>
                       <div class="dropdown-divider"></div>
