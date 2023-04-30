@@ -45,52 +45,42 @@ if(isset($_SESSION['admin_id'])){
     </div>
 
     <div class="card border-0 shadow rounded-3">
-        <table id="example"class="table">
+        <div class="box-title d-flex justify-content-end mt-3 me-2">
+            <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
+        </div>
+        <hr>
+        <table id="example" class="table">
             <thead>
-                <tr>
+                <th class="p-0 m-0"></th>
+                <th class="p-0 m-0"></th>
+                <!-- <tr>
                     <th colspan="2">
                         <div class="box-title py-2 d-flex justify-content-end">
                             <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
                         </div>
                     </th>
-                </tr>
+                </tr> -->
             </thead>
             <tbody id="notification-content">
-                
-               
             </tbody>
         </table>
     </div>
-
-    <div class="container d-flex justify-content-center justify-content-lg-end pb-3 pt-4">
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-
-                <li class="page-item" aria-current="page">
-                    <a class="page-link text-dark" href="#">2</a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#">3</a>
-                </li>
-
-                <li class="page-item">
-                <a class="page-link text-dark" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
+    
+    <div id="custom-pagination" class="d-flex justify-content-center justify-content-lg-end">
     </div>
 
 
   </div>
   <script>
+    $('#example').DataTable({
+    "dom": '<"top"f>rt<"bottom"lp><"clear">',
+    "bLengthChange": false,
+    "ordering": false,
+
+    initComplete: (settings, json)=>{
+        $('.dataTables_paginate').appendTo('#custom-pagination');
+    },
+    });
     function delete_notification(notification_id){
         var notification = new FormData();  
         notification.append( 'notification_id', notification_id);   
