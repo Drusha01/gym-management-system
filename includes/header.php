@@ -72,10 +72,10 @@
 <source src="../audio/notification.mp3" type="audio/mpeg">
 </audio>
 
-
-
-<button id="play_button" onclick="playAudio()"type="button" style="visibility:hidden;">Play Audio</button>
-<button onclick="pauseAudio()" type="button" style="visibility:hidden;">Pause Audio</button> 
+<div class="d-none">
+  <button id="play_button" onclick="playAudio()"type="button" style="visibility:hidden;">Play Audio</button>
+  <button onclick="pauseAudio()" type="button" style="visibility:hidden;">Pause Audio</button> 
+</div>
 
 <script>
 var x = document.getElementById("myAudio"); 

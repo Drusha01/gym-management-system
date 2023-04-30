@@ -38,164 +38,31 @@
     </div>
 </div>
 <!-- Page Header End -->
-<!-- about gym -->
-<div class="container">
-          <div class="col-12 text-white section-intro pb-3">
-            <h1>Weights Room</h1>
-            <div class="hline"></div>
-          </div>
-            <div class="owl-carousel owl-3-slider owl-carousel2">
-              <?php 
-                require_once('../classes/landing_page.class.php');
-                $landing_pageObj = new landing_page();
-
-                if($Weights_room_data = $landing_pageObj->fetch_all_by_type('Weights Room')){
-                  $counter =1;
-                    foreach ($Weights_room_data as $key => $value) {
-                      if($counter ==1){
-                        echo '
-                        <div class="item">
-                      <a class="media-thumb" href="../img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
-                          <div class="media-text">
-                              <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
-                          </div>
-                          <img src="../img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
-                      </a> 
-                    </div>';
-                      }else{
-                        echo '
-                        <div class="item">
-                            <a class="media-thumb" href="../img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
-                                <div class="media-text">
-                                    <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
-                                </div>
-                                <img src="../img/Weights/Weights-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
-                            </a>
-                        </div>';
-                      }
-                      $counter++;
-                    }
-                  }else{
-                    // default
-                    echo '
-                    <div class="item">
-                      <a class="media-thumb" href="images/weight_room/orig_size/orig_size_1.jpg" data-fancybox="gallery">
-                          <div class="media-text">
-                              <h3 class="text-light">Dumbells</h3>
-                          </div>
-                          <img src="../images/weight_room/orig_size/orig_size_1.jpg" alt="Image" class="img-fluid center-cropped">
-                      </a> 
+    <!-- about gym -->
+    <div class="untree_co-section" style="background-color: #EBECF0" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="owl-single dots-absolute owl-carousel">
+                        <img src="../images/home-0.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                        <img src="../images/home-1.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                        <img src="../images/home-2.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
+                        <img src="../images/home-3.jpg" alt="Free HTML Template by Untree.co" class="img-fluid rounded-3">
                     </div>
-                    <div class="item">
-                        <a class="media-thumb" href="images/weight_room/orig_size/orig_size_2.jpg" data-fancybox="gallery">
-                            <div class="media-text">
-                                <h3 class="text-light">Machines</h3>
-                            </div>
-                            <img src="../images/weight_room/orig_size/orig_size_2.jpg" alt="Image" class="img-fluid center-cropped">
-                        </a> 
+                </div>
+                <div class="col-lg-5 ps-lg-5 ms-auto align-self-center">
+                    <h2 class="text-center text-lg-start">About Our Gym</h2>
+                    <div class="d-flex justify-content-center d-lg-flex justify-content-lg-start">
+                        <div class="bg-dark w-75" style="padding: 1px;"></div>
                     </div>
-                    <div class="item">
-                        <a class="media-thumb" href="images/weight_room/orig_size/orig_size_3.jpg" data-fancybox="gallery">
-                            <div class="media-text">
-                                <h3 class="text-light">Warm-Up Area</h3>
-                            </div>
-                            <img src="../images/weight_room/orig_size/orig_size_3.jpg" alt="Image" class="img-fluid center-cropped">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="media-thumb" href="images/weight_room/orig_size/orig_size_4.jpg" data-fancybox="gallery">
-                            <div class="media-text">
-                                <h3 class="text-light">Warm-Up Area</h3>
-                            </div>
-                            <img src="../images/weight_room/orig_size/orig_size_4.jpg" alt="Image" class="img-fluid center-cropped">
-                        </a>
-                    </div>';
-                  }
-                ?>
+                    <p class="mt-3 text-center text-lg-start">Our gym offers affordable prices, modern and easy-to-use equipment, and a welcoming atmosphere. 
+                        With user-friendly facilities and knowledgeable staff, you'll have everything you need to reach your 
+                        fitness goals. Whether you're just starting out or are a seasoned fitness enthusiast, our gym is 
+                        the perfect choice for staying healthy.</p>
+                </div>
             </div>
         </div>
-    <!-- end of weights room -->
-
-
-    <!-- function room -->
-    <div class="container mt-4">
-        <div class="col-12 text-white section-intro pb-3">
-            <h1>Function Room</h1>
-            <div class="hline"></div>
-        </div>
-        <div class="owl-carousel owl-3-slider owl-carousel2">
-            <?php 
-            require_once('../classes/landing_page.class.php');
-            $landing_pageObj = new landing_page();
-
-            if($Function_room_data = $landing_pageObj->fetch_all_by_type('Function Room')){
-            $counter =1;
-                foreach ($Function_room_data as $key => $value) {
-                if($counter ==1){
-                    echo '
-                    <div class="item">
-                        <a class="media-thumb" href="../img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
-                            <div class="media-text">
-                                <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
-                            </div>
-                            <img src="../img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
-                        </a>
-                    </div>';
-                }else{
-                    echo '
-                    <div class="item">
-                        <a class="media-thumb" href="../img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" data-fancybox="gallery">
-                            <div class="media-text">
-                                <h3 class="text-light">'.htmlentities($value['landing_page_title']).'</h3>
-                            </div>
-                            <img src="../img/Function/Function-resized/'.htmlentities($value['landing_page_file']).'" alt="Image" class="img-fluid center-cropped">
-                        </a>
-                    </div>';
-                }
-                $counter++;
-                }
-            }else{
-                // default
-                echo '
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/1.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Front View</h3>
-                        </div>
-                        <img src="../images/function_room/orig_size/1.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/2.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Boxing Area</h3>
-                        </div>
-                        <img src="../images/function_room/orig_size/2.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/3.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Threadmill</h3>
-                        </div>
-                        <img src="../images/function_room/orig_size/3.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>
-                <div class="item">
-                    <a class="media-thumb" href="images/function_room/orig_size/4.jpg" data-fancybox="gallery">
-                        <div class="media-text">
-                            <h3 class="text-light">Bike Area</h3>
-                        </div>
-                        <img src="../images/function_room/orig_size/4.jpg" alt="Image" class="img-fluid center-cropped">
-                    </a>
-                </div>';
-            }
-            ?>
-            
-        </div>
     </div>
-    <!-- end of function room -->
-
     <!-- team -->
     <?php 
         require_once('../classes/teams.class.php');
