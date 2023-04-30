@@ -34,7 +34,7 @@ if(isset($_SESSION['user_id'])){
             $_SESSION['user_email'] = $email_data['email_verify_email'];
             $_SESSION['user_email_verified'] = 1;
 
-            require_once '../classes/notifications.class.php';
+            require_once '../../classes/notifications.class.php';
             $notificationObj = new notifications();
                 
             $notification_info ='Congratulations! Your Account is now verified. ';
