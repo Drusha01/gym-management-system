@@ -59,7 +59,7 @@ if(isset($_SESSION['user_id'])){
                     <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('payment-tab')">Payment</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="to_train" data-bs-toggle="tab" data-bs-target="#to_train" type="button" role="tab" aria-controls="contact" aria-selected="false">To Train</button>
+                    <button class="nav-link" id="to_train_tab" data-bs-toggle="tab" data-bs-target="#to_train" type="button" role="tab" aria-controls="to_train" aria-selected="false">To Train</button>
                 </li>
 
               </ul>
@@ -82,6 +82,9 @@ if(isset($_SESSION['user_id'])){
                 </div>
                 <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" >
 
+                </div>
+                <div class="tab-pane fade" id="to_train" role="tabpanel" aria-labelledby="to_train_tab" >
+                <?php require_once 'to_train.php';?>
                 </div>
               </div>
             </div>
