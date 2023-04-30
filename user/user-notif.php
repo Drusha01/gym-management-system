@@ -1,25 +1,36 @@
 <div class="w-100 py-4 px-1 px-lg-2" style="min-height: 450px;">
 <div class="card border-0 shadow-lg rounded-3">
-        <div class="box-title d-flex justify-content-end my-3 me-2">
+        <!-- <div class="box-title d-flex justify-content-end my-3 me-2">
             <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
+        </div> -->
+        <div class="d-flex flex-row-reverse bd-highlight my-1">
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
+            </div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn bg-transparent">Delete Selected</button>
+            </div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn bg-transparent">Mark As Read Selected</button>
+            </div>
         </div>
-    <table class="table" id="notif_tbl">
-        <thead>
-            <tr>
-                <th class="p-0 m-0"></th>
-                <th class="p-0 m-0"></th>
-            </tr>
-        </thead>
-        <!-- No Notifcations -->
-        <!-- <tbody>
-            <tr>
-                <td colspan="2" class="text-center fw-bold">Notifications will appear here</td>
-            </tr>
-        </tbody> -->
-        <tbody id ="notification-content">
-            
-        </tbody>
-    </table>
+        <table class="table" id="notif_tbl">
+            <thead>
+                <tr>
+                    <th class="p-0 m-0"></th>
+                    <th class="p-0 m-0"></th>
+                </tr>
+            </thead>
+            <!-- No Notifcations -->
+            <!-- <tbody>
+                <tr>
+                    <td colspan="2" class="text-center fw-bold">Notifications will appear here</td>
+                </tr>
+            </tbody> -->
+            <tbody id ="notification-content">
+                
+            </tbody>
+        </table>
 </div>
 <div id="custom-pagination" class="d-flex justify-content-center justify-content-lg-end mt-3">
     

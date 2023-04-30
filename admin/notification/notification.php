@@ -45,10 +45,17 @@ if(isset($_SESSION['admin_id'])){
     </div>
 
     <div class="card border-0 shadow rounded-3">
-        <div class="box-title d-flex justify-content-end mt-3 me-2">
-            <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
+        <div class="d-flex flex-row-reverse bd-highlight mt-1">
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn bg-transparent" id="mark_all_as_read">Mark as All Read</button>
+            </div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn bg-transparent">Delete Selected</button>
+            </div>
+            <div class="p-2 bd-highlight">
+                <button type="button" class="btn bg-transparent">Mark As Read Selected</button>
+            </div>
         </div>
-        <hr>
         <table id="example" class="table">
             <thead>
                 <th class="p-0 m-0"></th>
