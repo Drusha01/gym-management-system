@@ -266,9 +266,10 @@ if(isset($_SESSION['user_id'])){
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-1 align-self-end mb-1 mb-lg-2">
+                                        <div class="col-1 align-self-end mb-3 mb-lg-2">
                                             <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#ModalTrainer"><strong>?</strong></button>
                                         </div>
+                                        
 
                                         <div class="col-12 col-lg-1 btn-group align-self-end pb-2 py-2" >
                                             <button type="button" class="btn btn-sm btn-success" onclick="add_newTrainer()"><i class='bx bx-plus-circle'></i></button>
@@ -284,7 +285,7 @@ if(isset($_SESSION['user_id'])){
                                 <div class="programs">    
                                     <div class="row py-2" id="program-use-0">
                                         <div class="col-10 col-md-6">
-                                            <label class="fw-bold pb-2 ps-1">Program Subscription</label>
+                                            <label class="fw-bold pb-2 ps-1">Event Subscription</label>
                                             <select class="form-select" aria-label="Default select example" id="program_use-0" name='<?php 
                                                     $offersObj = new offers();
 
@@ -294,7 +295,7 @@ if(isset($_SESSION['user_id'])){
                                                     }
                                                     
                                                     ?>' onchange="updateProgramUseModal(0)">
-                                                <option value="None" selected >Select Program Subscription</option>
+                                                <option value="None" selected >Select Event Subscription</option>
                                                 <?php 
                                                 $offersObj = new offers();
 
