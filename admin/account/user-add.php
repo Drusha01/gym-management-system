@@ -353,13 +353,11 @@ if(isset($_SESSION['admin_id'])){
                         </div>
                     </div>
                     <div class="row form-group pb-2">
-
                         <div class="col-12">
                             <label class="pb-1 ms-1" for="name_offer">Confirm Password</label>
                             <input type="password" class="form-control" value="" id="confirm_password" name="cpassword"placeholder="Confirm Password" required onkeyup="function_password_validation('confirm_password','confirm_password_error')">
                         </div>
                         <div class="col-12 text-secondary pb-1" id='confirm_password_error'>
-
                         </div>
                     </div>
                     

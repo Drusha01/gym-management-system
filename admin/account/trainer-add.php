@@ -292,8 +292,10 @@ if(isset($_SESSION['admin_id'])){
                         <div class="row pt-3">
                             <div class="col-12 col-lg-6">
                                 <div class="row form-group pb-2">
-                                <label for="exampleFormControlFile1">Profile Picture</label>
-                                <input type="file" class="form-control-file" id="profilepic" name="profilepic" accept="image/*" >
+                                    <div class="col-12">
+                                        <label for="exampleFormControlFile1">Profile Picture</label>
+                                        <input type="file" class="form-control" id="profilepic" name="profilepic" accept="image/*" >
+                                    </div>
                                 </div>
                                 <div class="row form-group pb-2">
                                     <div class="col">
@@ -365,8 +367,10 @@ if(isset($_SESSION['admin_id'])){
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="row form-group pb-2">
-                                    <label for="exampleFormControlFile1">ID or Birth Certificate</label>
-                                    <input type="file" class="form-control-file" id="valid_id" accept="image/*" >
+                                    <div class="col">
+                                        <label for="exampleFormControlFile1">ID or Birth Certificate</label>
+                                        <input type="file" class="form-control" id="valid_id" accept="image/*" >
+                                    </div>
                                 </div>
                                 <!-- <div class="row form-group pb-2">
                                     <div class="col">
@@ -376,24 +380,21 @@ if(isset($_SESSION['admin_id'])){
                                 </div> -->
                                 
                                 <div class="row form-group pb-2">
-                                    <div class="col-12 col-lg-6">
+                                    <div class="col-12">
                                         <label class="pb-1 ms-1" for="name_offer">Password</label>
                                         <input type="password" class="form-control" value="" id="password" name="password"placeholder="Enter Password" required onkeyup="function_password_validation('password','password_err')">
                                     </div>
-                                    <div class="col-sm-4 text-secondary pb-1" id='password_err'>
-                                                                
+                                    <div class="col-12 text-secondary pb-1" id='password_err'>
                                     </div>
+                                </div>
                                 <div class="row form-group pb-2">
-                                    
-                                    <div class="col-12 col-lg-6">
+                                    <div class="col-12">
                                         <label class="pb-1 ms-1" for="name_offer">Confirm Password</label>
                                         <input type="password" class="form-control" value="" id="confirm_password" name="cpassword"placeholder="Confirm Password" required onkeyup="function_password_validation('confirm_password','confirm_password_error')">
                                     </div>
-                                    <div class="col-sm-4 text-secondary pb-1" id='confirm_password_error'>
-                                                                
+                                    <div class="col-12 text-secondary pb-1" id='confirm_password_error'>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                             <div class="row d-flex">
