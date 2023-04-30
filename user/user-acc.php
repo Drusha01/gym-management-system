@@ -218,10 +218,10 @@
                                     <table class="table  table-striped table-borderless" style="border: 3px solid black;">
                                         <thead class="bg-dark text-light">
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">DATE</th>
-                                                <th scope="col">TIME IN</th>
-                                                <th scope="col">TIME OUT</th>
+                                                <th class="text-center" scope="col">#</th>
+                                                <th class="text-center" scope="col">DATE</th>
+                                                <th class="text-center" scope="col">TIME IN</th>
+                                                <th class="text-center" scope="col">TIME OUT</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -234,10 +234,10 @@
                                                 foreach ($attendance_data as $key => $value) {
                                                     echo '
                                             <tr>
-                                                <th scope="row">'.$counter.'</th>
-                                                <td>'.date_format(date_create(($value['attendance_time_in'])), "F d, Y").'</td>
-                                                <td>'.htmlentities($value['time_in']).'</td>
-                                                <td>'.htmlentities($value['time_out']).'</td>
+                                                <th class="text-center" scope="row">'.$counter.'</th>
+                                                <td class="text-center">'.date_format(date_create(($value['attendance_time_in'])), "F d, Y").'</td>
+                                                <td class="text-center">'.htmlentities($value['time_in']).'</td>
+                                                <td class="text-center">'.htmlentities($value['time_out']).'</td>
                                             </tr>';
                                                 $counter++;
                                                 }
