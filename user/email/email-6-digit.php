@@ -38,8 +38,8 @@ if(isset($_SESSION['user_id'])){
             $notificationObj = new notifications();
                 
             $notification_info ='Congratulations! Your Account is now verified. ';
-            if(!$notificationObj->insert($_SESSION['admin_user_id'],$_GET['trainer_add_with_id'],'Account','verified.png', $notification_info)){
-                exit('notification insert error');
+            if(!$notificationObj->insert($_SESSION['user_id'],$_SESSION['user_id'],'Account','verified.png', $notification_info)){
+                //exit('notification insert error');
             }
 
             header('location:../user-profile.php');

@@ -53,9 +53,6 @@ if(isset($_SESSION['user_id'])){
                 $error="error changing password";
             }
         }
-        print_r($_GET);
-        print_r($_SESSION);
-        print_r($_POST);
     }
    
   }else{
