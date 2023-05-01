@@ -98,32 +98,6 @@ class subscriber_trainers
             return false;
         }
     }
-
-    function fetch_to_train_list($user_id){
-        try{
-            $sql = 'SELECT CONCAT(s_users.user_lastname,", ",s_users.user_firstname," ",s_users.user_middlename) as user_fullname,subscriber_trainers_subscriber_id,s_users.user_birthdate,user_gender_details,s_users.user_profile_picture FROM subscriber_trainers 
-            LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
-            LEFT OUTER JOIN users ON users.user_id=trainers.trainer_user_id
-            LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
-            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
-            LEFT OUTER JOIN users as s_users ON s_users.user_id=subscriptions.subscription_subscriber_user_id
-            LEFT OUTER JOIN user_genders ON s_users.user_gender_id=user_genders.user_gender_id
-            WHERE users.user_id = :user_id AND  subscription_status_details = "Active";
-            ';
-            $query=$this->db->connect()->prepare($sql);
-            $query->bindParam(':user_id', $user_id);
-            if($query->execute()){
-                $data =  $query->fetchAll();
-                return $data;
-            }else{
-                return false;
-            }
-        }catch (PDOException $e){
-            return false;
-        }
-    }
-
-    
     function fetch_to_train_today_full_details($subscriber_trainers_trainer_id){
         try{
             $sql = 'SELECT  CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname, user_gender_details, user_birthdate FROM subscriber_trainers 

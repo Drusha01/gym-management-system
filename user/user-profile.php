@@ -58,19 +58,9 @@ if(isset($_SESSION['user_id'])){
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="contact" aria-selected="false"  onclick="changeActiveTab('payment-tab')">Payment</button>
                 </li>
-                <?php 
-                    // check if we are trainer
-                    require_once('../classes/trainers.class.php');
-                    $trainerObj = new trainers();
-                    if($trainer_data = $trainerObj->fetch_my_details($_SESSION['user_id'])){
-                        echo '
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="to_train-tab" data-bs-toggle="tab" data-bs-target="#to_train" type="button" role="tab" aria-controls="to_train" aria-selected="false" onclick="changeActiveTab(\'to_train-tab\')">To Train</button>
-                </li>';
-                    }
-                    
-                ?>
-                
+                    <button class="nav-link" id="to_train_tab" data-bs-toggle="tab" data-bs-target="#to_train" type="button" role="tab" aria-controls="to_train" aria-selected="false">To Train</button>
+                </li>
 
               </ul>
           </div>
@@ -93,16 +83,9 @@ if(isset($_SESSION['user_id'])){
                 <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab" >
 
                 </div>
-                <?php 
-                
-                if($trainer_data ){
-                    echo '
-                <div class="tab-pane fade" id="to_train" role="tabpanel" aria-labelledby="to_train-tab" >
-            
-                </div>';
-                }
-                ?>
-                
+                <div class="tab-pane fade" id="to_train" role="tabpanel" aria-labelledby="to_train_tab" >
+                <?php require_once 'to_train.php';?>
+                </div>
               </div>
             </div>
     </section>
@@ -343,18 +326,6 @@ function changeActiveTab(tab){
             success: function(result)
             {
                 $('#payment').html(result);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-            }
-        });
-    }else if(tab == 'to_train-tab'){
-        $.ajax({
-            type: "GET",
-            url: 'to_train.php',
-            success: function(result)
-            {
-                $('#to_train').html(result);
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 

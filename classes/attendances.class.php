@@ -67,7 +67,7 @@ class attendances
             LEFT OUTER JOIN users ON users.user_id=attendances.attendance_user_id
             WHERE attendance_user_id = :attendance_user_id 
             ORDER BY attendance_time_in DESC
-            LIMIT 3
+            LIMIT 5
             ;';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':attendance_user_id', $attendance_user_id);

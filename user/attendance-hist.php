@@ -97,7 +97,7 @@ if(isset($_SESSION['user_id'])){
                 <div class="d-flex flex-column align-items-center text-center">
                 <a href="../img/profile/<?php echo_safe($_SESSION['user_profile_picture'])?>"><img src="../img/profile-resize/<?php echo_safe($_SESSION['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150"></a>
                 <div class="mt-3">
-                    <h4><?php echo htmlentities($_SESSION['user_name'])?></h4>
+                    <h4>James_No_Legday</h4>
                     <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal"><?php if(isset( $gym_use_str)){echo 'Subscribed';}?></span></p>
                         <p class="text-muted font-size-sm"><?php echo $_SESSION['user_address']?></p>
                 </div>
