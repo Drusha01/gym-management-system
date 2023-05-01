@@ -25,7 +25,7 @@ if(isset($_SESSION['admin_id'])){
                 $userObj = new users();
                 $userObj->setuser_id($_GET['user_id']);
                 if($user_data = $userObj->get_user_details()){
-
+                    date_default_timezone_set('Asia/Singapore');
                 }else{
                     return 'error';
                 }
