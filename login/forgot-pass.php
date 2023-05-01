@@ -54,7 +54,7 @@ if(isset($_SESSION['user_id'])){
               $mail->Port = 2525;
               $mail->SMTPAuth = true;
               $mail->Username = 'kenogym.online';
-              $mail->Password = 'BnMe0BhynGgBJ6vz';
+              $mail->Password = 'BnMe0BhynGgBJ6vzsdkfhasdkfhas';
               $mail->setFrom('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
               $mail->addReplyTo('kenogymofficial@kenogym.online', 'KENO FITNESS CENTER');
               $mail->addAddress($user_details['user_email'], $user_details['user_firstname'].' '.$user_details['user_lastname']);

@@ -30,7 +30,14 @@ function validate_gender($POST,$gender){
 
 function validate_birthdate($POST,$birthdate){
     //  do this
-    return (isset($POST[$birthdate]) && strtotime($POST[$birthdate])-time() < (60*60*24*370*5)) ;
+    if(isset($POST[$birthdate])){
+        $min_date = 10 * 366;
+        $diff= date_diff(date_create($POST[$birthdate]),date_create(date('Y-m-d', time())));
+        $date_diff =  intval($diff->format("%R%a"));
+        if($date_diff>$min_date){
+            return true;
+        }
+    }
 }
 
 function validateDate($POST,$birthdate, $format = 'm-d-Y H:i:s')

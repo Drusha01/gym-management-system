@@ -20,7 +20,7 @@ function functionOnchangeBirthdate(birthdate){
   var dateTwo = new Date($('#birthdatehidden').val()); //Year, Month, Date
   if (dateOne > dateTwo) {
     $('#birthdate').val($('#birthdatehidden').val())
-      alert("Age must be 5 years old higher");
+      alert("Age must be 10 years old higher");
   }else {
     
   }

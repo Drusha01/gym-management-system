@@ -359,7 +359,7 @@ require_once '../classes/genders.class.php';
                 <a href="#" title="Facebook"><i class='bx bxl-google'></i></a>
               </div>
             </div>
-            <input type="date" class="form-control" id="birthdatehidden" name="birthdatehidden" onchange="functionOnchangebirthdatehidden()" style="visibility:hidden;" value="<?php echo date('Y-m-d', time()-(60*60*24*380*5)); ?>" >
+            <input type="date" class="form-control" id="birthdatehidden" name="birthdatehidden" onchange="functionOnchangebirthdatehidden()" style="visibility:hidden;" value="<?php echo date('Y-m-d', time()-(60*60*24*370*9)); ?>" >
 
         </div>
       </div>
