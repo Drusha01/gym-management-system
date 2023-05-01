@@ -34,6 +34,14 @@ function updateGymUseModal(){
         //console.log(content);
 
         // UPDATE MODAL 
+        $('#gym_img').attr('src','../img/offer-contents/'+content.offer_file)
+        $('#gym_offer_name').html(content.offer_name);
+        $('#gym_offer_description').html(content.offer_description);
+        $('#gym_offer_qualification').html(content.age_qualification_details);
+        $('#gym_offer_slots').html(content.offer_slots);
+        $('#gym_offer_price').html(content.offer_price);
+        $('#gym_offer_duration').html(content.offer_duration);
+
 
         // UDPATE THE DURATION 
         gym_use_id = content;
@@ -46,6 +54,13 @@ function updateGymUseModal(){
         
 
         // update locker modal
+        $('#locker_img').attr('src','')
+        $('#locker_offer_name').html('');
+        $('#locker_offer_description').html('');
+        $('#locker_offer_qualification').html('');
+        $('#locker_offer_slots').html('');
+        $('#locker_offer_price').html('');
+        $('#locker_offer_duration').html('');
 
         // update locker values
         locker_use_id=null;
@@ -57,6 +72,13 @@ function updateGymUseModal(){
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
         // update trainer modal
+        $('#trainer_img').attr('src','')
+        $('#trainer_offer_name').html('');
+        $('#trainer_offer_description').html('');
+        $('#trainer_offer_qualification').html('');
+        $('#trainer_offer_slots').html('');
+        $('#trainer_offer_price').html('');
+        $('#trainer_offer_duration').html('');
 
         // update trainer values
         trainer_use_id =null;
@@ -70,6 +92,13 @@ function updateGymUseModal(){
         $('#trainer_list_ul').html('')
 
         // update program modal
+        $('#program_img').attr('src','')
+        $('#program_offer_name').html('');
+        $('#program_offer_description').html('');
+        $('#program_offer_qualification').html('');
+        $('#program_offer_slots').html('');
+        $('#program_offer_price').html('');
+        $('#program_offer_duration').html('');
 
         // update program values
         $('#program_use-0').val('None');
@@ -93,6 +122,13 @@ function updateGymUseModal(){
         
 
         // update locker modal
+        $('#trainer_img').attr('src','')
+        $('#trainer_offer_name').html('');
+        $('#trainer_offer_description').html('');
+        $('#trainer_offer_qualification').html('');
+        $('#trainer_offer_slots').html('');
+        $('#trainer_offer_price').html('');
+        $('#trainer_offer_duration').html('');
 
         // update locker values
         locker_use_id=null;
@@ -104,6 +140,13 @@ function updateGymUseModal(){
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
         // update trainer modal
+        $('#trainer_img').attr('src','')
+        $('#trainer_offer_name').html('');
+        $('#trainer_offer_description').html('');
+        $('#trainer_offer_qualification').html('');
+        $('#trainer_offer_slots').html('');
+        $('#trainer_offer_price').html('');
+        $('#trainer_offer_duration').html('');
 
         // update trainer values
         trainer_use_id =null;
@@ -117,6 +160,13 @@ function updateGymUseModal(){
         $('#trainer_list_ul').html('')
 
         // update program modal
+        $('#program_img').attr('src','')
+        $('#program_offer_name').html('');
+        $('#program_offer_description').html('');
+        $('#program_offer_qualification').html('');
+        $('#program_offer_slots').html('');
+        $('#program_offer_price').html('');
+        $('#program_offer_duration').html('');
 
         // update program values
         $('#program_use-0').val('None');
