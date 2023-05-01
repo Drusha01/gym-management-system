@@ -125,6 +125,30 @@ class trainers
             return false;
         }
     }
+
+    function fetch_my_details($user_id){
+        try{
+            $sql = 'SELECT * FROM trainers
+            LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
+            LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+            LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
+            WHERE user_id=:user_id
+            ;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':user_id', $user_id);
+            if($query->execute()){
+                $data =  $query->fetchAll();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+
+    
     
 }
 
