@@ -1154,6 +1154,14 @@ LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
 LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
 ;
 
+-- select 1 trainer
+SELECT * FROM trainers
+LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
+WHERE user_id=1
+;
+
 SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,',',user_firstname,' ',user_middlename) AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details FROM trainers
 LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
 LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
@@ -1937,7 +1945,14 @@ LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_i
 WHERE subscriber_trainers_trainer_id = 4 AND  subscription_status_details = 'Active';
 
 
-
+SELECT CONCAT(s_users.user_lastname,", ",s_users.user_firstname," ",s_users.user_middlename) as user_fullname,subscriber_trainers_subscriber_id,s_users.user_birthdate,user_gender_details,s_users.user_profile_picture FROM subscriber_trainers 
+LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
+LEFT OUTER JOIN users ON users.user_id=trainers.trainer_user_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+LEFT OUTER JOIN users as s_users ON s_users.user_id=subscriptions.subscription_subscriber_user_id
+LEFT OUTER JOIN user_genders ON s_users.user_gender_id=user_genders.user_gender_id
+WHERE users.user_id = 3 AND  subscription_status_details = 'Active';
 
 CREATE TABLE walk_in_services(
 	walk_in_service_id int primary key auto_increment,
