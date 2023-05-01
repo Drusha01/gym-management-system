@@ -32,7 +32,7 @@ class trainers
     }
     function fetch_available_trainers(){
         try{
-            $sql = 'SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details FROM trainers
+            $sql = 'SELECT trainer_id,user_id,user_name,CONCAT(user_lastname,", ",user_firstname," ",user_middlename," (", user_gender_details ,")") AS user_fullname,user_email,user_status_details,user_birthdate,trainer_availability_details,user_gender_details FROM trainers
             LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
             LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
