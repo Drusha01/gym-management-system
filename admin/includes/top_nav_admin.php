@@ -151,4 +151,7 @@ setInterval(function(){
 
 
 }, 1500);
+var notificatiton_arr=[];
+
+
 </script>
