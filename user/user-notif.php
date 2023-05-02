@@ -18,6 +18,7 @@
             <thead>
                 <th class="p-0 m-0"></th>
                 <th class="p-0 m-0"></th>
+                <th class="p-0 m-0"></th>
             </thead>
             <!-- No Notifcations -->
             <!-- <tbody>

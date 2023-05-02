@@ -60,6 +60,7 @@ if(isset($_SESSION['admin_id'])){
             <thead>
                 <th class="p-0 m-0"></th>
                 <th class="p-0 m-0"></th>
+                <th class="p-0 m-0"></th>
                 <!-- <tr>
                     <th colspan="2">
                         <div class="box-title py-2 d-flex justify-content-end">
