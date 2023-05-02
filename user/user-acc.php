@@ -97,6 +97,16 @@
                     </li>
                 </ul>
             </div>
+            <!-- ito kapag trainer remove mo lng sa taaas -->
+            <!-- <div class="card mt-3">
+                <div class="pt-3 px-3 text-center">
+                    <h5 class="fw-bold">Total Person who Availed</h5>
+                </div>
+                <div class="row text-center pt-2 pb-3">
+                    <i class='bx bxs-group' style="font-size: 75px;"></i>
+                    <h4 class="fw-bold">5</h4>
+                </div>
+            </div> -->
         </div>
         <div class="col-md-8">
             <div class="card mb-3">
@@ -122,7 +132,7 @@
                         <hr>
                     <div class="row">
                         <div class="col">
-                            <div class="col-lg-3">
+                            <div class="col- lg-3">
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
@@ -270,7 +280,7 @@
                 </div>
             </div> -->
             <!-- Modal for description -->
-            <!-- <div class="modal fade" id="trainerdesc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="trainerdesc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -289,7 +299,7 @@
                     </div>
                 </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>    
 </div>
