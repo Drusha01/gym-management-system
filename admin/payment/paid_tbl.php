@@ -3,8 +3,8 @@
         <tr>
             <th class="d-lg-none"></th>
             <th class="text-center d-none d-sm-table-cell">#</th>
-            <th class="">Username</th>
-            <th class="">Name</th>
+            <th class="text-center">Username</th>
+            <th class="text-center">Name</th>
             <th class="text-center">Action</th>
         </tr>
     </thead>
@@ -20,8 +20,8 @@
         <tr>
             <td class="d-lg-none"></td>
             <td class="text-center d-none d-sm-table-cell">'.$counter.'</td>
-            <td class=>'.htmlentities($value['user_name']).'</td>
-            <td class=>'.htmlentities($value['user_fullname']).'</td>
+            <td class="text-center">'.htmlentities($value['user_name']).'</td>
+            <td class="text-center">'.htmlentities($value['user_fullname']).'</td>
             <td class="text-center"><a class="btn btn-primary btn-sm" href="payment_hist.php?user_id='.$value['user_id'].'">Payment History</a></td>
         </tr>';
                      $counter++;

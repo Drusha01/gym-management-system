@@ -26,6 +26,7 @@
                             <th class="text-center">GENDER</th>
                             <th class="text-center">END OF SUBSCRIPTION</th>
                             <th class="text-center">STATUS</th>
+                            <th class="text-center">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>';
@@ -49,6 +50,7 @@
                                 <td class="text-center">'.htmlentities($value['user_gender_details']).'</td>
                                 <td class="text-center">October 14, 2022</td>
                                 <td class="text-center"><span class="badge bg-success rounded-pill">'.htmlentities($value['trainer_availability_details']).'</span></td>
+                                <td class="text-center"><button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addnoteModal">Add Note</button> <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#view/editnoteModal">View/Edit Note</button></td>
                             </tr>';
                         }
 
@@ -75,5 +77,50 @@
         </div>
     </div>
 </div>
+<!-- Modal for add note -->
+<div class="modal fade" id="addnoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Note</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Add Note</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark">Add Note</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ung add note kapag first time then kapag meron na ung button maing view/edit note na -->
+<!-- Modal for view or edit note -->
+<div class="modal fade" id="view/editnoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">View/Edit Note</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">View/Edit</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">Cardio and lightweight lng sana po</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-dark">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 

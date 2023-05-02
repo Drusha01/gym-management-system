@@ -32,7 +32,7 @@
               <ul class="nav navbar-nav navbar-right d-none d-lg-block">
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class='bx bx-bell fs-2'></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" id="notification_number"> <span class="visually-hidden">unread messages</span></span>
+                      <i class='bx bx-bell fs-2'></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light" id="notification_number" style="color:#A73535;"> <span class="visually-hidden">unread messages</span></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" style="width:320px;">
                       <table class="table table-hover">

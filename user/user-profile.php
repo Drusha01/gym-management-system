@@ -70,6 +70,9 @@ if(isset($_SESSION['user_id'])){
                     }
                     
                 ?>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="contact" aria-selected="false">My Description</button>
+                </li>
                 
 
               </ul>
@@ -102,7 +105,9 @@ if(isset($_SESSION['user_id'])){
                 </div>';
                 }
                 ?>
-                
+                <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab" >
+                    <?php require_once('trainer_desc.php');?>
+                </div>
               </div>
             </div>
     </section>

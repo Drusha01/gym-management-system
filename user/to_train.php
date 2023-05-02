@@ -14,6 +14,7 @@
                     <th class="text-center">AGE</th>
                     <th class="text-center">GENDER</th>
                     <th class="text-center">STATUS</th>
+                    <th class="text-center">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@
                     <td class="text-center">'.htmlentities(getAge($value['user_birthdate'])).'</td>
                     <td class="text-center">'.htmlentities($value['user_gender_details']).'</td>
                     <td class="text-center"><span class="badge bg-success rounded-pill">Active</span></td>
+                    <td class="text-center"><button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewNoteTrainer">View Note</button></td>
                     </tr>';
                             }
                         }
@@ -53,6 +55,23 @@
             </table>
         </div>
     </div>
-    
+<!-- Modal View Note For Trainer -->
+<div class="modal fade" id="viewNoteTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Note By: <span>Villanueva, Rob Roche Silay</span></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <h6>Added Note At: <span class="fw-light">May 5, 2023</span></h6>
+       <h6 class="fw-normal mt-3">Cardio and lightweight lng sana po</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </div>
