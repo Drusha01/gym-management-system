@@ -4,6 +4,10 @@ box-sizing: border-box;}
 .form-floating:not(.form-control:disabled)::before {
   background-color:transparent;
 }
+.form-check-input:checked{
+  background-color: #A73535 !important;
+  border: 0;
+}
 
 .page-header {
   background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(../images/home-1.jpg) center center no-repeat;
