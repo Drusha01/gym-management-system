@@ -112,7 +112,7 @@ if(isset($_SESSION['admin_id'])){
                                         
                                         </div>
                                         <div class="col-1 align-self-end mb-2">
-                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#gym-use_subs"><strong>?</strong></button>
+                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" id="gym_modal"><strong>?</strong></button>
                                         </div>
 
                                         <div class="col-4 col-md-2 py-1">
@@ -144,7 +144,7 @@ if(isset($_SESSION['admin_id'])){
                                             </select>
                                         </div>
                                         <div class="col-1 align-self-end mb-2">
-                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#lockersubs"><strong>?</strong></button>
+                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" id="locker_modal"><strong>?</strong></button>
                                         </div>
                                         <div class="col-4 col-md-2 py-1">
 
@@ -189,7 +189,7 @@ if(isset($_SESSION['admin_id'])){
                                         </div>
 
                                         <div class="col-1 align-self-end mb-2">
-                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#trainersubs"><strong>?</strong></button>
+                                            <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" id="trainer_modal"><strong>?</strong></button>
                                         </div>
                                         <div class="col-4 col-md-2 ">
                                             <label class="fw-bold pb-2 ps-1">Days</label>
@@ -264,7 +264,7 @@ if(isset($_SESSION['admin_id'])){
                                                 </select>
                                             </div>
                                             <div class="col-1 align-self-end mb-2">
-                                                <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" data-bs-target="#eventsubs"><strong>?</strong></button>
+                                                <button type="button" class="btn btn-dark btn-sm btn-circle" data-bs-toggle="modal" id="event_modal"><strong>?</strong></button>
                                             </div>
                                             <div class="col-4 col-md-2 ">
                                                 <label class="fw-bold pb-2 ps-1">Days</label>
@@ -412,11 +412,11 @@ if(isset($_SESSION['admin_id'])){
         <div class="modal-body container-fluid">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <img src="../images/home-1.jpg" class="img-fluid">
+                    <img src="../images/home-1.jpg" class="img-fluid" id="gym_offer_file">
                 </div>
                 <div class="col-12 col-lg-6 pt-3 pt-lg-0">
-                    <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
-                    <p>Get fit and feel great with our one-month gym membership offer!
+                    <h5 class="fw-bold text-wrap" id="gym_offer_name">1 Month Gym-Use (21 and Above)</h5>
+                    <p id="gym_offer_description">Get fit and feel great with our one-month gym membership offer!
                             Enjoy full access to our state-of-the-art gym facilities,
                             expert staff, and group fitness classes to help you reach your
                             fitness goals. Sign up now and take the first step towards a healthier you!</p>
@@ -426,16 +426,16 @@ if(isset($_SESSION['admin_id'])){
             <div class="container-fluid d-flex justify-content-center">
                 <div class="row text-center">
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                        <p class="fw-bold" id="gym_age_qualification_details">Age Qualification <span class="fw-normal">21 and Above</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                        <p class="fw-bold">Slots <span class="fw-normal" id="gym_offer_slots">Unlimited</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                        <p class="fw-bold">Days <span class="fw-normal" id="gym_offer_duration">60</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                        <p class="fw-bold">Price <span class="fw-normal" id="gym_offer_price">₱800.00</span></p>
                     </div>
                 </div>
             </div>
@@ -459,30 +459,31 @@ if(isset($_SESSION['admin_id'])){
         <div class="modal-body container-fluid">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <img src="../images/home-1.jpg" class="img-fluid">
+                    <img src="../images/home-1.jpg" class="img-fluid"  id="locker_offer_file">
                 </div>
-                <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                <div class="col-12 col-lg-6 pt-3 pt-lg-0" id="locker_offer_name">
                     <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
-                    <p>Get fit and feel great with our one-month gym membership offer!
+                    <p id="locker_offer_description">Get fit and feel great with our one-month gym membership offer!
                             Enjoy full access to our state-of-the-art gym facilities,
                             expert staff, and group fitness classes to help you reach your
-                            fitness goals. Sign up now and take the first step towards a healthier you!</p>
+                            fitness goals. Sign up now and take the first step towards a healthier you!
+                    </p>
                 </div>
             </div>
             <hr>
             <div class="container-fluid d-flex justify-content-center">
                 <div class="row text-center">
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                        <p class="fw-bold">Age Qualification <span class="fw-normal" id="locker_age_qualification_details">21 and Above</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                        <p class="fw-bold">Slots <span class="fw-normal"  id="locker_offer_slots">Unlimited</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                        <p class="fw-bold">Days <span class="fw-normal" id="locker_offer_duration">60</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                        <p class="fw-bold">Price <span class="fw-normal" id="locker_offer_price">₱800.00</span></p>
                     </div>
                 </div>
             </div>
@@ -505,11 +506,11 @@ if(isset($_SESSION['admin_id'])){
         <div class="modal-body container-fluid">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <img src="../images/home-1.jpg" class="img-fluid">
+                    <img src="../images/home-1.jpg" class="img-fluid" id="trainer_offer_file">
                 </div>
                 <div class="col-12 col-lg-6 pt-3 pt-lg-0">
-                    <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
-                    <p>Get fit and feel great with our one-month gym membership offer!
+                    <h5 class="fw-bold text-wrap" id="trainer_offer_name">1 Month Gym-Use (21 and Above)</h5>
+                    <p id="trainer_offer_description">Get fit and feel great with our one-month gym membership offer!
                             Enjoy full access to our state-of-the-art gym facilities,
                             expert staff, and group fitness classes to help you reach your
                             fitness goals. Sign up now and take the first step towards a healthier you!</p>
@@ -519,16 +520,16 @@ if(isset($_SESSION['admin_id'])){
             <div class="container-fluid d-flex justify-content-center">
                 <div class="row text-center">
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                        <p class="fw-bold">Age Qualification <span class="fw-normal" id="trainer_age_qualification_details">21 and Above</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                        <p class="fw-bold">Slots <span class="fw-normal"  id="trainer_offer_slots">Unlimited</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                        <p class="fw-bold">Days <span class="fw-normal" id="trainer_offer_duration">60</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                        <p class="fw-bold">Price <span class="fw-normal" id="trainer_offer_price">₱800.00</span></p>
                     </div>
                 </div>
             </div>
@@ -552,11 +553,11 @@ if(isset($_SESSION['admin_id'])){
         <div class="modal-body container-fluid">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <img src="../images/home-1.jpg" class="img-fluid">
+                    <img src="../images/home-1.jpg" class="img-fluid" id="program_offer_file">
                 </div>
                 <div class="col-12 col-lg-6 pt-3 pt-lg-0">
-                    <h5 class="fw-bold text-wrap">1 Month Gym-Use (21 and Above)</h5>
-                    <p>Get fit and feel great with our one-month gym membership offer!
+                    <h5 class="fw-bold text-wrap" id="program_offer_name">1 Month Gym-Use (21 and Above)</h5>
+                    <p id="program_offer_description">Get fit and feel great with our one-month gym membership offer!
                             Enjoy full access to our state-of-the-art gym facilities,
                             expert staff, and group fitness classes to help you reach your
                             fitness goals. Sign up now and take the first step towards a healthier you!</p>
@@ -566,16 +567,16 @@ if(isset($_SESSION['admin_id'])){
             <div class="container-fluid d-flex justify-content-center">
                 <div class="row text-center">
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Age Qualification <span class="fw-normal">21 and Above</span></p>
+                        <p class="fw-bold">Age Qualification <span class="fw-normal" id="program_age_qualification_details">21 and Above</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Slots <span class="fw-normal">Unlimited</span></p>
+                        <p class="fw-bold">Slots <span class="fw-normal"  id="program_offer_slots">Unlimited</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Days <span class="fw-normal">60</span></p>
+                        <p class="fw-bold">Days <span class="fw-normal" id="program_offer_duration">60</span></p>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <p class="fw-bold">Price <span class="fw-normal">₱800.00</span></p>
+                        <p class="fw-bold">Price <span class="fw-normal" id="program_offer_price">₱800.00</span></p>
                     </div>
                 </div>
             </div>
@@ -588,15 +589,15 @@ if(isset($_SESSION['admin_id'])){
 </div>
 <!-- End of Modal -->
 
-<!-- Modal trainer profile -->
-<div class="modal fade" id="ModalTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+<!-- Modal trainer profile -->"
+<div class="modal fade" id="ModalTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;" id="trainer_info_modal">
 <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Trainer Info</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    <div class="modal-body container-fluid">
+    <div class="modal-body container-fluid" id="trainer_info_modal">
         <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
                 <div class="card">
@@ -678,7 +679,7 @@ if(isset($_SESSION['admin_id'])){
 
 
 <script src="../../js/availform.js"></script>
-<script src="../../js/availvalidation.js"></script>
+<script src="../../js/availvalidation1.js"></script>
 <script>
     $('.select2').select2();
     $('#customer').change(function(){

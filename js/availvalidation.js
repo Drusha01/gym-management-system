@@ -33,7 +33,15 @@ function updateGymUseModal(){
         console.log(content);
         //console.log(content);
 
+        $('#gym_modal').attr('data-bs-target','#gym-use_subs');
         // UPDATE MODAL 
+        $('#gym_offer_name').html(content.offer_name);
+        $('#gym_offer_file').attr('src','../img/offer-contents/'+content.offer_file);
+        $('#gym_offer_description').html(content.offer_description);
+        $('#gym_age_qualification_details').html(content.age_qualification_details);
+        $('#gym_offer_slots').html(content.offer_slots);
+        $('#gym_offer_duration').html(content.offer_duration);
+        $('#gym_offer_price').html(content.offer_price);
 
         // UDPATE THE DURATION 
         gym_use_id = content;
@@ -43,9 +51,16 @@ function updateGymUseModal(){
         $('#first_next').removeAttr('disabled');
 
   
-        
 
+        $('#locker_modal').attr('data-bs-target','');
         // update locker modal
+        $('#locker_offer_name').html('');
+        $('#locker_offer_file').attr('src','../img/offer-contents/'+'');
+        $('#locker_offer_description').html('');
+        $('#locker_age_qualification_details').html('');
+        $('#locker_offer_slots').html('');
+        $('#locker_offer_duration').html('');
+        $('#locker_offer_price').html('');
 
         // update locker values
         locker_use_id=null;
@@ -57,7 +72,8 @@ function updateGymUseModal(){
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
         // update trainer modal
-
+        //$('#locker_modal').attr('data-bs-target','#trainersubs');
+        $('#locker_modal').attr('data-bs-target','');
         // update trainer values
         trainer_use_id =null;
         trainer_duration =0;
@@ -70,7 +86,7 @@ function updateGymUseModal(){
         $('#trainer_list_ul').html('')
 
         // update program modal
-
+        $('#event_modal').attr('data-bs-target','');
         // update program values
         $('#program_use-0').val('None');
         $('#program-total-duration-0').val(0);
@@ -93,6 +109,15 @@ function updateGymUseModal(){
         
 
         // update locker modal
+        $('#locker_modal').attr('data-bs-target','');
+        // update locker modal
+        $('#locker_offer_name').html('');
+        $('#locker_offer_file').attr('src','../img/offer-contents/'+'');
+        $('#locker_offer_description').html('');
+        $('#locker_age_qualification_details').html('');
+        $('#locker_offer_slots').html('');
+        $('#locker_offer_duration').html('');
+        $('#locker_offer_price').html('');
 
         // update locker values
         locker_use_id=null;
@@ -104,7 +129,7 @@ function updateGymUseModal(){
         $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
         // update trainer modal
-
+        $('#locker_modal').attr('data-bs-target','');
         // update trainer values
         trainer_use_id =null;
         trainer_duration =0;
@@ -117,7 +142,8 @@ function updateGymUseModal(){
         $('#trainer_list_ul').html('')
 
         // update program modal
-
+        // $('#event_modal').attr('data-bs-target','#eventsubs');
+        $('#event_modal').attr('data-bs-target','');
         // update program values
         $('#program_use-0').val('None');
         $('#program-total-duration-0').val(0);
@@ -151,6 +177,7 @@ function gym_use_total_durationChange(){
                 let text = "Gym use duration is less than the other duration!\n Reset other subscription? ";
                 if (confirm(text) == true) {
                      // update locker values
+                    $('#locker_modal').attr('data-bs-target','');
                     locker_use_id=null;
                     locker_duration =0;
                     locker_quantity =0;
@@ -160,7 +187,7 @@ function gym_use_total_durationChange(){
                     $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
                     // update trainer modal
-
+                    $('#locker_modal').attr('data-bs-target','');
                     // update trainer values
                     trainer_use_id =null;
                     trainer_duration =0;
@@ -173,7 +200,7 @@ function gym_use_total_durationChange(){
                     $('#trainer_list_ul').html('')
 
                     // update program modal
-
+                    $('#event_modal').attr('data-bs-target','');    
                     // update program values
                     $('#program_use-0').val('None');
                     $('#program-total-duration-0').val(0);
@@ -198,6 +225,7 @@ function gym_use_total_durationChange(){
                     let text = "Gym use duration is less than the other duration!\n Reset other subscription? ";
                     if (confirm(text) == true) {
                         // update locker values
+                        $('#locker_modal').attr('data-bs-target','');
                         locker_use_id=null;
                         locker_duration =0;
                         locker_quantity =0;
@@ -207,7 +235,7 @@ function gym_use_total_durationChange(){
                         $('#locker-total-duration').val(locker_duration*locker_multiplier);
 
                         // update trainer modal
-
+                        $('#locker_modal').attr('data-bs-target','');
                         // update trainer values
                         trainer_use_id =null;
                         trainer_duration =0;
@@ -220,7 +248,7 @@ function gym_use_total_durationChange(){
                         $('#trainer_list_ul').html('')
 
                         // update program modal
-
+                        $('#event_modal').attr('data-bs-target','');    
                         // update program values
                         $('#program_use-0').val('None');
                         $('#program-total-duration-0').val(0);
@@ -264,6 +292,16 @@ function updateLockerUseModal(){
             console.log(content);
 
             // UPDATE MODAL 
+            $('#locker_modal').attr('data-bs-target','#lockersubs');
+            // update locker modal
+            $('#locker_offer_name').html(content.offer_name);
+            $('#locker_offer_file').attr('src','../img/offer-contents/'+content.offer_file);
+            $('#locker_offer_description').html(content.offer_description);
+            $('#locker_age_qualification_details').html(content.age_qualification_details);
+            $('#locker_offer_slots').html(content.offer_slots);
+            $('#locker_offer_duration').html(content.offer_duration);
+            $('#locker_offer_price').html(content.offer_price);
+            
             if(content.offer_duration*locker_multiplier<= gym_use_duration*gym_use_multiplier){
                 // UPDATE DURATION AND QUANTITY
                 locker_use_id=content;
@@ -280,6 +318,7 @@ function updateLockerUseModal(){
                 $('#locker_use').val('None');
             }
         }else{
+            $('#locker_modal').attr('data-bs-target','');  
             locker_use_id=null;
             locker_duration =0;
             $('#locker-quantity').val(0);
@@ -339,6 +378,15 @@ function updateTrainerUseModal(){
             console.log(content);
 
             // UPDATE MODAL 
+            $('#trainer_modal').attr('data-bs-target','#trainersubs');
+            // update locker modal
+            $('#trainer_offer_name').html(content.offer_name);
+            $('#trainer_offer_file').attr('src','../img/offer-contents/'+content.offer_file);
+            $('#trainer_offer_description').html(content.offer_description);
+            $('#trainer_age_qualification_details').html(content.age_qualification_details);
+            $('#trainer_offer_slots').html(content.offer_slots);
+            $('#trainer_offer_duration').html(content.offer_duration);
+            $('#trainer_offer_price').html(content.offer_price);
             if(content.offer_duration*trainer_multiplier<= gym_use_duration*gym_use_multiplier){
 
                 // UPDATE DURATION 
@@ -361,6 +409,7 @@ function updateTrainerUseModal(){
             }
         }else{
             // set all to default
+            $('#trainer_modal').attr('data-bs-target','');
             trainer_use_id=null;
             trainer_duration =0;
             trainers_id = [];
@@ -404,6 +453,18 @@ function trainer_selected_changed(selected_id){
     console.log('trainer_selected cahgned');
     // update the trainer-selected modal
 
+    $.ajax({
+        type: "GET",
+        url: '../user/trainer_info.php?trainer_id='+$('#select-trainer-'+selected_id).val(),
+        success: function(result)
+        {
+            console.log(result);
+            $('#trainer_info_modal').html(result);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        }
+    });
     // update trainer list 
     console.log('selected_index:'+selected_id);   
     console.log('selected:'+$('#select-trainer-'+selected_id).val());
@@ -478,6 +539,8 @@ function updateProgramUseModal(selected_id){
                 programs_default = $('.programs').html();
             }
             console.log('update program use modal');
+            $('#event_modal').attr('data-bs-target','#eventsubs');
+            
             if(program_list == null){
                 program_list = JSON.parse($('#program_use-'+selected_id).attr('name'));
             }
@@ -495,6 +558,14 @@ function updateProgramUseModal(selected_id){
             });
             program_list.forEach(element => {
                 if(selectedVal == element.offer_id && valid){
+                    // update program modal
+                    $('#program_offer_name').html(element.offer_name);
+                    $('#program_offer_file').attr('src','../img/offer-contents/'+element.offer_file);
+                    $('#program_offer_description').html(element.offer_description);
+                    $('#program_age_qualification_details').html(element.age_qualification_details);
+                    $('#program_offer_slots').html(element.offer_slots);
+                    $('#program_offer_duration').html(element.offer_duration);
+                    $('#program_offer_price').html(element.offer_price);
                     program_duration = element.offer_duration;
                     program_multiplier = 1;
                     $('#program-total-duration-'+selected_id).val(program_duration*program_multiplier)
