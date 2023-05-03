@@ -1954,6 +1954,12 @@ CREATE TABLE subscriber_trainers(
     FOREIGN KEY (subscriber_trainers_subscription_id) REFERENCES subscriptions(subscription_id)
 );
 
+
+SELECT count(subscriber_trainers_id) as number_of_person_who_availed FROM subscriber_trainers
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+WHERE subscriber_trainers_trainer_id = 2 AND  subscription_status_details = 'Active';
+
 SELECT CONCAT(user_lastname,", ",user_firstname," ",user_middlename) as user_fullname,subscriber_trainers_subscriber_id FROM subscriber_trainers 
 LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
 LEFT OUTER JOIN users ON users.user_id=trainers.trainer_user_id

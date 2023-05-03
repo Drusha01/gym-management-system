@@ -119,6 +119,27 @@ class subscriber_trainers
             return false;
         }
     }
+    function number_of_person_who_availed($subscriber_trainers_trainer_id){
+        try{
+            $sql = 'SELECT count(subscriber_trainers_id) as number_of_person_who_availed FROM subscriber_trainers
+            LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+            LEFT OUTER JOIN subscription_status ON subscription_status.subscription_status_id=subscriptions.subscription_status_id
+            WHERE subscriber_trainers_trainer_id = :subscriber_trainers_trainer_id AND  subscription_status_details = "Active";
+            ';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscriber_trainers_trainer_id', $subscriber_trainers_trainer_id);
+            if($query->execute()){
+                $data =  $query->fetch();
+                return $data;
+            }else{
+                return false;
+            }
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+    
 
     function fetch_to_train_list($user_id){
         try{
