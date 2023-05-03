@@ -78,7 +78,6 @@ if(isset($_SESSION['admin_id'])){
                                             <br> 
                                             <input type="button" name="submit"class="btn btn-success px-4" onclick="save_pictures()" value="Save Changes" >
                                         </form>
-                                    </div>
                                 </div>
                                 
                             </div>
