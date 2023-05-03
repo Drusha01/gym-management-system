@@ -180,51 +180,6 @@ upload-container{
     color: white;
 }
 
-.banner-1{
-    background: linear-gradient(45deg,
-    rgba(98, 156, 148, 0.75),
-    rgba(19, 115, 104, 0.75)),
-    url('../img/banner-1.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.banner-2{
-    background: linear-gradient(45deg,
-    rgba(98, 156, 148, 0.75),
-    rgba(19, 115, 104, 0.75)),
-    url('../img/banner-2.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.banner-3{
-    background: linear-gradient(45deg,
-    rgba(98, 156, 148, 0.75),
-    rgba(19, 115, 104, 0.75)),
-    url('../img/banner-3.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.course-1{
-    background: url('../img/course-1.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 400px;
-}
-
-.course-2{
-    background: url('../img/course-2.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 400px;
-}
 
 .pricing-header {
     max-width: 700px;
