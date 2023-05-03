@@ -41,19 +41,19 @@ if(isset($_SESSION['admin_id'])){
     <h5 class="col-12 fw-bold mb-3">Reports</h5>
         <ul class="nav nav-tabs application" id="myTab" role="tablist">
             <li class="nav-item active" role="presentation">
-                <button class="nav-link active text-dark" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">Sales & Revenue</button>
+                <button class="nav-link active text-dark" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true" onclick="change_print_chart('revenue_chart')">Sales & Revenue</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="subs-tab" data-bs-toggle="tab" data-bs-target="#subs" type="button" role="tab" aria-controls="subs" aria-selected="false">Subscriptions</button>
+                <button class="nav-link text-dark" id="subs-tab" data-bs-toggle="tab" data-bs-target="#subs" type="button" role="tab" aria-controls="subs" aria-selected="false"  onclick="change_print_chart('subscriptions')">Subscriptions</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="most_availed-tab" data-bs-toggle="tab" data-bs-target="#most_availed" type="button" role="tab" aria-controls="most_availed" aria-selected="false">Most Availed Offer</button>
+                <button class="nav-link text-dark" id="most_availed-tab" data-bs-toggle="tab" data-bs-target="#most_availed" type="button" role="tab" aria-controls="most_availed" aria-selected="false"  onclick="change_print_chart('most-availed')">Most Availed Offer</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="frequent-tab" data-bs-toggle="tab" data-bs-target="#frequent" type="button" role="tab" aria-controls="frequent" aria-selected="false">Most Frequent Customer</button>
+                <button class="nav-link text-dark" id="frequent-tab" data-bs-toggle="tab" data-bs-target="#frequent" type="button" role="tab" aria-controls="frequent" aria-selected="false"  onclick="change_print_chart('most-frequent')">Most Frequent Customer</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="availed_trainer-tab" data-bs-toggle="tab" data-bs-target="#availed_trainer" type="button" role="tab" aria-controls="availed_trainer" aria-selected="false">Most Availed Trainer</button>
+                <button class="nav-link text-dark" id="availed_trainer-tab" data-bs-toggle="tab" data-bs-target="#availed_trainer" type="button" role="tab" aria-controls="availed_trainer" aria-selected="false"  onclick="change_print_chart('trainer_most')">Most Availed Trainer</button>
             </li>
         </ul>
         <div class="row my-2">
@@ -123,13 +123,38 @@ if(isset($_SESSION['admin_id'])){
 </main>
 <script src="../../lib/chart/chart.min.js"></script>
 <script src="../../js/reportchart.js"></script>
-<script type="text/javascript" src="../../js/reportdatepicker.js"></script>
 <script>
 $(".nav-item").on("click", function(){
             $(".nav-item").removeClass("active");
             $(this).addClass("active");
 
         });
+
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange_1 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange_1').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
+});
 </script>
 <script>
     $.ajax({
@@ -170,8 +195,14 @@ $(".nav-item").on("click", function(){
             alert("Status: " + textStatus); alert("Error: " + errorThrown); 
         }
     });
+    var canva_print ="revenue_chart";
+
+    function change_print_chart(chart){
+        canva_print = chart;
+        // reset daterage picker
+    }
     $('#print-chart-btn').on('click', function() {
-    var canvas = document.querySelector("#revenue_chart");
+    var canvas = document.querySelector("#"+canva_print);
     var canvas_img = canvas.toDataURL("image/png",1.0); //JPEG will not match background color
     var pdf = new jsPDF('landscape','in', 'letter'); //orientation, units, page size
     pdf.addImage(canvas_img, 'png', .5, 1.75, 10, 5); //image, type, padding left, padding top, width, height
