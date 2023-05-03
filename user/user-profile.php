@@ -66,13 +66,14 @@ if(isset($_SESSION['user_id'])){
                         echo '
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="to_train-tab" data-bs-toggle="tab" data-bs-target="#to_train" type="button" role="tab" aria-controls="to_train" aria-selected="false" onclick="changeActiveTab(\'to_train-tab\')">To Train</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="changeActiveTab(\'description-tab\')">My Description</button>
                 </li>';
                     }
                     
                 ?>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="contact" aria-selected="false">My Description</button>
-                </li>
+                
                 
 
               </ul>
@@ -102,12 +103,13 @@ if(isset($_SESSION['user_id'])){
                     echo '
                 <div class="tab-pane fade" id="to_train" role="tabpanel" aria-labelledby="to_train-tab" >
             
+                </div>
+                <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab" >
+
                 </div>';
                 }
                 ?>
-                <div class="tab-pane fade" id="description" role="tabpanel" aria-labelledby="description-tab" >
-                    <?php require_once('trainer_desc.php');?>
-                </div>
+                
               </div>
             </div>
     </section>
@@ -365,7 +367,21 @@ function changeActiveTab(tab){
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             }
         });
+    }else if(tab == 'description-tab'){
+        $.ajax({
+            type: "GET",
+            url: 'trainer_desc.php',
+            success: function(result)
+            {
+                $('#description').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
     }
+    
+    
 
     
 }

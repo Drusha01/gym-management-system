@@ -1097,12 +1097,15 @@ SELECT * FROM trainer_availability;
 SELECT trainer_availability_id FROM trainer_availability
 WHERE trainer_availability_details = 'Available';
 
+ALTER TABLE trainers
+ADD trainer_status_description varchar(255) default null;
 -- table for trainers
 CREATE TABLE trainers(
 	trainer_id int primary key auto_increment,
     trainer_user_id int not null,
     trainer_availability_id int not null,
     trainer_status_id int not null,
+    trainer_status_description varchar(255) default null,
     trainer_date_created datetime default NOW(),
     trainer_date_updated datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (trainer_user_id) REFERENCES users(user_id),
@@ -1937,6 +1940,9 @@ CREATE TABLE subscriptions(
 ALTER TABLE subscriber_trainers
 ADD subscriber_trainers_subscription_note varchar(255) default null;
 
+UPDATE subscriber_trainers
+SET subscriber_trainers_subscription_note = ''
+WHERE subscriber_trainers_id = 1;
 CREATE TABLE subscriber_trainers(
 	subscriber_trainers_id int primary key auto_increment ,
     subscriber_trainers_subscriber_id int not null,

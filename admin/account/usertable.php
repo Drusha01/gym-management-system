@@ -149,42 +149,69 @@ function confirmfunction(id,index,name){
 function changeUserStatus(id){
     console.log(id);
     console.log($("#user_status"+id+" option:selected" ).text());
-    
-   // $('#user_status'+id+' option[value='+$("#user_status"+id+" option:selected" ).text()+']').attr('selected',''); 
-    $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details='+$("#user_status"+id+" option:selected" ).text(), success: function(result){
-            console.log(result);
-            if(result == 1){
-                // update datatables
-                //$( "#offer_id_"+id ).remove();
-                alert('changed successfully');
-                $.ajax({
-                    type: "GET",
-                    url: 'usertable.php?page=1',
-                    success: function(result)
-                    {
-                        $('div.table-responsive-1').html(result);
-                        dataTable = $("#example").DataTable({
-                            "dom": '<"top"f>rt<"bottom"lp><"clear">',
-                            responsive: true,
-                        });
-                        $('input#keyword').on('input', function(e){
-                            var status = $(this).val();
-                            dataTable.columns([3]).search(status).draw();
-                        })
-                        $('select#categoryFilter').on('change', function(e){
-                            var status = $(this).val();
-                            dataTable.columns([7]).search(status).draw();
-                        })
-                        new $.fn.dataTable.FixedHeader(dataTable);
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-                    }
+    let text = "Are you sure you want to change status ?";
+    if (confirm(text) == true) {
+    // $('#user_status'+id+' option[value='+$("#user_status"+id+" option:selected" ).text()+']').attr('selected',''); 
+        $.ajax({url: "account-change-status.php?user_id="+id+'&user_status_details='+$("#user_status"+id+" option:selected" ).text(), success: function(result){
+                console.log(result);
+                if(result == 1){
+                    // update datatables
+                    //$( "#offer_id_"+id ).remove();
+                    alert('changed successfully');
+                    $.ajax({
+                        type: "GET",
+                        url: 'usertable.php?page=1',
+                        success: function(result)
+                        {
+                            $('div.table-responsive-1').html(result);
+                            dataTable = $("#example").DataTable({
+                                "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                                responsive: true,
+                            });
+                            $('input#keyword').on('input', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([3]).search(status).draw();
+                            })
+                            $('select#categoryFilter').on('change', function(e){
+                                var status = $(this).val();
+                                dataTable.columns([7]).search(status).draw();
+                            })
+                            new $.fn.dataTable.FixedHeader(dataTable);
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                        }
+                    });
+                }else{
+                    alert('changed failed');
+                }
+        }});
+    }else{
+        $.ajax({
+            type: "GET",
+            url: 'usertable.php?page=1',
+            success: function(result)
+            {
+                $('div.table-responsive-1').html(result);
+                dataTable = $("#example").DataTable({
+                    "dom": '<"top"f>rt<"bottom"lp><"clear">',
+                    responsive: true,
                 });
-            }else{
-                alert('changed failed');
+                $('input#keyword').on('input', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([3]).search(status).draw();
+                })
+                $('select#categoryFilter').on('change', function(e){
+                    var status = $(this).val();
+                    dataTable.columns([7]).search(status).draw();
+                })
+                new $.fn.dataTable.FixedHeader(dataTable);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             }
-    }});
+        });
+    }
 }
 
 function get_page(page_id){
