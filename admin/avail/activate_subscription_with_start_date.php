@@ -95,11 +95,12 @@ if(isset($_SESSION['admin_id'])){
                             $notificationObj = new notifications();
                             if($admin_id_data = $adminObj->fetch_admin_id_of_admins()){
                                 foreach ($admin_id_data as $key => $value) {
-                                    
-                                    $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' activated a subscription of '.$customer_details['user_fullname'].' at '.htmlentities(date_format(date_create($_POST['start_date']), "F d, Y")).' .';
-                                    
-                                    if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
-                                        exit('notification insert error');
+                                        if($_SESSION['admin_user_id']!=$value['user_id']){
+                                        $notification_info ='Staff '.$_SESSION['admin_user_lastname'].', '.$_SESSION['admin_user_firstname'].' '.$_SESSION['admin_user_middlename'].' activated a subscription of '.$customer_details['user_fullname'].' at '.htmlentities(date_format(date_create($_POST['start_date']), "F d, Y")).' .';
+                                        
+                                        if(!$notificationObj->insert($_SESSION['admin_user_id'],$value['user_id'],'Logs','logs.png', $notification_info)){
+                                            exit('notification insert error');
+                                        }
                                     }
                                 }
                             }

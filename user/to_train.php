@@ -37,14 +37,14 @@
                             class="rounded-circle"
                             />
                         <div class="ms-3">
-                            <p class="fw-bold mb-1"><a href="trainer-cust-prof.html" class=" text-decoration-none text-dark">'.htmlentities($value['user_fullname']).'</a></p>
+                            <p class="fw-bold mb-1"><a href="trainer-cust-prof.html" class=" text-decoration-none text-dark" id="name_'.$value['subscriber_trainers_id'].'">'.htmlentities($value['user_fullname']).'</a></p>
                         </div>
                         </div>
                     </td>
                     <td class="text-center">'.htmlentities(getAge($value['user_birthdate'])).'</td>
                     <td class="text-center">'.htmlentities($value['user_gender_details']).'</td>
                     <td class="text-center"><span class="badge bg-success rounded-pill">Active</span></td>
-                    <td class="text-center"><button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewNoteTrainer">View Note</button></td>
+                    <td class="text-center"><button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#viewNoteTrainer" onclick="view_note('.$value['subscriber_trainers_id'].','.htmlentities($value['trainer_user_id']).')" id="note_'.$value['subscriber_trainers_id'].'"value="'.htmlentities($value['subscriber_trainers_subscription_note']).'">View Note</button></td>
                     </tr>';
                             }
                         }
@@ -56,16 +56,21 @@
         </div>
     </div>
 <!-- Modal View Note For Trainer -->
+<script>
+    function view_note(subscriber_trainers_id,trainer_user_id){
+        $('#to_trainer_name').html($('#name_'+subscriber_trainers_id).html());
+        $('#content').html($('#note_'+subscriber_trainers_id).val())
+    }
+</script>
 <div class="modal fade" id="viewNoteTrainer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Note By: <span>Villanueva, Rob Roche Silay</span></h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Note By: <span id="to_trainer_name">Villanueva, Rob Roche Silay</span></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       <h6>Added Note At: <span class="fw-light">May 5, 2023</span></h6>
-       <h6 class="fw-normal mt-3">Cardio and lightweight lng sana po</h6>
+       <h6 class="fw-normal mt-3" id="content">Cardio and lightweight lng sana po</h6>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

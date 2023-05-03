@@ -167,7 +167,6 @@ setInterval(function(){
                     // update prev
                     prev =current;
                 }
-                console.log(result)
                 
             }
         });

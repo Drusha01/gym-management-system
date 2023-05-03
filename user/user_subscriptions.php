@@ -24,6 +24,9 @@
         require_once '../tools/functions.php';
         require_once('../classes/subscriptions.class.php');
         $subscriptionsObj = new subscriptions();
+        require_once('../classes/admin_settings.class.php');
+        $settingObj = new admin_settings();
+        $setting_data = $settingObj->fetch_one();
 
         if($subscription_data = $subscriptionsObj->fetchUserActiveAndPendingSubscription($_SESSION['user_id'])){
             if($subscription_data[0]['subscription_status_details'] == 'Pending'){
@@ -71,6 +74,20 @@
                         if(intval($value['subscription_days_to_end'])>0){
                             if($value['subscription_days_to_end']>$value['subscription_total_duration']){
                                 $value['subscription_days_to_end'] = 'Not yet started';
+                            }
+                            if($value['subscription_days_to_end']<= $setting_data['setting_num_of_dates_to_notify']){
+                                // first check if we already notify
+                                // notify user that it is near completion
+                                if(!isset($_SESSION['notified'])){
+                                    $_SESSION['notified'] = true;
+                                    require_once '../classes/notifications.class.php';
+                                    $notificationObj = new notifications(); 
+                                    $notification_info = 'Your subscription of '.htmlentities($value['subscription_offer_name']).' only has '.htmlentities($value['subscription_days_to_end']).' days left.';
+                                    if(!$notificationObj->insert($_SESSION['user_id'],$_SESSION['user_id'],'Expiration','expiration.png', $notification_info)){
+                                        exit('notification insert error');
+                                    }
+                                }
+                               
                             }
                             echo '
                                     <tr>

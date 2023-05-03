@@ -379,6 +379,17 @@ window.onload = (event) =>{
     $('#'+active).trigger('click');
   }else{
     $('#account-tab').trigger('click');
+    $.ajax({
+            type: "GET",
+            url: 'user_subscriptions.php',
+            success: function(result)
+            {
+                $('#Subscription').html(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }
+        });
   }
 
 }

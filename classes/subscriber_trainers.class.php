@@ -29,9 +29,28 @@ class subscriber_trainers
         }
     }
 
+    function update_note($subscriber_trainers_id,$subscriber_trainers_subscription_note){
+        try{
+            $sql = 'UPDATE subscriber_trainers
+            SET subscriber_trainers_subscription_note = :subscriber_trainers_subscription_note
+            WHERE subscriber_trainers_id = :subscriber_trainers_id;';
+            $query=$this->db->connect()->prepare($sql);
+            $query->bindParam(':subscriber_trainers_id', $subscriber_trainers_id);
+            $query->bindParam(':subscriber_trainers_subscription_note', $subscriber_trainers_subscription_note);
+            return $query->execute();
+        }catch (PDOException $e){
+            return false;
+        }
+    }
+
+
+    
+
     function fetch_trainers($subscriber_trainers_subscriber_id){
         try{
-            $sql = 'SELECT trainer_id,user_firstname,user_middlename,user_lastname,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_profile_picture,user_birthdate,user_gender_details,trainer_availability_details FROM subscriber_trainers
+            $sql = 'SELECT subscriber_trainers_id,trainer_id,trainer_user_id,user_firstname,user_middlename,user_lastname,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_profile_picture,user_birthdate,user_gender_details,trainer_availability_details, 
+            DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscriber_trainers_subscription_note
+             FROM subscriber_trainers
             LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
             LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
             LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
@@ -51,6 +70,8 @@ class subscriber_trainers
             return false;
         }
     }
+
+    
 
     
     function report_most_availed_trainer(){
@@ -101,7 +122,9 @@ class subscriber_trainers
 
     function fetch_to_train_list($user_id){
         try{
-            $sql = 'SELECT CONCAT(s_users.user_lastname,", ",s_users.user_firstname," ",s_users.user_middlename) as user_fullname,subscriber_trainers_subscriber_id,s_users.user_birthdate,user_gender_details,s_users.user_profile_picture FROM subscriber_trainers 
+            $sql = 'SELECT subscriber_trainers_id,trainer_user_id,CONCAT(s_users.user_lastname,", ",s_users.user_firstname," ",s_users.user_middlename) as user_fullname,subscriber_trainers_subscriber_id,s_users.user_birthdate,user_gender_details,s_users.user_profile_picture, 
+            DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date,subscriber_trainers_subscription_note
+            FROM subscriber_trainers 
             LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
             LEFT OUTER JOIN users ON users.user_id=trainers.trainer_user_id
             LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id

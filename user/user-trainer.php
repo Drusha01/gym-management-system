@@ -48,10 +48,18 @@
                             </td>
                                 <td class="text-center">'.htmlentities(getAge($value['user_birthdate'])).'</td>
                                 <td class="text-center">'.htmlentities($value['user_gender_details']).'</td>
-                                <td class="text-center">October 14, 2022</td>
-                                <td class="text-center"><span class="badge bg-success rounded-pill">'.htmlentities($value['trainer_availability_details']).'</span></td>
-                                <td class="text-center"><button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addnoteModal">Add Note</button> <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#view/editnoteModal">View/Edit Note</button></td>
-                            </tr>';
+                                <td class="text-center">'.htmlentities(date_format(date_create($value['subscription_end_date']), "F d, Y")).'</td>
+                                <td class="text-center"><span class="badge bg-success rounded-pill">'.htmlentities($value['trainer_availability_details']).'</span></td>';
+                          if(strlen($value['subscriber_trainers_subscription_note'])==0){
+                            echo '<td class="text-center"><button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#addnoteModal" onclick="add_note('.$value['subscriber_trainers_id'].','.htmlentities($value['trainer_user_id']).')">Add Note</button></td>';
+
+                          }else{
+                            echo '<td class="text-center"><button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#view/editnoteModal" onclick="edit_note('.$value['subscriber_trainers_id'].','.htmlentities($value['trainer_user_id']).')" id="note_'.$value['subscriber_trainers_id'].'"value="'.htmlentities($value['subscriber_trainers_subscription_note']).'">View/Edit Note</button></td>';
+                          }
+                        
+                                 
+                            echo'
+                                </tr>';
                         }
 
                         echo '
@@ -77,6 +85,112 @@
         </div>
     </div>
 </div>
+<script>
+  var subscriber_trainers_id_var;
+  var trainer_user_id_var;
+  function add_note(subscriber_trainers_id,trainer_user_id){
+    trainer_user_id_var = trainer_user_id;
+    subscriber_trainers_id_var= (subscriber_trainers_id);
+  }
+  function edit_note(subscriber_trainers_id,trainer_user_id){
+    trainer_user_id_var = trainer_user_id;
+    $('#edit_note_content').html($('#note_'+subscriber_trainers_id).val());
+    subscriber_trainers_id_var = (subscriber_trainers_id);
+
+    // get note details
+  }
+  $('#edit_note_save').click(function (){
+    if($('#edit_note_content').val().length>0){
+      var note = new FormData();  
+    // validation
+    note.append( 'subscriber_trainers_id', subscriber_trainers_id_var);  
+    note.append( 'trainer_user_id', trainer_user_id_var);  
+    
+    note.append( 'note',$('#edit_note_content').val());  
+    $('#edit_close').click();
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "trainer_note.php",
+        data: note,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+          console.log(result);
+          if(result == 1){
+            //reload
+            $.ajax({
+                type: "GET",
+                url: 'user-trainer.php',
+                success: function(result)
+                {
+                    $('#trainer').html(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                }
+            });
+          }else{
+            alert('Error adding note');
+          }
+          
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+    });
+    }else{
+      alert('please put note before adding note.')
+    }
+  });
+  $('#add_note_insert').click( function(){
+    if($('#add_note_content').val().length>0){
+      $('#add_close').click();
+      var note = new FormData();  
+    // validation
+    note.append( 'subscriber_trainers_id', subscriber_trainers_id_var);  
+    note.append( 'trainer_user_id', trainer_user_id_var);  
+    note.append( 'note',$('#add_note_content').val());  
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "trainer_note.php",
+        data: note,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function ( result ) {
+          if(result == 1){
+            //reload
+            $.ajax({
+                type: "GET",
+                url: 'user-trainer.php',
+                success: function(result)
+                {
+                    $('#trainer').html(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                }
+            });
+          }else{
+            alert('Error adding note');
+          }
+          
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) { 
+            alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        } 
+    });
+    }else{
+      alert('please put note before adding note.')
+    }
+  }
+);
+</script>
 <!-- Modal for add note -->
 <div class="modal fade" id="addnoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -88,12 +202,12 @@
       <div class="modal-body">
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Add Note</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="add_note_content" rows="3"></textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-dark">Add Note</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="add_close">Close</button>
+        <button type="button" class="btn btn-outline-dark" id="add_note_insert">Add Note</button>
       </div>
     </div>
   </div>
@@ -111,12 +225,12 @@
       <div class="modal-body">
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">View/Edit</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">Cardio and lightweight lng sana po</textarea>
+            <textarea class="form-control" id="edit_note_content" rows="3">Cardio and lightweight lng sana po</textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-dark">Save Changes</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="edit_close">Close</button>
+        <button type="button" class="btn btn-outline-dark"  id="edit_note_save">Save Changes</button>
       </div>
     </div>
   </div>

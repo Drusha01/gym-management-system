@@ -1844,6 +1844,15 @@ INSERT INTO notifications (notification_id,notification_creator,notification_tar
 );
 
 
+SELECT trainer_id,user_firstname,user_middlename,user_lastname,CONCAT(user_lastname,", ",user_firstname," ",user_middlename) AS user_fullname,user_profile_picture,user_birthdate,user_gender_details,trainer_availability_details, 
+DATE_ADD(subscription_start_date, INTERVAL subscription_total_duration  DAY) AS subscription_end_date
+FROM subscriber_trainers
+LEFT OUTER JOIN trainers ON trainers.trainer_id=subscriber_trainers.subscriber_trainers_trainer_id
+LEFT OUTER JOIN users ON trainers.trainer_user_id=users.user_id
+LEFT OUTER JOIN user_genders ON users.user_gender_id=user_genders.user_gender_id
+LEFT OUTER JOIN trainer_availability ON trainers.trainer_availability_id=trainer_availability.trainer_availability_id
+LEFT OUTER JOIN subscriptions ON subscriptions.subscription_id=subscriber_trainers.subscriber_trainers_subscription_id
+WHERE  subscription_status_id = (SELECT subscription_status_id FROM subscription_status WHERE subscription_status_details = "Active");
 
 
 SELECT * FROM notifications ;
@@ -1925,13 +1934,15 @@ CREATE TABLE subscriptions(
     -- foreign keys
 );
 
-
+ALTER TABLE subscriber_trainers
+ADD subscriber_trainers_subscription_note varchar(255) default null;
 
 CREATE TABLE subscriber_trainers(
 	subscriber_trainers_id int primary key auto_increment ,
     subscriber_trainers_subscriber_id int not null,
     subscriber_trainers_trainer_id int not null,
     subscriber_trainers_subscription_id int not null,
+    subscriber_trainers_subscription_note varchar(255) default null,
     FOREIGN KEY (subscriber_trainers_subscriber_id) REFERENCES users(user_id),
     FOREIGN KEY (subscriber_trainers_trainer_id) REFERENCES trainers(trainer_id),
     FOREIGN KEY (subscriber_trainers_subscription_id) REFERENCES subscriptions(subscription_id)
