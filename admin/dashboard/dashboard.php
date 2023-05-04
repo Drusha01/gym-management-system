@@ -46,8 +46,8 @@ if(isset($_SESSION['admin_id'])){
             <div class="col-sm-12">
                 <div class="card rounded-4 border-0 shadow text-center rounded p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Total Subscriptions for the Week</h6>
-                        <?php echo date('M d, Y', strtotime("-7 day")); echo ' - ' ;echo date("F d, Y");?>
+                        <h6 class="mb-0">Total Subscriptions </h6>
+                        
                     </div>
                     <div style="height: 300px">
                         <canvas id="total-subs"></canvas>

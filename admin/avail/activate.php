@@ -186,7 +186,7 @@ if(isset($_SESSION['admin_id'])){
                 echo '<div class="p-2 bd-highlight"><button type="button" class="btn btn-outline-dark"  role="button" data-bs-toggle="modal" data-bs-target="#activate">Activate </button></div>';
             }
         ?>
-        <div class="p-2"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_subs">Add Subscription</button></div>
+        <div class="p-2"><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_subs" onclick="getsubscription_data(<?php echo $_GET['user_id'];?>)">Add Subscription</button></div>
         </div>
         <div class="table-responsive table-container">
             <table id="example" class="table table-striped table-bordered" style="width:100%;border: 3px solid black;">
@@ -522,5 +522,52 @@ if(isset($_SESSION['admin_id'])){
  
     new $.fn.dataTable.FixedHeader( table );
 } );
+
+
+
+var gym_sub;
+var locker_sub;
+var trainer_sub;
+var program_sub=[];
+function getsubscription_data(user_id){
+    console.log('nice')
+    var getsubscription_data = new FormData();  
+
+    $.ajax({
+        type: "GET",
+        url: 'get_ActivePendingSubs.php?user_id='+user_id,
+        success: function(result)
+        {
+            
+            // parse result
+            var subscriptions = JSON.parse(result);
+            console.log(subscriptions);
+            console.log(Object.keys(subscriptions.subscriptions).length);
+            console.log(subscriptions.subscriptions.length);
+            // get gym sub
+            var sublength = Object.keys(subscriptions.subscriptions).length
+            for (let index = 0; index < sublength; index++) {
+                if(subscriptions.subscriptions[index].type_of_subscription_details == 'Gym Subscription'){
+                    gym_sub = subscriptions.subscriptions[index];
+                }else if(subscriptions.subscriptions[index].type_of_subscription_details == 'Locker Subscription'){
+                    locker_sub = subscriptions.subscriptions[index];
+                }else if(subscriptions.subscriptions[index].type_of_subscription_details == 'Trainer Subscription'){
+                    trainer_sub = subscriptions.subscriptions[index];
+                }else if(subscriptions.subscriptions[index].type_of_subscription_details == 'Program Subscription'){
+                    program_sub.push(subscriptions.subscriptions[index]);
+                }
+            }
+            console.log(gym_sub);
+            console.log(locker_sub);
+            console.log(trainer_sub);
+            console.log(program_sub);
+            // get locker sub
+            // get trainer sub
+            // get program sub
+            
+            
+        }
+    });
+}
 </script>
 </html>

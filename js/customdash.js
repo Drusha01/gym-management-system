@@ -1,36 +1,54 @@
  // Worldwide Sales Chart
  var ctx1 = $("#total-subs").get(0).getContext("2d");
- var myChart1 = new Chart(ctx1, {
-     type: "bar",
-     data: {
-         labels: ["Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"],
-         datasets: [{
-                 label: "Gym-Use",
-                 data: [15, 30, 55, 65, 60, 80],
-                 backgroundColor: "rgba(165, 215, 226, 1)"
-             },
-             {
-                 label: "Trainer",
-                 data: [8, 35, 40, 60, 70, 55],
-                 backgroundColor: "rgba(243, 203, 156, 1)"
-             },
-             {
-                 label: "Locker",
-                 data: [12, 25, 45, 55, 65, 70],
-                 backgroundColor: "rgba(0, 208, 58, 1)"
-             },
-             {
-                label: "Programs",
-                data: [12, 25, 45, 55, 65, 70],
-                backgroundColor: "rgba(234, 135, 236, 1)"
+ $.ajax({url: '../dashboard/report_subscriptions.php', 
+    success: function(result){
+        var obj = JSON.parse(result);
+        console.log(obj);
+        var data_val_gym=[];
+        var data_val_trainer=[];
+        var data_val_locker=[];
+        var data_val_program=[];
+        var data_labels=[];
+        for (let index = 0; index < obj.length; index++) {
+            data_labels.push(obj[index].subscription_start_date);
+            data_val_gym.push(obj[index].gym_subscriptions_count)
+            data_val_trainer.push(obj[index].trainer_subscriptions_count)
+            data_val_locker.push(obj[index].locker_subscriptions_count)
+            data_val_program.push(obj[index].program_subscriptions_count)
+        }
+        var myChart1 = new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: data_labels,
+                datasets: [{
+                        label: "Gym-Use",
+                        data: data_val_gym,
+                        backgroundColor: "rgba(165, 215, 226, 1)"
+                    },
+                    {
+                        label: "Trainer",
+                        data: data_val_trainer,
+                        backgroundColor: "rgba(243, 203, 156, 1)"
+                    },
+                    {
+                        label: "Locker",
+                        data: data_val_locker,
+                        backgroundColor: "rgba(0, 208, 58, 1)"
+                    },
+                    {
+                        label: "Programs",
+                        data: data_val_program,
+                        backgroundColor: "rgba(234, 135, 236, 1)"
+                    }
+                ]
+                },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
             }
-         ]
-         },
-     options: {
-         responsive: true,
-         maintainAspectRatio: false
-     }
- });
+        });
+    }
+});
 
 
  // Salse & Revenue Chart
