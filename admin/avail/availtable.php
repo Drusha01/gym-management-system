@@ -53,11 +53,15 @@ if(isset($_SESSION['admin_avail_restriction_details']) && $_SESSION['admin_avail
                         $trainer_sub_total = 0;
                         $program_sub_total = 0;
                         foreach ($user_subscription_data as $key => $user_subscription_data_value) {
-                            if($user_subscription_data_value['subscription_days_to_end']<0 && $user_subscription_data_value['balance'] -  $user_subscription_data_value['subscription_paid_amount']<=0){
+                            if($user_subscription_data_value['subscription_days_to_end']<=0 && $user_subscription_data_value['balance'] -  $user_subscription_data_value['subscription_paid_amount']<=0){
+                                // check if paid. 
                                 $user_subscription_data_value['subscription_status_details'] = 'Completed';
                                 echo $user_subscription_data_value['subscription_days_to_end'] = 'Completed';
+                                // update subscription
                                 $subscriptionsObj->complete_active_subscriptions($user_subscription_data_value['subscription_id']);
+                                
 
+                            // update subscription
                             }
                             if($user_subscription_data_value['type_of_subscription_details'] =='Gym Subscription'){
                                 $gym_sub = true ;

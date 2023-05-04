@@ -106,6 +106,16 @@
                                         echo'
                                     </tr>';
                         }else{
+                            if($value['subscription_days_to_end']<=0 && $value['balance'] -  $value['subscription_paid_amount']<=0){
+                                // check if paid. 
+                                $value['subscription_status_details'] = 'Completed';
+                                $value['subscription_days_to_end'] = 'Completed';
+                                // update subscription
+                                $subscriptionsObj->complete_active_subscriptions($value['subscription_id']);
+                                
+
+                            // update subscription
+                            }
                             echo '
                                     <tr>
                                         <th class="d-lg-none"></th>
