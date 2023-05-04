@@ -1769,7 +1769,7 @@ INSERT INTO notification_types (notification_type_details)  VALUES
 ),(
 	'Account'
 );
-
+use gms;
 
 
 SELECT notification_type_id FROM notification_types WHERE notification_type_details = 'Avail';

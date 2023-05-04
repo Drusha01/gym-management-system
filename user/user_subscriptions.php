@@ -113,6 +113,14 @@
                                 // update subscription
                                 $subscriptionsObj->complete_active_subscriptions($value['subscription_id']);
                                 
+                               
+                                require_once '../classes/notifications.class.php';
+                                $notificationObj = new notifications(); 
+                                $notification_info = 'Your subscription '.htmlentities($value['subscription_offer_name']).' is complete .';
+                                if(!$notificationObj->insert($_SESSION['user_id'],$_SESSION['user_id'],'Complete','activated.png', $notification_info)){
+                                    exit('notification insert error');
+                                }
+                                
 
                             // update subscription
                             }
