@@ -17,7 +17,8 @@ class subscriber_trainers
                 null,
                 :subscriber_trainers_subscriber_id,
                 :subscriber_trainers_trainer_id,
-                :subscriber_trainers_subscription_id
+                :subscriber_trainers_subscription_id,
+                null
             );';
             $query=$this->db->connect()->prepare($sql);
             $query->bindParam(':subscriber_trainers_subscriber_id', $subscriber_trainers_subscriber_id);
