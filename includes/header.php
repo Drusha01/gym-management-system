@@ -91,6 +91,9 @@ x.pause();
 var prev =0;
 var current =0;
 var notification = new FormData(); 
+var notification = new FormData(); 
+var audio = $("#myAudio")[0];
+audio.muted = false; 
 $.ajax({
     type: "GET",
     enctype: 'multipart/form-data',
@@ -104,6 +107,8 @@ $.ajax({
         // parse result
         current = parseInt(result);
         $('#notification_number').html(result);
+        console.log(current)
+        get_num_of_notif();
         prev = current;
         // get three latest notification
         $.ajax({
@@ -124,57 +129,56 @@ $.ajax({
         });
     }
 });
-setInterval(function(){
-    var notification = new FormData(); 
-    var audio = $("#myAudio")[0];
-    audio.muted = false; 
-        $.ajax({
-            type: "GET",
-            enctype: 'multipart/form-data',
-            url: "../user/notification/number_of_notification.php",
-            data: notification,
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function ( result ) {
-                // parse result
-                current = parseInt(result);
-                $('#notification_number').html(current);
-                if(current>prev){
-                    
-                    // play audio
-                    audio.play();
-                    // update notification number
+function get_num_of_notif(){
+  $.ajax({
+      type: "GET",
+      enctype: 'multipart/form-data',
+      url: "../user/notification/number_of_notification.php?number_of_notification="+current,
+      data: notification,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000,
+      success: function ( result ) {
+          // parse result
+          current = parseInt(result);
+          $('#notification_number').html(current);
+          
+          if(current>prev){
+              
+              // play audio
+              audio.play();
+              // update notification number
 
-                    // update three latest notification
-                    $.ajax({
-                        type: "GET",
-                        enctype: 'multipart/form-data',
-                        url: "../user/notification/get_three_latest_notifications.php",
-                        data: notification,
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        timeout: 600000,
-                        success: function ( result ) {
-                            // parse result
-                            $('#notification_content').html(result);
-                            
-                            
-                        }
-                    });
-                    // update prev
-                    prev =current;
-                }
-                
-            }
-        });
+              // update three latest notification
+              $.ajax({
+                  type: "GET",
+                  enctype: 'multipart/form-data',
+                  url: "../user/notification/get_three_latest_notifications.php",
+                  data: notification,
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  timeout: 600000,
+                  success: function ( result ) {
+                      // parse result
+                      $('#notification_content').html(result);
+                      
+                      
+                  }
+              });
+              // update prev
+              prev =current;
+              
+          }
+          setTimeout(get_num_of_notif, 50);
+      }
+  });
     
     // 
 
 
-}, 1500);
+}
       </script>
 </section>
 

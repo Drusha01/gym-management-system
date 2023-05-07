@@ -1546,7 +1546,7 @@ INSERT INTO announcement_types (announcement_type_id, announcement_type_details 
 -- announcement
 CREATE TABLE announcements(
 	announcement_id int primary key auto_increment,
-    announcement_status_idannouncement_status_id INT NOT NULL,
+    announcement_status_id INT NOT NULL,
     announcement_type_id INT NOT NULL,
     announcement_title VARCHAR(50) NOT NULL,
     announcement_content VARCHAR(1024) NOT NULL,
@@ -1770,7 +1770,10 @@ INSERT INTO notification_types (notification_type_details)  VALUES
 	'Account'
 );
 use gms;
-
+INSERT INTO notification_types (notification_type_details)  VALUES
+(
+	'Complete'
+);
 
 SELECT notification_type_id FROM notification_types WHERE notification_type_details = 'Avail';
 
