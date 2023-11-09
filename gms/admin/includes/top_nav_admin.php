@@ -1,4 +1,43 @@
 
+<?php
+// start session
+// session_start();
+
+// includes
+
+require_once '../../tools/functions.php'; 
+// check if we are normal user
+if(isset($_SESSION['user_id'])){
+    header('location:../user/user-page.php');
+}
+
+
+if(isset($_SESSION['admin_id'])){
+    // check admin user details
+    if($_SESSION['admin_user_status_details'] == 'active'){
+        // do nothing
+        require_once '../../classes/users.class.php';
+        require_once '../../tools/functions.php';
+        $userObj = new users();
+        if(isset($_SESSION['admin_user_id'])){
+            
+            $userObj->setuser_id($_SESSION['admin_user_id']);
+            if(!$user_data = $userObj->get_user_details()){
+                return 'error';
+            }
+        }
+    }else if($_SESSION['admin_user_status_details'] == 'inactive'){
+        // do this
+    }else if($_SESSION['admin_user_status_details'] == 'deleted'){
+        // go to deleted user page
+    }
+
+}else{
+    // go to admin login
+    header('location:../admin_control_log_in.php');
+}
+
+?>
 <header class="navbar navbar-expand-md navbar-dark sticky-top background-color-green-visible shadow-sm py-0">
         <div class="container-fluid p-0 pe-3 pe-md-0">
         <a class="navbar-brand col-md-3 col-lg-3 col-xl-2 me-0 px-3 py-3 background-color-green"  href="../dashboard/dashboard.php">
@@ -28,7 +67,7 @@
         </ul>
         <div class="dropdown text-end me-3 d-none d-md-block">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../../img/profile-thumbnail/<?php echo_safe($user_data['user_profile_picture'])?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="../../img/profile-thumbnail/<?php echo htmlentities($user_data['user_profile_picture'])?>" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small dropdown-user">
                 <li><a class="dropdown-item" href="../profile/profile.php">Profile</a></li>
@@ -94,63 +133,65 @@ $.ajax({
                 // parse result
                 $('#notification_content').html(result);
                 
-                
+                setTimeout(get_num_of_notif, 50);
             }
         });
     }
 });
-setInterval(function(){
+
+function get_num_of_notif(){
     var notification = new FormData(); 
     var audio = $("#myAudio")[0];
     audio.muted = false; 
-        $.ajax({
-            type: "GET",
-            enctype: 'multipart/form-data',
-            url: "../notification/number_of_notification.php",
-            data: notification,
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function ( result ) {
-                // parse result
-                current = parseInt(result);
-                $('#notification_number').html(current);
-                if(current>prev){
-                    
-                    // play audio
-                    audio.play();
-                    // update notification number
+  $.ajax({
+      type: "GET",
+      enctype: 'multipart/form-data',
+      url: "../notification/number_of_notification.php?number_of_notification="+current,
+      data: notification,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 600000,
+      success: function ( result ) {
+          // parse result
+          current = parseInt(result);
+          $('#notification_number').html(current);
+          
+          if(current>prev){
+              
+              // play audio
+              audio.play();
+              // update notification number
 
-                    // update three latest notification
-                    $.ajax({
-                        type: "GET",
-                        enctype: 'multipart/form-data',
-                        url: "../notification/get_three_latest_notifications.php",
-                        data: notification,
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        timeout: 600000,
-                        success: function ( result ) {
-                            // parse result
-                            $('#notification_content').html(result);
-                            
-                            
-                        }
-                    });
-                    // update prev
-                    prev =current;
-                }
-                console.log(result)
-                
-            }
-        });
+              // update three latest notification
+              $.ajax({
+                  type: "GET",
+                  enctype: 'multipart/form-data',
+                  url: "../user/notification/get_three_latest_notifications.php",
+                  data: notification,
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  timeout: 600000,
+                  success: function ( result ) {
+                      // parse result
+                      $('#notification_content').html(result);
+                      
+                      
+                  }
+              });
+              // update prev
+              prev =current;
+              
+          }
+          setTimeout(get_num_of_notif, 50);
+      }
+  });
     
     // 
 
 
-}, 1500);
+}
 var notificatiton_arr=[];
 
 
