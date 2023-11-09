@@ -2,9 +2,13 @@
 
 class Database{
     private $host = 'localhost';
-    private $username = 'u306747909_drusha';
-    private $password = '+9m5B!c$I';
-    private $database = 'u306747909_drusha';
+    private $username = 'u904603351_drusha';
+    private $password = 'Uwat09hanz@2';
+    private $database = 'u904603351_drusha';
+    // private $host = 'localhost';
+    // private $username = 'root';
+    // private $password = '';
+    // private $database = 'gms';
     protected $connection;
 
     
