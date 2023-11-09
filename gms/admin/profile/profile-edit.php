@@ -52,7 +52,7 @@ if(isset($_SESSION['admin_id'])){
     <div class="w-100">
         <div class="row">
             <h5 class="col-7 col-lg-4 fw-bold  ms-3">Account Profile (Edit)</h5>
-            <a class="col text-decoration-none text-black m-0" aria-current="page" href="account.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a> 
+            <a class="col text-decoration-none text-black m-0" aria-current="page" href="profile.php"><span class='bx bxs-left-arrow align-middle fs-5'></span>Go Back</a> 
         </div>
         <div class="container">
             <div class="main-body">

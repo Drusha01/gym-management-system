@@ -15,6 +15,16 @@ if(isset($_SESSION['admin_id'])){
     // check admin user details
     if($_SESSION['admin_user_status_details'] == 'active'){
         // do nothing
+        require_once '../../classes/users.class.php';
+        require_once '../../tools/functions.php';
+        $userObj = new users();
+        if(isset($_SESSION['admin_user_id'])){
+            
+            $userObj->setuser_id($_SESSION['admin_user_id']);
+            if(!$user_data = $userObj->get_user_details()){
+                return 'error';
+            }
+        }
     }else if($_SESSION['admin_user_status_details'] == 'inactive'){
         // do this
     }else if($_SESSION['admin_user_status_details'] == 'deleted'){
