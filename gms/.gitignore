@@ -1,5 +1,8 @@
 # ignore all files in the img directory
-img/
+img/*
+
+# exception to the rule
+!img/.gitkeep 
 # ignore all test files
 test/
 # ignore all imgages2
