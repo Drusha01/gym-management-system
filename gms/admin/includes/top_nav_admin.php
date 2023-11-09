@@ -28,7 +28,7 @@
         </ul>
         <div class="dropdown text-end me-3 d-none d-md-block">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../../img/profile-thumbnail/<?php echo $_SESSION['admin_user_profile_picture'];?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="../../img/profile-thumbnail/<?php echo_safe($user_data['user_profile_picture'])?>" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small dropdown-user">
                 <li><a class="dropdown-item" href="../profile/profile.php">Profile</a></li>
