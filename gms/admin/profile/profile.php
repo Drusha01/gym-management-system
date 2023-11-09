@@ -48,7 +48,7 @@ if(isset($_SESSION['admin_id'])){
             <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
-                <img src="../../img/profile-resize/<?php echo htmlentities($_SESSION['admin_user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
+                <img src="../../img/profile-resize/<?php echo_safe($user_data['user_profile_picture'])?>" alt="Admin" class="rounded-circle" width="150">
                 <div class="mt-3">
                     <h4><?php echo htmlentities($_SESSION['admin_user_name']);?></h4>
                     <p class="text-dark fw-bold mb-1">Status: <span class="text-secondary fw-normal"><?php echo htmlentities($_SESSION['admin_user_status_details']);?></span></p>
